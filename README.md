@@ -1,11 +1,10 @@
+## The Most Up-to-Date version of this repository is avaliable on GitLab https://gitlab.com/mmatt625/doob
+
 # Doob Bot 
 [![Discord Bots](https://top.gg/api/widget/status/624829444963696660.svg?noavatar=true)](https://top.gg/bot/624829444963696660)
 [![Discord Bots](https://top.gg/api/widget/upvotes/624829444963696660.svg?noavatar=true)](https://top.gg/bot/624829444963696660)
 [![Discord Bots](https://top.gg/api/widget/lib/624829444963696660.svg?noavatar=true)](https://top.gg/bot/624829444963696660)
 [![Discord Bots](https://discordbots.org/api/widget/owner/624829444963696660.svg?noavatar=true)](https:/top.gg/bot/624829444963696660)
-[![GitHub issues](https://img.shields.io/github/issues/mmatt625/doob.svg)](https://github.com/mmatt625/doob/issues)
-[![GitHub forks](https://img.shields.io/github/forks/mmatt625/doob.svg)](https://github.com/mmatt625/doob/network)
-[![GitHub stars](https://img.shields.io/github/stars/mmatt625/doob.svg)](https://github.com/mmatt625/doob/stargazers)
 [![GitHub license](https://img.shields.io/github/license/mmatt625/doob.svg)](https://github.com/mmatt625/doob/blob/master/LICENSE)
 [![mmatt's Discord](https://discordapp.com/api/guilds/560262402659057681/widget.png?style=shield)](https://discord.gg/8xMWb7W)
 
