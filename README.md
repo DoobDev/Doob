@@ -1,8 +1,9 @@
 # Doob Bot 
-[![Discord Bots](https://top.gg/api/widget/status/680606346952966177.svg?noavatar=true)](https://top.gg/bot/680606346952966177)
+[![Discord Bots](https://top.gg/api/widget/status/680606346952966177.svg?noavatar=false)](https://top.gg/bot/680606346952966177)
 [![Discord Bots](https://top.gg/api/widget/upvotes/680606346952966177.svg?noavatar=true)](https://top.gg/bot/680606346952966177)
 [![Discord Bots](https://top.gg/api/widget/lib/680606346952966177.svg?noavatar=true)](https://top.gg/bot/680606346952966177)
 [![Discord Bots](https://discordbots.org/api/widget/owner/680606346952966177.svg?noavatar=true)](https:/top.gg/bot/680606346952966177)
+[![Discord Bots](https://top.gg/api/widget/servers/680606346952966177.svg?noavatar=true)](https://top.gg/bot/680606346952966177)
 [![GitHub license](https://img.shields.io/github/license/mmatt625/doob.svg)](https://github.com/mmatt625/doob/blob/master/LICENSE)
 [![StackShare](http://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/mmatt/doob)
 [![mmatt's Discord](https://discordapp.com/api/guilds/560262402659057681/widget.png?style=shield)](https://discord.gg/8xMWb7W)
