@@ -5,8 +5,8 @@
 [![Discord Bots](https://discordbots.org/api/widget/owner/680606346952966177.svg?noavatar=true)](https:/top.gg/bot/680606346952966177)
 [![GitHub license](https://img.shields.io/github/license/mmatt625/doob.svg)](https://github.com/mmatt625/doob/blob/master/LICENSE)
 [![StackShare](http://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/mmatt/doob)
-[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/O5O81M24X)
 [![mmatt's Discord](https://discordapp.com/api/guilds/560262402659057681/widget.png?style=shield)](https://discord.gg/8xMWb7W)
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/O5O81M24X)
 
 # About
 Doob is a new Discord bot coded by mmatt#0001.
