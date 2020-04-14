@@ -1,2 +1,5 @@
 token.txt
 prefixes.json
+funnything.py
+/cogs/__pycache__
+/cogs/servercount.py

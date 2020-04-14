@@ -1,3 +1,4 @@
+## The Most Up-to-Date version of this repository is avaliable on GitHub https://github.com/mmatt625/doob
 # Doob Bot 
 [![Discord Bots](https://top.gg/api/widget/status/680606346952966177.svg?noavatar=true)](https://top.gg/bot/680606346952966177)
 [![Discord Bots](https://top.gg/api/widget/upvotes/680606346952966177.svg?noavatar=true)](https://top.gg/bot/680606346952966177)
@@ -6,6 +7,7 @@
 [![GitHub license](https://img.shields.io/github/license/mmatt625/doob.svg)](https://github.com/mmatt625/doob/blob/master/LICENSE)
 [![StackShare](http://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/mmatt/doob)
 [![mmatt's Discord](https://discordapp.com/api/guilds/560262402659057681/widget.png?style=shield)](https://discord.gg/8xMWb7W)
+<a frameborder="0" data-theme="dark" data-layers="2,3,1,4" data-stack-embed="true" href="https://embed.stackshare.io/stacks/embed/0f1ad8b7ddbe84c1939681ac4579a5"/></a><script async src="https://cdn1.stackshare.io/javascripts/client-code.js" charset="utf-8"></script>
 
 # About
 Doob is a new Discord bot coded by mmatt#0001.
