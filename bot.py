@@ -20,11 +20,13 @@ client.remove_command("help")
 
 @client.command()
 async def load(ctx, extension):
+    print(f'Loaded {extension}')
     client.load_extension(f'cogs.{extension}')
     print(f'Loaded {extension}')
 
 @client.command()
 async def unload(ctx, extension):
+    print(f'Unloaded {extension}')
     client.unload_extension(f'cogs.{extension}')
     print(f'Unloaded {extension}')
 
