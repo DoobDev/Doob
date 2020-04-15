@@ -14,6 +14,9 @@
 # About
 Doob is a new Discord bot coded by mmatt#0001.
 
+## Doob on the web.
+The Doob Development Blog is avalilable over on my GitHub.io page https://mmatt625.github.io/
+
 ## Can I use Doob right now?
 Yes, but I must warn you there are not many features, and is in mid development.
 
