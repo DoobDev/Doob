@@ -6,6 +6,9 @@
 [![Discord Bots](https://top.gg/api/widget/servers/680606346952966177.svg?noavatar=true)](https://top.gg/bot/680606346952966177)
 [![GitHub license](https://img.shields.io/github/license/mmatt625/doob.svg)](https://github.com/mmatt625/doob/blob/master/LICENSE)
 [![StackShare](http://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/mmatt/doob)
+[![GitHub Issues](https://img.shields.io/github/issues/mmatt625/doob)](https://github.com/mmatt625/doob/issues)
+[![GitHub Forks](https://img.shields.io/github/forks/mmatt625/doob)](https://github.com/mmatt625/doob/network/members)
+[![GitHub Stars](https://img.shields.io/github/stars/mmatt625/doob)](https://github.com/mmatt625/doob/stargazers)
 [![mmatt's Discord](https://discordapp.com/api/guilds/560262402659057681/widget.png?style=shield)](https://discord.gg/8xMWb7W)
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/O5O81M24X)
 
