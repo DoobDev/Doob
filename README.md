@@ -9,7 +9,7 @@
 [![GitHub Issues](https://img.shields.io/github/issues/mmatt625/doob)](https://github.com/mmatt625/doob/issues)
 [![GitHub Forks](https://img.shields.io/github/forks/mmatt625/doob)](https://github.com/mmatt625/doob/network/members)
 [![mmatt's Discord](https://discordapp.com/api/guilds/560262402659057681/widget.png?style=shield)](https://discord.gg/8xMWb7W)
-[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/O5O81M24X)
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/mmatt)
 
 # About
 Doob is a new Discord bot coded by mmatt#0001.
