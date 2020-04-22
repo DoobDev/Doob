@@ -11,7 +11,7 @@ class help(commands.Cog):
         embed = discord.Embed(title="Command Help", description="All of Doob's commands.", colour=discord.Color.blue())
 
         embed.add_field(name="Check out the docs!", value="https://www.notion.so/Commands-96fb0c52dee34ce6a45f42655db1f8d4")
-        embed.add_field(name="Join the Support Discord", value="https://discord.gg/8xMWb7W")
+        embed.add_field(name="Join the Support Discord", value="https://discord.gg/ryTYWjD")
         embed.set_thumbnail(url=doob_logo)
 
         await ctx.send(embed=embed)
