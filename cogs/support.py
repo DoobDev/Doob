@@ -9,10 +9,10 @@ class support(commands.Cog):
     # Gives user the Support Discord + Dev's discord tag if they need help.
     @commands.command()
     async def support(self, ctx):
-        embed = discord.Embed(title="Need Support?", description="The Discord Support Server and the dev's contact.", colour=discord.Color.blue(), url="https://discord.gg/8xMWb7W")
+        embed = discord.Embed(title="Need Support?", description="The Discord Support Server and the dev's contact.", colour=discord.Color.blue(), url="https://discord.gg/ryTYWjD")
 
         embed.add_field(name="Contact the Dev", value="<@308000668181069824>")
-        embed.add_field(name="Join the Discord", value="https://discord.gg/8xMWb7W")
+        embed.add_field(name="Join the Discord", value="https://discord.gg/ryTYWjD")
         embed.set_thumbnail(url=doob_logo)
 
         await ctx.send(embed=embed)
