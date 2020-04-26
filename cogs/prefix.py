@@ -44,7 +44,7 @@ class prefix(commands.Cog):
         with open('prefixes.json', 'w') as f:
             json.dump(prefixes, f, indent=4)
 
-        embed = discord.Embed(title="An administrator has changed the prefix.", description=f"The administrator has changed the prfix to {prefix}.", colour=discord.Color.blue())
+        embed = discord.Embed(title="An administrator has changed the prefix.", description=f"An administrator has changed the prefix to {prefix}.", colour=discord.Color.blue())
 
         embed.add_field(name="The prefix has been changed to:", value=prefix)
         embed.set_thumbnail(url=doob_logo)
@@ -61,7 +61,7 @@ class prefix(commands.Cog):
         with open('prefixes.json', 'w') as f:
             json.dump(prefixes, f, indent=4)
 
-        embed = discord.Embed(title="An administrator has changed the prefix.", description=f"The administrator has changed the prfix to {prefix}.", colour=discord.Color.blue())
+        embed = discord.Embed(title="An administrator has changed the prefix.", description=f"The owner has changed the prefix to {prefix}.", colour=discord.Color.blue())
 
         embed.add_field(name="The prefix has been changed to:", value=prefix)
         embed.set_thumbnail(url=doob_logo)
