@@ -6,7 +6,7 @@ class vote(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(aliases["upvote"])
+    @commands.command(aliases=["upvote"])
     async def vote(self, ctx):
         embed = discord.Embed(title="Vote", description="Vote on Doob bot on...", colour=discord.Color.blue())
 
