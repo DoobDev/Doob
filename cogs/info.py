@@ -18,7 +18,7 @@ class info(commands.Cog):
         embed.add_field(name="The ping for Doob is...", value=f" :ping_pong: {round(self.client.latency * 1000)} ms")
         embed.add_field(name="Library", value="discord.py")
         embed.add_field(name="Top.gg Link", value="https://top.gg/bot/680606346952966177")
-        embed.add_field(name="Invite Link", value="https://discordapp.com/oauth2/authorize?client_id=680606346952966177&scope=bot&permissions=0")
+        embed.add_field(name="Invite Link", value="https://discordapp.com/oauth2/authorize?client_id=680606346952966177&scope=bot&permissions=271674430")
         embed.add_field(name="GitLab Repository", value="https://github.com/mmatt625/doob")
         embed.set_thumbnail(url=doob_logo)
         await ctx.send(embed=embed)
