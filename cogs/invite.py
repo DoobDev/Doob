@@ -9,9 +9,9 @@ class invite(commands.Cog):
     # Gives user the invite link to Doob.
     @commands.command()
     async def invite(self, ctx):
-        embed = discord.Embed(title="Invite", description="Invite Doob to your server!", colour=discord.Color.blue(), url="https://discordapp.com/oauth2/authorize?client_id=624829444963696660&scope=bot&permissions=0")
+        embed = discord.Embed(title="Invite", description="Invite Doob to your server!", colour=discord.Color.blue(), url="https://discordapp.com/oauth2/authorize?client_id=680606346952966177&scope=bot&permissions=271674430")
 
-        embed.add_field(name="Click here to invite Doob to your Discord Server.", value="https://discordapp.com/oauth2/authorize?client_id=624829444963696660&scope=bot&permissions=0")
+        embed.add_field(name="Click here to invite Doob to your Discord Server.", value="https://discordapp.com/oauth2/authorize?client_id=680606346952966177&scope=bot&permissions=271674430")
         embed.set_thumbnail(url=doob_logo)
 
         await ctx.send(embed=embed)
