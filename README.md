@@ -1,68 +1,66 @@
-# Doob Bot 
-[![Discord Bots](https://top.gg/api/widget/status/680606346952966177.svg)](https://top.gg/bot/680606346952966177)
-[![Discord Bots](https://top.gg/api/widget/upvotes/680606346952966177.svg?noavatar=true)](https://top.gg/bot/680606346952966177)
-[![Discord Bots](https://top.gg/api/widget/lib/680606346952966177.svg?noavatar=true)](https://top.gg/bot/680606346952966177)
-[![Discord Bots](https://discordbots.org/api/widget/owner/680606346952966177.svg?noavatar=true)](https:/top.gg/bot/680606346952966177)
-[![Discord Bots](https://top.gg/api/widget/servers/680606346952966177.svg?noavatar=true)](https://top.gg/bot/680606346952966177)
-[![GitHub license](https://img.shields.io/github/license/mmatt625/doob.svg)](https://github.com/mmatt625/doob/blob/master/LICENSE)
-[![StackShare](http://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/mmatt/doob)
-[![GitHub Issues](https://img.shields.io/github/issues/mmatt625/doob)](https://github.com/mmatt625/doob/issues)
-[![GitHub Forks](https://img.shields.io/github/forks/mmatt625/doob)](https://github.com/mmatt625/doob/network/members)
-[![doob's Discord](https://discordapp.com/api/guilds/702352937980133386/widget.png?style=shield)](https://discord.gg/ryTYWjD)
-[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/mmatt)
+# README
 
-# About
-Doob is a new Discord bot coded by mmatt#0001.
+## Doob Bot
 
-## Doob on the web.
-The Doob Development Blog is avalilable over on my GitHub.io page https://mmatt625.github.io/
+[![Discord Bots](https://top.gg/api/widget/status/680606346952966177.svg)](https://top.gg/bot/680606346952966177) [![Discord Bots](https://top.gg/api/widget/upvotes/680606346952966177.svg?noavatar=true)](https://top.gg/bot/680606346952966177) [![Discord Bots](https://top.gg/api/widget/lib/680606346952966177.svg?noavatar=true)](https://top.gg/bot/680606346952966177) [![Discord Bots](https://discordbots.org/api/widget/owner/680606346952966177.svg?noavatar=true)](https:/top.gg/bot/680606346952966177) [![Discord Bots](https://top.gg/api/widget/servers/680606346952966177.svg?noavatar=true)](https://top.gg/bot/680606346952966177) [![GitHub license](https://img.shields.io/github/license/mmatt625/doob.svg)](https://github.com/mmatt625/doob/blob/master/LICENSE) [![StackShare](http://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/mmatt/doob) [![GitHub Issues](https://img.shields.io/github/issues/mmatt625/doob)](https://github.com/mmatt625/doob/issues) [![GitHub Forks](https://img.shields.io/github/forks/mmatt625/doob)](https://github.com/mmatt625/doob/network/members) [![doob&apos;s Discord](https://discordapp.com/api/guilds/702352937980133386/widget.png?style=shield)](https://discord.gg/ryTYWjD) [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/mmatt)
 
-## Can I use Doob right now?
+## About
+
+Doob is a new Discord bot coded by mmatt\#0001.
+
+### Doob on the web.
+
+The Doob Development Blog is avalilable over on my GitHub.io page [https://mmatt625.github.io/](https://mmatt625.github.io/)
+
+### Can I use Doob right now?
+
 Yes, but I must warn you there are not many features, and is in mid development.
 
-## What commands are there?
-Right now you can do -help and get all of the commands.
-I will also tell you right here :)
+### What commands are there?
 
-Ban - Usage | -ban {-b} *@username* [reason]. Bans the member specified, permanently. **Requires the Ban Member Permission**.
+Right now you can do -help and get all of the commands. I will also tell you right here :\)
 
-ChangePrefix - Usage | -prefix { -changeprefix} *prefix*. Changes the prefix for this server. **Requires the Administrator Permission**.
+Ban - Usage \| -ban {-b} _@username_ \[reason\]. Bans the member specified, permanently. **Requires the Ban Member Permission**.
 
-Clear - Usage | -clear {-p,c, or purge} [amount]. Clears amount of messages specified.  *Default amount = 5* **Requires the Manage Messages Permission.** 
+ChangePrefix - Usage \| -prefix { -changeprefix} _prefix_. Changes the prefix for this server. **Requires the Administrator Permission**.
 
-Dev - Usage | -dev {-developer, or devteam} Shows the development team of Doob bot.
+Clear - Usage \| -clear {-p,c, or purge} \[amount\]. Clears amount of messages specified. _Default amount = 5_ **Requires the Manage Messages Permission.**
 
-Help - Usage | -help { -commands} Shows a link to this page.    
+Dev - Usage \| -dev {-developer, or devteam} Shows the development team of Doob bot.
 
-Info - Usage | -info {-botinfo} Gives basic info about Doob.
+Help - Usage \| -help { -commands} Shows a link to this page.
 
-Invite - Usage | -invite Gives an invite link to the bot.
+Info - Usage \| -info {-botinfo} Gives basic info about Doob.
 
-Kick - Usage | -kick {-k} *member* [reason]. Kicks the member specified. **Requires the Kick Members Permission.**
+Invite - Usage \| -invite Gives an invite link to the bot.
 
-Ping - Usage | -ping. Shows the bot's latency between the Discord servers.
+Kick - Usage \| -kick {-k} _member_ \[reason\]. Kicks the member specified. **Requires the Kick Members Permission.**
 
-Profile - Usage | -profile {-userinfo} *Either mention the user or say their id* Gives the user some info about the user given.
+Ping - Usage \| -ping. Shows the bot's latency between the Discord servers.
 
-SoftClear - Usage | -softclear {-sp, sc, or softpurge} Same thing as -clear, except the default value is 2.
+Profile - Usage \| -profile {-userinfo} _Either mention the user or say their id_ Gives the user some info about the user given.
 
-Support - Usage | -support. Gives support server + dev's username.    
+SoftClear - Usage \| -softclear {-sp, sc, or softpurge} Same thing as -clear, except the default value is 2.
 
-Unban - Usage | -unban *Username*. Unbans a specific user. **Requires Ban Members Permission**    
+Support - Usage \| -support. Gives support server + dev's username.
 
-VCShare - Usage | -vcshare {-vc, -screenshare, -ss}. Gives link to screenshare in a voice channel. Must be in a voice channel to work. [FAN FAVORITE]  
+Unban - Usage \| -unban _Username_. Unbans a specific user. **Requires Ban Members Permission**
 
-Warn - Usage | -warn {-w} *member* [reason]. Warns the user with a reason if provided. **Requires the Manage Messages Permission.**
+VCShare - Usage \| -vcshare {-vc, -screenshare, -ss}. Gives link to screenshare in a voice channel. Must be in a voice channel to work. \[FAN FAVORITE\]
 
-# Stay up-to-date at https://www.notion.so/Commands-96fb0c52dee34ce6a45f42655db1f8d4
+Warn - Usage \| -warn {-w} _member_ \[reason\]. Warns the user with a reason if provided. **Requires the Manage Messages Permission.**
 
-## Docs
-https://www.notion.so/Doob-Docs-7ec5b5ed1a48416b82c98ada9ed5319a
+## Stay up-to-date at [https://www.notion.so/Commands-96fb0c52dee34ce6a45f42655db1f8d4](https://www.notion.so/Commands-96fb0c52dee34ce6a45f42655db1f8d4)
 
-## Want our stack? Here you go!
+### Docs
 
-I don't know why you would ever want this, but I decided to make it because im bored.
-https://stackshare.io/mmatt/doob
+[https://www.notion.so/Doob-Docs-7ec5b5ed1a48416b82c98ada9ed5319a](https://www.notion.so/Doob-Docs-7ec5b5ed1a48416b82c98ada9ed5319a)
 
-## Issues or want to improve some code?
+### Want our stack? Here you go!
+
+I don't know why you would ever want this, but I decided to make it because im bored. [https://stackshare.io/mmatt/doob](https://stackshare.io/mmatt/doob)
+
+### Issues or want to improve some code?
+
 Submit an [Issue](https://gitlab.com/mmatt625/doob/issues) or a [Pull request](https://gitlab.com/mmatt625/doob/-/merge_requests).
+

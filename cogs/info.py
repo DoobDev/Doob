@@ -9,7 +9,7 @@ class info(commands.Cog):
     # Gives user some info about Doob
     @commands.command(aliases=['botinfo'])
     async def info(self, ctx):
-        embed = discord.Embed(title="Doob's Info", description="Some of doobs info that might be useful for you to know!", colour=discord.Color.blue())
+        embed = discord.Embed(title="Doob's Info", description="Some of Doob's info that might be useful for you to know!", colour=discord.Color.blue())
 
         embed.add_field(name="Name", value="Doob")
         embed.add_field(name="Description", value="A Discord bot made by mmatt using discord.py, he felt like making it so he did B)")
