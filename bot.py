@@ -41,5 +41,5 @@ for filename in os.listdir('./cogs'):
 
 doob_logo = "http://i.mmatt.pw/bz0i1U0V"
 
-client.run("Njg2MDM0NTk5MTMwMDM4Mjcy.XsibqA.-nqb3FPI660sharFcloEZCPZhxY")
+client.run("TOKEN")
 #hi mr jones lol
