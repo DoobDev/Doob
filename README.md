@@ -4,7 +4,7 @@
 [![Discord Bots](https://top.gg/api/widget/lib/680606346952966177.svg?noavatar=true)](https://top.gg/bot/680606346952966177)
 [![Discord Bots](https://discordbots.org/api/widget/owner/680606346952966177.svg?noavatar=true)](https:/top.gg/bot/680606346952966177)
 [![Discord Bots](https://top.gg/api/widget/servers/680606346952966177.svg?noavatar=true)](https://top.gg/bot/680606346952966177)
-[![GitHub license](https://img.shields.io/github/license/mmatt625/doob.svg)](https://github.com/mmatt625/doob/blob/master/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/doobdev/doob.svg)](https://github.com/doobdev/doob/blob/master/LICENSE)
 [![StackShare](http://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/mmatt/doob)
 [![GitHub Issues](https://img.shields.io/github/issues/doobdev/doob)](https://github.com/doobdev/doob/issues)
 [![GitHub Forks](https://img.shields.io/github/forks/doobdev/doob)](https://github.com/doobdev/doob/network/members)
@@ -15,7 +15,7 @@
 Doob is a new Discord bot coded by mmatt#0001.
 
 ## Doob on the web.
-The Doob Development Blog is avalilable over on my GitHub.io page https://mmatt625.github.io/
+The Doob Development Blog is avalilable over on my GitHub.io page https://mmattbtw.github.io/
 
 ## Can I use Doob right now?
 Yes, but I must warn you there are not many features, and is in mid development.
@@ -65,4 +65,4 @@ I don't know why you would ever want this, but I decided to make it because im b
 https://stackshare.io/mmatt/doob
 
 ## Issues or want to improve some code?
-Submit an [Issue](https://gitlab.com/mmatt625/doob/issues) or a [Pull request](https://gitlab.com/mmatt625/doob/-/merge_requests).
+Submit an [Issue](https://gitlab.com/doobdev/doob/issues) or a [Pull request](https://gitlab.com/doobdev/doob/-/merge_requests).
