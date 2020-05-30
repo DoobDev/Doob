@@ -65,4 +65,4 @@ I don't know why you would ever want this, but I decided to make it because im b
 https://stackshare.io/mmatt/doob
 
 ## Issues or want to improve some code?
-Submit an [Issue](https://gitlab.com/doobdev/doob/issues) or a [Pull request](https://gitlab.com/doobdev/doob/-/merge_requests).
+Submit an [Issue](https://github.com/doobdev/doob/issues) or a [Pull request](https://github.com/doobdev/doob/pulls).
