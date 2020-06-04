@@ -9,7 +9,9 @@ import random
 import aiohttp
 import discord
 from discord.ext import commands
+from discordbio import DBioClient
 
+client = DBioClient()
 
 class Bio(commands.Cog):
 
