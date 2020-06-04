@@ -1,3 +1,4 @@
+#NOT WRITTEN BY DOOB DEV WRITTEN BY https://github.com/xPolar/discord.bio
 # Imports
 import asyncio
 import datetime
@@ -18,7 +19,7 @@ class Bio(commands.Cog):
         self.bot = bot
     
     @commands.command(aliases = ["check"])
-    async def profile(self, ctx, *, profile = None):
+    async def bio(self, ctx, *, profile = None):
         """
         View a user's profile.
         """
