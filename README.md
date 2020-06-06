@@ -54,10 +54,10 @@ VCShare - Usage | -vcshare {-vc, -screenshare, -ss}. Gives link to screenshare i
 
 Warn - Usage | -warn {-w} *member* [reason]. Warns the user with a reason if provided. **Requires the Manage Messages Permission.**
 
-# Stay up-to-date at https://doobdev.gitbook.io/docs/docs/cmds
+# Stay up-to-date at https://notmmatt.gitbook.io/docs/
 
 ## Docs
-https://doobdev.gitbook.io/docs/
+https://notmmatt.gitbook.io/docs/
 
 ## Want our stack? Here you go!
 
