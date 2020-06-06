@@ -10,7 +10,7 @@ class help(commands.Cog):
     async def help(self, ctx):
         embed = discord.Embed(title="Command Help", description="All of Doob's commands.", colour=discord.Color.blue())
 
-        embed.add_field(name="Check out the docs!", value="https://doobdev.gitbook.io/docs/")
+        embed.add_field(name="Check out the docs!", value="https://notmmatt.gitbook.io/docs/")
         embed.add_field(name="Join the Support Discord", value="https://discord.gg/ryTYWjD")
         embed.set_thumbnail(url=doob_logo)
 
