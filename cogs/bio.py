@@ -11,8 +11,6 @@ import discord
 from discord.ext import commands
 from discordbio import DBioClient
 
-client = DBioClient()
-
 class Bio(commands.Cog):
 
 
@@ -28,7 +26,7 @@ class Bio(commands.Cog):
         if profile == None:
             profile = ctx.author.id
         async with aiohttp.ClientSession() as session:
-            async with session.get(f"https://api.discord.bio/v1/userDetails/{profile}") as resp1:
+            async with session.get(f"https://api.discord.bio/v1/user/Details/{profile}") as resp1:
                 if resp1.status == 200:
                     data1 = await resp1.text()
                     data1 = json.loads(data1)
@@ -44,7 +42,7 @@ class Bio(commands.Cog):
                             if profile2 == None:
                                 data1 = None
                             else:
-                                async with session.get(f"https://api.discord.bio/v1/userDetails/{profile2.id}") as resp1:
+                                async with session.get(f"https://api.discord.bio/v1/user/Details/{profile2.id}") as resp1:
                                     if resp1.status == 200:
                                         data1 = await resp1.text()
                                         data1 = json.loads(data1)
