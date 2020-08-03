@@ -2,7 +2,7 @@ import discord
 import json
 from discord.ext import commands
 
-doob_logo = "http://i.mmatt.pw/bz0i1U0V"
+doob_logo = "https://cdn.discordapp.com/avatars/680606346952966177/ada47c5940b5cf8f7e12f61eefecc610.webp?size=1024"
 
 owner_id = "308000668181069824"
 
