@@ -10,14 +10,14 @@ class stream(commands.Cog):
     # Decorator for commands.
     @commands.command()
     @commands.is_owner()
-    async def streamstatus(self, ctx, client):
-        await client.change_presence(activity=discord.Streaming(name="STREAMING!", url="https://twitch.tv/mmattbtw"))
+    async def streamstatus(self, ctx):
+        await self.client.change_presence(activity=discord.Streaming(name="STREAMING!", url="https://twitch.tv/mmattbtw"))
         await ctx.send("The status has been changed to the Streaming profile!")
 
     @commands.command()
     @commands.is_owner()
-    async def normalstatus(self, ctx, client):
-        await client.change_presence(status = discord.Status.online, activity=discord.Game('-help for commands. | github.com/doobdev/doob'))
+    async def normalstatus(self, ctx):
+        await self.client.change_presence(status = discord.Status.online, activity=discord.Game('-help for commands. | github.com/doobdev/doob'))
         await ctx.send("The status has been changed to the Default profile!")
 
 def setup(client):

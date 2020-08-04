@@ -23,6 +23,7 @@ dblpy == 0.3.4
 # cogs\profile.py: 1,2
 # cogs\servercount.py: 2,3
 # cogs\softclear.py: 1,2
+# cogs\stream.py: 1,2
 # cogs\support.py: 1,2
 # cogs\todo.py: 1,2
 # cogs\unban.py: 1,2
