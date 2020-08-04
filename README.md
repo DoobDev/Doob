@@ -20,6 +20,9 @@ The Doob Development Blog is avalilable over on my GitHub.io page https://mmattb
 ## Can I use Doob right now?
 Yes, but I must warn you there are not many features, and is in mid development.
 
+## Start your own Doob!
+Instructions [here](https://docs.doobbot.com/docs/start-your-own-doob)
+
 ## What commands are there?
 Right now you can do -help and get all of the commands.
 I will also tell you right here :)
@@ -54,10 +57,10 @@ VCShare - Usage | -vcshare {-vc, -screenshare, -ss}. Gives link to screenshare i
 
 Warn - Usage | -warn {-w} *member* [reason]. Warns the user with a reason if provided. **Requires the Manage Messages Permission.**
 
-# Stay up-to-date at https://notmmatt.gitbook.io/docs/
+# Stay up-to-date at http://docs.doobbot.com/
 
 ## Docs
-https://notmmatt.gitbook.io/docs/
+http://docs.doobbot.com/
 
 ## Want our stack? Here you go!
 

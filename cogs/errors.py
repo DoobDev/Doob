@@ -12,7 +12,7 @@ class errors(commands.Cog):
         if isinstance(error, commands.MissingRequiredArgument):
             embed = discord.Embed(title="Missing Requirement Error [DB10]", description="Pass in all required arguments.", colour=discord.Color.blue())
 
-            embed.add_field(name="Docs", value="Check out the Docs for more info. - https://notmmatt.gitbook.io/docs/")
+            embed.add_field(name="Docs", value="Check out the Docs for more info. - http://docs.doobbot.com/")
 
             embed.set_thumbnail(url=doob_logo)
             await ctx.send(embed=embed)
@@ -21,7 +21,7 @@ class errors(commands.Cog):
         if isinstance(error, commands.MissingPermissions):
             embed = discord.Embed(title="Missing Permissions Error [DB11]", description="You are not able to use this command because you do not have the required permissions.", colour=discord.Color.blue())
 
-            embed.add_field(name="Docs", value="Check out the Docs for more info. - https://notmmatt.gitbook.io/docs/")
+            embed.add_field(name="Docs", value="Check out the Docs for more info. - http://docs.doobbot.com/")
 
             embed.set_thumbnail(url=doob_logo)
             await ctx.send(embed=embed)

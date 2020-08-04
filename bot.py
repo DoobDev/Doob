@@ -8,6 +8,8 @@ import aiohttp
 
 from discord.ext import commands
 
+token = input("Copy and paste the Discord Bot Token.\n")
+
 # Creates and loads the json file.
 def get_prefix(client, message):
     with open('prefixes.json', 'r') as f:
@@ -42,5 +44,5 @@ for filename in os.listdir('./cogs'):
 
 doob_logo = "https://cdn.discordapp.com/avatars/680606346952966177/ada47c5940b5cf8f7e12f61eefecc610.webp?size=1024"
 
-client.run("token")
+client.run(token)
 #hi mr jones lol
