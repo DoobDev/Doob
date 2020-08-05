@@ -69,3 +69,6 @@ https://stackshare.io/mmatt/doob
 
 ## Issues or want to improve some code?
 Submit an [Issue](https://github.com/doobdev/doob/issues) or a [Pull request](https://github.com/doobdev/doob/pulls).
+
+
+made with youtube tutorials btw hahahahahsadfjkalsdjfpoewifgjoawiegj
