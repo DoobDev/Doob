@@ -70,5 +70,8 @@ https://stackshare.io/mmatt/doob
 ## Issues or want to improve some code?
 Submit an [Issue](https://github.com/doobdev/doob/issues) or a [Pull request](https://github.com/doobdev/doob/pulls).
 
+## Credits
+Doob Avatar: [@KittyKay000](https://twitter.com/KittyKay000)
+Doob Name: Me and my friend William in Bio.
 
 made with youtube tutorials btw hahahahahsadfjkalsdjfpoewifgjoawiegj
