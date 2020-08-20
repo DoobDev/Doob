@@ -1,14 +1,14 @@
 # Doob Bot 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b56963eccea94dc095da4848753007f9)](https://app.codacy.com/gh/doobdev/doob?utm_source=github.com&utm_medium=referral&utm_content=doobdev/doob&utm_campaign=Badge_Grade_Dashboard)
 [![Discord Bots](https://top.gg/api/widget/status/680606346952966177.svg)](https://top.gg/bot/680606346952966177)
 [![Discord Bots](https://top.gg/api/widget/upvotes/680606346952966177.svg?noavatar=true)](https://top.gg/bot/680606346952966177)
 [![Discord Bots](https://top.gg/api/widget/lib/680606346952966177.svg?noavatar=true)](https://top.gg/bot/680606346952966177)
 [![Discord Bots](https://discordbots.org/api/widget/owner/680606346952966177.svg?noavatar=true)](https:/top.gg/bot/680606346952966177)
 [![Discord Bots](https://top.gg/api/widget/servers/680606346952966177.svg?noavatar=true)](https://top.gg/bot/680606346952966177)
-[![GitHub license](https://img.shields.io/github/license/doobdev/doob.svg)](https://github.com/doobdev/doob/blob/master/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/doobdev/doob.svg?style=flat-square)](https://github.com/doobdev/doob/blob/master/LICENSE)
 [![StackShare](http://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/mmatt/doob)
-[![GitHub Issues](https://img.shields.io/github/issues/doobdev/doob)](https://github.com/doobdev/doob/issues)
-[![GitHub Forks](https://img.shields.io/github/forks/doobdev/doob)](https://github.com/doobdev/doob/network/members)
+[![GitHub Issues](https://img.shields.io/github/issues/doobdev/doob?style=flat-square)](https://github.com/doobdev/doob/issues)
+[![GitHub Forks](https://img.shields.io/github/forks/doobdev/doob?style=flat-square)](https://github.com/doobdev/doob/network/members)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b56963eccea94dc095da4848753007f9)](https://app.codacy.com/gh/doobdev/doob?utm_source=github.com&utm_medium=referral&utm_content=doobdev/doob&utm_campaign=Badge_Grade_Dashboard)
 [![doob's Discord](https://discordapp.com/api/guilds/702352937980133386/widget.png?style=shield)](https://discord.gg/ryTYWjD)
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/mmatt)
 
