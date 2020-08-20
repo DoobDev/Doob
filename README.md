@@ -8,8 +8,8 @@
 [![StackShare](http://img.shields.io/badge/tech-stack-0690fa.svg?style=for-the-badge)](https://stackshare.io/mmatt/doob)
 [![GitHub Issues](https://img.shields.io/github/issues/doobdev/doob?style=for-the-badge)](https://github.com/doobdev/doob/issues)
 [![GitHub Forks](https://img.shields.io/github/forks/doobdev/doob?style=for-the-badge)](https://github.com/doobdev/doob/network/members)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b56963eccea94dc095da4848753007f9)](https://app.codacy.com/gh/doobdev/doob?utm_source=github.com&utm_medium=referral&utm_content=doobdev/doob&utm_campaign=Badge_Grade_Dashboard)
-[![doob's Discord](https://discordapp.com/api/guilds/702352937980133386/widget.png?style=shield)](https://discord.gg/ryTYWjD)
+[![Discord](https://img.shields.io/discord/702352937980133386?color=blue&logo=Discord&style=for-the-badge)](https://discord.gg/ryTYWjD)
+![Codacy grade](https://img.shields.io/codacy/grade/b56963eccea94dc095da4848753007f9?style=for-the-badge)
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/mmatt)
 
 # About
