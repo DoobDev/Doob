@@ -2,7 +2,7 @@
 # https://github.com/damnever/pigar
 
 # cogs\servercount.py: 1
-dblpy == 0.3.4
+dblpy==0.3.4
 
 # bot.py: 2,6
 # cogs\ban.py: 1,2
@@ -27,4 +27,4 @@ dblpy == 0.3.4
 # cogs\vcshare.py: 1,2
 # cogs\vote.py: 1,2
 # cogs\warn.py: 1,2
-discord.py == 1.3.4
+discord.py==1.3.4
