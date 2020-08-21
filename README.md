@@ -22,7 +22,7 @@ The Doob Development Blog is avalilable over on my GitHub.io page https://mmattb
 Yes, but I must warn you there are not many features, and is in mid development.
 
 ## Start your own Doob!
-Instructions [here](https://docs.doobbot.com/docs/start-your-own-doob)
+Instructions [here](https://docs.doobbot.com/docs/start-your-own-doob).
 
 ## What commands are there?
 Right now you can do -help and get all of the commands.
