@@ -8,7 +8,7 @@ from discord.ext import commands
 token = input("Copy and paste the Discord Bot Token.\n")
 
 # Creates and loads the json file.
-def get_prefix(client, message)
+def get_prefix(client, message):
     with open('prefixes.json', 'r') as f:
         prefixes = json.load(f)
     try:
