@@ -1,3 +1,5 @@
+# Doob is getting rewritten! When it is finished with the basics, it will be merged into master, but right now all of the development is happening on the [rewrite branch](https://github.com/doobdev/doob/tree/rewrite)
+
 # Doob Bot 
 [![Discord Bots](https://top.gg/api/widget/status/680606346952966177.svg)](https://top.gg/bot/680606346952966177)
 [![Discord Bots](https://top.gg/api/widget/upvotes/680606346952966177.svg?noavatar=true)](https://top.gg/bot/680606346952966177)
