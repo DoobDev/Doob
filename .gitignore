@@ -3,3 +3,4 @@ old v1/cogs/__pycache__
 *.db
 *.db-journal
 __pycache__
+lib/bot/token.0
