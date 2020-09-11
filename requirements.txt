@@ -2,7 +2,7 @@
 # https://github.com/damnever/pigar
 
 # cogs\servercount.py: 1
-dblpy==0.3.4
+dblpy==0.4.0
 
 # bot.py: 2,6
 # cogs\ban.py: 1,2
