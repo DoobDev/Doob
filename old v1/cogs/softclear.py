@@ -15,7 +15,7 @@ class softclear(commands.Cog):
         embed = discord.Embed(title="Cleared Messages", description="Soft purge has been executed.", colour=discord.Color.blue())
 
         embed.add_field(name="Cleared", value=f"{amount} messages")
-        embed.set_thumbnail(url=doob_logo)
+        embed.set_thumbnail(url="https://www.flaticon.com/svg/static/icons/svg/3419/3419429.svg")
         await ctx.send(embed=embed)
 
 def setup(client):

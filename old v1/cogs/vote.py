@@ -7,11 +7,12 @@ class vote(commands.Cog):
         self.client = client
 
     @commands.command(aliases=["upvote"])
+    @commands.cooldown(1, 15, commands.BucketType.user)
     async def vote(self, ctx):
         embed = discord.Embed(title="Vote", description="Vote on Doob bot on...", colour=discord.Color.blue())
 
         embed.add_field(name="Top.gg", value="https://top.gg/bot/680606346952966177/vote")
-        embed.set_thumbnail(url=doob_logo)
+        embed.set_thumbnail(url="https://www.flaticon.com/svg/static/icons/svg/2928/2928967.svg")
 
         await ctx.send(embed=embed)
 

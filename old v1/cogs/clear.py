@@ -16,7 +16,7 @@ class clear(commands.Cog):
         embed.add_field(name="Cleared", value=f"{amount} messages")
 
         await ctx.channel.purge(limit=amount + 1)
-        embed.set_thumbnail(url=doob_logo)
+        embed.set_thumbnail(url="https://www.flaticon.com/svg/static/icons/svg/3419/3419429.svg")
         await ctx.send(embed=embed)
 
 def setup(client):

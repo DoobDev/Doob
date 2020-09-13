@@ -15,7 +15,7 @@ class warn(commands.Cog):
         embed.add_field(name="User Wanred:", value=f"@{user.name}#{user.discriminator}")
         embed.add_field(name="Reason", value=f"{reason}")
 
-        embed.set_thumbnail(url=doob_logo)
+        embed.set_thumbnail(url="https://www.flaticon.com/svg/static/icons/svg/595/595067.svg")
         await ctx.send(embed=embed)
 
 

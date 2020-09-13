@@ -7,6 +7,7 @@ class profile(commands.Cog):
 
     # Gives user info to the user
     @commands.command(aliases=['userinfo'])
+    @commands.cooldown(1, 15, commands.BucketType.user)
     async def profile(self, ctx, member: discord.Member = None):
         member = ctx.author if not member else member
 

@@ -8,6 +8,7 @@ class info(commands.Cog):
 
     # Gives user some info about Doob
     @commands.command(aliases=['botinfo'])
+    @commands.cooldown(1, 15, commands.BucketType.user)
     async def info(self, ctx):
         embed = discord.Embed(title="Doob's Info", description="Some of Doob's info that might be useful for you to know!", colour=discord.Color.blue())
 

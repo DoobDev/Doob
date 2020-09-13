@@ -35,6 +35,7 @@ class prefix(commands.Cog):
     # Changes the prefix (that the user provides.) for the specific server.
     @commands.command(aliases=['prefix'])
     @commands.has_permissions(administrator=True)
+    @commands.cooldown(1, 15, commands.BucketType.user)
     async def changeprefix(self, ctx, prefix):
         with open('prefixes.json', 'r') as f:
             prefixes = json.load(f)
@@ -47,7 +48,7 @@ class prefix(commands.Cog):
         embed = discord.Embed(title="An administrator has changed the prefix.", description=f"An administrator has changed the prefix to {prefix}.", colour=discord.Color.blue())
 
         embed.add_field(name="The prefix has been changed to:", value=prefix)
-        embed.set_thumbnail(url=doob_logo)
+        embed.set_thumbnail(url="https://www.flaticon.com/svg/static/icons/svg/0/656.svg")
         await ctx.send(embed=embed)
 
     @commands.command()

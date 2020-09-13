@@ -8,11 +8,12 @@ class ping(commands.Cog):
 
     # Ping command, gives latency of the bot to the user.
     @commands.command()
+    @commands.cooldown(1, 15, commands.BucketType.user)
     async def ping(self, ctx):
         embed = discord.Embed(title="Pong!", description=":ping_pong:", colour=discord.Color.blue())
 
         embed.add_field(name="The latency for Doob is...", value=f"{round(self.client.latency * 1000)} ms")
-        embed.set_thumbnail(url=doob_logo)
+        embed.set_thumbnail(url="https://www.flaticon.com/svg/static/icons/svg/1622/1622540.svg")
 
         await ctx.send(embed=embed)
 

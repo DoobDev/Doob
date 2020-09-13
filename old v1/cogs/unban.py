@@ -22,7 +22,7 @@ class unban(commands.Cog):
                 embed = discord.Embed(title="User Unbanned", description=f"{user.name} has been unbanned from the server.", colour=discord.Color.blue())
 
                 embed.add_field(name="User", value=f"@{user.name}#{user.discriminator}")
-                embed.set_thumbnail(url=doob_logo)
+                embed.set_thumbnail(url="https://www.flaticon.com/svg/static/icons/svg/1250/1250740.svg")
                 await ctx.send(embed=embed)
 
 
