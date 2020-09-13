@@ -10,25 +10,25 @@ class errors(commands.Cog):
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
         if isinstance(error, commands.MissingRequiredArgument):
-            embed = discord.Embed(title="Missing Requirement Error [DB10]", description="Pass in all required arguments.", colour=discord.Color.blue())
+            embed = discord.Embed(title="Missing Requirement Error [DB10]", description="Pass in all required arguments.", colour=discord.Color.red())
 
             embed.add_field(name="Docs", value="Check out the Docs for more info. - http://docs.doobbot.com/")
 
-            embed.set_thumbnail(url=doob_logo)
+            embed.set_thumbnail(url="https://www.flaticon.com/svg/static/icons/svg/745/745419.svg")
             await ctx.send(embed=embed, delete_after = 15)
 
         
         if isinstance(error, commands.MissingPermissions):
-            embed = discord.Embed(title="Missing Permissions Error [DB11]", description="You are not able to use this command because you do not have the required permissions.", colour=discord.Color.blue())
+            embed = discord.Embed(title="Missing Permissions Error [DB11]", description="You are not able to use this command because you do not have the required permissions.", colour=discord.Color.red())
 
             embed.add_field(name="Docs", value="Check out the Docs for more info. - http://docs.doobbot.com/")
 
-            embed.set_thumbnail(url=doob_logo)
+            embed.set_thumbnail(url="https://www.flaticon.com/svg/static/icons/svg/745/745419.svg")
             await ctx.send(embed=embed, delete_after = 15)
 
         if isinstance(error, commands.CommandOnCooldown):
-            embed = discord.Embed(title="Cooldown", description="You are on cooldown! Please try again in {:.2f}s".format(error.retry_after))
-            embed.set_thumbnail(url=doob_logo)
+            embed = discord.Embed(title="Cooldown", description="You are on cooldown! Please try again in {:.2f}s".format(error.retry_after), colour=discord.Color.red())
+            embed.set_thumbnail(url="https://www.flaticon.com/svg/static/icons/svg/1620/1620451.svg")
             await ctx.send(embed=embed, delete_after = error.retry_after)
         else:
             raise error

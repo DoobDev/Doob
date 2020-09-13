@@ -13,7 +13,7 @@ class help(commands.Cog):
 
         embed.add_field(name="Check out the docs!", value="http://docs.doobbot.com/")
         embed.add_field(name="Join the Support Discord", value="https://discord.gg/ryTYWjD")
-        embed.set_thumbnail(url=doob_logo)
+        embed.set_thumbnail(url="https://www.flaticon.com/svg/static/icons/svg/906/906794.svg")
 
         await ctx.send(embed=embed)
 

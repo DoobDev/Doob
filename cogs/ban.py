@@ -15,7 +15,7 @@ class ban(commands.Cog):
 
         embed.add_field(name="User", value=f"@{user.name}#{user.discriminator}")
         embed.add_field(name="Reason", value=f"{reason}")
-        embed.set_thumbnail(url=doob_logo)
+        embed.set_thumbnail(url="https://www.flaticon.com/svg/static/icons/svg/492/492570.svg")
         await ctx.send(embed=embed)
 
 

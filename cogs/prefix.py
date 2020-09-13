@@ -48,7 +48,7 @@ class prefix(commands.Cog):
         embed = discord.Embed(title="An administrator has changed the prefix.", description=f"An administrator has changed the prefix to {prefix}.", colour=discord.Color.blue())
 
         embed.add_field(name="The prefix has been changed to:", value=prefix)
-        embed.set_thumbnail(url=doob_logo)
+        embed.set_thumbnail(url="https://www.flaticon.com/svg/static/icons/svg/0/656.svg")
         await ctx.send(embed=embed)
 
     @commands.command()
