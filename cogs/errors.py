@@ -38,7 +38,7 @@ class errors(commands.Cog):
             raise error
 
         if isinstance(error, commands.PrivateMessageOnly):
-            embed = discord.Embed(title="Private Message Only [DB13]", description="This command does not work in a server, only in ")
+            embed = discord.Embed(title="Private Message Only [DB13]", description="This command does not work in a server, only in PMs")
             embed.set_thumbnail(url="https://www.flaticon.com/svg/static/icons/svg/745/745419.svg")
             await ctx.send(embed=embed, delete_after= 15)
         else:
