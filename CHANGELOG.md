@@ -1,4 +1,4 @@
-v1.0.1:
+## v1.0.1:
 * Patreon added
     - You can now purchase a subscription to help support Doob! Head on over to [patreon.com/doobdev](https://patreon.com/doobdev) and get your subscription!
         - Tier 1 gives you:
