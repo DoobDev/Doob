@@ -8,7 +8,7 @@ class patreon(commands.Cog):
 
     # Patreon Command
     @commands.command(aliases=['donate'])
-    @commands.cooldown(1, 10, commands.BucketType.user)
+    @commands.cooldown(1, 15, commands.BucketType.user)
     async def patreon(self, ctx):
         embed = discord.Embed(title="The developer's Patreon is avaliable at:", description="https://patreon.com/doobdev")
         embed.set_thumbnail(url="https://cdn.vox-cdn.com/thumbor/a3z1idZDuso6ksgW6pDOZwCRJDw=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/9833961/patreon.jpg")
