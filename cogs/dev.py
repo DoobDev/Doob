@@ -8,6 +8,7 @@ class dev(commands.Cog):
     
     # Gives user the dev's Discord.
     @commands.command(aliases=['developer', 'devteam'])
+    @commands.cooldown(1, 15, commands.BucketType.user)
     async def dev(self, ctx):
         embed = discord.Embed(title="mmatt developed me!", colour=discord.Color.blue())
 

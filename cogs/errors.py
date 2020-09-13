@@ -26,5 +26,12 @@ class errors(commands.Cog):
             embed.set_thumbnail(url=doob_logo)
             await ctx.send(embed=embed)
 
+        if isinstance(error, commands.CommandOnCooldown):
+            embed = discord.Embed(title="Cooldown", description="You are on cooldown! Please try again in {:.2f}s".format(error.retry_after))
+            embed.set_thumbnail(url=doob_logo)
+            await ctx.send(embed=embed)
+        else:
+            raise error
+
 def setup(client):
     client.add_cog(errors(client))

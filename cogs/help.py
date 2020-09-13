@@ -7,6 +7,7 @@ class help(commands.Cog):
         self.client = client
     # Decorator for commands.
     @commands.command(aliases=['helpme'])
+    @commands.cooldown(1, 15, commands.BucketType.user)
     async def help(self, ctx):
         embed = discord.Embed(title="Command Help", description="All of Doob's commands.", colour=discord.Color.blue())
 

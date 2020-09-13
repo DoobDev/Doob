@@ -7,6 +7,7 @@ class nitroboost(commands.Cog):
 
     # Gives user the benefit of Nitro Boosting a server
     @commands.command(hidden=True, aliases=['boost'])
+    @commands.cooldown(1, 15, commands.BucketType.user)
     async def nitroboost(self, ctx):
         embed = discord.Embed(title="Nitro Boosting", description="Using your Nitro Boost on a server gives the server...", colour=discord.Color.blue())
 

@@ -35,6 +35,7 @@ class prefix(commands.Cog):
     # Changes the prefix (that the user provides.) for the specific server.
     @commands.command(aliases=['prefix'])
     @commands.has_permissions(administrator=True)
+    @commands.cooldown(1, 15, commands.BucketType.user)
     async def changeprefix(self, ctx, prefix):
         with open('prefixes.json', 'r') as f:
             prefixes = json.load(f)

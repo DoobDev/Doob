@@ -8,6 +8,7 @@ class support(commands.Cog):
 
     # Gives user the Support Discord + Dev's discord tag if they need help.
     @commands.command()
+    @commands.cooldown(1, 15, commands.BucketType.user)
     async def support(self, ctx):
         embed = discord.Embed(title="Need Support?", description="The Discord Support Server and the dev's contact.", colour=discord.Color.blue(), url="https://discord.gg/ryTYWjD")
 

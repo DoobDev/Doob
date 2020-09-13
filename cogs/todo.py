@@ -8,6 +8,7 @@ class todo(commands.Cog):
         
     # Gives the todo list from GitHub.
     @commands.command(aliases=['board', 'whatsnext', 'update'])
+    @commands.cooldown(1, 15, commands.BucketType.user)
     async def todo(self, ctx):
         embed = discord.Embed(title="Here's the link for what's up next for Doob.", description="The Todo list for Doob.", colour=discord.Color.blue())
 

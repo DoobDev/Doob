@@ -8,6 +8,7 @@ class ping(commands.Cog):
 
     # Ping command, gives latency of the bot to the user.
     @commands.command()
+    @commands.cooldown(1, 15, commands.BucketType.user)
     async def ping(self, ctx):
         embed = discord.Embed(title="Pong!", description=":ping_pong:", colour=discord.Color.blue())
 

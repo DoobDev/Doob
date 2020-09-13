@@ -7,6 +7,7 @@ class vote(commands.Cog):
         self.client = client
 
     @commands.command(aliases=["upvote"])
+    @commands.cooldown(1, 15, commands.BucketType.user)
     async def vote(self, ctx):
         embed = discord.Embed(title="Vote", description="Vote on Doob bot on...", colour=discord.Color.blue())
 
