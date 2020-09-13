@@ -53,6 +53,8 @@ class errors(commands.Cog):
             embed = discord.Embed(title="Bot Missing Permissions [DB17]", description="Doob is missing permissions, that are needed to execute this command.")
             embed.set_thumbnail(url="https://www.flaticon.com/svg/static/icons/svg/745/745419.svg")
             await ctx.send(embed=embed, delete_after= 15)
+        else:
+            raise error
 
 def setup(client):
     client.add_cog(errors(client))
