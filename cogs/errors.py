@@ -15,7 +15,7 @@ class errors(commands.Cog):
             embed.add_field(name="Docs", value="Check out the Docs for more info. - http://docs.doobbot.com/")
 
             embed.set_thumbnail(url=doob_logo)
-            await ctx.send(embed=embed).(delay=15)
+            await ctx.send(embed=embed).delete(delay=15)
 
         
         if isinstance(error, commands.MissingPermissions):
@@ -24,12 +24,12 @@ class errors(commands.Cog):
             embed.add_field(name="Docs", value="Check out the Docs for more info. - http://docs.doobbot.com/")
 
             embed.set_thumbnail(url=doob_logo)
-            await ctx.send(embed=embed).(delay=15)
+            await ctx.send(embed=embed).delete(delay=15)
 
         if isinstance(error, commands.CommandOnCooldown):
             embed = discord.Embed(title="Cooldown", description="You are on cooldown! Please try again in {:.2f}s".format(error.retry_after))
             embed.set_thumbnail(url=doob_logo)
-            await ctx.send(embed=embed).(delay=error.retry_after)
+            await ctx.send(embed=embed).delete(delay=error.retry_after)
         else:
             raise error
 
