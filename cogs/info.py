@@ -15,7 +15,6 @@ class info(commands.Cog):
         embed.add_field(name="Name", value="Doob")
         embed.add_field(name="Description", value="A Discord bot made by mmatt using discord.py, he felt like making it so he did B)")
         embed.add_field(name="Developer", value="The creator of Doob is <@308000668181069824>")
-        embed.add_field(name="Hosted on", value="AWS Server")
         embed.add_field(name="Bot's Server Count", value=f"{str(len(self.client.guilds))}")
         embed.add_field(name="Bot's Member Count", value=f"{str(len(self.client.users))}")
         embed.add_field(name="The ping for Doob is...", value=f" :ping_pong: {round(self.client.latency * 1000)} ms")
