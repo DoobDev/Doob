@@ -9,7 +9,7 @@ class announcement(commands.Cog):
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def announcement(self, ctx):
-        embed = discord.Embed(title = "Announcement:", description = f"{ctx.message.content.replace(f'{command_prefix}announcement ', '')}")
+        embed = discord.Embed(title = "Announcement:", description = f"{ctx.message.content.replace(f'{ctx.command_prefix}announcement ', '')}")
         embed.set_footer(text=f"Announcement from: {ctx.message.author}", icon_url=ctx.message.author.avatar_url)
         await ctx.channel.purge(limit=1)
         await ctx.send(embed=embed)
