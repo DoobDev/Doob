@@ -3,14 +3,12 @@ from datetime import datetime
 from typing import Optional
 
 from discord import Embed, Member
-from discord.ext.commands import Cog
-from discord.ext.commands import command, cooldown, BucketType
-
+from discord.ext.commands import Cog, command, cooldown, BucketType
 class Info(Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @command(name="userinfo", aliases=["info", "member", "user"], brief="Gives info about a specific user.")
+    @command(name="userinfo", aliases=["info", "member", "user", "profile", "ui"], brief="Gives info about a specific user.")
     @cooldown(1, 10, BucketType.user)
     async def user_info(self, ctx, target: Optional[Member]):
         target = target or ctx.author
@@ -33,8 +31,8 @@ class Info(Cog):
         embed.set_thumbnail(url=target.avatar_url)
         await ctx.send(embed=embed)
 
-        
-    @command(name="serverinfo", aliases=["guildinfo"], brief="Gives info about the server the command is executed in.")
+
+    @command(name="serverinfo", aliases=["guildinfo", "gi", "si"], brief="Gives info about the server the command is executed in.")
     @cooldown(1, 10, BucketType.user)
     async def server_info(self, ctx):
         embed = Embed(title=f"Server's info", colour=ctx.guild.owner.colour, timestamp=datetime.utcnow())

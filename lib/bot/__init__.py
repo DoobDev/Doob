@@ -5,20 +5,18 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from discord import Embed, File
 from discord.errors import HTTPException, Forbidden
 from discord.ext.commands import Bot as BotBase
-from discord.ext.commands import Context
+from discord.ext.commands import Context, when_mentioned_or, command, has_permissions
 from discord.ext.commands import (CommandNotFound, BadArgument, MissingRequiredArgument, CommandOnCooldown)
-from discord.ext.commands import when_mentioned_or, command, has_permissions
 
 from ..db import db # pylint: disable=relative-beyond-top-level
 
-PREFIX = "doob/"
 OWNER_IDS = [308000668181069824]
 COGS = [path.split("\\")[-1][:-3] for path in glob("./lib/cogs/*.py")]
 IGNORE_EXCEPTIONS = (CommandNotFound, BadArgument)
 
-#def get_prefix(bot, message):
-#    prefix = db.field("SELECT Prefix FROM guilds WHERE GuildID = ?", message.guild.id)
-#    return when_mentioned_or(prefix)(bot, message)
+def get_prefix(bot, message):
+    prefix = db.field("SELECT Prefix FROM guilds WHERE GuildID = ?", message.guild.id)
+    return when_mentioned_or(prefix)(bot, message)
 
 class Ready(object):
     def __init__(self):
@@ -42,7 +40,7 @@ class Bot(BotBase):
 
         db.autosave(self.scheduler)
 
-        super().__init__(command_prefix=PREFIX, owner_ids=OWNER_IDS)
+        super().__init__(command_prefix=get_prefix, owner_ids=OWNER_IDS)
 
     def setup(self):
         for cog in COGS:
@@ -50,6 +48,12 @@ class Bot(BotBase):
             print(f"{cog} cog loaded!")
 
         print("Setup done!")
+
+    def update_db(self):
+        db.multiexec("INSERT OR IGNORE INTO guilds (GuildID) VALUES (?)",
+                        ((guild.id,) for guild in self.guilds))
+
+        db.commit()
 
     def run(self, version):
         self.VERSION = version
@@ -72,9 +76,10 @@ class Bot(BotBase):
                     await self.invoke(ctx)
 
             else:
-                await ctx.send("Please wait, Doob is not online yet.")
+                await ctx.send("Please wait, Doob hasn't fully started up yet", delete_after=10)
 
     async def on_connect(self):
+        self.update_db()
         print("Doob Connected")
     
     async def on_disconnect(self):
@@ -91,17 +96,21 @@ class Bot(BotBase):
             pass
         
         elif isinstance(exc, MissingRequiredArgument):
-            await ctx.send("Required arguments missing.")
+            await ctx.message.delete()
+            await ctx.send("Required arguments missing.", delete_after = 10)
 
         elif isinstance(exc, CommandOnCooldown):
+            await ctx.message.delete()
             await ctx.send(f'That command is on a {str(exc.cooldown.type).split(".")[-1]} cooldown! Try again in {exc.retry_after:,.2f} seconds.', delete_after = exc.retry_after)
 
         elif hasattr(exc, "original"):
-            #if isinstance(exc.original, HTTPException):
-                #await ctx.send("Unable to send message.")
+            if isinstance(exc.original, HTTPException):
+                await ctx.message.delete()
+                await ctx.send("Unable to send message.", delete_after = 10)
 
             if isinstance(exc.original, Forbidden):
-                await ctx.send("Doob doesn't have permissions in this server to use that command.")
+                await ctx.message.delete()
+                await ctx.send("Doob doesn't have permissions in this server to use that command.", delete_after = 10)
 
             else:
                 raise exc.original
@@ -118,6 +127,9 @@ class Bot(BotBase):
 
             self.ready = True
             print("Doob Ready")
+
+            meta = self.get_cog("Meta")
+            await meta.set()
 
         else:
             print("Doob Reconnected")

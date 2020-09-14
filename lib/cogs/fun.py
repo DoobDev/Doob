@@ -10,7 +10,7 @@ class Fun(Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @command(name="hello", aliases=["hi"], breif="Say Hi to Doob!")
+    @command(name="hello", aliases=["hi"], brief="Say Hi to Doob!")
     async def say_hello(self, ctx):
         await ctx.send(f"{choice(('Hello', 'Hi', 'Hey'))} {ctx.author.mention}!")
 
@@ -24,9 +24,11 @@ class Fun(Cog):
 
             await ctx.send(" + ".join([str(r) for r in  rolls]) + f" = {sum(rolls)}")
         else:
-            await ctx.send("Please roll a lower number of dice.")
+            await ctx.message.delete()
+            await ctx.send("Please roll a lower number of dice.", delete_after=10)
 
     @command(name="slap", brief="Slap a user, what did they do wrong to you?")
+    @cooldown(1, 10, BucketType.user)
     async def slap_member(self, ctx, member: Member, *, reason: Optional[str] = "for no reason"):
         await ctx.send(f"{ctx.author.mention} slapped {member.mention} {reason}!")
         await ctx.send("Ouch!")
@@ -34,7 +36,8 @@ class Fun(Cog):
     @slap_member.error
     async def slap_member_error(self, ctx, exc):
         if isinstance(exc, BadArgument):
-            await ctx.send("That user could not be found. :/")
+            await ctx.message.delete()
+            await ctx.send("That user could not be found. :/", delete_after=10)
 
 # Make Echo Patreon only, because I don't wanna make my bot just say anything. (which is why the print statement says who said it and what, but just as an extra safe measure [and a benefit for the people who give me money] this is going to be Patreon only.)
     @command(name="echo", aliases=["say"], brief="Make Doob say something!")
@@ -45,7 +48,7 @@ class Fun(Cog):
         print(f"{ctx.author.name} used the Echo command and said {message}")
 
     @command(name="fact", aliases=["dogfact", "facts"], brief="Learn a random fact about dogs!")
-    @cooldown(5, 10, BucketType.user)
+    @cooldown(3, 10, BucketType.user)
     async def dog_fact(self, ctx):
         URL = "https://some-random-api.ml/facts/dog"
 
@@ -59,7 +62,7 @@ class Fun(Cog):
                 await ctx.send(f"Dog fact API sent a {response.status} status.")
 
     @command(name="dog", aliases=["dogimage"], brief="See a random picture of a dog!")
-    @cooldown(3, 10, BucketType.user)
+    @cooldown(2, 10, BucketType.user)
     async def dog_image(self, ctx):
         URL = "https://some-random-api.ml/img/dog"
 
