@@ -1,4 +1,5 @@
-/cogs/__pycache__
 old v1/cogs/__pycache__
 __pycache__
-lib/bot/token.0
+lib/bot/token.txt
+*.db
+*.db-journal
