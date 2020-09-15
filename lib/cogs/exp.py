@@ -3,7 +3,10 @@ from random import randint
 from typing import Optional
 
 from discord import Member, Embed
-from discord.ext.commands import Cog, command, CheckFailure, has_permissions
+from discord.ext.commands import Cog
+from discord.ext.commands import CheckFailure
+from discord.ext.commands import command, has_permissions
+
 from discord.ext.menus import MenuPages, ListPageSource
 
 from ..db import db # pylint: disable=relative-beyond-top-level
@@ -14,28 +17,28 @@ class Menu(ListPageSource):
 
         super().__init__(data, per_page=10)
 
-    async def write_page(self, menu, fields=[]):
+    async def write_page(self, menu, offset, fields=[]):
         offset = (menu.current_page*self.per_page) + 1
         len_data = len(self.entries)
 
-        embed = Embed(title="Doob XP Leaderboard!", description="Who's on top!", colour=self.ctx.author.colour)
+        embed = Embed(title="XP Leaderboard", description="See who is on top!", colour=self.ctx.author.colour)
         embed.set_thumbnail(url=self.ctx.guild.me.avatar_url)
-        embed.set_footer(text=f"{offset:,} - {min(len_data, offset+self.per_page-1):,} of {len_data:,} people.")
+        embed.set_footer(text=f"{offset:,} - {min(len_data, offset+self.per_page-1):,} of {len_data:,} members.")
         
         for name, value in fields:
             embed.add_field(name=name, value=value, inline=False)
 
         return embed
 
-    async def format_page(self, menu, entries):
-        offset = (menu.current_page*self.per_page) + 1
-        fields = []
-        table = ("\n".join(f"{idx+offset}. {self.ctx.bot.guild.get_member(entry[0]).display_name} (XP: {entry[1]}) | Level: {entry[2]})" for idx, entry in enumerate(entries)))
+    # async def format_page(self, menu, entries):
+    #     offset = (menu.current_page*self.per_page) + 1
+    #     fields = []
+    #     # table = ("\n".join(f"{idx+offset}. {self.ctx.bot.fetch_member(entry[0]).display_name} (XP: {entry[1]} | Level {entry[2]})" 
+    #     #         for idx, entry in enumerate(entries))) # FIX SOON
 
-        fields.append(("Rank", table))
+    #     fields.append(("Ranks", table))
 
-        return await self.write_page(menu, fields)
-
+    #     return await self.write_page(menu, offset, fields)
 
 class Exp(Cog):
     def __init__(self, bot):
@@ -71,12 +74,11 @@ class Exp(Cog):
         else:
             ctx.send("That member is not in the XP Database.")
 
-    @command(name="xplb", aliases=["leaderboard", "gxplb", "lb"], brief="The Doob Global XP Leaderboard!")
+    @command(name="leaderboard", aliases=["lb", "xplb"])
     async def display_leaderboard(self, ctx):
         records = db.records("SELECT UserID, XP, Level FROM exp ORDER BY XP DESC")
 
-        menu = MenuPages(source=Menu(ctx, records),
-                        clear_reactions_after=True, timeout=100.0)
+        menu = MenuPages(source=Menu(ctx, records), clear_reactions_after=True, timeout=100.0)
         await menu.start(ctx)
 
     @Cog.listener()

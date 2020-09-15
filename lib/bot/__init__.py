@@ -52,7 +52,6 @@ class Bot(BotBase):
     def update_db(self):
         db.multiexec("INSERT OR IGNORE INTO guilds (GuildID) VALUES (?)",
                         ((guild.id,) for guild in self.guilds))
-
         db.commit()
 
     def run(self, version):
@@ -125,7 +124,11 @@ class Bot(BotBase):
             while not self.cogs_ready.all_ready():
                 await sleep(0.5)
 
+            db.multiexec("INSERT OR IGNORE INTO exp (UserID) VALUES (?)",
+                            ((member.id,) for guild in self.guilds for member in guild.members if not member.bot))
+
             self.ready = True
+            self.update_db
             print("Doob Ready")
 
             meta = self.get_cog("Meta")

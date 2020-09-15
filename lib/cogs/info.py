@@ -58,6 +58,9 @@ class Info(Cog):
 				  ("Invites", len(await ctx.guild.invites()), True),
 				  ("\u200b", "\u200b", True)]
 
+        if ctx.guild.banner:
+            embed.set_image(url=ctx.guild.banner_url)
+
         for name, value, inline in fields:
             embed.add_field(name=name, value=value, inline=inline)
 

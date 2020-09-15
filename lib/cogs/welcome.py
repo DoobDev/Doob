@@ -4,7 +4,6 @@ from discord.ext.commands import command
 
 from ..db import db # pylint: disable=relative-beyond-top-level
 
-
 class Welcome(Cog):
 	def __init__(self, bot):
 		self.bot = bot

@@ -3,3 +3,4 @@ __pycache__
 lib/bot/token.txt
 *.db
 *.db-journal
+lib/bot/topgg.txt
