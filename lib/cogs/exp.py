@@ -11,34 +11,38 @@ from discord.ext.menus import MenuPages, ListPageSource
 
 from ..db import db # pylint: disable=relative-beyond-top-level
 
-class Menu(ListPageSource):
-    def __init__(self, ctx, data):
-        self.ctx = ctx
+"""
+FIX THE XP LEADERBOARD BELOW
+"""
 
-        super().__init__(data, per_page=10)
+# class Menu(ListPageSource):
+#     def __init__(self, ctx, data):
+#         self.ctx = ctx
 
-    async def write_page(self, menu, offset, fields=[]):
-        offset = (menu.current_page*self.per_page) + 1
-        len_data = len(self.entries)
+#         super().__init__(data, per_page=10)
 
-        embed = Embed(title="XP Leaderboard", description="See who is on top!", colour=self.ctx.author.colour)
-        embed.set_thumbnail(url=self.ctx.guild.me.avatar_url)
-        embed.set_footer(text=f"{offset:,} - {min(len_data, offset+self.per_page-1):,} of {len_data:,} members.")
+#     async def write_page(self, menu, offset, fields=[]):
+#         offset = (menu.current_page*self.per_page) + 1
+#         len_data = len(self.entries)
+
+#         embed = Embed(title="XP Leaderboard", description="See who is on top!", colour=self.ctx.author.colour)
+#         embed.set_thumbnail(url=self.ctx.guild.me.avatar_url)
+#         embed.set_footer(text=f"{offset:,} - {min(len_data, offset+self.per_page-1):,} of {len_data:,} members.")
         
-        for name, value in fields:
-            embed.add_field(name=name, value=value, inline=False)
+#         for name, value in fields:
+#             embed.add_field(name=name, value=value, inline=False)
 
-        return embed
+#         return embed
 
-    async def format_page(self, menu, entries):
-        offset = (menu.current_page*self.per_page) + 1
-        fields = []
-        table = ("\n" +  f"{idx+offset}. {await self.ctx.bot.fetch_user(entry[0]).display_name} (XP: {entry[1]} | Level {entry[2]}" 
-                 for idx, entry in enumerate(entries)) # FIX SOON
+#     async def format_page(self, menu, entries):
+#         offset = (menu.current_page*self.per_page) + 1
+#         fields = []
+#         table = ("\n".join(f"{idx+offset}. {self.ctx.guild.get_member(entry[0]).display_name} (XP: {entry[1]} | Level: {entry[2]})"
+#                    for idx, entry in enumerate(entries))) # FIX SOON
 
-        fields.append(("Ranks", table))
+#         fields.append(("Ranks", table))
 
-        return await self.write_page(menu, offset, fields)
+#         return await self.write_page(menu, offset, fields)
 
 class Exp(Cog):
     def __init__(self, bot):
@@ -74,12 +78,27 @@ class Exp(Cog):
         else:
             ctx.send("That member is not in the XP Database.")
 
-    @command(name="leaderboard", aliases=["lb", "xplb"])
-    async def display_leaderboard(self, ctx):
-        records = db.records("SELECT UserID, XP, Level FROM exp ORDER BY XP DESC")
+    """
+    FIX THE XP LEADERBOARD BELOW
+    """
+    # @command(name="leaderboard", aliases=["lb", "xplb"])
+    # async def display_leaderboard(self, ctx):
+    #     records = db.records("SELECT UserID, XP, Level FROM exp ORDER BY XP DESC")
 
-        menu = MenuPages(source=Menu(ctx, records), clear_reactions_after=True, timeout=100.0)
-        await menu.start(ctx)
+    #     menu = MenuPages(source=Menu(ctx, records), clear_reactions_after=True, timeout=100.0)
+    #     await menu.start(ctx)
+
+    @command(name="leaderboard", aliases=["lb", "xplb"], brief="The XP Leaderboard is under construction.")
+    async def display_leaderboard_error(self, ctx):
+        prefix_thing = db.field("SELECT Prefix FROM guilds WHERE GuildID = ?", ctx.guild.id)
+        embed = Embed(title="Doob XP Leaderboard is currently under construction.", 
+                     description=f"You can view your global xp rank by doing {str(prefix_thing)}level, sorry for the inconvinence.",
+                     colour=ctx.author.colour,
+                     timestamp=datetime.utcnow())
+        
+        embed.set_thumbnail(url=ctx.guild.me.avatar_url)
+
+        await ctx.send(embed=embed)
 
     @Cog.listener()
     async def on_ready(self):
