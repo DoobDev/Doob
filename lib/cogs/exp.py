@@ -30,15 +30,15 @@ class Menu(ListPageSource):
 
         return embed
 
-    # async def format_page(self, menu, entries):
-    #     offset = (menu.current_page*self.per_page) + 1
-    #     fields = []
-    #     # table = ("\n".join(f"{idx+offset}. {self.ctx.bot.fetch_member(entry[0]).display_name} (XP: {entry[1]} | Level {entry[2]})" 
-    #     #         for idx, entry in enumerate(entries))) # FIX SOON
+    async def format_page(self, menu, entries):
+        offset = (menu.current_page*self.per_page) + 1
+        fields = []
+        table = ("\n" +  f"{idx+offset}. {await self.ctx.bot.fetch_user(entry[0]).display_name} (XP: {entry[1]} | Level {entry[2]}" 
+                 for idx, entry in enumerate(entries)) # FIX SOON
 
-    #     fields.append(("Ranks", table))
+        fields.append(("Ranks", table))
 
-    #     return await self.write_page(menu, offset, fields)
+        return await self.write_page(menu, offset, fields)
 
 class Exp(Cog):
     def __init__(self, bot):
