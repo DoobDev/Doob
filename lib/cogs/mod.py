@@ -110,14 +110,14 @@ class Mod(Cog):
 
 	@command(name="setlogchannel", aliases=["slc", "logchannel", "setlog", "setlogs"], brief="Set the server's log channel.")
 	@has_permissions(manage_guild=True)
-	async def set_log_channel(self, ctx, *, new: str):
-		if not len(new):
+	async def set_log_channel(self, ctx, *, role_id: str):
+		if not len(role_id):
 			await ctx.send("One or more required areguments are missing.")
 
 		else:
-			db.execute("UPDATE guilds SET LogChannel = ? WHERE GuildID = ?", new, ctx.guild.id)
+			db.execute("UPDATE guilds SET LogChannel = ? WHERE GuildID = ?", role_id, ctx.guild.id)
 			db.commit()
-			await ctx.send(f"Log channel set to {new}")
+			await ctx.send(f"Log channel set to {role_id}")
 
 	@Cog.listener()
 	async def on_ready(self):
@@ -126,14 +126,14 @@ class Mod(Cog):
 		
 	@command(name="setmuterole", aliases=["smr", "muterole", "setmute"], brief="Set the server's mute role.")
 	@has_permissions(manage_guild=True)
-	async def set_mute_role(self, ctx, *, new: str):
-		if not len(new):
+	async def set_mute_role(self, ctx, *, channel_id: str):
+		if not len(channel_id):
 			await ctx.send("One or more required areguments are missing.")
 
 		else:
-			db.execute("UPDATE guilds SET MutedRole = ? WHERE GuildID = ?", new, ctx.guild.id)
+			db.execute("UPDATE guilds SET MutedRole = ? WHERE GuildID = ?", channel_id, ctx.guild.id)
 			db.commit()
-			await ctx.send(f"Mute role set to {new}")
+			await ctx.send(f"Mute role set to {channel_id}")
 
 def setup(bot):
 	bot.add_cog(Mod(bot))
