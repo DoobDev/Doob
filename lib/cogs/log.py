@@ -90,10 +90,18 @@ class Log(Cog):
                 #embed.set_thumbnail(url=before.avatar_url)
                 await logchannel.send(embed=embed)
 
-    # @Cog.listener()
-    # async def on_message_delete(self, before, after):
-    #     if not after.bot:
-    #         pass
+    @Cog.listener()
+    async def on_message_delete(self, message):
+        if not message.author.bot:
+            logchannel = await self.bot.fetch_channel(db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", message.guild.id))
+            embed = Embed(title="Message Deleted", timestamp = datetime.utcnow())
+
+            fields = ["Message:", message.content, False]
+
+            for name, value, inline in fields:
+                embed.add_field(name=name, value=value, inline=inline)
+
+            await logchannel.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(Log(bot))
