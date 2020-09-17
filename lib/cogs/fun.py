@@ -78,11 +78,9 @@ class Fun(Cog):
                     await ctx.send(embed=embed)
 
         elif random == 93:
-            # embed = Embed(title="Rare Dog Picture!", description="This is Liquid Mendo's dog!", colour=Colour.gold())
-            # embed.set_footer(text=f"{ctx.author} got this lucky dog picture!", icon_url=ctx.author.avatar_url)
-            # embed.set_image(url="https://pbs.twimg.com/media/EgXfe_XUcAABT41?format=jpg&name=360x360")
-            # await ctx.send(embed=embed)
-            embed = Embed(title="lol you rolled a 93", description = "wait oh this doesn't work yet")
+            embed = Embed(title="Rare Dog Picture!", description="This is Liquid Mendo's dog!", colour=Colour.gold())
+            embed.set_footer(text=f"{ctx.author} got this lucky dog picture!", icon_url=ctx.author.avatar_url)
+            embed.set_image(url="https://pbs.twimg.com/media/EgXfe_XUcAABT41?format=jpg&name=360x360")
             await ctx.send(embed=embed)
 
         elif random == 95:
