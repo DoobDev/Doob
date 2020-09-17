@@ -1,8 +1,12 @@
+## v2.0.3
+* os.sep in `__init__` for cogs
+* adds server to DB when bot is added to said server.
+
 ## v2.0.2
-Added another rare dog!
+* Added another rare dog!
 
 ## v2.0.1:
-Added a rare dog!
+* Added a rare dog!
 
 ## v1.0.1 (OLD BOT):
 * Patreon added
