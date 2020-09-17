@@ -55,7 +55,7 @@ class Meta(Cog):
         end = time()
         await message.edit(content=f"Pong! :ping_pong: Latency: {self.bot.latency*1000:,.0f} ms. Response time: {(end-start)*1000:,.0f} ms.")
 
-    @command(name="shutdown")
+    @command(name="shutdown", brief="Owner Only Command to shutdown the bot and save the DB.")
     async def shutdown(self, ctx):
         if ctx.author.id == owner_id:
             await ctx.send("Shutting down")

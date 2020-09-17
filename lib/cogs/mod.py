@@ -36,7 +36,7 @@ class Mod(Cog):
 				logchannel = self.bot.guild.get_channel(db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", message.guild.id))
 				await logchannel.send(embed=embed)
 
-	@command(name="kick")
+	@command(name="kick", aliases=["k", "kickmember"], brief="Kick a member from the server.")
 	@bot_has_permissions(kick_members=True)
 	@has_permissions(kick_members=True)
 	async def kick_command(self, ctx, targets: Greedy[Member], *, reason: Optional[str] = "No reason provided."):
@@ -74,7 +74,7 @@ class Mod(Cog):
 				logchannel = self.bot.guild.get_channel(db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", message.guild.id))
 				await logchannel.send(embed=embed)
 
-	@command(name="ban")
+	@command(name="ban", aliases=["b", "banmember"], brief="Ban a member from the server.")
 	@bot_has_permissions(ban_members=True)
 	@has_permissions(ban_members=True)
 	async def ban_command(self, ctx, targets: Greedy[Member], *, reason: Optional[str] = "No reason provided."):
@@ -90,7 +90,7 @@ class Mod(Cog):
 		if isinstance(exc, CheckFailure):
 			await ctx.send("Insufficient permissions to perform that task.")
 
-	@command(name="clear", aliases=["purge"])
+	@command(name="clear", aliases=["purge"], brief="Clears amount of messages provided.")
 	@bot_has_permissions(manage_messages=True)
 	@has_permissions(manage_messages=True)
 	async def clear_messages(self, ctx, targets: Greedy[Member], limit: Optional[int] = 1):
