@@ -1,6 +1,7 @@
 ## v2.0.3
 * os.sep in `__init__` for cogs
 * adds server to DB when bot is added to said server.
+* multiple bug fixes
 
 ## v2.0.2
 * Added another rare dog!
