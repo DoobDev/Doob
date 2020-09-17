@@ -24,6 +24,7 @@ class Welcome(Cog):
 	@Cog.listener()
 	async def on_guild_join(self, guild):
 		db.execute("INSERT INTO guilds WHERE GuildID = ?", guild.id)
+		db.commit()
 
 def setup(bot):
 	bot.add_cog(Welcome(bot))
