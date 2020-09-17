@@ -1,3 +1,6 @@
+## v2.0.2
+Added another rare dog!
+
 ## v2.0.1:
 Added a rare dog!
 

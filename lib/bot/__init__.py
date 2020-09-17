@@ -11,7 +11,7 @@ from discord.ext.commands import (CommandNotFound, BadArgument, MissingRequiredA
 from ..db import db # pylint: disable=relative-beyond-top-level
 
 OWNER_IDS = [308000668181069824]
-COGS = [path.split("/")[-1][:-3] for path in glob("./lib/cogs/*.py")]
+COGS = [path.split("\\")[-1][:-3] for path in glob("./lib/cogs/*.py")]
 IGNORE_EXCEPTIONS = (CommandNotFound, BadArgument)
 
 def get_prefix(bot, message):

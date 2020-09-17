@@ -68,7 +68,7 @@ class Fun(Cog):
 
         random = randint(1,101)
 
-        if random != 93:
+        if random != 93 and random != 95:
             async with request("GET", URL, headers={}) as response:
                 if response.status == 200:
                     data = await response.json()
@@ -83,6 +83,12 @@ class Fun(Cog):
             # embed.set_image(url="https://pbs.twimg.com/media/EgXfe_XUcAABT41?format=jpg&name=360x360")
             # await ctx.send(embed=embed)
             embed = Embed(title="lol you rolled a 93", description = "wait oh this doesn't work yet")
+            await ctx.send(embed=embed)
+
+        elif random == 95:
+            embed = Embed(title="Rare Dog Picture", description="This is a 1 in 100 chance of getting this picture!", colour=Colour.gold())
+            embed.set_footer(text=f"{ctx.author} got this lucky dog picture!", icon_url=ctx.author.avatar_url)
+            embed.set_image(url = "https://i.imgur.com/pzqRLdi.jpg")
             await ctx.send(embed=embed)
 
     @Cog.listener()
