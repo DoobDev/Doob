@@ -2,7 +2,7 @@ from random import choice, randint
 from typing import Optional
 from aiohttp import request
 
-from discord import Member, Embed
+from discord import Member, Embed, Colour
 from discord.ext.commands import Cog, command, BadArgument, cooldown, BucketType
 
 
@@ -66,13 +66,22 @@ class Fun(Cog):
     async def dog_image(self, ctx):
         URL = "https://some-random-api.ml/img/dog"
 
-        async with request("GET", URL, headers={}) as response:
-            if response.status == 200:
-                data = await response.json()
-                embed = Embed(title="Dog Picture!", colour=ctx.author.colour)
-                embed.set_footer(text=f"{ctx.author} requested this picture!", icon_url=ctx.author.avatar_url)
-                embed.set_image(url=data["link"])
-                await ctx.send(embed=embed)
+        random = randint(1,101)
+
+        if random != 93:
+            async with request("GET", URL, headers={}) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    embed = Embed(title="Dog Picture!", colour=ctx.author.colour)
+                    embed.set_footer(text=f"{ctx.author} requested this picture!", icon_url=ctx.author.avatar_url)
+                    embed.set_image(url=data["link"])
+                    await ctx.send(embed=embed)
+
+        elif random == 93:
+            embed = Embed(title="Rare Dog Picture!", description="This is Liquid Mendo's dog!", colour=Colour.gold())
+            embed.set_footer(text=f"{ctx.author} got this lucky dog picture!", icon_url=ctx.author.avatar_url)
+            embed.set_image(url="https://pbs.twimg.com/media/EgXfe_XUcAABT41?format=jpg&name=360x360")
+            await ctx.send(embed=embed)
 
     @Cog.listener()
     async def on_ready(self):

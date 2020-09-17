@@ -1,3 +1,6 @@
+## v2.0.1:
+Added a rare dog!
+
 ## v1.0.1 (OLD BOT):
 * Patreon added
     - You can now purchase a subscription to help support Doob! Head on over to [patreon.com/doobdev](https://patreon.com/doobdev) and get your subscription!
