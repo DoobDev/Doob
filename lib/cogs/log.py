@@ -25,7 +25,7 @@ class Log(Cog):
 
             for name, value, inline in fields:
                 embed.add_field(name=name, value=value, inline=inline)
-            embed.set_thumbnail(url=before.avatar_url)
+            #embed.set_thumbnail(url=before.avatar_url)
             await logchannel.send(embed=embed)
         
         elif before.roles != after.roles:
@@ -37,7 +37,7 @@ class Log(Cog):
 
             for name, value, inline in fields:
                 embed.add_field(name=name, value=value, inline=inline)
-            embed.set_thumbnail(url=before.avatar_url)
+            #embed.set_thumbnail(url=before.avatar_url)
             await logchannel.send(embed=embed)
 
     @Cog.listener()
@@ -46,8 +46,8 @@ class Log(Cog):
             logchannel = await self.bot.fetch_channel(db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", after.guild.id))
             embed = Embed(title="Member update", description="Avatar has been changed. BEFORE -->",  timestamp=datetime.utcnow())
             embed.add_field(name="AFTER", value="v (below this)")
-            embed.set_thumbnail(url=before.avatar_url)
-            embed.set_image(url=after.avatar_url) # KEEP THIS AS SET_IMAGE
+            #embed.set_thumbnail(url=before.avatar_url)
+            #embed.set_image(url=after.avatar_url) # KEEP THIS AS SET_IMAGE
             await logchannel.send(embed=embed)
 
         if before.name != after.name:
@@ -59,7 +59,7 @@ class Log(Cog):
 
             for name, value, inline in fields:
                 embed.add_field(name=name, value=value, inline=inline)
-            embed.set_thumbnail(url=before.avatar_url)
+            #embed.set_thumbnail(url=before.avatar_url)
             await logchannel.send(embed=embed)
         
         if before.discriminator != after.discriminator:
@@ -71,7 +71,7 @@ class Log(Cog):
 
             for name, value, inline in fields:
                 embed.add_field(name=name, value=value, inline=inline)
-            embed.set_thumbnail(url=before.avatar_url)
+            #embed.set_thumbnail(url=before.avatar_url)
             await logchannel.send(embed=embed)
 
     @Cog.listener()
@@ -87,7 +87,7 @@ class Log(Cog):
                 for name, value, inline in fields:
                     embed.add_field(name=name, value=value, inline=inline)
 
-                embed.set_thumbnail(url=before.avatar_url)
+                #embed.set_thumbnail(url=before.avatar_url)
                 await logchannel.send(embed=embed)
 
     # @Cog.listener()
