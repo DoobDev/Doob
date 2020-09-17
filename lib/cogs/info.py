@@ -46,7 +46,7 @@ class Info(Cog):
 				  ("Owner", ctx.guild.owner, True),
 				  ("Region", ctx.guild.region, True),
 				  ("Created at", ctx.guild.created_at.strftime("%d/%m/%Y %H:%M:%S"), True),
-				  ("Members", len(ctx.guild.members:,), True),
+				  ("Members", len(ctx.guild.members), True),
 				  ("Humans", len(list(filter(lambda m: not m.bot, ctx.guild.members))), True),
 				  ("Bots", len(list(filter(lambda m: m.bot, ctx.guild.members))), True),
 				  ("Banned members", len(await ctx.guild.bans()), True),
