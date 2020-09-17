@@ -21,5 +21,9 @@ class Welcome(Cog):
 	async def on_member_remove(self, member):
 		db.execute("DELETE FROM exp WHERE UserID = ?", member.id)
 
+	@Cog.listener()
+	async def on_guild_join(self, guild):
+		db.execute("INSERT INTO guilds WHERE GuildID = ?", guild.id)
+
 def setup(bot):
 	bot.add_cog(Welcome(bot))
