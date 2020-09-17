@@ -77,7 +77,7 @@ class Meta(Cog):
                   ("Doob's Member Count", f"{str(len(self.bot.users))}", True),
                   ("The ping for Doob is...", f" :ping_pong: {round(self.bot.latency * 1000)} ms", False),
                   ("Library", "discord.py", True),
-                  ("Bot Version", f"{self.bot.VERSION}", True),
+                  ("Bot Version", f"{self.bot.VERSION} [Changelog](https://github.com/doobdev/doob/blob/master/CHANGELOG.md)", True),
                   ("Top.gg Link", "https://top.gg/bot/680606346952966177", False),
                   ("Invite Link", "[Invite Link Here](https://discordapp.com/oauth2/authorize?client_id=680606346952966177&scope=bot&permissions=271674430)", True),
                   ("GitHub Repository", "[Click Here](https://github.com/doobdev/doob)", True)]
