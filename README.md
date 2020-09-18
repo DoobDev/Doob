@@ -27,6 +27,12 @@ Use the doob/help command on Discord!
 ## Issues or want to improve some code?
 Submit an [Issue](https://github.com/doobdev/doob/issues) or a [Pull request](https://github.com/doobdev/doob/pulls).
 
+## Requirements
+`pip install discord.py
+pip install git+https://github.com/rapptz/discord-ext-menus
+pip install apscheduler
+pip install dblpy`
+
 ## Credits
 Doob Avatar: [@KittyKay000](https://twitter.com/KittyKay000)
 Doob Name: Me and my friend William in Bio.
