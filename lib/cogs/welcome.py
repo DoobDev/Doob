@@ -18,10 +18,6 @@ class Welcome(Cog):
 		db.execute("INSERT INTO exp (UserID) VALUES (?)", member.id)
 
 	@Cog.listener()
-	async def on_member_remove(self, member):
-		db.execute("DELETE FROM exp WHERE UserID = ?", member.id)
-
-	@Cog.listener()
 	async def on_guild_join(self, guild):
 		db.execute("INSERT INTO guilds (GuildID) VALUES (?)", guild.id)
 		db.commit()
