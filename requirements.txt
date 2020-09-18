@@ -4,13 +4,13 @@
 # lib\bot\__init__.py: 4
 # lib\cogs\meta.py: 5
 # lib\db\db.py: 4
-APScheduler == 3.6.3
+APScheduler==3.6.3
 
 # lib\cogs\fun.py: 3
-aiohttp == 3.6.2
+aiohttp==3.6.2
 
 # lib\cogs\servercount.py: 1
-dblpy == 0.3.4
+dblpy==0.3.4
 
 # lib\bot\__init__.py: 9
 # lib\cogs\exp.py: 10
