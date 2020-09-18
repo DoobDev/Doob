@@ -1,5 +1,15 @@
+## v2.0.4
+* Deleted Message logs have been added.
+* Made log embeds look nicer.
+* Updated some of the lingo used on the Lucky Dogs descriptions.
+* Changelog link on doob/info now automatically updates with the latest GitHub changelog "jump to" link.
+* Added channels to message update / message delete logs
+* Updated the doob/level message to say that you are ranked based on the amount of users globally.
+* doob/profile now shows XP and Rank
+* Disabled on_user_update logging events for now, as I don't know how to grab a guild id
+
 ## v2.0.3
-* os.sep in `__init__` for cogs
+* os.sep in `__init__.py` for cogs
 * adds server to DB when bot is added to said server.
 * multiple bug fixes
 
@@ -9,7 +19,12 @@
 ## v2.0.1:
 * Added a rare dog!
 
-## v1.0.1 (OLD BOT):
+
+------------------------------
+
+
+## Old Doob V1 changelog below.
+## v1.0.1:
 * Patreon added
     - You can now purchase a subscription to help support Doob! Head on over to [patreon.com/doobdev](https://patreon.com/doobdev) and get your subscription!
         - Tier 1 gives you:
@@ -23,17 +38,3 @@
         - Tier 3 gives you:
             1. Everything from Tiers 1/2
             2. Doob Beta Bot in your server!
-
-###### note: [Ko-fi](https://ko-fi.com/mmatt) has not been removed, you can still support directly through [Ko-fi.](https://ko-fi.com/mmatt)
-
-* Subreddit added
-    - You can now participate in a Doob subreddit over at [r/DoobBot](https://reddit.com/r/doobbot)
-
-* Changelog added
-    - You can now read the changelog over on [GitHub.](https://github.com/doobdev/doob/blob/master/CHANGELOG.md)
-
-* doob/patreon added
-    - Added a command to show the Patreon link.
-
-* doob/announcement added
-    - Added a command that makes it so you can announce something using Doob!

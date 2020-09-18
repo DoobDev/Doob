@@ -70,6 +70,8 @@ class Meta(Cog):
     async def show_basic_bot_info(self, ctx):
         embed = Embed(title="Doob Info", colour=ctx.author.colour, timestamp=datetime.utcnow())
 
+        bot_version = self.bot.VERSION
+
         fields = [("Name", "Doob", False),
                   ("Description", "A Discord bot made by mmatt using discord.py, he felt like making it so he did B)", False),
                   ("Developer", "The creator of Doob is <@308000668181069824>", False),
@@ -77,7 +79,7 @@ class Meta(Cog):
                   ("Doob's Member Count", f"{str(len(self.bot.users))}", True),
                   ("The ping for Doob is...", f" :ping_pong: {round(self.bot.latency * 1000)} ms", False),
                   ("Library", "discord.py", True),
-                  ("Bot Version", f"{self.bot.VERSION} [Changelog](https://github.com/doobdev/doob/blob/master/CHANGELOG.md)", True),
+                  ("Bot Version", f"{self.bot.VERSION} - [Changelog](https://github.com/doobdev/doob/blob/master/CHANGELOG.md#{bot_version.replace('.', '')})", True),
                   ("Top.gg Link", "https://top.gg/bot/680606346952966177", False),
                   ("Invite Link", "[Invite Link Here](https://discordapp.com/oauth2/authorize?client_id=680606346952966177&scope=bot&permissions=271674430)", True),
                   ("GitHub Repository", "[Click Here](https://github.com/doobdev/doob)", True)]

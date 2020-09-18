@@ -73,7 +73,7 @@ class Exp(Cog):
         xp, lvl = db.record("SELECT XP, Level FROM exp WHERE UserID = ?", target.id) or (None, None)
 
         if lvl is not None:
-            await ctx.send(f"{target.display_name} is level {lvl:,} with {xp:,} xp and is rank {ids.index(target.id)+1} of {len(ids):,}")
+            await ctx.send(f"{target.display_name} is level {lvl:,} with {xp:,} xp and is rank {ids.index(target.id)+1} of {len(ids):,} users globally.")
 
         else:
             ctx.send("That member is not in the XP Database.")
