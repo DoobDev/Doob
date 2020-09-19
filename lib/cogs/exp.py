@@ -56,6 +56,7 @@ class Exp(Cog):
 
     async def add_xp(self, message, xp, lvl):
         xp_to_add = randint(10, 20)
+        level_up_messages = db.record("SELECT LevelMessages FROM guilds WHERE GuildID = ?", message.guild.id)
         
         new_lvl = int(((xp + xp_to_add)//42) ** 0.55)
 
@@ -63,7 +64,8 @@ class Exp(Cog):
                    xp_to_add, new_lvl, (datetime.utcnow()+timedelta(seconds=50)).isoformat(), message.author.id)
 
         if new_lvl > lvl:
-            await message.channel.send(f"{message.author.mention} leveled up to {new_lvl:,}!", delete_after = 10)
+            if level_up_messages == "yes":
+                await message.channel.send(f"{message.author.mention} leveled up to {new_lvl:,}!", delete_after = 10)
 
     @command(name="level", aliases=["rank", "lvl"], brief="Shows your level, and rank.")
     async def display_level(self, ctx, target: Optional[Member]):
@@ -77,6 +79,18 @@ class Exp(Cog):
 
         else:
             ctx.send("That member is not in the XP Database.")
+
+    @command(name="levelmessages", aliases=["slm", "lm", "setlevelmessages"], brief="Set the server's level messages")
+    @has_permissions(manage_guild=True)
+    async def set_level_messages(self, ctx, *, yes_or_no: str):
+        """PLEASE, put 'no' ALL LOWERCASE if you DO NOT want level messages"""
+        if not len(yes_or_no):
+            await ctx.send("One or more required areguments are missing.")
+
+        else:
+            db.execute("UPDATE guilds SET LevelMessages = ? WHERE GuildID = ?", yes_or_no, ctx.guild.id)
+            db.commit()
+            await ctx.send(f"Level messages set to {yes_or_no}.")
 
     """
     FIX THE XP LEADERBOARD BELOW

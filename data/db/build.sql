@@ -3,7 +3,8 @@ CREATE TABLE IF NOT EXISTS guilds(
     Prefix text DEFAULT "doob/",
     LogChannel text,
     MutedRole integer,
-    StarBoardChannel text
+    StarBoardChannel text,
+    LevelMessages text DEFAULT "yes"
 );
 
 CREATE TABLE IF NOT EXISTS exp (

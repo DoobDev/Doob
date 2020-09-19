@@ -1,3 +1,7 @@
+## v2.0.5
+* Added doob/levelmessages.
+    - Made a way to disable level messages in your server, Do `doob/levelmessages no` if you want to disable them, `doob/levelmessages yes` to re-enable them.
+
 ## v2.0.4
 * Deleted Message logs have been added.
 * Made log embeds look nicer.
