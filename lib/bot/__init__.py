@@ -87,12 +87,8 @@ class Bot(BotBase):
 
     async def on_error(self, err, *args, **kwargs):
         if err == "on_command_error":
-          #fucking retarded language
 
-		  # look in my fun.py for a template
-		  # its like this
-      # oh fuck indents
-            embed = Embed(title="Error:", description="this command didn't work for some reason. Sowwy :(", colour=Colour.blurple())
+            embed = Embed(title="Error:", description="this command didn't work for some reason.", colour=Colour.blurple())
             await args[0].send(embed=embed)
             """
             if err == "on_command_error":
@@ -100,21 +96,18 @@ class Bot(BotBase):
             else:
               newerror = (err.original[:175] + '... (it was too long/op)') if len(err.original) > 175 else err.original
               print("ok boys we got to this stage, time to put it in")
-              await args[0].send(f"Something went wrong, WTF MATT, GO YELL AT DANIEL/STACKOVERFLOW AGAIN TO FIX IT!!!!!\n\nError: {newerror}")
+              await args[0].send(f"Something went wrong!\n\nError: {newerror}")
 
             """
             #await args[0].send(f"Something went wrong. :/\n{err.original}")
-#its probably too long dude stop for a sec hold on jesus fuck
-# lolk
         raise err
 
     async def on_command_error(self, ctx, exc):
         if any([isinstance(exc, error) for error in IGNORE_EXCEPTIONS]):
             #newerror = (error[:175] + '... (it was too long/op)') if len(err) > 175 else err
             print("ok boys we got to this stage, time to put it in")
-            await args[0].send(f"Something went wrong, WTF MATT, GO YELL AT DANIEL/STACKOVERFLOW AGAIN TO FIX IT!!!!!\n\nError: {exc.original}", delete_after = 10)
-        # thinking... hmmmmmmmmmmmm
-	#more thikinging.....................
+            await args[0].send(f"Something went wrong!\n\nError: {exc.original}", delete_after = 10)
+
         elif isinstance(exc, MissingRequiredArgument):
             await ctx.send("Required arguments missing.", delete_after = 10)
 

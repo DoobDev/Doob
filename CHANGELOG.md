@@ -1,3 +1,5 @@
+## v2.0.7
+
 ## v2.0.6
 * New Lucky Dog! (Kevin from [@Weesterner](https://twitter.com/weesterner)!)
 * Changed Description on the Lucky Dog embeds.
