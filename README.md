@@ -16,7 +16,21 @@
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/mmatt)
 
 # About
-Doob is a new Discord bot coded by mmatt#0001.
+Doob is a Multipurpose Discord Bot with a built in Leveling System, Great Logging Features, actual Fun, Fun commands, and best of all, the developer is very active, and develops on the bot frequently. 
+
+## Main Features
+Doob has some great features, such as:
+* Logging
+* A Global Leveling System (with leaderbaord)
+* Server + User info
+* Rolling Dice
+* Echo Command [Patreon Only](https://patreon.com/doobdev/)
+* Dog Facts and Pictures (with some Lucky Dogs from Twitch Streamers)
+* Among Us Imposter/Not An Imposter commands
+* Low Ping
+* Customizable Server Features [Don't like Level Messages? Turn them off!]
+* Robust Moderation Commands
+* AND MORE! (coming soon)
 
 ## Doob on the web.
 The Doob Development Blog is avalilable over on my GitHub.io page https://doobdev.github.io/
