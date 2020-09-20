@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS guilds(
     GuildID integer PRIMARY KEY,
     Prefix text DEFAULT "doob/",
     LogChannel text,
-    MutedRole integer,
+    MutedRole text,
     StarBoardChannel text,
     LevelMessages text DEFAULT "yes"
 );

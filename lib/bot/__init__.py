@@ -2,7 +2,7 @@ from asyncio import sleep
 from glob import glob
 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from discord import Embed, File
+from discord import Embed, File, Colour
 from discord.errors import HTTPException, Forbidden
 from discord.ext.commands import Bot as BotBase
 from discord.ext.commands import Context, when_mentioned_or, command, has_permissions
@@ -28,6 +28,7 @@ class Ready(object):
         print(f'{cog} cog ready')
 
     def all_ready(self):
+        print(f'In loving memory of X Daniel that is still alive')
         return all([getattr(self, cog) for cog in COGS])
 
 class Bot(BotBase):
@@ -86,14 +87,34 @@ class Bot(BotBase):
 
     async def on_error(self, err, *args, **kwargs):
         if err == "on_command_error":
-            await args[0].send("Something went wrong. :/")
+          #fucking retarded language
 
+		  # look in my fun.py for a template
+		  # its like this
+      # oh fuck indents
+            embed = Embed(title="Error:", description="this command didn't work for some reason. Sowwy :(", colour=Colour.blurple())
+            await args[0].send(embed=embed)
+            """
+            if err == "on_command_error":
+            	args[0].send("uh so py is being gay again sry")
+            else:
+              newerror = (err.original[:175] + '... (it was too long/op)') if len(err.original) > 175 else err.original
+              print("ok boys we got to this stage, time to put it in")
+              await args[0].send(f"Something went wrong, WTF MATT, GO YELL AT DANIEL/STACKOVERFLOW AGAIN TO FIX IT!!!!!\n\nError: {newerror}")
+
+            """
+            #await args[0].send(f"Something went wrong. :/\n{err.original}")
+#its probably too long dude stop for a sec hold on jesus fuck
+# lolk
         raise err
 
     async def on_command_error(self, ctx, exc):
         if any([isinstance(exc, error) for error in IGNORE_EXCEPTIONS]):
-            pass
-        
+            #newerror = (error[:175] + '... (it was too long/op)') if len(err) > 175 else err
+            print("ok boys we got to this stage, time to put it in")
+            await args[0].send(f"Something went wrong, WTF MATT, GO YELL AT DANIEL/STACKOVERFLOW AGAIN TO FIX IT!!!!!\n\nError: {exc.original}", delete_after = 10)
+        # thinking... hmmmmmmmmmmmm
+	#more thikinging.....................
         elif isinstance(exc, MissingRequiredArgument):
             await ctx.send("Required arguments missing.", delete_after = 10)
 

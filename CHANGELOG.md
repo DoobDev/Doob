@@ -9,6 +9,7 @@
 * Added some fun Among Us commands!
     - doob/notanimposter {user} -  gives an ascii of an among us crewmate floating through space with text saying "{user} was not an imposter"
     - doob/animposter {user} - gives the same ascii except it says "{user} was an imposter"
+* XP Leaderboard is BACK! (fixed by [@X Daniel](https://github.com/x-daniel-17))
 
 ## v2.0.5
 * Added doob/levelmessages.
