@@ -49,7 +49,11 @@ class Meta(Cog):
 
 	@command(name="support", aliases=["supportserver"], brief="Get a link to the Doob support server.")
 	async def support_server_link(self, ctx):
-		await ctx.send("Join the support server at: https://discord.gg/hgQTTU7")
+		await ctx.send("Join the support server at: :link: https://discord.gg/hgQTTU7")
+
+	@command(name="invite", aliases=["invitebot", "inv", "botinvite"], brief="Gives a link to invite Doob to your server.")
+	async def bot_invite_link(self, ctx):
+		await ctx.send("You can invite the bot here! :link: <https://discordapp.com/oauth2/authorize?client_id=680606346952966177&scope=bot&permissions=271674430>")
 
 	@command(name="ping", brief="Shows the bot's latency.")
 	@cooldown(1, 10, BucketType.user)
