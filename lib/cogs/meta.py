@@ -46,6 +46,10 @@ class Meta(Cog):
             await ctx.send(f"Bot Status has been updated to {text}")
         else:
             await ctx.send("You don't have permission to do that.")
+	
+	@command(name="support", aliases=["supportserver"], brief="Get a link to the Doob support server.")
+	async def support_server_link(self, ctx):
+		await ctx.send("Join the support server at: https://discord.gg/hgQTTU7")
 
     @command(name="ping", brief="Shows the bot's latency.")
     @cooldown(1, 10, BucketType.user)
