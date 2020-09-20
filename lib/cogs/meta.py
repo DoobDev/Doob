@@ -13,29 +13,29 @@ from ..db import db # pylint: disable=relative-beyond-top-level
 owner_id = 308000668181069824
 
 class Meta(Cog):
-    def __init__(self, bot):
-        self.bot = bot
+	def __init__(self, bot):
+		self.bot = bot
 
-        self.message = "playing @Doob help | {users:,} members in {guilds:,} servers. Version - {VERSION}"
+		self.message = "playing @Doob help | {users:,} members in {guilds:,} servers. Version - {VERSION}"
 
-        bot.scheduler.add_job(self.set, CronTrigger(second=0))
+		bot.scheduler.add_job(self.set, CronTrigger(second=0))
 
-    @property
-    def message(self):
-        return self._message.format(users=len(self.bot.users), guilds = len(self.bot.guilds), VERSION = self.bot.VERSION)
+	@property
+	def message(self):
+		return self._message.format(users=len(self.bot.users), guilds = len(self.bot.guilds), VERSION = self.bot.VERSION)
 
-    @message.setter
-    def message(self, value):
-        if value.split(" ")[0] not in ("playing", "watching", "listening", "streaming"):
-            raise ValueError("Invalid activity.")
+	@message.setter
+	def message(self, value):
+		if value.split(" ")[0] not in ("playing", "watching", "listening", "streaming"):
+			raise ValueError("Invalid activity.")
 
-        self._message = value
+		self._message = value
 
-    async def set(self):
-        _type, _name = self.message.split(" ", maxsplit=1)
-        await self.bot.change_presence(activity=Activity(
-            name=_name,
-            type=getattr(ActivityType, _type, ActivityType.playing)
+	async def set(self):
+		_type, _name = self.message.split(" ", maxsplit=1)
+		await self.bot.change_presence(activity=Activity(
+			name=_name,
+			type=getattr(ActivityType, _type, ActivityType.playing)
 		))
 
 	@command(name="setactivity", brief="Set the bot's activity")
