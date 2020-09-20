@@ -39,6 +39,6 @@ Submit an [Issue](https://github.com/doobdev/doob/issues) or a [Pull request](ht
 ## Credits
 Doob Avatar: [@KittyKay000](https://twitter.com/KittyKay000)
 
-Doob Name: Me and my friend William in Biology.
+Doob Name: Me, X Daniel (@x-daniel-17) and my friend William in Biology.
 
-###### built with ♥, youtube tutorials, and stack overflow
+###### built with ♥, youtube tutorials, yelling at daniel in discord and stack overflow
