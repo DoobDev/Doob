@@ -74,45 +74,43 @@ class Mod(Cog):
 				logchannel = self.bot.fetch_channel(db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", message.guild.id))
 				await logchannel.send(embed=embed)
 
+  async def mute_members(self, message, targets, minutes, reason):	
+    unmutes = []	
+    mute_role = message.guild.get_role(db.field("SELECT MutedRole FROM guilds WHERE GuildID = ?", message.guild.id))	
+    for target in targets:	
+      if not mute_role in target.roles:	
+        if message.guild.me.top_role.position > target.top_role.position:	
+          role_ids = ",".join([str(r.id) for r in target.roles])	
+          end_time = datetime.utcnow() + timedelta(seconds=minutes * 60) if minutes else None	
 
+          db.execute("INSERT INTO mutes VALUES (?, ?, ?)",	
+                  target.id, role_ids, getattr(end_time, "isoformat", lambda: None)())	
 
-	async def mute_members(self, message, targets, minutes, reason):	
-		unmutes = []	
-		mute_role = message.guild.get_role(db.field("SELECT MutedRole FROM guilds WHERE GuildID = ?", message.guild.id))	
-		for target in targets:	
-			if not mute_role in target.roles:	
-				if message.guild.me.top_role.position > target.top_role.position:	
-					role_ids = ",".join([str(r.id) for r in target.roles])	
-					end_time = datetime.utcnow() + timedelta(seconds=minutes * 60) if minutes else None	
+          db.commit()	
 
-					db.execute("INSERT INTO mutes VALUES (?, ?, ?)",	
-							   target.id, role_ids, getattr(end_time, "isoformat", lambda: None)())	
+          await target.edit(roles=[mute_role])	
 
-					db.commit()	
+          embed = Embed(title="Member muted",	
+                  colour=0xDD2222,	
+                  timestamp=datetime.utcnow())	
 
-					await target.edit(roles=[mute_role])	
+          embed.set_thumbnail(url=target.avatar_url)	
 
-					embed = Embed(title="Member muted",	
-								  colour=0xDD2222,	
-								  timestamp=datetime.utcnow())	
+          fields = [("Member", target.display_name, False),	
+                ("Actioned by", message.author.display_name, False),	
+                ("Duration", f"{minutes:,} hour(s)" if minutes else "Indefinite", False),	
+                ("Reason", reason, False)]	
 
-					embed.set_thumbnail(url=target.avatar_url)	
+          for name, value, inline in fields:	
+            embed.add_field(name=name, value=value, inline=inline)	
 
-					fields = [("Member", target.display_name, False),	
-							  ("Actioned by", message.author.display_name, False),	
-							  ("Duration", f"{minutes:,} hour(s)" if minutes else "Indefinite", False),	
-							  ("Reason", reason, False)]	
+          logchannel = self.bot.fetch_channel(db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", message.guild.id))	
+          await logchannel.send(embed=embed)	
 
-					for name, value, inline in fields:	
-						embed.add_field(name=name, value=value, inline=inline)	
+          if minutes:	
+            unmutes.append(target)	
 
-					logchannel = self.bot.fetch_channel(db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", message.guild.id))	
-					await logchannel.send(embed=embed)	
-
-					if minutes:	
-						unmutes.append(target)	
-
-		return unmutes	
+    return unmutes	
 
 	@command(name="mute")	
 	@bot_has_permissions(manage_roles=True)	
@@ -134,7 +132,11 @@ class Mod(Cog):
 	async def mute_command_error(self, ctx, exc):	
 		if isinstance(exc, CheckFailure):	
 			await ctx.send("Insufficient permissions to perform that task.")	
+"""
+unmute deaf thingy 
 
+defum
+"""
 	async def unmute_members(self, message, targets, *, reason="Mute time expired."):	
 		mute_role = message.get_role(db.field("SELECT MutedRole FROM guilds WHERE GuildID = ?", message.guild.id))	
 		for target in targets:
@@ -161,6 +163,16 @@ class Mod(Cog):
 				for name, value, inline in fields:	
 					embed.add_field(name=name, value=value, inline=inline)	
 
+
+"""
+actual unmute cmd for find in page search thingy
+
+keywords:
+um
+unmute
+umcmd
+eee
+"""
 	@command(name="unmute")	
 	@bot_has_permissions(manage_roles=True)	
 	@has_permissions(manage_roles=True, manage_guild=True)	

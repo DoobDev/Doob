@@ -1,0 +1,2 @@
+language = "python3"
+run = "pip install discord.py apscheduler dblpy git+https://github.com/rapptz/discord-ext-menus; python3 launcher.py"
