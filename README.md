@@ -27,7 +27,7 @@ Doob has some great features, such as:
 * Echo Command [(Patreon Only)](https://patreon.com/doobdev/)
 * Dog Facts and Pictures (with some Lucky Dogs from Twitch Streamers)
 * Among Us Imposter/Not An Imposter commands
-* Low Ping
+* Low Latency
 * Customizable Server Features [Don't like Level Messages? Turn them off!]
 * Robust Moderation Commands
 * AND MORE! (coming soon)
