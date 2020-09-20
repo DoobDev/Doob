@@ -117,7 +117,7 @@ class Mod(Cog):
 					#if hours:
 						#unmutes.append(target)
 
-		return unmutes
+		#return unmutes
  #⚠️ ⚠️ ⚠️ ⚠️ ⚠️ ⚠️ MUTE START
  #monkaW doob mute command (python monkaX)
 	@command(name="mute")
