@@ -95,20 +95,16 @@ class Bot(BotBase):
             pass
         
         elif isinstance(exc, MissingRequiredArgument):
-            await ctx.message.delete()
             await ctx.send("Required arguments missing.", delete_after = 10)
 
         elif isinstance(exc, CommandOnCooldown):
-            await ctx.message.delete()
             await ctx.send(f'That command is on a {str(exc.cooldown.type).split(".")[-1]} cooldown! Try again in {exc.retry_after:,.2f} seconds.', delete_after = exc.retry_after)
 
         elif hasattr(exc, "original"):
             if isinstance(exc.original, HTTPException):
-                await ctx.message.delete()
                 await ctx.send("Unable to send message.", delete_after = 10)
 
             if isinstance(exc.original, Forbidden):
-                await ctx.message.delete()
                 await ctx.send("Doob doesn't have permissions in this server to use that command.", delete_after = 10)
 
             else:

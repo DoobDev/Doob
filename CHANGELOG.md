@@ -1,3 +1,15 @@
+## v2.0.6
+* New Lucky Dog! (Kevin from [@Weesterner](https://twitter.com/weesterner)!)
+* Changed Description on the Lucky Dog embeds.
+    - Added Twitter links to the description.
+* Decreased the odds so they are actually 1 in 100
+    - With me adding more Lucky Dogs, it has actually increased the chance for you to get one, so now it is actually a 1 in 100 chance to get a lucky dog!
+* Removed message deletes for errors.
+* Moved old v1 folder to a [new repository](https://github.com/doobdev/old-doob).
+* Added some fun Among Us commands!
+    - doob/notanimposter {user} -  gives an ascii of an among us crewmate floating through space with text saying "{user} was not an imposter"
+    - doob/animposter {user} - gives the same ascii except it says "{user} was an imposter"
+
 ## v2.0.5
 * Added doob/levelmessages.
     - Made a way to disable level messages in your server, Do `doob/levelmessages no` if you want to disable them, `doob/levelmessages yes` to re-enable them.
@@ -18,10 +30,10 @@
 * multiple bug fixes
 
 ## v2.0.2
-* Added another rare dog!
+* Added another lucky dog! (mmatt's GAMING server icon!)
 
 ## v2.0.1:
-* Added a rare dog!
+* Added a Lucky dog! (Koda from [@Mendo](https://twitter.com/mendo)!)
 
 
 ------------------------------

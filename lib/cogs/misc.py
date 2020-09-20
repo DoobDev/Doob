@@ -12,7 +12,6 @@ class Misc(Cog):
 	@has_permissions(manage_guild=True)
 	async def change_prefix(self, ctx, new: str):
 		if len(new) > 10:
-			await ctx.message.delete()
 			await ctx.send("The prefix can not be more than 10 characters.", delete_after=10)
 
 		else:
@@ -22,7 +21,6 @@ class Misc(Cog):
 	@change_prefix.error
 	async def change_prefix_error(self, ctx, exc):
 		if isinstance(exc, CheckFailure):
-			await ctx.message.delete()
 			await ctx.send("You need the Manage Server permission to change the prefix.", delete_after=10)
 
 	@Cog.listener()
