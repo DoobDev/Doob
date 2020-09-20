@@ -109,7 +109,7 @@ class Fun(Cog):
     async def not_an_imposter(self, ctx, *, target: Optional[str]):
         target = target or ctx.author
 
-        await ctx.send(f". 　　　。　　　　•　 　ﾟ　　。 　　.\n　　　.　　　 　　.　　　　　。　　 。　. 　\n\n.　　 。　　　　　 ඞ 。 . 　　 • 　　　　•\n\n　　ﾟ　　 {target} was not An Impostor.　 。　.\n\n　　'　　　 1 Impostor remains 　 　　。\n\n　　ﾟ　　　.　　　. ,　　　　.　 .")
+        await ctx.send(f". 　　　。　　　　•　 　ﾟ　　。 　　.\n　　　.　　　 　　.　　　　　。　　 。　. 　\n\n.　　 。　　　　　 ඞ 。 . 　　 • 　　　　•\n\n　　ﾟ　　 {target} was not An Impostor.　 。　.\n\n　　'　　　 1 Impostor remain 　 　　。\n\n　　ﾟ　　　.　　　. ,　　　　.　 .")
 
 
     @command(name="animposter", aliases=["ai", "amongusimposter", "imposter"], brief="I SWEAR I SAW HIM VENT! He was an imposter. I knew it!!!")
@@ -117,7 +117,7 @@ class Fun(Cog):
     async def an_imposter(self, ctx, *, target: Optional[str]):
         target = target or ctx.author
 
-        await ctx.send(f". 　　　。　　　　•　 　ﾟ　　。 　　.\n　　　.　　　 　　.　　　　　。　　 。　. 　\n\n.　　 。　　　　　 ඞ 。 . 　　 • 　　　　•\n\n　　ﾟ　　 {target} was An Impostor.　 。　.\n\n　　'　　　 0 Impostor remains 　 　　。\n\n　　ﾟ　　　.　　　. ,　　　　.　 .")
+        await ctx.send(f". 　　　。　　　　•　 　ﾟ　　。 　　.\n　　　.　　　 　　.　　　　　。　　 。　. 　\n\n.　　 。　　　　　 ඞ 。 . 　　 • 　　　　•\n\n　　ﾟ　　 {target} was An Impostor.　 。　.\n\n　　'　　　 0 Impostors remain 　 　　。\n\n　　ﾟ　　　.　　　. ,　　　　.　 .")
 
 
     @Cog.listener()
