@@ -36,16 +36,16 @@ class Meta(Cog):
         await self.bot.change_presence(activity=Activity(
             name=_name,
             type=getattr(ActivityType, _type, ActivityType.playing)
-        ))
+		))
 
-    @command(name="setactivity", brief="Set the bot's activity")
-    async def set_activity_message(self, ctx, *, text: str):
-        if ctx.author.id == owner_id:
-            self.message = text
-            await self.set()
-            await ctx.send(f"Bot Status has been updated to {text}")
-        else:
-            await ctx.send("You don't have permission to do that.")
+	@command(name="setactivity", brief="Set the bot's activity")
+	async def set_activity_message(self, ctx, *, text: str):
+		if ctx.author.id == owner_id:
+			self.message = text
+			await self.set()
+			await ctx.send(f"Bot Status has been updated to {text}")
+		else:
+			await ctx.send("You don't have permission to do that.")
 
 	@command(name="support", aliases=["supportserver"], brief="Get a link to the Doob support server.")
 	async def support_server_link(self, ctx):
