@@ -24,7 +24,7 @@ Doob has some great features, such as:
 * A Global Leveling System (with leaderbaord)
 * Server + User info
 * Rolling Dice
-* Echo Command [Patreon Only](https://patreon.com/doobdev/)
+* Echo Command [(Patreon Only)](https://patreon.com/doobdev/)
 * Dog Facts and Pictures (with some Lucky Dogs from Twitch Streamers)
 * Among Us Imposter/Not An Imposter commands
 * Low Ping
