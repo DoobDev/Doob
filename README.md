@@ -41,4 +41,6 @@ Doob Avatar: [@KittyKay000](https://twitter.com/KittyKay000)
 
 Doob Name: Me and my friend William in Biology.
 
-###### built with ♥, youtube tutorials, and stack overflow
+Doob extensive help: [@X Daniel](https://github.com/x-daniel-17)
+
+###### built with ♥, youtube tutorials, yelling at daniel in discord and stack overflow
