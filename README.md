@@ -1,5 +1,5 @@
 ### ⚠️ Since doob will now use env to store the token, you'll need to create your own .env file and fill it out correctly. 
-##### Go to Google if you need help!
+##### Go to Google if you need help!!
 
 # Doob Bot 
 [![Discord Bots](https://top.gg/api/widget/status/680606346952966177.svg)](https://top.gg/bot/680606346952966177)
