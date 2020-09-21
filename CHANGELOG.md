@@ -1,6 +1,7 @@
 ## v2.0.7
 * Added doob/support - Gives link to the Doob support server.
 * Added doob/invite - Gives link to invite Doob to another server.
+* 1 in 50 chance of a Lucky Dog for [Patrons](https://patreon.com/doobdev) instead of 1 in 100
 
 ## v2.0.6
 * New Lucky Dog! (Kevin from [@Weesterner](https://twitter.com/weesterner)!)
