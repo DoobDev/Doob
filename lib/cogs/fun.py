@@ -37,7 +37,7 @@ class Fun(Cog):
         if isinstance(exc, BadArgument):
             await ctx.send("That user could not be found. :/", delete_after=10)
 
-# Make Echo Patreon only, because I don't wanna make my bot just say anything. (which is why the print statement says who said it and what, but just as an extra safe measure [and a benefit for the people who give me money] this is going to be Patreon only.)
+    # Make Echo Patreon only, because I don't wanna make my bot just say anything. (which is why the print statement says who said it and what, but just as an extra safe measure [and a benefit for the people who give me money] this is going to be Patreon only.)
     @command(name="echo", aliases=["say"], brief="Make Doob say something!")
     @cooldown(1, 10, BucketType.user)
     async def echo_message(self, ctx, *, message):
@@ -50,9 +50,12 @@ class Fun(Cog):
             if pledger == ctx.author:
                 member = pledger
 
-        if patreonRole in member.roles:
-            await ctx.send(message)
-            print(f"{ctx.author.name} used the Echo command and said {message}")
+
+        if ctx.author in homeGuild.members:
+            if patreonRole in member.roles:
+                await ctx.send(message)
+                print(f"{ctx.author.name} used the Echo command and said {message}")
+
         else:
             await ctx.send("You are not a Patron to Doob, subscribe to any of the tiers at <https://patreon.com/doobdev>.")
 
@@ -84,47 +87,80 @@ class Fun(Cog):
             if pledger == ctx.author:
                 member = pledger
 
-        if patreonRole in member.roles:
-            random = randint(1,53)
 
-            if random != 50 and random != 51 and random != 52:
-                async with request("GET", URL, headers={}) as response:
-                    if response.status == 200:
-                        data = await response.json()
-                        embed = Embed(title="Dog Picture!", colour=ctx.author.colour)
-                        embed.set_image(url=data["link"])
-                        await ctx.send(embed=embed)
-            
-            elif random == 50:
-                embed = Embed(title="Lucky Dog Picture!", description="This is [Liquid Mendo](https://twitter.com/Mendo)'s dog Koda!", colour=Colour.gold())
-                embed.set_footer(text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 50 chance of getting this picture!", icon_url=ctx.author.avatar_url)
-                embed.set_image(url="https://pbs.twimg.com/media/EgXfe_XUcAABT41?format=jpg&name=360x360")
-                await ctx.send(embed=embed)
+        if ctx.author in homeGuild.members:
+            if patreonRole in member.roles:
+                random = randint(1,53)
 
-            elif random == 51:
-                embed = Embed(title="Lucky Dog Picture!", description="There is a 1 in 50 chance of getting this picture!", colour=Colour.gold())
-                embed.set_footer(text=f"{ctx.author} got this lucky dog picture!", icon_url=ctx.author.avatar_url)
-                embed.set_image(url="https://i.imgur.com/pzqRLdi.jpg")
-                await ctx.send(embed=embed)
+                if random != 50 and random != 51 and random != 52:
+                    async with request("GET", URL, headers={}) as response:
+                        if response.status == 200:
+                            data = await response.json()
+                            embed = Embed(title="Dog Picture!", colour=ctx.author.colour)
+                            embed.set_image(url=data["link"])
+                            await ctx.send(embed=embed)
+                
+                elif random == 50:
+                    embed = Embed(title="Lucky Dog Picture!", description="This is [Liquid Mendo](https://twitter.com/Mendo)'s dog Koda!", colour=Colour.gold())
+                    embed.set_footer(text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 50 chance of getting this picture!", icon_url=ctx.author.avatar_url)
+                    embed.set_image(url="https://pbs.twimg.com/media/EgXfe_XUcAABT41?format=jpg&name=360x360")
+                    await ctx.send(embed=embed)
 
-            elif random == 52:
-                embed = Embed(title="Lucky Dog Picture!", description="This is [Weest](https://twitter.com/weesterner)'s dog Kevin!", colour=Colour.gold())
-                embed.set_footer(text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 50 chance of getting this picture!", icon_url=ctx.author.avatar_url)
-                embed.set_image(url="https://i.imgur.com/guF2Y3z.png")
-                await ctx.send(embed=embed)
-        
+                elif random == 51:
+                    embed = Embed(title="Lucky Dog Picture!", description="There is a 1 in 50 chance of getting this picture!", colour=Colour.gold())
+                    embed.set_footer(text=f"{ctx.author} got this lucky dog picture!", icon_url=ctx.author.avatar_url)
+                    embed.set_image(url="https://i.imgur.com/pzqRLdi.jpg")
+                    await ctx.send(embed=embed)
+
+                elif random == 52:
+                    embed = Embed(title="Lucky Dog Picture!", description="This is [Weest](https://twitter.com/weesterner)'s dog Kevin!", colour=Colour.gold())
+                    embed.set_footer(text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 50 chance of getting this picture!", icon_url=ctx.author.avatar_url)
+                    embed.set_image(url="https://i.imgur.com/guF2Y3z.png")
+                    await ctx.send(embed=embed)
+
+            else:
+                random = randint(1,103)
+                choices = ['name="Get a higher chance of getting a Lucky Dog by subscribing to our Patreon", url="https://patreon.com/doobdev", icon_url="https://media.glassdoor.com/sqll/915057/patreon-squarelogo-1497456299466.png"', '']
+                if random != 100 and random != 101 and random != 102:
+                    async with request("GET", URL, headers={}) as response:
+                        if response.status == 200:
+                            data = await response.json()
+                            embed = Embed(title="Dog Picture!", colour=ctx.author.colour)
+                            embed.set_footer(random.choice(str(choices)))
+                            embed.set_image(url=data["link"])
+                            await ctx.send(embed=embed)
+
+
+                elif random == 100:
+                    embed = Embed(title="Lucky Dog Picture!", description="This is [Liquid Mendo](https://twitter.com/mendo)'s dog Koda!", colour=Colour.gold())
+                    embed.set_footer(text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 100 chance of getting this picture!", icon_url=ctx.author.avatar_url)
+                    embed.set_image(url="https://pbs.twimg.com/media/EgXfe_XUcAABT41?format=jpg&name=360x360")
+                    await ctx.send(embed=embed)
+
+                elif random == 101:
+                    embed = Embed(title="Lucky Dog Picture!", description="There is a 1 in 100 chance of getting this picture!", colour=Colour.gold())
+                    embed.set_footer(text=f"{ctx.author} got this lucky dog picture!", icon_url=ctx.author.avatar_url)
+                    embed.set_image(url = "https://i.imgur.com/pzqRLdi.jpg")
+                    await ctx.send(embed=embed)
+
+                elif random == 102:
+                    embed = Embed(title="Lucky Dog Picture!", description="This is [Weest](https://twitter.com/weesterner)'s dog Kevin!", colour=Colour.gold())
+                    embed.set_footer(text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 100 chance of getting this picture!", icon_url=ctx.author.avatar_url)
+                    embed.set_image(url="https://i.imgur.com/guF2Y3z.png")
+                    await ctx.send(embed=embed)
+
         else:
-
             random = randint(1,103)
-
+            choices = ['name="Get a higher chance of getting a Lucky Dog by subscribing to our Patreon", url="https://patreon.com/doobdev", icon_url="https://media.glassdoor.com/sqll/915057/patreon-squarelogo-1497456299466.png"', '']
             if random != 100 and random != 101 and random != 102:
                 async with request("GET", URL, headers={}) as response:
                     if response.status == 200:
                         data = await response.json()
                         embed = Embed(title="Dog Picture!", colour=ctx.author.colour)
-                        embed.set_author(name="Get a higher chance of getting a Lucky Dog by subscribing to our Patreon", url="https://patreon.com/doobdev", icon_url="https://media.glassdoor.com/sqll/915057/patreon-squarelogo-1497456299466.png")
+                        embed.set_footer(random.choice(str(choices)))
                         embed.set_image(url=data["link"])
                         await ctx.send(embed=embed)
+
 
             elif random == 100:
                 embed = Embed(title="Lucky Dog Picture!", description="This is [Liquid Mendo](https://twitter.com/mendo)'s dog Koda!", colour=Colour.gold())
@@ -143,6 +179,7 @@ class Fun(Cog):
                 embed.set_footer(text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 100 chance of getting this picture!", icon_url=ctx.author.avatar_url)
                 embed.set_image(url="https://i.imgur.com/guF2Y3z.png")
                 await ctx.send(embed=embed)
+
 
     @command(name="notanimposter", aliases=["nai", "amonguscrew", "crewmate"], brief="I SWEAR I SAW HIM VENT! He wasn't an imposter...")
     @cooldown(1, 4, BucketType.user)
