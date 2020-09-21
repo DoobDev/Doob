@@ -166,6 +166,27 @@ class Meta(Cog):
 
 			await ctx.send(embed=embed)
 
+    @command(name="patreon", aliases=["donate", "donation"], brief="Show support to Doob Dev!")
+    async def patreon_link(self, ctx):
+		homeGuild = self.bot.get_guild(702352937980133386)
+		patreonRole = get(homeGuild.roles, id=757041749716893739)
+
+		member = []
+
+		for pledger in homeGuild.members:
+			if pledger == ctx.author:
+				member = pledger
+
+		if ctx.author in homeGuild.members:
+			if patreonRole in member.roles:       
+                await ctx.send(f"Thanks for supporting {ctx.author.mention}!\n<https://patreon.com/doobdev>") 
+
+            else:
+                await ctx.send("You can support Doob Dev by subscribing at <https://patreon.com/doobdev>!")
+
+        else:
+            await ctx.send("You can support Doob Dev by subscribing at <https://patreon.com/doobdev>!")
+
 	@Cog.listener()
 	async def on_ready(self):
 		if not self.bot.ready:

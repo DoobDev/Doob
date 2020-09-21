@@ -1,3 +1,8 @@
+## v2.0.8
+* Updated description (on the help command) for
+    - doob/Leaderboard
+* New doob/patreon command!
+
 ## v2.0.7
 * Added doob/support - Gives link to the Doob support server.
 * Added doob/invite - Gives link to invite Doob to another server.

@@ -90,24 +90,12 @@ class Exp(Cog):
             db.commit()
             await ctx.send(f"Level messages set to {yes_or_no}.")
 
-    @command(name="leaderboard", aliases=["lb", "xplb"])
+    @command(name="leaderboard", aliases=["lb", "xplb"], brief="Show who's on top of the Doob XP Leaderboard!")
     async def display_leaderboard(self, ctx):
         records = db.records("SELECT UserID, XP, Level FROM exp ORDER BY XP DESC")
 
         menu = MenuPages(source=Menu(ctx, records), clear_reactions_after=True, timeout=100.0)
         await menu.start(ctx)
-
-    # @command(name="leaderboard", aliases=["lb", "xplb"], brief="The XP Leaderboard is under construction.")
-    # async def display_leaderboard_error(self, ctx):
-    #     prefix_thing = db.field("SELECT Prefix FROM guilds WHERE GuildID = ?", ctx.guild.id)
-    #     embed = Embed(title="Doob XP Leaderboard is currently under construction.", 
-    #                  description=f"You can view your global xp rank by doing {str(prefix_thing)}level, sorry for the inconvinence.",
-    #                  colour=ctx.author.colour,
-    #                  timestamp=datetime.utcnow())
-        
-    #     embed.set_thumbnail(url=ctx.guild.me.avatar_url)
-
-    #     await ctx.send(embed=embed)
 
     @Cog.listener()
     async def on_ready(self):
