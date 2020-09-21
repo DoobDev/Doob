@@ -2,6 +2,8 @@
 * Updated description (on the help command) for
     - doob/Leaderboard
 * New doob/patreon command!
+* Added some debugging for doob/dog
+    - It gives me the roll numbers for P_AD and L_DOG if I need to check if it is working or not.
 
 ## v2.0.7
 * Added doob/support - Gives link to the Doob support server.

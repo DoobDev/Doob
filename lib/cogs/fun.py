@@ -99,6 +99,7 @@ class Fun(Cog):
                         if response.status == 200:
                             data = await response.json()
                             embed = Embed(title="Dog Picture!", colour=ctx.author.colour)
+                            #embed.set_footer(text=f"DEBUG: L_DOG: {random}")
                             embed.set_image(url=data["link"])
                             await ctx.send(embed=embed)
                 
@@ -130,6 +131,7 @@ class Fun(Cog):
                             if response.status == 200:
                                 data = await response.json()
                                 embed = Embed(title="Dog Picture!", colour=ctx.author.colour)
+                                #embed.set_footer(text=f"DEBUG: P_AD: {patreon_ad} L_DOG: {random}")
                                 embed.set_image(url=data["link"])
                                 await ctx.send(embed=embed)
                     elif patreon_ad == 1:
@@ -138,6 +140,7 @@ class Fun(Cog):
                                 data = await response.json()
                                 embed=Embed(title="Dog Picture!", colour=ctx.author.colour)
                                 embed.set_author(name="Get a higher chance of getting a Lucky Dog by subscribing to our Patreon", icon_url="https://i.imgur.com/OosmBb4.png", url="https://patreon.com/doobdev")
+                                #embed.set_footer(text=f"DEBUG: P_AD: {patreon_ad} L_DOG: {random}")
                                 embed.set_image(url=data["link"])
                                 await ctx.send(embed=embed)
 
