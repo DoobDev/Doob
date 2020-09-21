@@ -87,31 +87,58 @@ class Meta(Cog):
 			if pledger == ctx.author:
 				member = pledger
 
-		if patreonRole in member.roles:
-			embed = Embed(title="Doob Info", colour=ctx.author.colour, timestamp=datetime.utcnow())
+		if ctx.author in homeGuild.members:
+			if patreonRole in member.roles:
+				embed = Embed(title="Doob Info", colour=ctx.author.colour, timestamp=datetime.utcnow())
 
-			bot_version = self.bot.VERSION
+				bot_version = self.bot.VERSION
 
-			fields = [("Name", "Doob", False),
-						("Description", "A Discord bot made by mmatt using discord.py, he felt like making it so he did B)", False),
-						("Developer", "The creator of Doob is <@308000668181069824>", False),
-						("Doob's Server Count", f"{str(len(self.bot.guilds))}", True),
-						("Doob's Member Count", f"{str(len(self.bot.users))}", True),
-						("The ping for Doob is...", f" :ping_pong: {round(self.bot.latency * 1000)} ms", False),
-						("Library", "discord.py", True),
-						("Bot Version", f"{self.bot.VERSION} - [Changelog](https://github.com/doobdev/doob/blob/master/CHANGELOG.md#v{bot_version.replace('.', '')})", True),
-						("Top.gg Link", "https://top.gg/bot/680606346952966177", False),
-						("Invite Link", "[Invite Link Here](https://discordapp.com/oauth2/authorize?client_id=680606346952966177&scope=bot&permissions=271674430)", True),
-						("GitHub Repository", "[Click Here](https://github.com/doobdev/doob)", True),
-						("Patreon", f"Thanks for [Donating](https://patreon.com/doobdev) {ctx.author}! :white_check_mark:", False)]
+				fields = [("Name", "Doob", False),
+							("Description", "A Discord bot made by mmatt using discord.py, he felt like making it so he did B)", False),
+							("Developer", "The creator of Doob is <@308000668181069824>", False),
+							("Doob's Server Count", f"{str(len(self.bot.guilds))}", True),
+							("Doob's Member Count", f"{str(len(self.bot.users))}", True),
+							("The ping for Doob is...", f" :ping_pong: {round(self.bot.latency * 1000)} ms", False),
+							("Library", "discord.py", True),
+							("Bot Version", f"{self.bot.VERSION} - [Changelog](https://github.com/doobdev/doob/blob/master/CHANGELOG.md#v{bot_version.replace('.', '')})", True),
+							("Top.gg Link", "https://top.gg/bot/680606346952966177", False),
+							("Invite Link", "[Invite Link Here](https://discordapp.com/oauth2/authorize?client_id=680606346952966177&scope=bot&permissions=271674430)", True),
+							("GitHub Repository", "[Click Here](https://github.com/doobdev/doob)", True),
+							("Patreon", f"Thanks for [Donating](https://patreon.com/doobdev) {ctx.author}! :white_check_mark:", False)]
 
-			for name, value, inline in fields:
-				embed.add_field(name=name, value=value, inline=inline)
+				for name, value, inline in fields:
+					embed.add_field(name=name, value=value, inline=inline)
 
-			embed.set_thumbnail(url=ctx.guild.me.avatar_url)
-			embed.set_footer(text=f"{ctx.author.name} requested Doob's information", icon_url=ctx.author.avatar_url)
+				embed.set_thumbnail(url=ctx.guild.me.avatar_url)
+				embed.set_footer(text=f"{ctx.author.name} requested Doob's information", icon_url=ctx.author.avatar_url)
 
-			await ctx.send(embed=embed)
+				await ctx.send(embed=embed)
+
+			else:
+				embed = Embed(title="Doob Info", colour=ctx.author.colour, timestamp=datetime.utcnow())
+
+				bot_version = self.bot.VERSION
+
+				fields = [("Name", "Doob", False),
+							("Description", "A Discord bot made by mmatt using discord.py, he felt like making it so he did B)", False),
+							("Developer", "The creator of Doob is <@308000668181069824>", False),
+							("Doob's Server Count", f"{str(len(self.bot.guilds))}", True),
+							("Doob's Member Count", f"{str(len(self.bot.users))}", True),
+							("The ping for Doob is...", f" :ping_pong: {round(self.bot.latency * 1000)} ms", False),
+							("Library", "discord.py", True),
+							("Bot Version", f"{self.bot.VERSION} - [Changelog](https://github.com/doobdev/doob/blob/master/CHANGELOG.md#v{bot_version.replace('.', '')})", True),
+							("Top.gg Link", "https://top.gg/bot/680606346952966177", False),
+							("Invite Link", "[Invite Link Here](https://discordapp.com/oauth2/authorize?client_id=680606346952966177&scope=bot&permissions=271674430)", True),
+							("GitHub Repository", "[Click Here](https://github.com/doobdev/doob)", True),
+							("Patreon", "[Donate to Doob and get cool perks!](https://patreon.com/doobdev)", False)]
+
+				for name, value, inline in fields:
+					embed.add_field(name=name, value=value, inline=inline)
+
+				embed.set_thumbnail(url=ctx.guild.me.avatar_url)
+				embed.set_footer(text=f"{ctx.author.name} requested Doob's information", icon_url=ctx.author.avatar_url)
+
+				await ctx.send(embed=embed)
 
 		else:
 			embed = Embed(title="Doob Info", colour=ctx.author.colour, timestamp=datetime.utcnow())

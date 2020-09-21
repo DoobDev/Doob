@@ -2,8 +2,15 @@
 * Added doob/support - Gives link to the Doob support server.
 * Added doob/invite - Gives link to invite Doob to another server.
 * 1 in 50 chance of a Lucky Dog for [Patrons](https://patreon.com/doobdev) instead of 1 in 100
+    - With this change, I added an ad on the top of the embed that only appear sometiems.
 * Added a [Patreon](https://patreon.com/doobdev) field to doob/info
     - If you are a patron it thanks you! :)
+* Echo is now a [Patreon](https://patreon.com/doobdev) only command!
+    - "BUT WHY, BUT WHY" 
+        1. Moderation
+        2. I don't want random people to say random garbage on my bot
+        3. Rack in those patrons EZ
+* Patron status is now displayed in doob/profile
 
 ## v2.0.6
 * New Lucky Dog! (Kevin from [@Weesterner](https://twitter.com/weesterner)!)

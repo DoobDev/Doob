@@ -106,7 +106,7 @@ class Bot(BotBase):
         if any([isinstance(exc, error) for error in IGNORE_EXCEPTIONS]):
             #newerror = (error[:175] + '... (it was too long/op)') if len(err) > 175 else err
             print("ok boys we got to this stage, time to put it in")
-            await args[0].send(f"Something went wrong!\n\nError: {exc.original}", delete_after = 10)
+            await ctx.send(f"Something went wrong!\n\nError: {exc.original}", delete_after = 10)
 
         elif isinstance(exc, MissingRequiredArgument):
             await ctx.send("Required arguments missing.", delete_after = 10)

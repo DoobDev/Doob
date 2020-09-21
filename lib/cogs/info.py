@@ -4,6 +4,7 @@ from typing import Optional
 
 from discord import Embed, Member
 from discord.ext.commands import Cog, command, cooldown, BucketType
+from discord.utils import get
 
 from ..db import db # pylint: disable=relative-beyond-top-level
 
@@ -16,29 +17,94 @@ class Info(Cog):
     async def user_info(self, ctx, target: Optional[Member]):
         target = target or ctx.author
 
-        ids = db.column("SELECT UserID FROM exp ORDER BY XP DESC")
-        xp, lvl = db.record("SELECT XP, Level FROM exp WHERE UserID = ?", target.id) or (None, None)
+        homeGuild = self.bot.get_guild(702352937980133386)
+        patreonRole = get(homeGuild.roles, id=757041749716893739)  # Patreon role ID.
 
-        embed = Embed(title=f"{target.name}'s info", colour=target.colour, timestamp=datetime.utcnow())
+        member = []
 
-        fields = [("Username", target.mention, True),
-                  ("ID", target.id, True),
-                  ("Doob XP", xp, False),
-                  ("Doob Level", lvl, True),
-                  ("Doob Rank", f"{ids.index(target.id)+1} of {len(ids):,} users globally.", True),
-                  ("Bot or not.", target.bot, False),
-                  ("Top role", target.top_role.mention, True),
-                  ("Status", str(target.status).title(), True),
-				  ("Activity", f"{str(target.activity.type).split('.')[-1].title() if target.activity else 'N/A'} - {target.activity.name if target.activity else ''}", True),
-                  ("Account creation date", target.created_at.strftime("%m/%d/%Y %H:%M;%S"), True),
-                  ("Joined the server at",target.joined_at.strftime("%m/%d/%Y %H:%M;%S"), True),
-                  ("Boosted this server", bool(target.premium_since), True),]
+        for pledger in homeGuild.members:
+            if pledger == ctx.author:
+                member = pledger
 
-        for name, value, inline in fields:
-            embed.add_field(name=name, value=value, inline=inline)
+        if ctx.author in homeGuild.members:
+            if patreonRole in member.roles:
+                ids = db.column("SELECT UserID FROM exp ORDER BY XP DESC")
+                xp, lvl = db.record("SELECT XP, Level FROM exp WHERE UserID = ?", target.id) or (None, None)
 
-        embed.set_thumbnail(url=target.avatar_url)
-        await ctx.send(embed=embed)
+                embed = Embed(title=f"{target.name}'s info", colour=target.colour, timestamp=datetime.utcnow())
+
+                fields = [("Username", target.mention, True),
+                        ("ID", target.id, True),
+                        ("Doob XP", xp, False),
+                        ("Doob Level", lvl, True),
+                        ("Doob Rank", f"{ids.index(target.id)+1} of {len(ids):,} users globally.", True),
+                        ("Bot or not.", target.bot, False),
+                        ("Top role", target.top_role.mention, True),
+                        ("Status", str(target.status).title(), True),
+                        ("Activity", f"{str(target.activity.type).split('.')[-1].title() if target.activity else 'N/A'} - {target.activity.name if target.activity else ''}", True),
+                        ("Account creation date", target.created_at.strftime("%m/%d/%Y %H:%M;%S"), True),
+                        ("Joined the server at",target.joined_at.strftime("%m/%d/%Y %H:%M;%S"), True),
+                        ("Boosted this server", bool(target.premium_since), True),
+                        ("Patron of Doob?", "Yes", True)]
+
+                for name, value, inline in fields:
+                    embed.add_field(name=name, value=value, inline=inline)
+
+                embed.set_thumbnail(url=target.avatar_url)
+                await ctx.send(embed=embed)
+            
+            else:
+
+                ids = db.column("SELECT UserID FROM exp ORDER BY XP DESC")
+                xp, lvl = db.record("SELECT XP, Level FROM exp WHERE UserID = ?", target.id) or (None, None)
+
+                embed = Embed(title=f"{target.name}'s info", colour=target.colour, timestamp=datetime.utcnow())
+
+                fields = [("Username", target.mention, True),
+                        ("ID", target.id, True),
+                        ("Doob XP", xp, False),
+                        ("Doob Level", lvl, True),
+                        ("Doob Rank", f"{ids.index(target.id)+1} of {len(ids):,} users globally.", True),
+                        ("Bot or not.", target.bot, False),
+                        ("Top role", target.top_role.mention, True),
+                        ("Status", str(target.status).title(), True),
+                        ("Activity", f"{str(target.activity.type).split('.')[-1].title() if target.activity else 'N/A'} - {target.activity.name if target.activity else ''}", True),
+                        ("Account creation date", target.created_at.strftime("%m/%d/%Y %H:%M;%S"), True),
+                        ("Joined the server at",target.joined_at.strftime("%m/%d/%Y %H:%M;%S"), True),
+                        ("Boosted this server", bool(target.premium_since), True),
+                        ("Patron of Doob?", "No", True)]
+
+                for name, value, inline in fields:
+                    embed.add_field(name=name, value=value, inline=inline)
+
+                embed.set_thumbnail(url=target.avatar_url)
+                await ctx.send(embed=embed)
+
+        else:
+            ids = db.column("SELECT UserID FROM exp ORDER BY XP DESC")
+            xp, lvl = db.record("SELECT XP, Level FROM exp WHERE UserID = ?", target.id) or (None, None)
+
+            embed = Embed(title=f"{target.name}'s info", colour=target.colour, timestamp=datetime.utcnow())
+
+            fields = [("Username", target.mention, True),
+                    ("ID", target.id, True),
+                    ("Doob XP", xp, False),
+                    ("Doob Level", lvl, True),
+                    ("Doob Rank", f"{ids.index(target.id)+1} of {len(ids):,} users globally.", True),
+                    ("Bot or not.", target.bot, False),
+                    ("Top role", target.top_role.mention, True),
+                    ("Status", str(target.status).title(), True),
+                    ("Activity", f"{str(target.activity.type).split('.')[-1].title() if target.activity else 'N/A'} - {target.activity.name if target.activity else ''}", True),
+                    ("Account creation date", target.created_at.strftime("%m/%d/%Y %H:%M;%S"), True),
+                    ("Joined the server at",target.joined_at.strftime("%m/%d/%Y %H:%M;%S"), True),
+                    ("Boosted this server", bool(target.premium_since), True),
+                    ("Patron of Doob?", "No", True)]
+
+            for name, value, inline in fields:
+                embed.add_field(name=name, value=value, inline=inline)
+
+            embed.set_thumbnail(url=target.avatar_url)
+            await ctx.send(embed=embed)
 
 
     @command(name="serverinfo", aliases=["guildinfo", "gi", "si"], brief="Gives info about the server the command is executed in.")
