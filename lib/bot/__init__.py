@@ -60,10 +60,10 @@ class Bot(BotBase):
 
         print("Running setup!")
         self.setup()
-
+        print(os.getenv("TOKEN")) # bruh
+        # ^^ is printing "None"
         with open("./lib/bot/token.txt", "r", encoding="utf-8") as tf:
             self.TOKEN = tf.read()
-
         print("Starting up")
         super().run(self.TOKEN, reconnect=True)
 
@@ -72,7 +72,6 @@ class Bot(BotBase):
 
         if ctx.command is not None and ctx.guild is not None:
             if self.ready:
-
                     await self.invoke(ctx)
 
             else:
