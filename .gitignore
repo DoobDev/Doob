@@ -5,3 +5,4 @@ lib/bot/token.txt
 *.db-journal
 lib/bot/topgg.txt
 .env
+pythonenv3.8
