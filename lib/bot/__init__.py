@@ -62,10 +62,11 @@ class Bot(BotBase):
         self.setup()
         #print(os.getenv("TOKEN")) # bruh
         # ^^ is printing "None"
-        #with open("./lib/bot/token.txt", "r", encoding="utf-8") as tf:
-            #self.TOKEN = tf.read()
+        with open("./lib/bot/token.txt", "r", encoding="utf-8") as tf:
+            self.TOKEN = tf.read()
         print("Starting up")
-        super().run(os.getenv("TOKEN"), reconnect=True)
+        #super().run(os.getenv("TOKEN"), reconnect=True)
+        super().run(self.TOKEN, reconnect=True)
 
     async def process_commands(self, message):
         ctx = await self.get_context(message, cls=Context)
