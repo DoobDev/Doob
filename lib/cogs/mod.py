@@ -77,49 +77,64 @@ class Mod(Cog):
 	
 
 	async def mute_members(self, message, targets, reason):
-		#unmutes = []
-		# YOU NEED THIS v it grabs the role id fro the DB
+		unmutes = []
 		mute_role = db.field('SELECT MutedRole FROM guilds WHERE GuildID = ?', message.guild.id)
 		for target in targets:
-      ############
 			if not mute_role in target.roles:
         
 				if message.guild.me.top_role.position > target.top_role.position:
-#############
-					print(mute_role)
-					#role_ids = ",".join([str(r.id) for r in target.roles])
-					theRole = message.guild.get_role(571784008523055113)
+					role_ids = ",".join([str(r.id) for r in target.roles])
+					theRole = message.guild.get_role(int(mute_role))
 					await target.add_roles(theRole)
-					#end_time = datetime.utcnow() + timedelta(seconds=hours) if hours else None
+					print("checkpoint 1")
+					db.execute("INSERT INTO mutes VALUES (?, ?, ?)",
+							   target.id, role_ids, message.guild.id)
+					print("checkpoint 2")
+					#does this work?/?!?!?!?/1/11//!/1/1/1 yep it just wasn't awaited big bad :(((
+					await message.channel.send(f"{target} has been muted (pog)")
+					print("checkpoint 3")
+					# IT WORKED IT WORKED IT WORKED I REPEAT IT WORKEDkmn
+					#time to work on unmute Sadge its ez its legit just remove role it shouldnt have taken us this long for an add role command
 
-					#db.execute("INSERT INTO mutes VALUES (?, ?, ?)",
-							   #target.id, role_ids, getattr(end_time, "isoformat", lambda: None)())
+					# This is why raw SQL sucks, matt.
+					# no :)
+					# we are doing indefinente mutes anyway, we dont need an end time column
+					#i deleted the db OMEGTALUL
+					# i know
+					#ik shut up
+# wait if theres no muted role set it wont work
+					# epic :sunglasses:
+					"""
+					db.execute("INSERT INTO mutes VALUES (?, ?, ?)",
+							   target.id, role_ids, getattr(end_time, "isoformat", lambda: None)())
+					"""
 					
 			
 
-					embed = Embed(title="Member muted",
-								  colour=0xDD2222,
-								  timestamp=datetime.utcnow())
+					# embed = Embed(title="Member muted",
+					# 			  colour=0xDD2222,
+					# 			  timestamp=datetime.utcnow())
 
-					embed.set_thumbnail(url=target.avatar_url)
+					# embed.set_thumbnail(url=target.avatar_url)
 
-					fields = [("Member", target.display_name, False),
-							  ("Actioned by", message.author.display_name, False),
-							  ("Reason", reason, False)]
+					# fields = [("Member", target.display_name, False),
+					# 		  ("Actioned by", message.author.display_name, False),
+					# 		  ("Reason", reason, False)]
 
-					for name, value, inline in fields:
-						embed.add_field(name=name, value=value, inline=inline)
-					message.channel.send(embed=embed)
-					log_channel = db.field("SELECT LogChannel FROM guilds WHERE GuildID  = ?", message.guild.id)
+					# for name, value, inline in fields:
+					# 	embed.add_field(name=name, value=value, inline=inline)
+					# log_channel = message.guild.get_channel(db.field("SELECT LogChannel FROM guilds WHERE GuildID  = ?", message.guild.id))
+
+					# #It needs to be the role object.
                     
-					#await log_channel.send(embed=embed)
+					# await log_channel.send(embed=embed)
 
-					#if hours:
-						#unmutes.append(target)
+					# if hours:
+					# 	unmutes.append(target)
 
-		#return unmutes
- #⚠️ ⚠️ ⚠️ ⚠️ ⚠️ ⚠️ MUTE START
+		return unmutes
 	@command(name="mute")
+	@has_permissions(ban_members=True)
 	@bot_has_permissions(manage_roles=True)
 	#@has_permissions(manage_roles=True, manage_guild=True)
 	async def mute_command(self, ctx, targets: Greedy[Member], *,
@@ -134,47 +149,28 @@ class Mod(Cog):
 			if len(unmutes):
 				await self.unmute_members(ctx.guild, targets)
 
+	@command(name="unmute")
+	@has_permissions(ban_members=True)
+	@bot_has_permissions(manage_roles=True)
+	#@has_permissions(manage_roles=True, manage_guild=True)
+	async def delmute_command(self, ctx, targets: Greedy[Member]):
+		mute_role = db.field('SELECT MutedRole FROM guilds WHERE GuildID = ?', ctx.guild.id) 
+		TheRole = ctx.guild.get_role(int(mute_role))
+		for target in targets:
+			await target.remove_roles(TheRole)
+			db.execute("DELETE FROM mutes WHERE VALUES = (?, ?)", target.id, ctx.guild.id)
+			await ctx.send("yeeters it worked <:PogU:560267624966258690>")
+#lmfao xD easy way out 
+# idk raw sql so u do this :)
+# i think i did it right lol
+#        do the other one... :|
+#oooooooooooooooooooooooooooooooooooooohkewl :thumsup:
+# EZbut we need to get my completion message working 
+#yeah it didn't work before sooooo! lmfao
 	@mute_command.error
 	async def mute_command_error(self, ctx, exc):
 		if isinstance(exc, CheckFailure):
 			await ctx.send("Insufficient permissions to perform that task.")
-
-	async def unmute_members(self, guild, targets, *, reason="Mute time expired."):
-		mute_role = db.field('SELECT MutedRole FROM guilds WHERE GuildID = ?', guild.id)
-		for target in targets:
-			if mute_role in target.roles:
-				role_ids = db.field("SELECT RoleIDs FROM mutes WHERE UserID = ?", target.id)
-				roles = [guild.get_role(int(id_)) for id_ in role_ids.split(",") if len(id_)]
-
-				db.execute("DELETE FROM mutes WHERE UserID = ?", target.id)
-
-				await target.edit(roles=roles)
-
-				embed = Embed(title="Member unmuted",
-							  colour=0xDD2222,
-							  timestamp=datetime.utcnow())
-
-				embed.set_thumbnail(url=target.avatar_url)
-
-				fields = [("Member", target.display_name, False),
-						  ("Reason", reason, False)]
-
-				for name, value, inline in fields:
-					embed.add_field(name=name, value=value, inline=inline)
-				
-				log_channel = db.field("SELECT LogChannel FROM guilds WHERE GuildID  = ?", guild.id)
-
-				await log_channel.send(embed=embed)
-#⚠️ ⚠️ ⚠️ ⚠️ ⚠️ ⚠️ MUTE END
-	@command(name="unmute")
-	@bot_has_permissions(manage_roles=True)
-	#@has_permissions(manage_roles=True, manage_guild=True)
-	async def unmute_command(self, ctx, targets: Greedy[Member], *, reason: Optional[str] = "No reason provided."):
-		if not len(targets):
-			await ctx.send("One or more required arguments is missing.")
-
-		else:
-			await self.unmute_members(ctx.guild, targets, reason=reason)
 
 	@command(name="ban", aliases=["b", "banmember"], brief="Ban a member from the server.")
 	@bot_has_permissions(ban_members=True)
@@ -211,7 +207,7 @@ class Mod(Cog):
 			await ctx.send("The limit provided is not within acceptable bounds.")
 
 	@command(name="setlogchannel", aliases=["slc", "logchannel", "setlog", "setlogs"], brief="Set the server's log channel.")
-	#@has_permissions(manage_guild=True)
+	@has_permissions(manage_guild=True)
 	async def set_log_channel(self, ctx, *, channel_id: str):
 		if not len(channel_id):
 			await ctx.send("One or more required areguments are missing.")
@@ -227,7 +223,7 @@ class Mod(Cog):
 			self.bot.cogs_ready.ready_up("mod")
 		
 	@command(name="setmuterole", aliases=["smr", "muterole", "setmute"], brief="Set the server's mute role.")
-	#@has_permissions(manage_guild=True)
+	@has_permissions(manage_guild=True)
 	async def set_mute_role(self, ctx, *, role_id: str):
 		if not len(role_id):
 			await ctx.send("One or more required areguments are missing.")

@@ -95,7 +95,7 @@ class Meta(Cog):
 
 				fields = [("Name", "Doob", False),
 							("Description", "A Discord bot made by mmatt using discord.py, he felt like making it so he did B)", False),
-							("Developer", "The creator of Doob is <@308000668181069824>", False),
+							("Developers", "<@308000668181069824>, <@476188720521805825>", False),
 							("Doob's Server Count", f"{str(len(self.bot.guilds))}", True),
 							("Doob's Member Count", f"{str(len(self.bot.users))}", True),
 							("The ping for Doob is...", f" :ping_pong: {round(self.bot.latency * 1000)} ms", False),
@@ -113,7 +113,6 @@ class Meta(Cog):
 				embed.set_footer(text=f"{ctx.author.name} requested Doob's information", icon_url=ctx.author.avatar_url)
 
 				await ctx.send(embed=embed)
-
 			else:
 				embed = Embed(title="Doob Info", colour=ctx.author.colour, timestamp=datetime.utcnow())
 
@@ -121,7 +120,7 @@ class Meta(Cog):
 
 				fields = [("Name", "Doob", False),
 							("Description", "A Discord bot made by mmatt using discord.py, he felt like making it so he did B)", False),
-							("Developer", "The creator of Doob is <@308000668181069824>", False),
+							("Developers", "<@308000668181069824>, <@476188720521805825>", False),
 							("Doob's Server Count", f"{str(len(self.bot.guilds))}", True),
 							("Doob's Member Count", f"{str(len(self.bot.users))}", True),
 							("The ping for Doob is...", f" :ping_pong: {round(self.bot.latency * 1000)} ms", False),
@@ -147,7 +146,7 @@ class Meta(Cog):
 
 			fields = [("Name", "Doob", False),
 						("Description", "A Discord bot made by mmatt using discord.py, he felt like making it so he did B)", False),
-						("Developer", "The creator of Doob is <@308000668181069824>", False),
+						("Developers", "<@308000668181069824>, <@476188720521805825>", False),
 						("Doob's Server Count", f"{str(len(self.bot.guilds))}", True),
 						("Doob's Member Count", f"{str(len(self.bot.users))}", True),
 						("The ping for Doob is...", f" :ping_pong: {round(self.bot.latency * 1000)} ms", False),
