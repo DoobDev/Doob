@@ -32,6 +32,7 @@
 * Logs have been removed from doob/kick and doob/ban.
     - This will most likely be changed next patch, but for now they have been removed.
         - Why?: If you didn't have a log channel set, it would error out, but still kick / ban the person.
+* doob/ai and doob/nai doesn't ping everyone anymore
 
 ## v2.0.7
 * Added doob/support - Gives link to the Doob support server.

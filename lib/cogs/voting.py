@@ -17,7 +17,7 @@ class voting(commands.Cog):
             TOKEN = tf.read() # set this to your DBL token
         with open ("./lib/bot/webhook.txt", "r", encoding="utf-8") as tf:
             WEBHOOK_AUTH = tf.read()
-        self.dblpy = dbl.DBLClient(self.bot, token=TOKEN, webhook_path='/dblwebhook', webhook_auth=WEBHOOK_AUTH, webhook_port=5000) #wtf is this how 2 webhook i dont kow
+        self.dblpy = dbl.DBLClient(self.bot, token=TOKEN, webhook_path='/dblwebhook', webhook_auth=WEBHOOK_AUTH, webhook_port=992) #wtf is this how 2 webhook i dont kow
     
     @commands.Cog.listener()
     async def on_dbl_vote(self, data):
