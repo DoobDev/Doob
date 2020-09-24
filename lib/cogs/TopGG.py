@@ -25,6 +25,12 @@ class TopGG(commands.Cog):
         logger.info('Received an upvote')
         print(data)
 
+    @commands.Cog.listener()
+    async def on_ready(self):
+        if not self.bot.ready:
+            self.bot.cogs_ready.ready_up("TopGG")
+
+
 def setup(bot):
     global logger
     logger = logging.getLogger('bot')
