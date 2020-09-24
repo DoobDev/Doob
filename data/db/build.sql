@@ -19,3 +19,9 @@ CREATE TABLE IF NOT EXISTS mutes(
     RoleIDs text,
 	GuildID integer
 );
+
+CREATE TABLE IF NOT EXISTS votes(
+	UserID integer PRIMARY KEY,
+	HAVEVOTED text DEFAULT "no",
+	VoteLock text DEFAULT CURRENT_TIMESTAMP
+);

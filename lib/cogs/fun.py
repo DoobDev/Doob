@@ -78,11 +78,14 @@ class Fun(Cog):
                 await ctx.send(embed=embed)
             else:
                 await ctx.send(f"Dog fact API sent a {response.status} status.")
-
+#yeeters gamers :sunglasses:
     @command(name="dog", aliases=["dogimage"], brief="See a random picture of a dog!")
     @cooldown(8, 10, BucketType.user)
     async def dog_image(self, ctx):
         URL = "https://some-random-api.ml/img/dog"
+#how 2 webhook Donk
+# but url
+#lik what that :donk:
 
         homeGuild = self.bot.get_guild(702352937980133386)
         patreonRole = get(homeGuild.roles, id=757041749716893739)

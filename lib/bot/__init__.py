@@ -14,6 +14,7 @@ OWNER_IDS = [308000668181069824]
 COGS = [path.split(os.sep)[-1][:-3] for path in glob("./lib/cogs/*.py")]
 IGNORE_EXCEPTIONS = (CommandNotFound, BadArgument)
 
+
 def get_prefix(bot, message):
     prefix = db.field("SELECT Prefix FROM guilds WHERE GuildID = ?", message.guild.id)
     return when_mentioned_or(prefix)(bot, message)
@@ -88,8 +89,8 @@ class Bot(BotBase):
     async def on_error(self, err, *args, **kwargs):
         if err == "on_command_error":
 
-            embed = Embed(title="Error:", description="This command didn't work.", colour=Colour.gold())
-            embed.add_field(name="Join the Support Server:", value="https://discord.gg/hgQTTU7")
+            embed = Embed(title="Oops!", description="This command didn't work correctly.", colour=Colour.red())
+            embed.add_field(name="❓ Join the Support Server:", value="https://discord.gg/hgQTTU7")
             await args[0].send(embed=embed)
             
             # if err == "on_command_error":
@@ -136,6 +137,9 @@ class Bot(BotBase):
                 await sleep(1.0)
 
             db.multiexec("INSERT OR IGNORE INTO exp (UserID) VALUES (?)",
+                            ((member.id,) for guild in self.guilds for member in guild.members if not member.bot))
+
+            db.multiexec("INSERT OR IGNORE INTO votes (UserID) VALUES (?)",
                             ((member.id,) for guild in self.guilds for member in guild.members if not member.bot))
 
             self.ready = True
