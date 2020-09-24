@@ -16,7 +16,7 @@ class Misc(Cog):
 
 		else:
 			db.execute("UPDATE guilds SET Prefix = ? WHERE GuildID = ?", new, ctx.guild.id)
-			await ctx.send(f"Prefix set to {new}")
+			await ctx.send(f"Prefix set to `{new}`")
 
 	@change_prefix.error
 	async def change_prefix_error(self, ctx, exc):

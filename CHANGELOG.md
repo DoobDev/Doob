@@ -7,6 +7,31 @@
 * Added doob/mute and doob/unmute!
 	- Make sure your Muted role is set by doing `doob/setmutedrole {muted role ID}`
 		- make sure it is the ID, you can get this now by going into your server settings, roles, then right clicking your muted role
+* Default Level Messages are off.
+    - This feature is on the live bot now.
+* Default error message gives support server.
+* doob/setlevelmessages now:
+    - Tells you if you have level messages on or off if you just type `doob/setlevelmessages`
+    - Only sets your level message setting if you type
+        - `yes`
+        - `Yes`
+        - `no`
+        - `No`
+* doob/slap should no longer gives you a Bad Argument error.
+    - Instead, it defaults to slapping yourself, silly you!
+        - If you try to pass a reason in when doing `doob/slap` with no member found, it says that you accidently slapped yourself instead of the person you meant to slap.
+            - This also means it removes the default reason.
+                - For instance, instead of it saying "for no reason!" it will just say "Reason - None!"
+* doob/serverinfo no longer requires server permissions!
+    - The reason it needed server permissions last time is because of the "Banned Members" field, if Doob has Administrator permissions in a server, it will still show the "Banned Members" field.
+* doob/prefix and doob/setlevelmessages can no longer be abused to do @everyone pings.
+* doob/setmutedrole and doob/setlogchannel no longer have to be IDs anymore.
+    - I believe they now **are required** to be pings.
+        - Example: `doob/setmutedrole @Muted` and `doob/setlogchannel #logs`
+            - Instead of from 2.0.7 (this is outdated, don't do this anymore.) `doob/setmutedrole {role id}` and `doob/setlogchannel {channel id}`
+* Logs have been removed from doob/kick and doob/ban.
+    - This will most likely be changed next patch, but for now they have been removed.
+        - Why?: If you didn't have a log channel set, it would error out, but still kick / ban the person.
 
 ## v2.0.7
 * Added doob/support - Gives link to the Doob support server.

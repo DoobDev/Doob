@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS guilds(
     LogChannel text,
     MutedRole text,
     StarBoardChannel text,
-    LevelMessages text DEFAULT "yes"
+    LevelMessages text DEFAULT "no"
 );
 
 CREATE TABLE IF NOT EXISTS exp (

@@ -88,17 +88,18 @@ class Bot(BotBase):
     async def on_error(self, err, *args, **kwargs):
         if err == "on_command_error":
 
-            embed = Embed(title="Error:", description="this command didn't work for some reason.", colour=Colour.blurple())
+            embed = Embed(title="Error:", description="This command didn't work.", colour=Colour.gold())
+            embed.add_field(name="Join the Support Server:", value="https://discord.gg/hgQTTU7")
             await args[0].send(embed=embed)
-            """
-            if err == "on_command_error":
-            	args[0].send("uh so py is being gay again sry")
-            else:
-              newerror = (err.original[:175] + '... (it was too long/op)') if len(err.original) > 175 else err.original
-              print("ok boys we got to this stage, time to put it in")
-              await args[0].send(f"Something went wrong!\n\nError: {newerror}")
+            
+            # if err == "on_command_error":
+            # 	args[0].send("uh so py is being gay again sry")
+            # else:
+            #   newerror = (err.original[:175] + '... (it was too long/op)') if len(err.original) > 175 else err.original
+            #   print("ok boys we got to this stage, time to put it in")
+            #   await args[0].send(f"Something went wrong!\n\nError: {newerror}")
 
-            """
+            
             #await args[0].send(f"Something went wrong. :/\n{err.original}")
         raise err
 
@@ -132,7 +133,7 @@ class Bot(BotBase):
         if not self.ready:
             self.scheduler.start()
             while not self.cogs_ready.all_ready():
-                await sleep(0.5)
+                await sleep(1.0)
 
             db.multiexec("INSERT OR IGNORE INTO exp (UserID) VALUES (?)",
                             ((member.id,) for guild in self.guilds for member in guild.members if not member.bot))

@@ -110,37 +110,69 @@ class Info(Cog):
     @command(name="serverinfo", aliases=["guildinfo", "gi", "si"], brief="Gives info about the server the command is executed in.")
     @cooldown(1, 10, BucketType.user)
     async def server_info(self, ctx):
-        embed = Embed(title=f"Server's info", colour=ctx.guild.owner.colour, timestamp=datetime.utcnow())
+        if ctx.guild.me.guild_permissions.administrator == True:
+            embed = Embed(title=f"Server's info", colour=ctx.guild.owner.colour, timestamp=datetime.utcnow())
 
-        statuses = [len(list(filter(lambda m: str(m.status) == "online", ctx.guild.members))),
-					len(list(filter(lambda m: str(m.status) == "idle", ctx.guild.members))),
-					len(list(filter(lambda m: str(m.status) == "dnd", ctx.guild.members))),
-					len(list(filter(lambda m: str(m.status) == "offline", ctx.guild.members)))]
+            statuses = [len(list(filter(lambda m: str(m.status) == "online", ctx.guild.members))),
+                        len(list(filter(lambda m: str(m.status) == "idle", ctx.guild.members))),
+                        len(list(filter(lambda m: str(m.status) == "dnd", ctx.guild.members))),
+                        len(list(filter(lambda m: str(m.status) == "offline", ctx.guild.members)))]
 
-        fields = [("ID", ctx.guild.id, True),
-				  ("Owner", ctx.guild.owner, True),
-				  ("Region", ctx.guild.region, True),
-				  ("Created at", ctx.guild.created_at.strftime("%d/%m/%Y %H:%M:%S"), True),
-				  ("Members", len(ctx.guild.members), True),
-				  ("Humans", len(list(filter(lambda m: not m.bot, ctx.guild.members))), True),
-				  ("Bots", len(list(filter(lambda m: m.bot, ctx.guild.members))), True),
-				  ("Banned members", len(await ctx.guild.bans()), True),
-				  ("Statuses", f"🟢 {statuses[0]} 🟠 {statuses[1]} 🔴 {statuses[2]} ⚪ {statuses[3]}", True),
-				  ("Text channels", len(ctx.guild.text_channels), True),
-				  ("Voice channels", len(ctx.guild.voice_channels), True),
-				  ("Categories", len(ctx.guild.categories), True),
-				  ("Roles", len(ctx.guild.roles), True),
-				  ("Invites", len(await ctx.guild.invites()), True),
-				  ("\u200b", "\u200b", True)]
+            fields = [("ID", ctx.guild.id, True),
+                        ("Owner", ctx.guild.owner, True),
+                        ("Region", ctx.guild.region, True),
+                        ("Created at", ctx.guild.created_at.strftime("%d/%m/%Y %H:%M:%S"), True),
+                        ("Members", len(ctx.guild.members), True),
+                        ("Humans", len(list(filter(lambda m: not m.bot, ctx.guild.members))), True),
+                        ("Bots", len(list(filter(lambda m: m.bot, ctx.guild.members))), True),
+                        ("Statuses", f"🟢 {statuses[0]} 🟠 {statuses[1]} 🔴 {statuses[2]} ⚪ {statuses[3]}", True),
+                        ("Text channels", len(ctx.guild.text_channels), True),
+                        ("Voice channels", len(ctx.guild.voice_channels), True),
+                        ("Banned members", len(await ctx.guild.bans()), True),
+                        ("Categories", len(ctx.guild.categories), True),
+                        ("Roles", len(ctx.guild.roles), True),
+                        ("\u200b", "\u200b", True)]
 
-        if ctx.guild.banner:
-            embed.set_image(url=ctx.guild.banner_url)
+            if ctx.guild.banner:
+                embed.set_image(url=ctx.guild.banner_url)
 
-        for name, value, inline in fields:
-            embed.add_field(name=name, value=value, inline=inline)
+            for name, value, inline in fields:
+                embed.add_field(name=name, value=value, inline=inline)
 
-        embed.set_thumbnail(url=ctx.guild.icon_url)
-        await ctx.send(embed=embed)
+            embed.set_thumbnail(url=ctx.guild.icon_url)
+            await ctx.send(embed=embed)
+        
+        else:
+            embed = Embed(title=f"Server's info", colour=ctx.guild.owner.colour, timestamp=datetime.utcnow())
+
+            statuses = [len(list(filter(lambda m: str(m.status) == "online", ctx.guild.members))),
+                        len(list(filter(lambda m: str(m.status) == "idle", ctx.guild.members))),
+                        len(list(filter(lambda m: str(m.status) == "dnd", ctx.guild.members))),
+                        len(list(filter(lambda m: str(m.status) == "offline", ctx.guild.members)))]
+
+            fields = [("ID", ctx.guild.id, True),
+                        ("Owner", ctx.guild.owner, True),
+                        ("Region", ctx.guild.region, True),
+                        ("Created at", ctx.guild.created_at.strftime("%d/%m/%Y %H:%M:%S"), True),
+                        ("Members", len(ctx.guild.members), True),
+                        ("Humans", len(list(filter(lambda m: not m.bot, ctx.guild.members))), True),
+                        ("Bots", len(list(filter(lambda m: m.bot, ctx.guild.members))), True),
+                        ("Statuses", f"🟢 {statuses[0]} 🟠 {statuses[1]} 🔴 {statuses[2]} ⚪ {statuses[3]}", True),
+                        ("Text channels", len(ctx.guild.text_channels), True),
+                        ("Voice channels", len(ctx.guild.voice_channels), True),
+                        ("Categories", len(ctx.guild.categories), True),
+                        ("Roles", len(ctx.guild.roles), True),
+                        ("\u200b", "\u200b", True)]
+
+            if ctx.guild.banner:
+                embed.set_image(url=ctx.guild.banner_url)
+
+            for name, value, inline in fields:
+                embed.add_field(name=name, value=value, inline=inline)
+
+            embed.set_thumbnail(url=ctx.guild.icon_url)
+            await ctx.send(embed=embed)
+
 
     @Cog.listener()
     async def on_ready(self):

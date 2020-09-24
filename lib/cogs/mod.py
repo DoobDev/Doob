@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from re import search
 from typing import Optional
 
-from discord import Embed, Member
+from discord import Embed, Member, Role, TextChannel
 from discord.ext.commands import Cog, Greedy
 from discord.ext.commands import CheckFailure
 from discord.ext.commands import command, has_permissions, bot_has_permissions
@@ -18,23 +18,8 @@ class Mod(Cog):
 		for target in targets:
 			if (message.guild.me.top_role.position > target.top_role.position 
 				and not message.guild.me.top_role.position == target.top_role.position and not target.guild_permissions.administrator):
+				
 				await target.kick(reason=reason)
-
-				embed = Embed(title="Member kicked",
-							  colour=0xDD2222,
-							  timestamp=datetime.utcnow())
-
-				embed.set_thumbnail(url=target.avatar_url)
-
-				fields = [("Member", f"{target.name} a.k.a. {target.display_name}", False),
-						  ("Actioned by", message.author.display_name, False),
-						  ("Reason", reason, False)]
-
-				for name, value, inline in fields:
-					embed.add_field(name=name, value=value, inline=inline)
-
-				logchannel = self.bot.fetch_channel(db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", message.guild.id))
-				await logchannel.send(embed=embed)
 
 	@command(name="kick", aliases=["k", "kickmember"], brief="Kick a member from the server.")
 	@bot_has_permissions(kick_members=True)
@@ -56,25 +41,8 @@ class Mod(Cog):
 		for target in targets:
 			if (message.guild.me.top_role.position > target.top_role.position 
 				and not target.guild_permissions.administrator):
+				
 				await target.ban(reason=reason)
-
-				embed = Embed(title="Member banned",
-							  colour=0xDD2222,
-							  timestamp=datetime.utcnow())
-
-				embed.set_thumbnail(url=target.avatar_url)
-
-				fields = [("Member", f"{target.name} a.k.a. {target.display_name}", False),
-						  ("Actioned by", message.author.display_name, False),
-						  ("Reason", reason, False)]
-
-				for name, value, inline in fields:
-					embed.add_field(name=name, value=value, inline=inline)
-
-				logchannel = self.bot.fetch_channel(db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", message.guild.id))
-				await logchannel.send(embed=embed)
-
-	
 
 	async def mute_members(self, message, targets, reason):
 		unmutes = []
@@ -104,10 +72,10 @@ class Mod(Cog):
 					#ik shut up
 # wait if theres no muted role set it wont work
 					# epic :sunglasses:
-					"""
-					db.execute("INSERT INTO mutes VALUES (?, ?, ?)",
-							   target.id, role_ids, getattr(end_time, "isoformat", lambda: None)())
-					"""
+					
+					#db.execute("INSERT INTO mutes VALUES (?, ?, ?)",
+							   #target.id, role_ids, getattr(end_time, "isoformat", lambda: None)())
+					
 					
 			
 
@@ -131,8 +99,8 @@ class Mod(Cog):
 
 					# if hours:
 					# 	unmutes.append(target)
-
 		return unmutes
+
 	@command(name="mute")
 	@has_permissions(ban_members=True)
 	@bot_has_permissions(manage_roles=True)
@@ -147,7 +115,12 @@ class Mod(Cog):
 			await ctx.send("Action complete.")
 
 			if len(unmutes):
-				await self.unmute_members(ctx.guild, targets)
+				mute_role = db.field('SELECT MutedRole FROM guilds WHERE GuildID = ?', ctx.guild.id) 
+				TheRole = ctx.guild.get_role(int(mute_role))
+				for target in targets:
+					await target.remove_roles(TheRole)
+					db.execute("DELETE FROM mutes WHERE VALUES = (?, ?)", target.id, ctx.guild.id)
+					await ctx.send("Unmuted! <:PogU:560267624966258690>")
 
 	@command(name="unmute")
 	@has_permissions(ban_members=True)
@@ -159,7 +132,7 @@ class Mod(Cog):
 		for target in targets:
 			await target.remove_roles(TheRole)
 			db.execute("DELETE FROM mutes WHERE VALUES = (?, ?)", target.id, ctx.guild.id)
-			await ctx.send("yeeters it worked <:PogU:560267624966258690>")
+			await ctx.send("Unmuted! <:PogU:560267624966258690>")
 #lmfao xD easy way out 
 # idk raw sql so u do this :)
 # i think i did it right lol
@@ -208,14 +181,15 @@ class Mod(Cog):
 
 	@command(name="setlogchannel", aliases=["slc", "logchannel", "setlog", "setlogs"], brief="Set the server's log channel.")
 	@has_permissions(manage_guild=True)
-	async def set_log_channel(self, ctx, *, channel_id: str):
-		if not len(channel_id):
-			await ctx.send("One or more required areguments are missing.")
+	async def set_log_channel(self, ctx, *, channel: Optional[TextChannel]):
+		prefix = db.records("SELECT Prefix FROM guilds WHERE GuildID = ?", ctx.guild.id)
+		if channel == None:
+			await ctx.send(f"The current setting for the Log Channel is: `{channel}`\nTo change it, type `{str(prefix)}setlogchannel #<log channel>`")
 
 		else:
-			db.execute("UPDATE guilds SET LogChannel = ? WHERE GuildID = ?", channel_id, ctx.guild.id)
+			db.execute("UPDATE guilds SET LogChannel = ? WHERE GuildID = ?", channel, ctx.guild.id)
 			db.commit()
-			await ctx.send(f"Log channel set to {channel_id}")
+			await ctx.send(f"Log channel set to #<{channel}>")
 
 	@Cog.listener()
 	async def on_ready(self):
@@ -224,14 +198,18 @@ class Mod(Cog):
 		
 	@command(name="setmuterole", aliases=["smr", "muterole", "setmute"], brief="Set the server's mute role.")
 	@has_permissions(manage_guild=True)
-	async def set_mute_role(self, ctx, *, role_id: str):
-		if not len(role_id):
-			await ctx.send("One or more required areguments are missing.")
+	async def set_mute_role(self, ctx, *, role: Optional[Role]):
+		prefix = db.records("SELECT Prefix FROM guilds WHERE GuildID = ?", ctx.guild.id)
+		if role == None:
+			await ctx.send(f"The current setting for the Muted role is: `{role}`\nTo change it, type `{str(prefix)}setmuterole @<muted role>`")
+
+		elif ctx.guild.me.top_role.position > role.position:
+			db.execute("UPDATE guilds SET MutedRole = ? WHERE GuildID = ?", role.id, ctx.guild.id)
+			db.commit()
+			await ctx.send(f"Mute role set to `{role}`")
 
 		else:
-			db.execute("UPDATE guilds SET MutedRole = ? WHERE GuildID = ?", role_id, ctx.guild.id)
-			db.commit()
-			await ctx.send(f"Mute role set to {role_id}")
+			await ctx.send(f"Please try a different role.\nYou may need to move the `Doob` role in your server settings above the `{role}` role.")
 
 def setup(bot):
 	bot.add_cog(Mod(bot))

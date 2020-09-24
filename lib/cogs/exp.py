@@ -62,7 +62,7 @@ class Exp(Cog):
                    xp_to_add, new_lvl, (datetime.utcnow()+timedelta(seconds=50)).isoformat(), message.author.id)
 
         if new_lvl > lvl:
-            if level_up_messages == "yes":
+            if level_up_messages == "yes" or level_up_messages == "Yes":
                 await message.channel.send(f"{message.author.mention} leveled up to {new_lvl:,}!", delete_after = 10)
 
     @command(name="level", aliases=["rank", "lvl"], brief="Shows your level, and rank.")
@@ -80,15 +80,18 @@ class Exp(Cog):
 
     @command(name="levelmessages", aliases=["slm", "lm", "setlevelmessages"], brief="Set the server's level messages")
     @has_permissions(manage_guild=True)
-    async def set_level_messages(self, ctx, *, yes_or_no: str):
-        """PLEASE, put 'no' ALL LOWERCASE if you DO NOT want level messages"""
-        if not len(yes_or_no):
-            await ctx.send("One or more required areguments are missing.")
+    async def set_level_messages(self, ctx, *, yes_or_no: Optional[str]):
+        """PLEASE, put 'yes' if you DO want level messages"""
+        levelmessages = db.records("SELECT LevelMessages FROM guilds WHERE GuildID = ?", ctx.guild.id) or (None)
+        prefix = db.records("SELECT Prefix FROM guilds WHERE GuildID = ?", ctx.guild.id)
 
-        else:
+        if yes_or_no == "Yes" or yes_or_no == "yes" or yes_or_no == "no" or yes_or_no == "No":
             db.execute("UPDATE guilds SET LevelMessages = ? WHERE GuildID = ?", yes_or_no, ctx.guild.id)
             db.commit()
-            await ctx.send(f"Level messages set to {yes_or_no}.")
+            await ctx.send(f"Level messages set to `{yes_or_no}`.")
+
+        else:
+            await ctx.send(f"The current setting for Level Messages is: `{levelmessages[0]}`\nTo change it, type `{prefix[0]}levelmessages (yes or no)`")
 
     @command(name="leaderboard", aliases=["lb", "xplb"], brief="Show who's on top of the Doob XP Leaderboard!")
     async def display_leaderboard(self, ctx):

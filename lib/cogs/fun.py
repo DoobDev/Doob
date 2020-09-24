@@ -28,14 +28,18 @@ class Fun(Cog):
 
     @command(name="slap", brief="Slap a user, what did they do wrong to you?")
     @cooldown(1, 10, BucketType.user)
-    async def slap_member(self, ctx, member: Member, *, reason: Optional[str] = "for no reason"):
-        await ctx.send(f"{ctx.author.mention} slapped {member.mention} {reason}!")
-        await ctx.send("Ouch!")
-
-    @slap_member.error
-    async def slap_member_error(self, ctx, exc):
-        if isinstance(exc, BadArgument):
-            await ctx.send("That user could not be found. :/", delete_after=10)
+    async def slap_member(self, ctx, member: Optional[Member], *, reason: Optional[str]):
+        if member == None:
+            if reason == None:
+                await ctx.send(f"{ctx.author.mention} slapped {ctx.author.mention}!")
+                await ctx.send("He slapped himself! HAHAHA")
+            elif reason != None:
+                await ctx.send(f"{ctx.author.mention} slapped {ctx.author.mention} instead of {reason}!")
+                await ctx.send("Wrong person buddy.")
+        
+        else:
+            await ctx.send(f"{ctx.author.mention} slapped {member.display_name}\nReason - {reason}!")
+            await ctx.send("Ouch!")
 
 # Make Echo Patreon only, because I don't wanna make my bot just say anything. (which is why the print statement says who said it and what, but just as an extra safe measure [and a benefit for the people who give me money] this is going to be Patreon only.)
     @command(name="echo", aliases=["say"], brief="Make Doob say something!")
