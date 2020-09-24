@@ -61,7 +61,7 @@ class Bot(BotBase):
 
         print("Running setup!")
         self.setup()
-        #print(os.getenv("TOKEN")) # bruh
+        print(os.getenv("TOKEN")) # bruh
         # ^^ is printing "None"
         #with open("./lib/bot/token.txt", "r", encoding="utf-8") as tf:
             #self.TOKEN = tf.read()
