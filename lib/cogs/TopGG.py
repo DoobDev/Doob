@@ -20,7 +20,7 @@ class TopGG(commands.Cog):
 
     @commands.Cog.listener()
     async def on_dbl_vote(self, data):
-        logger.info('Received an upvote')
+        print('Received an upvote')
         print(data)
 
     @commands.Cog.listener()
