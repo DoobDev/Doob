@@ -139,11 +139,11 @@ class Mod(Cog):
 #        do the other one... :|
 #oooooooooooooooooooooooooooooooooooooohkewl :thumsup:
 # EZbut we need to get my completion message working 
-#yeah it didn't work before sooooo! lmfao
-	@mute_command.error
-	async def mute_command_error(self, ctx, exc):
-		if isinstance(exc, CheckFailure):
-			await ctx.send("Insufficient permissions to perform that task.")
+# yeah it didn't work before sooooo! lmfao
+# 	@mute_command.error
+# 	async def mute_command_error(self, ctx, exc):
+# 		if isinstance(exc, CheckFailure):
+# 			await ctx.send("Insufficient permissions to perform that task.")
 
 	@command(name="ban", aliases=["b", "banmember"], brief="Ban a member from the server.")
 	@bot_has_permissions(ban_members=True)
