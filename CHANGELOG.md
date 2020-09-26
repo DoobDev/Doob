@@ -4,9 +4,6 @@
 * New doob/patreon command!
 * Added some debugging for doob/dog
     - It gives me the roll numbers for P_AD and L_DOG if I need to check if it is working or not.
-* Added doob/mute and doob/unmute!
-	- Make sure your Muted role is set by doing `doob/setmutedrole {muted role ID}`
-		- make sure it is the ID, you can get this now by going into your server settings, roles, then right clicking your muted role
 * Default Level Messages are off.
     - This feature is on the live bot now.
 * Default error message gives support server.
