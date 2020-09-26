@@ -1,6 +1,7 @@
 from discord.ext.commands import Cog
 from discord.ext.commands import CheckFailure
 from discord.ext.commands import command, has_permissions
+from discord import Embed
 
 from ..db import db # pylint: disable=relative-beyond-top-level
 
@@ -16,7 +17,8 @@ class Misc(Cog):
 
 		else:
 			db.execute("UPDATE guilds SET Prefix = ? WHERE GuildID = ?", new, ctx.guild.id)
-			await ctx.send(f"Prefix set to `{new}`")
+			embed = Embed(title="Prefix Changed", description=f"Prefix has been changed to `{new}`")
+			await ctx.send(embed=embed)
 
 	@change_prefix.error
 	async def change_prefix_error(self, ctx, exc):

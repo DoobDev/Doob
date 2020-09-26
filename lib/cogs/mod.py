@@ -17,7 +17,8 @@ class Mod(Cog):
 	async def kick_members(self, message, targets, reason):
 		for target in targets:
 			if (message.guild.me.top_role.position > target.top_role.position 
-				and not message.guild.me.top_role.position == target.top_role.position and not target.guild_permissions.administrator):
+				and not message.guild.me.top_role.position == target.top_role.position and not target.guild_permissions.administrator
+				and not message.author.top_role.position < target.top_role.position):
 				
 				await target.kick(reason=reason)
 
@@ -30,7 +31,7 @@ class Mod(Cog):
 
 		else:
 			await self.kick_members(ctx.message, targets, reason)
-			await ctx.send("Action complete.")
+			await ctx.send("Member kicked.")
 
 	@kick_command.error
 	async def kick_command_error(self, ctx, exc):
@@ -40,7 +41,8 @@ class Mod(Cog):
 	async def ban_members(self, message, targets, reason):
 		for target in targets:
 			if (message.guild.me.top_role.position > target.top_role.position 
-				and not target.guild_permissions.administrator):
+				and not target.guild_permissions.administrator 
+				and not message.author.top_role.position < target.top_role.position):
 				
 				await target.ban(reason=reason)
 
@@ -154,7 +156,7 @@ class Mod(Cog):
 
 		else:
 			await self.ban_members(ctx.message, targets, reason)
-			await ctx.send("Action complete.")
+			await ctx.send("Member banned.")
 
 	@ban_command.error
 	async def ban_command_error(self, ctx, exc):

@@ -33,6 +33,13 @@
 * doob/dog now has a lower chance of getting a Lucky Dog
     - Instead of 1/100 it is now 1/1000
     - The reason I did this is because people were getting them too often, and for the nitro giveaway in the support server, at least like 2/3 people a day got a lucky dog every single day since the bot hit about 70+ servers, so I knew it would be unfair to keep it 1/100 so I changed it, if this change has any problem, we might bump it back up to 1/500. Hopefully you understand the change.
+* doob/kick and doob/ban now check for role hierarchys
+    - For example, a Helper can't kick a Moderator.
+* No more random "This Command didn't work" error.
+* Changed the message for the "Forbidden" error.
+* Removed the "HTTPException" error handling, for now.
+* doob/slap no longer sends 2 messages.
+* doob/prefix is now in an embed
 
 ## v2.0.7
 * Added doob/support - Gives link to the Doob support server.

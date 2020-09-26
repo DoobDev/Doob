@@ -32,14 +32,11 @@ class Fun(Cog):
         if member == None:
             if reason == None:
                 await ctx.send(f"{ctx.author.mention} slapped {ctx.author.mention}!")
-                await ctx.send("He slapped himself! HAHAHA")
             elif reason != None:
                 await ctx.send(f"{ctx.author.mention} slapped {ctx.author.mention} instead of {reason}!")
-                await ctx.send("Wrong person buddy.")
         
         else:
             await ctx.send(f"{ctx.author.mention} slapped {member.display_name}\nReason - {reason}!")
-            await ctx.send("Ouch!")
 
 # Make Echo Patreon only, because I don't wanna make my bot just say anything. (which is why the print statement says who said it and what, but just as an extra safe measure [and a benefit for the people who give me money] this is going to be Patreon only.)
     @command(name="echo", aliases=["say"], brief="Make Doob say something!")

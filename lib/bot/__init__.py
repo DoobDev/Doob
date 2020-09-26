@@ -89,9 +89,9 @@ class Bot(BotBase):
     async def on_error(self, err, *args, **kwargs):
         if err == "on_command_error":
 
-            embed = Embed(title="Oops!", description="This command didn't work correctly.", colour=Colour.red())
-            embed.add_field(name="❓ Join the Support Server:", value="https://discord.gg/hgQTTU7")
-            await args[0].send(embed=embed)
+            # embed = Embed(title="Oops!", description="This command didn't work correctly.", colour=Colour.red())
+            # embed.add_field(name="❓ Join the Support Server:", value="https://discord.gg/hgQTTU7")
+            # await args[0].send(embed=embed)
             
             # if err == "on_command_error":
             # 	args[0].send("uh so py is being gay again sry")
@@ -102,7 +102,7 @@ class Bot(BotBase):
 
             
             #await args[0].send(f"Something went wrong. :/\n{err.original}")
-        raise err
+            raise err
 
     async def on_command_error(self, ctx, exc):
         if any([isinstance(exc, error) for error in IGNORE_EXCEPTIONS]):
@@ -117,11 +117,11 @@ class Bot(BotBase):
             await ctx.send(f'That command is on a {str(exc.cooldown.type).split(".")[-1]} cooldown! Try again in {exc.retry_after:,.2f} seconds.', delete_after = exc.retry_after)
 
         elif hasattr(exc, "original"):
-            if isinstance(exc.original, HTTPException):
-                await ctx.send("Unable to send message.", delete_after = 10)
+            # if isinstance(exc.original, HTTPException):
+            #     await ctx.send("Unable to send message.", delete_after = 10)
 
             if isinstance(exc.original, Forbidden):
-                await ctx.send("Doob doesn't have permissions in this server to use that command.", delete_after = 10)
+                await ctx.send("Doob doesn't have permissions to do that.", delete_after = 10)
 
             else:
                 raise exc.original
