@@ -14,12 +14,6 @@ class Mod(Cog):
 	def __init__(self, bot):
 		self.bot = bot
 
-	async def kick_members(self, message, targets, reason):
-		for target in targets:
-			if message.guild.me.top_role.position > target.top_role.position and not message.guild.me.top_role.position == target.top_role.position and not target.guild_permissions.administrator and not message.author.top_role.position < target.top_role.position:
-				
-				await target.kick(reason=reason)
-
 	@command(name="kick", aliases=["k", "kickmember"], brief="Kick a member from the server.")
 	@bot_has_permissions(kick_members=True)
 	@has_permissions(kick_members=True)
@@ -27,19 +21,20 @@ class Mod(Cog):
 		if not len(targets):
 			await ctx.send("One or more required arguments are missing.")
 
-		elif message.guild.me.top_role.position > target.top_role.position and not target.guild_permissions.administrator and not message.author.top_role.position < target.top_role.position:
-			await self.kick_members(ctx.message, targets, reason)
-			await ctx.send("Member kicked.")
+		else:
+			for target in targets:
+				if (ctx.guild.me.top_role.position != target.top_role.position
+					and ctx.author.top_role.position > target.top_role.position):
+					
+					await target.kick(reason=reason)
+					await ctx.send("Member Kicked.")
+				else:
+					await ctx.send("Something went wrong.\nYou might not be able to kick that member.")
 
 	@kick_command.error
 	async def kick_command_error(self, ctx, exc):
 		if isinstance(exc, CheckFailure):
 			await ctx.send("Insufficient permissions to perform that task.")
-
-	async def ban_members(self, message, targets, reason):
-		for target in targets:
-			if message.guild.me.top_role.position > target.top_role.position and not target.guild_permissions.administrator and not message.author.top_role.position < target.top_role.position:
-				await target.ban(reason=reason)
 
 # 	async def mute_members(self, message, targets, reason):
 # 		unmutes = []
@@ -149,10 +144,16 @@ class Mod(Cog):
 		if not len(targets):
 			await ctx.send("One or more required arguments are missing.")
 
-		elif message.guild.me.top_role.position > target.top_role.position and not target.guild_permissions.administrator and not message.author.top_role.position < target.top_role.position:
-			await self.ban_members(ctx.message, targets, reason)
-			await ctx.send("Member banned.")
-
+		else:
+			for target in targets:
+				if (ctx.guild.me.top_role.position != target.top_role.position
+					and ctx.author.top_role.position > target.top_role.position):
+					
+					await target.ban(reason=reason)
+					await ctx.send("Member banned.")
+				
+				else: 
+					await ctx.send("Something went wrong.\nYou might not be able to ban that member.")
 	@ban_command.error
 	async def ban_command_error(self, ctx, exc):
 		if isinstance(exc, CheckFailure):
