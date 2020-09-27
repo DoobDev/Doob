@@ -27,7 +27,7 @@ class Mod(Cog):
 		if not len(targets):
 			await ctx.send("One or more required arguments are missing.")
 
-		else:
+		elif message.guild.me.top_role.position > target.top_role.position and not target.guild_permissions.administrator and not message.author.top_role.position < target.top_role.position::
 			await self.kick_members(ctx.message, targets, reason)
 			await ctx.send("Member kicked.")
 
@@ -39,7 +39,6 @@ class Mod(Cog):
 	async def ban_members(self, message, targets, reason):
 		for target in targets:
 			if message.guild.me.top_role.position > target.top_role.position and not target.guild_permissions.administrator and not message.author.top_role.position < target.top_role.position:
-				
 				await target.ban(reason=reason)
 
 # 	async def mute_members(self, message, targets, reason):
@@ -150,7 +149,7 @@ class Mod(Cog):
 		if not len(targets):
 			await ctx.send("One or more required arguments are missing.")
 
-		else:
+		elif message.guild.me.top_role.position > target.top_role.position and not target.guild_permissions.administrator and not message.author.top_role.position < target.top_role.position::
 			await self.ban_members(ctx.message, targets, reason)
 			await ctx.send("Member banned.")
 
