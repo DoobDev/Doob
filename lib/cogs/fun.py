@@ -98,7 +98,7 @@ class Fun(Cog):
             if patreonRole in member.roles:
                 random = randint(1,53)
 
-                if random != 50 and random != 51 and random != 52:
+                if random != 50 and random != 51 and random != 52 and random != 53:
                     async with request("GET", URL, headers={}) as response:
                         if response.status == 200:
                             data = await response.json()
@@ -124,12 +124,18 @@ class Fun(Cog):
                     embed.set_footer(text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 50 chance of getting this picture!", icon_url=ctx.author.avatar_url)
                     embed.set_image(url="https://i.imgur.com/guF2Y3z.png")
                     await ctx.send(embed=embed)
+                
+                elif random == 53:
+                    embed = Embed(title="Lucky Dog Picture!", description="This is [@KittyKay000](https://twitter.com/kittykay000)'s concept drawing of Doob!", colour=Colour.gold())
+                    embed.set_footer(text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 50 chance of getting this picture!", icon_url=ctx.author.avatar_url)
+                    embed.set_image(url="https://i.imgur.com/KFOR8YJ.jpeg")
+                    await ctx.send(embed=embed)
 
             else:
                 random = randint(1,1003)
                 patreon_ad = randint(1, 4)
 
-                if random != 100 and random != 101 and random != 102:
+                if random != 100 and random != 101 and random != 102 and random != 103:
                     if patreon_ad != 1:
                         async with request("GET", URL, headers={}) as response:
                             if response.status == 200:
@@ -164,6 +170,12 @@ class Fun(Cog):
                     embed = Embed(title="Lucky Dog Picture!", description="This is [Weest](https://twitter.com/weesterner)'s dog Kevin!", colour=Colour.gold())
                     embed.set_footer(text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 100 chance of getting this picture!", icon_url=ctx.author.avatar_url)
                     embed.set_image(url="https://i.imgur.com/guF2Y3z.png")
+                    await ctx.send(embed=embed)
+                
+                elif random == 103:
+                    embed = Embed(title="Lucky Dog Picture!", description="This is [@KittyKay000](https://twitter.com/kittykay000)'s concept drawing of Doob!", colour=Colour.gold())
+                    embed.set_footer(text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 50 chance of getting this picture!", icon_url=ctx.author.avatar_url)
+                    embed.set_image(url="https://i.imgur.com/KFOR8YJ.jpeg")
                     await ctx.send(embed=embed)
                 
             
@@ -204,6 +216,12 @@ class Fun(Cog):
                 embed = Embed(title="Lucky Dog Picture!", description="This is [Weest](https://twitter.com/weesterner)'s dog Kevin!", colour=Colour.gold())
                 embed.set_footer(text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 100 chance of getting this picture!", icon_url=ctx.author.avatar_url)
                 embed.set_image(url="https://i.imgur.com/guF2Y3z.png")
+                await ctx.send(embed=embed)
+
+            elif random == 103:
+                embed = Embed(title="Lucky Dog Picture!", description="This is [@KittyKay000](https://twitter.com/kittykay000)'s concept drawing of Doob!", colour=Colour.gold())
+                embed.set_footer(text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 50 chance of getting this picture!", icon_url=ctx.author.avatar_url)
+                embed.set_image(url="https://i.imgur.com/KFOR8YJ.jpeg")
                 await ctx.send(embed=embed)
 
     @command(name="notanimposter", aliases=["nai", "amonguscrew", "crewmate"], brief="I SWEAR I SAW HIM VENT! He wasn't an imposter...")

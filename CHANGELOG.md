@@ -40,6 +40,7 @@
 * Removed the "HTTPException" error handling, for now.
 * doob/slap no longer sends 2 messages.
 * doob/prefix is now in an embed
+* Added [@KittyKay000](https://twitter.com/kittykay000)'s concept drawing of Doob!
 
 ## v2.0.7
 * Added doob/support - Gives link to the Doob support server.
