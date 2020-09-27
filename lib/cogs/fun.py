@@ -156,25 +156,25 @@ class Fun(Cog):
 
                 elif random == 100:
                     embed = Embed(title="Lucky Dog Picture!", description="This is [Liquid Mendo](https://twitter.com/mendo)'s dog Koda!", colour=Colour.gold())
-                    embed.set_footer(text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 100 chance of getting this picture!", icon_url=ctx.author.avatar_url)
+                    embed.set_footer(text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 1000 chance of getting this picture!", icon_url=ctx.author.avatar_url)
                     embed.set_image(url="https://pbs.twimg.com/media/EgXfe_XUcAABT41?format=jpg&name=360x360")
                     await ctx.send(embed=embed)
 
                 elif random == 101:
-                    embed = Embed(title="Lucky Dog Picture!", description="There is a 1 in 100 chance of getting this picture!", colour=Colour.gold())
+                    embed = Embed(title="Lucky Dog Picture!", description="There is a 1 in 1000 chance of getting this picture!", colour=Colour.gold())
                     embed.set_footer(text=f"{ctx.author} got this lucky dog picture!", icon_url=ctx.author.avatar_url)
                     embed.set_image(url = "https://i.imgur.com/pzqRLdi.jpg")
                     await ctx.send(embed=embed)
 
                 elif random == 102:
                     embed = Embed(title="Lucky Dog Picture!", description="This is [Weest](https://twitter.com/weesterner)'s dog Kevin!", colour=Colour.gold())
-                    embed.set_footer(text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 100 chance of getting this picture!", icon_url=ctx.author.avatar_url)
+                    embed.set_footer(text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 1000 chance of getting this picture!", icon_url=ctx.author.avatar_url)
                     embed.set_image(url="https://i.imgur.com/guF2Y3z.png")
                     await ctx.send(embed=embed)
                 
                 elif random == 103:
                     embed = Embed(title="Lucky Dog Picture!", description="This is [@KittyKay000](https://twitter.com/kittykay000)'s concept drawing of Doob!", colour=Colour.gold())
-                    embed.set_footer(text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 50 chance of getting this picture!", icon_url=ctx.author.avatar_url)
+                    embed.set_footer(text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 1000 chance of getting this picture!", icon_url=ctx.author.avatar_url)
                     embed.set_image(url="https://i.imgur.com/KFOR8YJ.jpeg")
                     await ctx.send(embed=embed)
                 
@@ -202,25 +202,25 @@ class Fun(Cog):
 
             elif random == 100:
                 embed = Embed(title="Lucky Dog Picture!", description="This is [Liquid Mendo](https://twitter.com/mendo)'s dog Koda!", colour=Colour.gold())
-                embed.set_footer(text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 100 chance of getting this picture!", icon_url=ctx.author.avatar_url)
+                embed.set_footer(text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 1000 chance of getting this picture!", icon_url=ctx.author.avatar_url)
                 embed.set_image(url="https://pbs.twimg.com/media/EgXfe_XUcAABT41?format=jpg&name=360x360")
                 await ctx.send(embed=embed)
 
             elif random == 101:
-                embed = Embed(title="Lucky Dog Picture!", description="There is a 1 in 100 chance of getting this picture!", colour=Colour.gold())
+                embed = Embed(title="Lucky Dog Picture!", description="There is a 1 in 1000 chance of getting this picture!", colour=Colour.gold())
                 embed.set_footer(text=f"{ctx.author} got this lucky dog picture!", icon_url=ctx.author.avatar_url)
                 embed.set_image(url = "https://i.imgur.com/pzqRLdi.jpg")
                 await ctx.send(embed=embed)
 
             elif random == 102:
                 embed = Embed(title="Lucky Dog Picture!", description="This is [Weest](https://twitter.com/weesterner)'s dog Kevin!", colour=Colour.gold())
-                embed.set_footer(text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 100 chance of getting this picture!", icon_url=ctx.author.avatar_url)
+                embed.set_footer(text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 1000 chance of getting this picture!", icon_url=ctx.author.avatar_url)
                 embed.set_image(url="https://i.imgur.com/guF2Y3z.png")
                 await ctx.send(embed=embed)
 
             elif random == 103:
                 embed = Embed(title="Lucky Dog Picture!", description="This is [@KittyKay000](https://twitter.com/kittykay000)'s concept drawing of Doob!", colour=Colour.gold())
-                embed.set_footer(text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 50 chance of getting this picture!", icon_url=ctx.author.avatar_url)
+                embed.set_footer(text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 1000 chance of getting this picture!", icon_url=ctx.author.avatar_url)
                 embed.set_image(url="https://i.imgur.com/KFOR8YJ.jpeg")
                 await ctx.send(embed=embed)
 
