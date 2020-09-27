@@ -41,6 +41,9 @@
 * doob/slap no longer sends 2 messages.
 * doob/prefix is now in an embed
 * Added [@KittyKay000](https://twitter.com/kittykay000)'s concept drawing of Doob!
+* Made the cooldown for doob/dog longer.
+    - Someone suggested in the [Doob Support Discord](https://discord.gg/hgQTTU7) to make a cooldown on the command, little did they know, it had a command, appearently it wasn't long enough so I have increased it.
+        - You can only use it 2 times every 5 seconds.
 
 ## v2.0.7
 * Added doob/support - Gives link to the Doob support server.
