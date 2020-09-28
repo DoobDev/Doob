@@ -32,7 +32,8 @@ Doob has some great features, such as:
 * AND MORE! (coming soon)
 
 ## Doob on the web.
-The Doob Development Blog is avalilable over on my GitHub.io page https://doobdev.github.io/
+- You can visit the Doob website at [https://doobbot.com](https://doobbot.com)
+- Visit the Dev blog at [https://doobdev.github.io](https://doobdev.github.io)
 
 ## What commands are there?
 Use the doob/help command on Discord!
