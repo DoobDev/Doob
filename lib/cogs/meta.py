@@ -1,6 +1,7 @@
 from platform import python_version
 from time import time
 from datetime import datetime, timedelta
+from typing import Optional
 
 from apscheduler.triggers.cron import CronTrigger
 from discord import Activity, ActivityType, Embed
