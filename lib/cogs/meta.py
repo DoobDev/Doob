@@ -75,6 +75,14 @@ class Meta(Cog):
 		else:
 			await ctx.send("You don't have permission to shutdown the bot.")
 
+	@command(name="nitrogiveaway", brief="Owner Only Command to tell people how to enter the Nitro Giveaways for Doob.")
+	async def shutdown(self, ctx, *, target: Optional[Member]):
+		if ctx.author.id == owner_id:
+			await ctx.send(f"{target}, To claim the Discord Nitro Classic gift, check <#757666920773189662> to see if the Nitro has been claimed for this week!\nDon't know when to claim the Nitro? If you have gotten a Lucky Dog (from doing `doob/dog`) DM `mmatt#001` with a screenshot!")
+
+		else:
+			await ctx.send("You don't have permission to use this command the bot.", delete_after=10)
+
 	@command(name="info", aliases=["botinfo"], brief="Gives basic info about Doob.")
 	async def show_basic_bot_info(self, ctx):
 
