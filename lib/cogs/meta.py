@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from typing import Optional
 
 from apscheduler.triggers.cron import CronTrigger
-from discord import Activity, ActivityType, Embed
+from discord import Activity, ActivityType, Embed, Member
 from discord import __version__ as discord_version
 from discord.ext.commands import Cog
 from discord.ext.commands import command, BucketType, cooldown, is_owner
