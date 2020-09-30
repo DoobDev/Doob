@@ -15,17 +15,17 @@
 <span class="badge-patreon"><a href="https://www.patreon.com/doobdev" title="Donate to this project using Patreon"><img src="https://img.shields.io/badge/patreon-donate-yellow.svg?style=for-the-badge" alt="Patreon donate button" /></a></span>
 
 ## About
-Doob is a Multipurpose Discord Bot with a built in Leveling System, Great Logging Features, actual Fun, Fun commands, and best of all, the developer is very active, and develops on the bot frequently. 
+Doob is a multipurpose Discord bot with a built-in **leveling system**, great **logging features**, actual fun, **fun commands**, and best of all, the developer is very active, and develops the bot frequently. 
 
 ## Main Features
 Doob has some great features, such as:
 * Logging
-* A Global Leveling System (with leaderbaord)
+* A Global Leveling System (with leaderboard)
 * Server + User info
 * Rolling Dice
 * Echo Command [(Patreon Only)](https://patreon.com/doobdev/)
 * Dog Facts and Pictures (with some Lucky Dogs from Twitch Streamers)
-* Among Us Imposter/Not An Imposter commands
+* Among Us Impostor/Not An Impostor commands
 * Low Latency
 * Customizable Server Features [Don't like Level Messages? Turn them off!]
 * Robust Moderation Commands
@@ -44,11 +44,13 @@ Submit an [Issue](https://github.com/doobdev/doob/issues) or a [Pull request](ht
 ## Requirements
 `pip install discord.py apscheduler git+https://github.com/rapptz/discord-ext-menus dblpy`
 
+You will need to make two additional files in `/lib/bot/`, `token.txt` (containing your bot token), and `topgg.txt`.
+
 Start the bot after downloading prerequisites:
 
-`pip install discord.py apscheduler git+https://github.com/rapptz/discord-ext-menus dblpy; python3 launcher.py`
+`python3 launcher.py`
 
-### ⚠️ Since Doob will now use env (in the future this isn't the case as of 2.0.7) to store the token, you'll need to create your own .env file and fill it out correctly. 
+### ⚠️ Doob will use .env in the future - to store the token, you'll need to create your own .env file and fill it out correctly. 
 ##### Go to Google if you need help!!
 
 ## Credits
