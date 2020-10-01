@@ -79,7 +79,7 @@ class Fun(Cog):
     @command(name="dog", aliases=["dogimage"], brief="See a random picture of a dog!")
     @cooldown(2, 5, BucketType.user)
     async def dog_image(self, ctx):
-        URL = "https://some-random-api.ml/img/dog"
+        URL = "https://dog.ceo/api/breeds/image/random"
 #how 2 webhook Donk
 # but url
 #lik what that :donk:
@@ -104,7 +104,7 @@ class Fun(Cog):
                             data = await response.json()
                             embed = Embed(title="Dog Picture!", colour=ctx.author.colour)
                             #embed.set_footer(text=f"DEBUG: L_DOG: {random}")
-                            embed.set_image(url=data["link"])
+                            embed.set_image(url=data["message"])
                             await ctx.send(embed=embed)
                 
                 elif random == 50:
@@ -142,7 +142,7 @@ class Fun(Cog):
                                 data = await response.json()
                                 embed = Embed(title="Dog Picture!", colour=ctx.author.colour)
                                 #embed.set_footer(text=f"DEBUG: P_AD: {patreon_ad} L_DOG: {random}")
-                                embed.set_image(url=data["link"])
+                                embed.set_image(url=data["message"])
                                 await ctx.send(embed=embed)
                     elif patreon_ad == 1:
                         async with request("GET", URL, headers={}) as response:
@@ -151,7 +151,7 @@ class Fun(Cog):
                                 embed=Embed(title="Dog Picture!", colour=ctx.author.colour)
                                 embed.set_author(name="Get a higher chance of getting a Lucky Dog by subscribing to our Patreon", icon_url="https://i.imgur.com/OosmBb4.png", url="https://patreon.com/doobdev")
                                 #embed.set_footer(text=f"DEBUG: P_AD: {patreon_ad} L_DOG: {random}")
-                                embed.set_image(url=data["link"])
+                                embed.set_image(url=data["message"])
                                 await ctx.send(embed=embed)
 
                 elif random == 100:
@@ -189,7 +189,7 @@ class Fun(Cog):
                         if response.status == 200:
                             data = await response.json()
                             embed = Embed(title="Dog Picture!", colour=ctx.author.colour)
-                            embed.set_image(url=data["link"])
+                            embed.set_image(url=data["message"])
                             await ctx.send(embed=embed)
                 elif patreon_ad == 1:
                     async with request("GET", URL, headers={}) as response:
@@ -197,7 +197,7 @@ class Fun(Cog):
                             data = await response.json()
                             embed=Embed(title="Dog Picture!", colour=ctx.author.colour)
                             embed.set_author(name="Get a higher chance of getting a Lucky Dog by subscribing to our Patreon", icon_url="https://i.imgur.com/OosmBb4.png", url="https://patreon.com/doobdev")
-                            embed.set_image(url=data["link"])
+                            embed.set_image(url=data["message"])
                             await ctx.send(embed=embed)
 
             elif random == 100:
