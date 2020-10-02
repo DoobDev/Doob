@@ -40,8 +40,9 @@ class Meta(Cog):
 			type=getattr(ActivityType, _type, ActivityType.playing)
 		))
 
-	@command(name="setactivity", brief="Set the bot's activity")
+	@command(name="setactivity", brief="Owner Only Command - Set the bot's activity")
 	async def set_activity_message(self, ctx, *, text: str):
+		"""Set the bot's `playing` or `watching`, etc status. | `Owner` permission required."""
 		if ctx.author.id == owner_id:
 			self.message = text
 			await self.set()
@@ -51,15 +52,18 @@ class Meta(Cog):
 
 	@command(name="support", aliases=["supportserver"], brief="Get a link to the Doob support server.")
 	async def support_server_link(self, ctx):
+		"""Gives a link to the Doob Support Server where you can get help from the developer!"""
 		await ctx.send("Join the support server at: :link: https://discord.gg/hgQTTU7")
 
 	@command(name="invite", aliases=["invitebot", "inv", "botinvite"], brief="Gives a link to invite Doob to your server.")
 	async def doob_invite_link(self, ctx):
+		"""Gives you a link to invite Doob to another server!"""
 		await ctx.send("You can invite the bot here! :link: <https://discordapp.com/oauth2/authorize?client_id=680606346952966177&scope=bot&permissions=271674430>")
 
 	@command(name="ping", brief="Shows the bot's latency.")
 	@cooldown(1, 10, BucketType.user)
 	async def ping(self, ctx):
+		"""Ping Pong!~\nShows the bot latency and response time."""
 		start = time()
 		message = await ctx.send("Loading...")
 		end = time()
@@ -67,6 +71,7 @@ class Meta(Cog):
 
 	@command(name="shutdown", brief="Owner Only Command to shutdown the bot and save the DB.")
 	async def shutdown(self, ctx):
+		"""Command to shutdown the bot and save it's database. | `Owner` permission required"""
 		if ctx.author.id == owner_id:
 			await ctx.send("Shutting down")
 
@@ -78,14 +83,16 @@ class Meta(Cog):
 
 	@command(name="nitrogiveaway", brief="Owner Only Command to tell people how to enter the Nitro Giveaways for Doob.")
 	async def nitro_giveaway_command(self, ctx, *, target: Optional[Member]):
+		"""Command to tell people how to claim the Discord Nitro Classic gift. | `Owner` permission required"""
 		if ctx.author.id == owner_id:
 			await ctx.send(f"{target}, To claim the Discord Nitro Classic gift, check <#757666920773189662> to see if the Nitro has been claimed for this week!\nDon't know when to claim the Nitro? If you have gotten a Lucky Dog (from doing `doob/dog`) DM `mmatt#001` with a screenshot!")
 
 		else:
-			await ctx.send("You don't have permission to use this command the bot.", delete_after=10)
+			await ctx.send("You don't have permission to use this command.", delete_after=10)
 
 	@command(name="info", aliases=["botinfo"], brief="Gives basic info about Doob.")
 	async def show_basic_bot_info(self, ctx):
+		"""Gives basic info about Doob."""
 
 		homeGuild = self.bot.get_guild(702352937980133386)
 		patreonRole = get(homeGuild.roles, id=757041749716893739)
@@ -176,6 +183,7 @@ class Meta(Cog):
 
 	@command(name="patreon", aliases=["donate", "donation"], brief="Show support to Doob Dev!")
 	async def patreon_link(self, ctx):
+		"""Gives a link to the Patreon for Doob!\nWe apprecieate your support!~"""
 		homeGuild = self.bot.get_guild(702352937980133386)
 		patreonRole = get(homeGuild.roles, id=757041749716893739)
 

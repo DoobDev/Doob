@@ -1,54 +1,57 @@
 ## v2.0.8
 * Updated description (on the help command) for
-    - doob/Leaderboard
-* New doob/patreon command!
+    - `doob/Leaderboard`
+* New `doob/patreon` command!
 * Added some debugging for doob/dog
     - It gives me the roll numbers for P_AD and L_DOG if I need to check if it is working or not.
 * Default Level Messages are off.
     - This feature is on the live bot now.
 * Default error message gives support server.
-* doob/setlevelmessages now:
+* `doob/setlevelmessages` now:
     - Tells you if you have level messages on or off if you just type `doob/setlevelmessages`
     - Only sets your level message setting if you type
         - `yes`
         - `Yes`
         - `no`
         - `No`
-* doob/slap should no longer gives you a Bad Argument error.
+* `doob/slap` should no longer gives you a Bad Argument error.
     - Instead, it defaults to slapping yourself, silly you!
         - If you try to pass a reason in when doing `doob/slap` with no member found, it says that you accidently slapped yourself instead of the person you meant to slap.
             - This also means it removes the default reason.
                 - For instance, instead of it saying "for no reason!" it will just say "Reason - None!"
-* doob/serverinfo no longer requires server permissions!
+* `doob/serverinfo` no longer requires server permissions!
     - The reason it needed server permissions last time is because of the "Banned Members" field, if Doob has Administrator permissions in a server, it will still show the "Banned Members" field.
-* doob/prefix and doob/setlevelmessages can no longer be abused to do @everyone pings.
-* doob/setmutedrole and doob/setlogchannel no longer have to be IDs anymore.
+* `doob/prefix` and `doob/setlevelmessages` can no longer be abused to do @everyone pings.
+* `doob/setmutedrole` and `doob/setlogchannel` no longer have to be IDs anymore.
     - I believe they now **are required** to be pings.
         - Example: `doob/setmutedrole @Muted` and `doob/setlogchannel #logs`
             - Instead of from 2.0.7 (this is outdated, don't do this anymore.) `doob/setmutedrole {role id}` and `doob/setlogchannel {channel id}`
-* Logs have been removed from doob/kick and doob/ban.
+* Logs have been removed from `doob/kick` and `doob/ban`.
     - This will most likely be changed next patch, but for now they have been removed.
         - Why?: If you didn't have a log channel set, it would error out, but still kick / ban the person.
-* doob/ai and doob/nai doesn't ping everyone anymore
-* doob/dog now has a lower chance of getting a Lucky Dog
+* `doob/ai` and `doob/nai` doesn't ping everyone anymore
+* `doob/dog` now has a lower chance of getting a Lucky Dog
     - Instead of 1/100 it is now 1/1000
     - The reason I did this is because people were getting them too often, and for the nitro giveaway in the support server, at least like 2/3 people a day got a lucky dog every single day since the bot hit about 70+ servers, so I knew it would be unfair to keep it 1/100 so I changed it, if this change has any problem, we might bump it back up to 1/500. Hopefully you understand the change.
-* doob/kick and doob/ban now check for role hierarchys
+* `doob/kick` and `doob/ban` now check for role hierarchys
     - For example, a Helper can't kick a Moderator.
 * No more random "This Command didn't work" error.
 * Changed the message for the "Forbidden" error.
 * Removed the "HTTPException" error handling, for now.
-* doob/slap no longer sends 2 messages.
-* doob/prefix is now in an embed
+* `doob/slap` no longer sends 2 messages.
+* `doob/prefix` is now in an embed
 * Added [@KittyKay000](https://twitter.com/kittykay000)'s concept drawing of Doob for a Lucky Dog!
-* Made the cooldown for doob/dog longer.
+* Made the cooldown for `doob/dog` longer.
     - Someone suggested in the [Doob Support Discord](https://discord.gg/hgQTTU7) to make a cooldown on the command, little did they know, it had a command, appearently it wasn't long enough so I have increased it.
         - You can only use it 2 times every 5 seconds.
-* Added owner only doob/nitrogiveaway command to tell users on how Doob's Nitro Classic giveaways work.
+* Added owner only `doob/nitrogiveaway` command to tell users on how Doob's Nitro Classic giveaways work.
 * New dog API!
     - Now there are so many more regular dogs!
 * Statcord integration!
 * Added polls (hi mr. jones)
+* Added actual command descriptions for when you do `doob/help {cmd}`
+    - Example: `doob/help ban` shows a description + the usage.
+* Decreased the command cooldown for `doob/help`
 
 ## v2.0.7
 * Added doob/support - Gives link to the Doob support server.

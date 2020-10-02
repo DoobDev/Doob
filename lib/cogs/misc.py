@@ -12,6 +12,7 @@ class Misc(Cog):
 	@command(name="prefix", aliases=["ChangePrefix"], brief="Changes the prefix.")
 	@has_permissions(manage_guild=True)
 	async def change_prefix(self, ctx, new: str):
+		"""Changes the prefix for the server. | `Manage Server` permission required."""
 		if len(new) > 10:
 			await ctx.send("The prefix can not be more than 10 characters.", delete_after=10)
 
@@ -27,8 +28,9 @@ class Misc(Cog):
 
 	@command(name="poll", brief="Lets the user create a poll.")
 	@cooldown(1, 4, BucketType.user)
-	async def start_poll(self, ctx, *, poll_name: str):
-		embed = Embed(title="Poll Started", description=poll_name, colour=ctx.author.colour)
+	async def start_poll(self, ctx, *, question: str):
+		"""Starts a poll with the question/name the user wants!"""
+		embed = Embed(title="Poll Started", description=question, colour=ctx.author.colour)
 		embed.set_footer(text=f"{ctx.author} started this poll.", icon_url=ctx.author.avatar_url)
 		message = await ctx.send(embed=embed)
 

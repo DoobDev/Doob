@@ -12,11 +12,13 @@ class Fun(Cog):
 
     @command(name="hello", aliases=["hi"], brief="Say Hi to Doob!")
     async def say_hello(self, ctx):
+        """Say Hi to Doob!"""
         await ctx.send(f"{choice(('Hello', 'Hi', 'Hey'))} {ctx.author.mention}!")
 
     @command(name="dice", aliases=["roll", "rolldice"], brief="Roll some dice!")
     @cooldown(1, 10, BucketType.user)
     async def roll_dice(self, ctx, die_string: str):
+        """Role some dice, (number)d(number) syntax"""
         dice, value = (int(term) for term in die_string.split("d"))
 
         if dice <= 40:
@@ -29,6 +31,7 @@ class Fun(Cog):
     @command(name="slap", brief="Slap a user, what did they do wrong to you?")
     @cooldown(1, 10, BucketType.user)
     async def slap_member(self, ctx, member: Optional[Member], *, reason: Optional[str]):
+        """Slap a member in the server with a reason"""
         if member == None:
             if reason == None:
                 await ctx.send(f"{ctx.author.mention} slapped {ctx.author.mention}!")
@@ -42,6 +45,7 @@ class Fun(Cog):
     @command(name="echo", aliases=["say"], brief="Make Doob say something!")
     @cooldown(1, 10, BucketType.user)
     async def echo_message(self, ctx, *, message):
+        """Make Doob say a message! | `Patreon Only`"""
         homeGuild = self.bot.get_guild(702352937980133386)
         patreonRole = get(homeGuild.roles, id=757041749716893739)  # Patreon role ID.
 
@@ -65,6 +69,7 @@ class Fun(Cog):
     @command(name="fact", aliases=["dogfact", "facts"], brief="Learn a random fact about dogs!")
     @cooldown(3, 10, BucketType.user)
     async def dog_fact(self, ctx):
+        """Get a wacky dog fact"""
         URL = "https://some-random-api.ml/facts/dog"
 
         async with request("GET", URL, headers={}) as response:
@@ -79,6 +84,7 @@ class Fun(Cog):
     @command(name="dog", aliases=["dogimage"], brief="See a random picture of a dog!")
     @cooldown(2, 5, BucketType.user)
     async def dog_image(self, ctx):
+        """So this is what you came for...\nGives you a random picture of a dog!"""
         URL = "https://dog.ceo/api/breeds/image/random"
 #how 2 webhook Donk
 # but url
@@ -227,6 +233,7 @@ class Fun(Cog):
     @command(name="notanimposter", aliases=["nai", "amonguscrew", "crewmate"], brief="I SWEAR I SAW HIM VENT! He wasn't an imposter...")
     @cooldown(1, 4, BucketType.user)
     async def not_an_imposter(self, ctx, *, target: Optional[str]):
+        """Among Us Command - Shows a user as `not the imposter`"""
         target = target or ctx.author
 
         if target == "@everyone" or target == "@here":
@@ -239,6 +246,7 @@ class Fun(Cog):
     @command(name="animposter", aliases=["ai", "amongusimposter", "imposter"], brief="I SWEAR I SAW HIM VENT! He was an imposter. I knew it!!!")
     @cooldown(1, 4, BucketType.user)
     async def an_imposter(self, ctx, *, target: Optional[str]):
+        """Among Us Command - Shows a user as `the imposter`"""
         target = target or ctx.author
 
         if target == "@everyone" or target == "@here":

@@ -60,8 +60,9 @@ class Help(Cog):
 
 
     @command(name="help", aliases=["commands"], brief="Shows this message!")
-    @cooldown(1, 10, BucketType.user)
+    @cooldown(1, 5, BucketType.user)
     async def show_help(self, ctx, cmd: Optional[str]):
+        """Gives you some help on the Doob commands!"""
         if cmd is None:
             menu = MenuPages(source=HelpMenu(ctx, list(self.bot.commands)), delete_message_after=True, timeout=100.0)
             await menu.start(ctx)
@@ -71,7 +72,7 @@ class Help(Cog):
                 await self.cmd_help(ctx, command)
 
             else:
-                await ctx.send("That command does not exist.")
+                await ctx.send("That command does not exist.\nTry looking through `doob/help` to see the actual command name, and not the alias.")
 
     @Cog.listener()
     async def on_ready(self):

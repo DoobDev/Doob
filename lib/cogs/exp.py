@@ -67,6 +67,7 @@ class Exp(Cog):
 
     @command(name="level", aliases=["rank", "lvl"], brief="Shows your level, and rank.")
     async def display_level(self, ctx, target: Optional[Member]):
+        """Shows your Global Doob level, rank and XP!"""
         target = target or ctx.author
 
         ids = db.column("SELECT UserID FROM exp ORDER BY XP DESC")
@@ -81,7 +82,7 @@ class Exp(Cog):
     @command(name="levelmessages", aliases=["slm", "lm", "setlevelmessages"], brief="Set the server's level messages")
     @has_permissions(manage_guild=True)
     async def set_level_messages(self, ctx, *, yes_or_no: Optional[str]):
-        """PLEASE, put 'yes' if you DO want level messages"""
+        """PLEASE, put 'yes' if you DO want level messages\n `Manage Server` permission required."""
         levelmessages = db.records("SELECT LevelMessages FROM guilds WHERE GuildID = ?", ctx.guild.id) or (None)
         prefix = db.records("SELECT Prefix FROM guilds WHERE GuildID = ?", ctx.guild.id)
 
@@ -95,6 +96,7 @@ class Exp(Cog):
 
     @command(name="leaderboard", aliases=["lb", "xplb"], brief="Show who's on top of the Doob XP Leaderboard!")
     async def display_leaderboard(self, ctx):
+        """Displays the Global XP Leaderboard for Doob."""
         records = db.records("SELECT UserID, XP, Level FROM exp ORDER BY XP DESC")
 
         menu = MenuPages(source=Menu(ctx, records), clear_reactions_after=True, timeout=100.0)

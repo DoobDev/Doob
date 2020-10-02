@@ -18,6 +18,7 @@ class Mod(Cog):
 	@bot_has_permissions(kick_members=True)
 	@has_permissions(kick_members=True)
 	async def kick_command(self, ctx, targets: Greedy[Member], *, reason: Optional[str] = "No reason provided."):
+		"""Kicks a member from the server. | `Kick Members` permission required."""
 		if not len(targets):
 			await ctx.send("One or more required arguments are missing.")
 
@@ -141,6 +142,7 @@ class Mod(Cog):
 	@bot_has_permissions(ban_members=True)
 	@has_permissions(ban_members=True)
 	async def ban_command(self, ctx, targets: Greedy[Member], *, reason: Optional[str] = "No reason provided."):
+		"""Bans a member from the server | `Ban Members` permission required."""
 		if not len(targets):
 			await ctx.send("One or more required arguments are missing.")
 
@@ -163,6 +165,7 @@ class Mod(Cog):
 	@bot_has_permissions(manage_messages=True)
 	@has_permissions(manage_messages=True)
 	async def clear_messages(self, ctx, targets: Greedy[Member], limit: Optional[int] = 1):
+		"""Clears an ammount of messages provided by the user. | `Manage Messages` permission required."""
 		def _check(message):
 			return not len(targets) or message.author in targets
 
@@ -180,6 +183,7 @@ class Mod(Cog):
 	@command(name="setlogchannel", aliases=["slc", "logchannel", "setlog", "setlogs"], brief="Set the server's log channel.")
 	@has_permissions(manage_guild=True)
 	async def set_log_channel(self, ctx, *, channel: Optional[TextChannel]):
+		"""Sets the logging channel for the server. | `Manage Server` permission required."""
 		prefix = db.records("SELECT Prefix FROM guilds WHERE GuildID = ?", ctx.guild.id)
 		if channel == None:
 			await ctx.send(f"The current setting for the Log Channel is: `{channel}`\nTo change it, type `{str(prefix)}setlogchannel #<log channel>`")
@@ -197,6 +201,7 @@ class Mod(Cog):
 	@command(name="setmuterole", aliases=["smr", "muterole", "setmute"], brief="Set the server's mute role.")
 	@has_permissions(manage_guild=True)
 	async def set_mute_role(self, ctx, *, role: Optional[Role]):
+		"""Sets the `Muted` role for your server. | `Manage Server` premission required."""
 		prefix = db.records("SELECT Prefix FROM guilds WHERE GuildID = ?", ctx.guild.id)
 		if role == None:
 			await ctx.send(f"The current setting for the Muted role is: `{role}`\nTo change it, type `{str(prefix)}setmuterole @<muted role>`")

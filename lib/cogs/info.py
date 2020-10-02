@@ -15,6 +15,7 @@ class Info(Cog):
     @command(name="userinfo", aliases=["member", "user", "profile", "ui"], brief="Gives info about a specific user.")
     @cooldown(1, 10, BucketType.user)
     async def user_info(self, ctx, target: Optional[Member]):
+        """Gives you info about a user."""
         target = target or ctx.author
 
         homeGuild = self.bot.get_guild(702352937980133386)
@@ -107,9 +108,10 @@ class Info(Cog):
             await ctx.send(embed=embed)
 
 
-    @command(name="serverinfo", aliases=["guildinfo", "gi", "si"], brief="Gives info about the server the command is executed in.")
+    @command(name="serverinfo", aliases=["guildinfo", "gi", "si"], brief="Gives info about the server.")
     @cooldown(1, 10, BucketType.user)
     async def server_info(self, ctx):
+        """Gives you info about the server the command is executed in."""
         if ctx.guild.me.guild_permissions.administrator == True:
             embed = Embed(title=f"Server's info", colour=ctx.guild.owner.colour, timestamp=datetime.utcnow())
 
