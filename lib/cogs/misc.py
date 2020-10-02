@@ -1,6 +1,6 @@
 from discord.ext.commands import Cog
 from discord.ext.commands import CheckFailure
-from discord.ext.commands import command, has_permissions
+from discord.ext.commands import command, has_permissions, BucketType, cooldown
 from discord import Embed
 
 from ..db import db # pylint: disable=relative-beyond-top-level
@@ -25,17 +25,17 @@ class Misc(Cog):
 		if isinstance(exc, CheckFailure):
 			await ctx.send("You need the Manage Server permission to change the prefix.", delete_after=10)
 
-    @command(name="poll", brief="Lets the user create a poll.")
-    @cooldown(1, 4, BucketType.user)
-    async def start_poll(self, ctx, *, poll_name: str):
-        embed = Embed(title="Poll Started", description=poll_name, colour=ctx.author.colour)
-        embed.set_footer(text=f"{ctx.author} started this poll.", icon_url=ctx.author.icon_url)
-        message = await ctx.send(embed=embed)
+	@command(name="poll", brief="Lets the user create a poll.")
+	@cooldown(1, 4, BucketType.user)
+	async def start_poll(self, ctx, *, poll_name: str):
+		embed = Embed(title="Poll Started", description=poll_name, colour=ctx.author.colour)
+		embed.set_footer(text=f"{ctx.author} started this poll.", icon_url=ctx.author.icon_url)
+		message = await ctx.send(embed=embed)
 
-        emojis = ['✅', '❌']
+		emojis = ['✅', '❌']
 
-        for emoji in emojis:
-            await message.add_reaction(emoji)
+		for emoji in emojis:
+			await message.add_reaction(emoji)
 
 	@Cog.listener()
 	async def on_ready(self):
