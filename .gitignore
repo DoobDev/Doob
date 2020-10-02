@@ -7,3 +7,4 @@ lib/bot/topgg.txt
 lib/bot/webhook.txt
 .env
 pythonenv3.8
+lib/bot/statcord.txt

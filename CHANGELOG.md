@@ -47,6 +47,7 @@
 * Added owner only doob/nitrogiveaway command to tell users on how Doob's Nitro Classic giveaways work.
 * New dog API!
     - Now there are so many more regular dogs!
+* Statcord integration!
 
 ## v2.0.7
 * Added doob/support - Gives link to the Doob support server.
