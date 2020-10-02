@@ -48,6 +48,7 @@
 * New dog API!
     - Now there are so many more regular dogs!
 * Statcord integration!
+* Added polls (hi mr. jones)
 
 ## v2.0.7
 * Added doob/support - Gives link to the Doob support server.
