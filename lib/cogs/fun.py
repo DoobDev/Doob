@@ -247,17 +247,6 @@ class Fun(Cog):
         else:
             await ctx.send(f". 　　　。　　　　•　 　ﾟ　　。 　　.\n　　　.　　　 　　.　　　　　。　　 。　. 　\n\n.　　 。　　　　　 ඞ 。 . 　　 • 　　　　•\n\n　　ﾟ　　 {target} was An Impostor.　 。　.\n\n　　'　　　 0 Impostors remain 　 　　。\n\n　　ﾟ　　　.　　　. ,　　　　.　 .")
 
-    @command(name="poll", brief="Lets the user create a poll.")
-    @cooldown(1, 4, BucketType.user)
-    async def start_poll(self, ctx, *, poll_name: str):
-        embed = Embed(title="Poll Started", description=poll_name, colour=ctx.author.colour)
-        message = await ctx.send(embed=embed)
-
-        emojis = ['✅', '❌']
-
-        for emoji in emojis:
-            await message.add_reaction(emoji)
-
     @Cog.listener()
     async def on_ready(self):
         if not self.bot.ready:
