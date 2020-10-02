@@ -1,6 +1,6 @@
 from discord.ext.commands import Cog
 from discord.ext.commands import CheckFailure
-from discord.ext.commands import command, has_permissions, BucketType, cooldown
+from discord.ext.commands import command, has_permissions, cooldown, BucketType
 from discord import Embed
 
 from ..db import db # pylint: disable=relative-beyond-top-level
@@ -29,7 +29,7 @@ class Misc(Cog):
 	@cooldown(1, 4, BucketType.user)
 	async def start_poll(self, ctx, *, poll_name: str):
 		embed = Embed(title="Poll Started", description=poll_name, colour=ctx.author.colour)
-		embed.set_footer(text=f"{ctx.author} started this poll.", icon_url=ctx.author.icon_url)
+		embed.set_footer(text=f"{ctx.author} started this poll.", icon_url=ctx.author.avatar_url)
 		message = await ctx.send(embed=embed)
 
 		emojis = ['✅', '❌']
