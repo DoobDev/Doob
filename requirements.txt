@@ -10,7 +10,7 @@ APScheduler == 3.6.3
 aiohttp == 3.6.2
 
 # lib\cogs\servercount.py: 1
-dblpy == 0.3.4
+dblpy == 0.4.0
 
 # lib\bot\__init__.py: 9
 # lib\cogs\exp.py: 10
