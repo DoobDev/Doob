@@ -52,6 +52,7 @@
 * Added actual command descriptions for when you do `doob/help {cmd}`
     - Example: `doob/help ban` shows a description + the usage.
 * Decreased the command cooldown for `doob/help`
+* Made it so it only clears reactions on the `doob/help` timeout, and not delete the message.
 
 ## v2.0.7
 * Added doob/support - Gives link to the Doob support server.
