@@ -64,7 +64,7 @@ class Help(Cog):
     async def show_help(self, ctx, cmd: Optional[str]):
         """Gives you some help on the Doob commands!"""
         if cmd is None:
-            menu = MenuPages(source=HelpMenu(ctx, list(self.bot.commands)), delete_message_after=True, timeout=100.0)
+            menu = MenuPages(source=HelpMenu(ctx, list(self.bot.commands)), clear_reactions_after=True, timeout=100.0)
             await menu.start(ctx)
 
         else:
