@@ -47,7 +47,7 @@ class Bot(BotBase):
     def setup(self):
         for cog in COGS:
             self.load_extension(f"lib.cogs.{cog}")
-            print(f"{cog} cog loaded!")
+            print(f"[COGS] {cog} cog loaded!")
 
         print("Setup done!")
 
@@ -65,6 +65,7 @@ class Bot(BotBase):
         # ^^ is printing "None"
         with open("./lib/bot/token.txt", "r", encoding="utf-8") as tf:
             self.TOKEN = tf.read()
+        print("Authenticated...")
         print("Starting up")
         #super().run(os.getenv("TOKEN"), reconnect=True)
         super().run(self.TOKEN, reconnect=True)

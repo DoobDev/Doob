@@ -85,7 +85,8 @@ class Meta(Cog):
 	async def nitro_giveaway_command(self, ctx, *, target: Optional[Member]):
 		"""Command to tell people how to claim the Discord Nitro Classic gift. | `Owner` permission required"""
 		if ctx.author.id == owner_id:
-			await ctx.send(f"{target}, To claim the Discord Nitro Classic gift, check <#757666920773189662> to see if the Nitro has been claimed for this week!\nDon't know when to claim the Nitro? If you have gotten a Lucky Dog (from doing `doob/dog`) DM `mmatt#001` with a screenshot!")
+			# await ctx.send(f"{target}, To claim the Discord Nitro Classic gift, check <#757666920773189662> to see if the Nitro has been claimed for this week!\nDon't know when to claim the Nitro? If you have gotten a Lucky Dog (from doing `doob/dog`) DM `mmatt#001` with a screenshot!")
+			await ctx.send(f"{target}, Lucky Dog Nitro Giveaways are PAUSE **INDEFINENTLY**. Will let you know when they come back in <#754808321692795000> !")
 
 		else:
 			await ctx.send("You don't have permission to use this command.", delete_after=10)
