@@ -8,3 +8,4 @@ lib/bot/webhook.txt
 .env
 pythonenv3.8
 lib/bot/statcord.txt
+lib/bot/trackergg api.txt

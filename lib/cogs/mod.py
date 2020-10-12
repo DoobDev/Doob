@@ -189,7 +189,7 @@ class Mod(Cog):
 			await ctx.send(f"The current setting for the Log Channel is: `{channel}`\nTo change it, type `{str(prefix)}setlogchannel #<log channel>`")
 
 		else:
-			db.execute("UPDATE guilds SET LogChannel = ? WHERE GuildID = ?", channel, ctx.guild.id)
+			db.execute("UPDATE guilds SET LogChannel = ? WHERE GuildID = ?", str(channel.id), ctx.guild.id)
 			db.commit()
 			await ctx.send(f"Log channel set to #<{channel}>")
 
@@ -207,7 +207,7 @@ class Mod(Cog):
 			await ctx.send(f"The current setting for the Muted role is: `{role}`\nTo change it, type `{str(prefix)}setmuterole @<muted role>`")
 
 		elif ctx.guild.me.top_role.position > role.position:
-			db.execute("UPDATE guilds SET MutedRole = ? WHERE GuildID = ?", role.id, ctx.guild.id)
+			db.execute("UPDATE guilds SET MutedRole = ? WHERE GuildID = ?", str(role.id), ctx.guild.id)
 			db.commit()
 			await ctx.send(f"Mute role set to `{role}`")
 
