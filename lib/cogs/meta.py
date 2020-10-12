@@ -42,7 +42,7 @@ class Meta(Cog):
 
 	@command(name="setactivity", brief="Owner Only Command - Set the bot's activity")
 	async def set_activity_message(self, ctx, *, text: str):
-		"""Set the bot's `playing` or `watching`, etc status. | `Owner` permission required."""
+		"""Set the bot's `playing` or `watching`, etc status.\n`Owner` permission required."""
 		if ctx.author.id == owner_id:
 			self.message = text
 			await self.set()
@@ -71,7 +71,7 @@ class Meta(Cog):
 
 	@command(name="shutdown", brief="Owner Only Command to shutdown the bot and save the DB.")
 	async def shutdown(self, ctx):
-		"""Command to shutdown the bot and save it's database. | `Owner` permission required"""
+		"""Command to shutdown the bot and save it's database.\n`Owner` permission required"""
 		if ctx.author.id == owner_id:
 			await ctx.send("Shutting down")
 
@@ -83,13 +83,26 @@ class Meta(Cog):
 
 	@command(name="nitrogiveaway", brief="Owner Only Command to tell people how to enter the Nitro Giveaways for Doob.")
 	async def nitro_giveaway_command(self, ctx, *, target: Optional[Member]):
-		"""Command to tell people how to claim the Discord Nitro Classic gift. | `Owner` permission required"""
+		"""Command to tell people how to claim the Discord Nitro Classic gift.\n`Owner` permission required"""
 		if ctx.author.id == owner_id:
 			# await ctx.send(f"{target}, To claim the Discord Nitro Classic gift, check <#757666920773189662> to see if the Nitro has been claimed for this week!\nDon't know when to claim the Nitro? If you have gotten a Lucky Dog (from doing `doob/dog`) DM `mmatt#001` with a screenshot!")
 			await ctx.send(f"{target}, Lucky Dog Nitro Giveaways are PAUSED **INDEFINENTLY**. Will let you know when they come back in <#754808321692795000> !")
 
 		else:
 			await ctx.send("You don't have permission to use this command.", delete_after=10)
+
+	@command(name="update", brief="Owner Only Command to give a pretty embed for updates.")
+	async def update_command(self, ctx, *, update: str):
+		"""Command to give people updates on why bot was going down / brief patch notes\n`Owner` permission required"""
+		if ctx.author.id == owner_id:
+			with ctx.channel.typing():
+				await ctx.message.delete()
+				embed=Embed(title="Update:", description=update, colour=ctx.author.colour)
+				embed.set_author(name=f"All the patch notes for {self.bot.VERSION} available here.", url=f"https://github.com/doobdev/doob/blob/master/CHANGELOG.md#v{self.bot.VERSION.replace('.', '')}")
+				embed.set_footer(text=f"Authored by: {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
+				await ctx.send(embed=embed)
+		elif ctx.author.id != owner_id:
+			await ctx.send("You don't have permissions to give updates about Doob\nType `@Doob help update` for more info.")
 
 	@command(name="info", aliases=["botinfo"], brief="Gives basic info about Doob.")
 	async def show_basic_bot_info(self, ctx):

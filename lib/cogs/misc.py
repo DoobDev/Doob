@@ -12,7 +12,7 @@ class Misc(Cog):
 	@command(name="prefix", aliases=["ChangePrefix"], brief="Changes the prefix.")
 	@has_permissions(manage_guild=True)
 	async def change_prefix(self, ctx, new: str):
-		"""Changes the prefix for the server. | `Manage Server` permission required."""
+		"""Changes the prefix for the server.\n`Manage Server` permission required."""
 		if len(new) > 10:
 			await ctx.send("The prefix can not be more than 10 characters.", delete_after=10)
 

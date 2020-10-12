@@ -53,6 +53,8 @@
     - Example: `doob/help ban` shows a description + the usage.
 * Decreased the command cooldown for `doob/help`
 * Made it so it only clears reactions on the `doob/help` timeout, and not delete the message.
+* Made a new owner only `doob/update` command for giving brief updates about the bot.
+* Updated some help commands so that the permissions that are required are on a new line, instead of the same line, makes it look nicer imo.
 
 ## v2.0.7
 * Added doob/support - Gives link to the Doob support server.

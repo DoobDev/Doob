@@ -82,7 +82,7 @@ class Exp(Cog):
     @command(name="levelmessages", aliases=["slm", "lm", "setlevelmessages"], brief="Set the server's level messages")
     @has_permissions(manage_guild=True)
     async def set_level_messages(self, ctx, *, yes_or_no: Optional[str]):
-        """PLEASE, put 'yes' if you DO want level messages\n `Manage Server` permission required."""
+        """PLEASE, put 'yes' if you DO want level messages\n`Manage Server` permission required."""
         levelmessages = db.records("SELECT LevelMessages FROM guilds WHERE GuildID = ?", ctx.guild.id) or (None)
         prefix = db.records("SELECT Prefix FROM guilds WHERE GuildID = ?", ctx.guild.id)
 
