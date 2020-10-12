@@ -184,10 +184,9 @@ class Mod(Cog):
 	@has_permissions(manage_guild=True)
 	async def set_log_channel(self, ctx, *, channel: Optional[TextChannel]):
 		"""Sets the logging channel for the server. | `Manage Server` permission required."""
-		prefix = db.records("SELECT Prefix FROM guilds WHERE GuildID = ?", ctx.guild.id)
 		current_channel = db.records("SELECT LogChannel FROM guilds WHERE GuildID = ?", ctx.guild.id)
 		if channel == None:
-			await ctx.send(f"The current setting for the Log Channel is: <#{current_channel}>\nTo change it, type `{str(prefix)}setlogchannel #<log channel>`")
+			await ctx.send(f"The current setting for the Log Channel ID is currently: `{current_channel}`\nTo change it, type `@Doob setlogchannel #<log channel>`")
 
 		else:
 			db.execute("UPDATE guilds SET LogChannel = ? WHERE GuildID = ?", str(channel.id), ctx.guild.id)
@@ -203,9 +202,8 @@ class Mod(Cog):
 	@has_permissions(manage_guild=True)
 	async def set_mute_role(self, ctx, *, role: Optional[Role]):
 		"""Sets the `Muted` role for your server. | `Manage Server` premission required."""
-		prefix = db.records("SELECT Prefix FROM guilds WHERE GuildID = ?", ctx.guild.id)
 		if role == None:
-			await ctx.send(f"The current setting for the Muted role is: `{role}`\nTo change it, type `{str(prefix)}setmuterole @<muted role>`")
+			await ctx.send(f"The current setting for the Muted role is: `{role}`\nTo change it, type `@Doob setmuterole @<muted role>`")
 
 		elif ctx.guild.me.top_role.position > role.position:
 			db.execute("UPDATE guilds SET MutedRole = ? WHERE GuildID = ?", str(role.id), ctx.guild.id)
