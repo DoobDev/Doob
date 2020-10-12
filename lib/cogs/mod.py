@@ -191,7 +191,7 @@ class Mod(Cog):
 		else:
 			db.execute("UPDATE guilds SET LogChannel = ? WHERE GuildID = ?", str(channel.id), ctx.guild.id)
 			db.commit()
-			await ctx.send(f"Log channel set to #<{channel}>")
+			await ctx.send(f"Log channel set to #<{channel.id}>")
 
 	@Cog.listener()
 	async def on_ready(self):
