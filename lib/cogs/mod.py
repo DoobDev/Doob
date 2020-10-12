@@ -185,8 +185,9 @@ class Mod(Cog):
 	async def set_log_channel(self, ctx, *, channel: Optional[TextChannel]):
 		"""Sets the logging channel for the server. | `Manage Server` permission required."""
 		prefix = db.records("SELECT Prefix FROM guilds WHERE GuildID = ?", ctx.guild.id)
+		current_channel = db.records("SELECT LogChannel FROM guilds WHERE GuildID = ?", ctx.guild.id)
 		if channel == None:
-			await ctx.send(f"The current setting for the Log Channel is: `{channel}`\nTo change it, type `{str(prefix)}setlogchannel #<log channel>`")
+			await ctx.send(f"The current setting for the Log Channel is: <#{current_channel}>\nTo change it, type `{str(prefix)}setlogchannel #<log channel>`")
 
 		else:
 			db.execute("UPDATE guilds SET LogChannel = ? WHERE GuildID = ?", str(channel.id), ctx.guild.id)
