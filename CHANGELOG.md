@@ -1,3 +1,13 @@
+## v2.0.9 | The muting update!
+* Finally! Doob has muting!
+* New `doob/mute` command!
+    - Mutes a member from your server!
+        - Example: `doob/mute @X Daniel lol`
+            - Make sure to set your "Muted Role" by doing `doob/setmutedrole`
+* New `doob/unmute` command!
+    - Unmutes a member from your server!
+        - Example: `doob/unmute @X Daniel`
+
 ## v2.0.8
 * Updated description (on the help command) for
     - `doob/Leaderboard`

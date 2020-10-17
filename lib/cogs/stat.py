@@ -23,6 +23,5 @@ class stat(commands.Cog):
         if not self.bot.ready:
             self.bot.cogs_ready.ready_up("stat")
 
-
 def setup(bot):
     bot.add_cog(stat(bot))
