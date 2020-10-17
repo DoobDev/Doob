@@ -14,10 +14,11 @@ CREATE TABLE IF NOT EXISTS exp(
     XPLock text DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS mutes(
-    UserID integer PRIMARY KEY,
-	GuildID integer SECONDARY KEY,
-    RoleIDs text
+CREATE TABLE IF NOT EXISTS "mutes" (
+	UserID integer,
+	GuildID integer,
+	RoleIDs	text,
+	PRIMARY KEY("UserID","GuildID")
 );
 
 CREATE TABLE IF NOT EXISTS votes(
