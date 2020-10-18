@@ -14,6 +14,8 @@
 * Fixed Level Messages not working
 * Fixed `doob/slc` and `doob/slm` so it no longer shows "None"
 * Instead of help messages and such saying `@Doob ` for the prefix, it now says your server's prefix.
+* Removed the description for the Among Us Commands.
+    * You can still find them in `doob/help {cmd}`
 
 ## v2.0.8
 * Updated description (on the help command) for

@@ -229,10 +229,10 @@ class Fun(Cog):
                 embed.set_image(url="https://i.imgur.com/KFOR8YJ.jpeg")
                 await ctx.send(embed=embed)
 
-    @command(name="notanimposter", aliases=["nai", "amonguscrew", "crewmate"], brief="I SWEAR I SAW HIM VENT! He wasn't an imposter...")
+    @command(name="notanimposter", aliases=["nai", "amonguscrew", "crewmate"], brief="Shows a user as not the imposter!")
     @cooldown(1, 4, BucketType.user)
     async def not_an_imposter(self, ctx, *, target: Optional[str]):
-        """Among Us Command - Shows a user as `not the imposter`"""
+        """Among Us Command - Shows a user as `not the imposter`\nI SWEAR I SAW HIM VENT! He wasn't an imposter..."""
         target = target or ctx.author
 
         if target == "@everyone" or target == "@here":
@@ -242,10 +242,10 @@ class Fun(Cog):
             await ctx.send(f". 　　　。　　　　•　 　ﾟ　　。 　　.\n　　　.　　　 　　.　　　　　。　　 。　. 　\n\n.　　 。　　　　　 ඞ 。 . 　　 • 　　　　•\n\n　　ﾟ　　 {target} was not An Impostor.　 。　.\n\n　　'　　　 1 Impostor remain 　 　　。\n\n　　ﾟ　　　.　　　. ,　　　　.　 .")
 
 
-    @command(name="animposter", aliases=["ai", "amongusimposter", "imposter"], brief="I SWEAR I SAW HIM VENT! He was an imposter. I knew it!!!")
+    @command(name="animposter", aliases=["ai", "amongusimposter", "imposter"], brief="Shows a user as the imposter!")
     @cooldown(1, 4, BucketType.user)
     async def an_imposter(self, ctx, *, target: Optional[str]):
-        """Among Us Command - Shows a user as `the imposter`"""
+        """Among Us Command - Shows a user as `the imposter`\nI SWEAR I SAW HIM VENT! He was an imposter. I knew it!!!"""
         target = target or ctx.author
 
         if target == "@everyone" or target == "@here":
