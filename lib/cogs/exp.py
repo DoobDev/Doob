@@ -48,10 +48,16 @@ class Exp(Cog):
 
     async def process_xp(self, message):
         xp, lvl, xplock = db.record("SELECT XP, Level, XPLock FROM exp WHERE UserID = ?", message.author.id)
+        xp_g, lvl_g, xplock_g = db.record(f"SELECT XP, Level, XPLock FROM guildexp WHERE UserID = {message.author.id} AND GuildID = {message.guild.id}")
 
         if datetime.utcnow() > datetime.fromisoformat(xplock):
             await self.add_xp(message, xp, lvl)
 
+        if datetime.utcnow() > datetime.fromisoformat(xplock_g):
+            await self.add_gxp(message, xp_g, lvl_g)
+            
+            # it says No value for argument 'lvl_g' in method call - pylint(no-value-for-parameter)
+#i cant see terminal doe
     async def add_xp(self, message, xp, lvl):
         xp_to_add = randint(10, 20)
         level_up_messages = db.record("SELECT LevelMessages FROM guilds WHERE GuildID = ?", message.guild.id)
@@ -65,16 +71,32 @@ class Exp(Cog):
             if level_up_messages == "yes" or level_up_messages == "Yes":
                 await message.channel.send(f"{message.author.mention} leveled up to {new_lvl:,}!", delete_after = 10)
 
+    async def add_gxp(self, message, xp, lvl):
+        xp_to_add = randint(10, 20)
+        level_up_messages = db.record("SELECT LevelMessages FROM guilds WHERE GuildID = ?", message.guild.id)
+        
+        new_lvl = int(((xp + xp_to_add)//42) ** 0.55)
+
+        db.execute(f"UPDATE guildexp SET XP = XP + ?, Level = ?, XPLock = ? WHERE UserID = {message.author.id} AND GuildID = {message.guild.id}", 
+                   xp_to_add, new_lvl, (datetime.utcnow()+timedelta(seconds=50)).isoformat())
+        db.commit()
+
+        if new_lvl > lvl:
+            if level_up_messages == "yes" or level_up_messages == "Yes":
+                await message.channel.send(f"{message.author.mention} leveled up to server level {new_lvl:,}!", delete_after = 10) 
+
     @command(name="level", aliases=["rank", "lvl"], brief="Shows your level, and rank.")
     async def display_level(self, ctx, target: Optional[Member]):
         """Shows your Global Doob level, rank and XP!"""
         target = target or ctx.author
 
         ids = db.column("SELECT UserID FROM exp ORDER BY XP DESC")
+        # ids_g = db.column("SELECT UserID FROM exp ORDER BY XP DESC WHERE GuildID = ?", ctx.guild.id)
         xp, lvl = db.record("SELECT XP, Level FROM exp WHERE UserID = ?", target.id) or (None, None)
+        xp_g, lvl_g = db.record("SELECT XP, Level FROM guildexp WHERE (UserID, GuildID) = (?, ?)", target.id, ctx.guild.id) or (None, None)
 
         if lvl is not None:
-            await ctx.send(f"{target.display_name} is level {lvl:,} with {xp:,} xp and is rank {ids.index(target.id)+1} of {len(ids):,} users globally.")
+            await ctx.send(f"`Global Rank:`\n{target.display_name} is level {lvl:,} with {xp:,} xp and is rank {ids.index(target.id)+1} of {len(ids):,} users globally.\n`Server Rank:`\n{target.display_name} is server level {lvl_g:,} with {xp_g:,} server xp.")
 
         else:
             ctx.send("That member is not in the XP Database.")

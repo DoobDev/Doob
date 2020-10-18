@@ -139,12 +139,17 @@ class Bot(BotBase):
 
             db.multiexec("INSERT OR IGNORE INTO exp (UserID) VALUES (?)",
                             ((member.id,) for guild in self.guilds for member in guild.members if not member.bot))
-
+            print("Updated exp table.")
+            #omfg just come to line 133 and do it your way
+            #ok bruh idk what to do just do it ur way xD 
             db.multiexec("INSERT OR IGNORE INTO votes (UserID) VALUES (?)",
                             ((member.id,) for guild in self.guilds for member in guild.members if not member.bot))
+            print("Updated votes table.")
 
             self.ready = True
             self.update_db
+            #wht happening!??!?!?!/!??!?!/1//1/1/1//1/1/1/1//1?!??!?!?!?!/1//1/1/1/1/?!?!!??!?!?!?
+            print("Updated DB")
             print("Doob Ready")
 
             meta = self.get_cog("Meta")
@@ -156,5 +161,10 @@ class Bot(BotBase):
     async def on_message(self, message):
         if not message.author.bot:
             await self.process_commands(message)
+            db.execute("INSERT OR IGNORE INTO guildexp (UserID, GuildID) VALUES (?, ?)", message.author.id, message.guild.id)
+            db.commit()
 
+#uh whats going on now?
+# its not starting?
+#wut
 bot = Bot()
