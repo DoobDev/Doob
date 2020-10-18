@@ -66,7 +66,7 @@ class Exp(Cog):
                    xp_to_add, new_lvl, (datetime.utcnow()+timedelta(seconds=50)).isoformat(), message.author.id)
 
         if new_lvl > lvl:
-            if level_up_messages == "yes" or level_up_messages == "Yes":
+            if level_up_messages == "('yes',)" or level_up_messages == "('Yes',)":
                 await message.channel.send(f"{message.author.mention} leveled up to {new_lvl:,}!", delete_after = 10)
 
     async def add_gxp(self, message, xp, lvl):
@@ -80,7 +80,7 @@ class Exp(Cog):
         db.commit()
 
         if new_lvl > lvl:
-            if level_up_messages == "yes" or level_up_messages == "Yes":
+            if level_up_messages == "('yes',)" or level_up_messages == "('Yes',)":
                 await message.channel.send(f"{message.author.mention} leveled up to server level {new_lvl:,}!", delete_after = 10) 
 
     @command(name="level", aliases=["rank", "lvl"], brief="Shows your level, and rank.")
