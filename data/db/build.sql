@@ -26,3 +26,12 @@ CREATE TABLE IF NOT EXISTS votes(
 	HAVEVOTED text DEFAULT "no",
 	VoteLock text DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE IF NOT EXISTS guildexp(
+    GuildID integer,
+    UserID integer,
+    XP integer DEFAULT 0,
+    Level integer DEFAULT 0,
+    XPLock text DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY("GuildID", "UserID")
+);

@@ -40,6 +40,10 @@ class Mod(Cog):
 	async def mute_members(self, message, targets, reason):
 		unmutes = []
 		mute_role = db.field('SELECT MutedRole FROM guilds WHERE GuildID = ?', message.guild.id)
+		comma = ", "
+		tNames = []
+		for target in targets: 
+			tNames.append(f"{target.display_name}")		
 		for target in targets:
 			mutedrole = message.guild.get_role(int(mute_role))
 			if not mutedrole in target.roles:
@@ -48,7 +52,9 @@ class Mod(Cog):
 				db.execute("INSERT INTO mutes VALUES (?, ?, ?)",
 							target.id, message.guild.id, role_ids)
 				db.commit()
-				await message.channel.send(f"{target} has been muted.")
+
+		embed=Embed(title="Muted:", description=f"{comma.join(tNames)}")
+		await message.channel.send(embed=embed)
 
 		return unmutes
 
@@ -78,13 +84,20 @@ class Mod(Cog):
 	@has_permissions(manage_roles=True, manage_guild=True)
 	async def delmute_command(self, ctx, targets: Greedy[Member]):		
 		"""Unmutes a member from the server\nRequires the `Manage Roles` and `Manage Server` permissions"""
-		for target in targets:
+		comma = ", "
+		tNames = []
+		for target in targets: 
+			tNames.append(f"{target.display_name}")
+		for target in targets: 
 			role_ids = db.field(f"SELECT RoleIDs FROM mutes WHERE UserID = {target.id} AND GuildID = {ctx.guild.id}")
 			roles = [ctx.guild.get_role(int(id_)) for id_ in role_ids.split(",") if len(id_)]
 			await target.edit(roles=roles)
 			db.execute(f"DELETE FROM mutes WHERE UserID = {target.id} AND GuildID = {ctx.guild.id}")
 			db.commit()
-			await ctx.send("Unmuted! <:PogU:560267624966258690>")
+			target_embed += f" {target.display_name},"
+
+		embed=Embed(title="Unmuted:", description=f"{comma.join(tNames)}")
+		await ctx.send(embed=embed)
 
 	@mute_command.error
 	async def mute_command_error(self, ctx, exc):
