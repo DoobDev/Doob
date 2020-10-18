@@ -41,7 +41,6 @@ class Fun(Cog):
         else:
             await ctx.send(f"{ctx.author.mention} slapped {member.display_name}\nReason - {reason}!")
 
-# Make Echo Patreon only, because I don't wanna make my bot just say anything. (which is why the print statement says who said it and what, but just as an extra safe measure [and a benefit for the people who give me money] this is going to be Patreon only.)
     @command(name="echo", aliases=["say"], brief="Make Doob say something!")
     @cooldown(1, 10, BucketType.user)
     async def echo_message(self, ctx, *, message):

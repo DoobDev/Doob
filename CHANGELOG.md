@@ -12,6 +12,8 @@
 * Updated `doob/profile` to say "Doob Global XP/Level/Rank".
 * Made unmute/mute commands have embeds.
 * Fixed Level Messages not working
+* Fixed `doob/slc` and `doob/slm` so it no longer shows "None"
+* Instead of help messages and such saying `@Doob ` for the prefix, it now says your server's prefix.
 
 ## v2.0.8
 * Updated description (on the help command) for

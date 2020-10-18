@@ -94,6 +94,9 @@ class Meta(Cog):
 	@command(name="update", brief="Owner Only Command to give a pretty embed for updates.")
 	async def update_command(self, ctx, *, update: str):
 		"""Command to give people updates on why bot was going down / brief patch notes\n`Owner` permission required"""
+		
+		prefix = db.records("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
+
 		if ctx.author.id == owner_id:
 			with ctx.channel.typing():
 				await ctx.message.delete()
@@ -102,7 +105,7 @@ class Meta(Cog):
 				embed.set_footer(text=f"Authored by: {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
 				await ctx.send(embed=embed)
 		elif ctx.author.id != owner_id:
-			await ctx.send("You don't have permissions to give updates about Doob\nType `@Doob help update` for more info.")
+			await ctx.send(f"You don't have permissions to give updates about Doob\nType `{prefix[0][0]}help update` for more info.")
 
 	@command(name="info", aliases=["botinfo"], brief="Gives basic info about Doob.")
 	async def show_basic_bot_info(self, ctx):

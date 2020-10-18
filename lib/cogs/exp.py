@@ -112,7 +112,7 @@ class Exp(Cog):
             await ctx.send(f"Level messages set to `{yes_or_no}`.")
 
         else:
-            await ctx.send(f"The current setting for Level Messages is: `{levelmessages[0]}`\nTo change it, type `{prefix[0]}levelmessages (yes or no)`")
+            await ctx.send(f"The current setting for Level Messages is: `{levelmessages[0][0]}`\nTo change it, type `{prefix[0][0]}levelmessages (yes or no)`")
 
     @command(name="leaderboard", aliases=["lb", "xplb"], brief="Show who's on top of the Doob XP Leaderboard!")
     async def display_leaderboard(self, ctx):
