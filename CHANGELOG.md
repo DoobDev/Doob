@@ -7,6 +7,10 @@
 * New `doob/unmute` command!
     - Unmutes a member from your server!
         - Example: `doob/unmute @X Daniel`
+* Per-Server XP is now avaliable!
+* Updated `doob/level` to include Server XP
+* Updated `doob/profile` to say "Doob Global XP/Level/Rank".
+* Made unmute/mute commands have embeds.
 
 ## v2.0.8
 * Updated description (on the help command) for

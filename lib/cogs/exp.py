@@ -55,9 +55,7 @@ class Exp(Cog):
 
         if datetime.utcnow() > datetime.fromisoformat(xplock_g):
             await self.add_gxp(message, xp_g, lvl_g)
-            
-            # it says No value for argument 'lvl_g' in method call - pylint(no-value-for-parameter)
-#i cant see terminal doe
+
     async def add_xp(self, message, xp, lvl):
         xp_to_add = randint(10, 20)
         level_up_messages = db.record("SELECT LevelMessages FROM guilds WHERE GuildID = ?", message.guild.id)
@@ -87,7 +85,7 @@ class Exp(Cog):
 
     @command(name="level", aliases=["rank", "lvl"], brief="Shows your level, and rank.")
     async def display_level(self, ctx, target: Optional[Member]):
-        """Shows your Global Doob level, rank and XP!"""
+        """Shows your Global+Server Doob level, rank and XP!"""
         target = target or ctx.author
 
         ids = db.column("SELECT UserID FROM exp ORDER BY XP DESC")
