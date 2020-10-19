@@ -1,4 +1,3 @@
-from platform import python_version
 from time import time
 from datetime import datetime, timedelta
 from typing import Optional
@@ -7,7 +6,7 @@ from apscheduler.triggers.cron import CronTrigger
 from discord import Activity, ActivityType, Embed, Member
 from discord import __version__ as discord_version
 from discord.ext.commands import Cog
-from discord.ext.commands import command, BucketType, cooldown, is_owner
+from discord.ext.commands import command, BucketType, cooldown
 from discord.utils import get
 
 from ..db import db # pylint: disable=relative-beyond-top-level
@@ -94,7 +93,7 @@ class Meta(Cog):
 	@command(name="update", brief="Owner Only Command to give a pretty embed for updates.")
 	async def update_command(self, ctx, *, update: str):
 		"""Command to give people updates on why bot was going down / brief patch notes\n`Owner` permission required"""
-		
+
 		prefix = db.records("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
 
 		if ctx.author.id == owner_id:
@@ -211,7 +210,7 @@ class Meta(Cog):
 				member = pledger
 
 		if ctx.author in homeGuild.members:
-			if patreonRole in member.roles:       
+			if patreonRole in member.roles:
 				await ctx.send(f"Thanks for supporting {ctx.author.mention}!\n<https://patreon.com/doobdev>") 
 
 			else:

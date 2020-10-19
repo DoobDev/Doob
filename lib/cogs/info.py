@@ -53,7 +53,7 @@ class Info(Cog):
 
                 embed.set_thumbnail(url=target.avatar_url)
                 await ctx.send(embed=embed)
-            
+
             else:
 
                 ids = db.column("SELECT UserID FROM exp ORDER BY XP DESC")

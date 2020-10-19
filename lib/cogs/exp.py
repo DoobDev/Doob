@@ -4,7 +4,6 @@ from typing import Optional
 
 from discord import Member, Embed
 from discord.ext.commands import Cog
-from discord.ext.commands import CheckFailure
 from discord.ext.commands import command, has_permissions
 from discord.ext.menus import MenuPages, ListPageSource
 from lib.bot import bot # pylint: disable=no-name-in-module, import-error
@@ -26,7 +25,7 @@ class Menu(ListPageSource):
         embed = Embed(title="XP Leaderboard", description="See who is on top!", colour=self.ctx.author.colour)
         embed.set_thumbnail(url=self.ctx.guild.me.avatar_url)
         embed.set_footer(text=f"{offset:,} - {min(len_data, offset+self.per_page-1):,} of {len_data:,} members.")
-        
+
         for name, value in fields:
             embed.add_field(name=name, value=value, inline=False)
 
@@ -62,7 +61,7 @@ class Exp(Cog):
         
         new_lvl = int(((xp + xp_to_add)//42) ** 0.55)
 
-        db.execute("UPDATE exp SET XP = XP + ?, Level = ?, XPLock = ? WHERE UserID = ?", 
+        db.execute("UPDATE exp SET XP = XP + ?, Level = ?, XPLock = ? WHERE UserID = ?",
                    xp_to_add, new_lvl, (datetime.utcnow()+timedelta(seconds=50)).isoformat(), message.author.id)
 
         if new_lvl > lvl:
@@ -75,13 +74,13 @@ class Exp(Cog):
         
         new_lvl = int(((xp + xp_to_add)//42) ** 0.55)
 
-        db.execute(f"UPDATE guildexp SET XP = XP + ?, Level = ?, XPLock = ? WHERE UserID = {message.author.id} AND GuildID = {message.guild.id}", 
+        db.execute(f"UPDATE guildexp SET XP = XP + ?, Level = ?, XPLock = ? WHERE UserID = {message.author.id} AND GuildID = {message.guild.id}",
                    xp_to_add, new_lvl, (datetime.utcnow()+timedelta(seconds=50)).isoformat())
         db.commit()
 
         if new_lvl > lvl:
             if level_up_messages == "('yes',)" or level_up_messages == "('Yes',)":
-                await message.channel.send(f"{message.author.mention} leveled up to server level {new_lvl:,}!", delete_after = 10) 
+                await message.channel.send(f"{message.author.mention} leveled up to server level {new_lvl:,}!", delete_after = 10)
 
     @command(name="level", aliases=["rank", "lvl"], brief="Shows your level, and rank.")
     async def display_level(self, ctx, target: Optional[Member]):

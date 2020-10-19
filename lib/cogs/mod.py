@@ -1,6 +1,4 @@
-from asyncio import sleep
 from datetime import datetime, timedelta
-from re import search
 from typing import Optional
 
 from discord import Embed, Member, Role, TextChannel
@@ -26,7 +24,7 @@ class Mod(Cog):
 			for target in targets:
 				if (ctx.guild.me.top_role.position != target.top_role.position
 					and ctx.author.top_role.position > target.top_role.position):
-					
+
 					await target.kick(reason=reason)
 					await ctx.send("Member Kicked.")
 				else:
@@ -42,8 +40,8 @@ class Mod(Cog):
 		mute_role = db.field('SELECT MutedRole FROM guilds WHERE GuildID = ?', message.guild.id)
 		comma = ", "
 		tNames = []
-		for target in targets: 
-			tNames.append(f"{target.display_name}")		
+		for target in targets:
+			tNames.append(f"{target.display_name}")
 		for target in targets:
 			mutedrole = message.guild.get_role(int(mute_role))
 			if not mutedrole in target.roles:
@@ -71,7 +69,7 @@ class Mod(Cog):
 			unmutes = await self.mute_members(ctx.message, targets, reason)
 
 			if len(unmutes):
-				mute_role = db.field('SELECT MutedRole FROM guilds WHERE GuildID = ?', ctx.guild.id) 
+				mute_role = db.field('SELECT MutedRole FROM guilds WHERE GuildID = ?', ctx.guild.id)
 				TheRole = ctx.guild.get_role(int(mute_role))
 				for target in targets:
 					await target.remove_roles(TheRole)
@@ -82,7 +80,7 @@ class Mod(Cog):
 	@command(name="unmute", aliases=["um"], brief="Unmutes a member from the server.")
 	@bot_has_permissions(manage_roles=True)
 	@has_permissions(manage_roles=True, manage_guild=True)
-	async def delmute_command(self, ctx, targets: Greedy[Member]):		
+	async def delmute_command(self, ctx, targets: Greedy[Member]):
 		"""Unmutes a member from the server\nRequires the `Manage Roles` and `Manage Server` permissions"""
 		comma = ", "
 		tNames = []
@@ -120,7 +118,7 @@ class Mod(Cog):
 					await target.ban(reason=reason)
 					await ctx.send("Member banned.")
 				
-				else: 
+				else:
 					await ctx.send("Something went wrong.\nYou might not be able to ban that member.")
 	@ban_command.error
 	async def ban_command_error(self, ctx, exc):

@@ -83,7 +83,7 @@ class Bot(BotBase):
     async def on_connect(self):
         self.update_db()
         print("Doob Connected")
-    
+
     async def on_disconnect(self):
         print("Doob Disconnected")
 
@@ -140,15 +140,14 @@ class Bot(BotBase):
             db.multiexec("INSERT OR IGNORE INTO exp (UserID) VALUES (?)",
                             ((member.id,) for guild in self.guilds for member in guild.members if not member.bot))
             print("Updated exp table.")
-            #omfg just come to line 133 and do it your way
-            #ok bruh idk what to do just do it ur way xD 
+
             db.multiexec("INSERT OR IGNORE INTO votes (UserID) VALUES (?)",
                             ((member.id,) for guild in self.guilds for member in guild.members if not member.bot))
             print("Updated votes table.")
 
             self.ready = True
             self.update_db
-            #wht happening!??!?!?!/!??!?!/1//1/1/1//1/1/1/1//1?!??!?!?!?!/1//1/1/1/1/?!?!!??!?!?!?
+
             print("Updated DB")
             print("Doob Ready")
 
