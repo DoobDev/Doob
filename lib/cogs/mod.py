@@ -171,15 +171,7 @@ class Mod(Cog):
 		cur_role = db.records("SELECT MutedRole FROM guilds WHERE GuildID = ?", ctx.guild.id)
 		prefix = db.records("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
 
-		current_role = ctx.guild.get_role(int(cur_role[0][0]))
-
-		if role == None and current_role == None:
-			await ctx.send(f"The current setting for the Muted role is: `No Muted Role`\nTo change it, type `{prefix[0][0]}setmuterole @<muted role>`")
-
-		elif role == None and current_role != None:
-			await ctx.send(f"The current setting for the Muted role is: `{current_role.name}`\nTo change it, type `{prefix[0][0]}setmuterole @<muted role>`")
-
-		elif ctx.guild.me.top_role.position > role.position:
+		if ctx.guild.me.top_role.position > role.position:
 			db.execute("UPDATE guilds SET MutedRole = ? WHERE GuildID = ?", str(role.id), ctx.guild.id)
 			db.commit()
 			await ctx.send(f"Mute role set to `{role}`")
