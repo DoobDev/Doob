@@ -16,7 +16,7 @@ class Reactions(Cog):
             starboardchannel = await self.bot.fetch_channel(db.field("SELECT StarBoardChannel from guilds WHERE GuildID = ?", guild.id))
             message = await self.bot.get_channel(payload.channel_id).fetch_message(payload.message_id)
 
-            if not message.author.bot:# and payload.member.id != message.author.id:
+            if not message.author.bot and payload.member.id != message.author.id:
                 msg_id, stars = db.record("SELECT StarMessageID, Stars from starboard WHERE (GuildID, MessageID) = (?, ?)", guild.id, message.id) or (None, 0)
                 embed = Embed(title=f"⭐ x{stars+1}", colour=message.author.colour, timestamp=datetime.utcnow())
 
