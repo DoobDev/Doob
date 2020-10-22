@@ -25,6 +25,9 @@
     - Check how many lucky dogs you have "caught" over the month.
 * Updated `doob/userinfo` "Bot or not" field.
     - "Bot or not." ==> "Bot"
+* New `doob/unban` command!
+* Starboards!
+    - New `doob/setstarboardchannel` command!
 
 ## v2.0.8
 * Updated description (on the help command) for
