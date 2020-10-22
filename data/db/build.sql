@@ -35,3 +35,10 @@ CREATE TABLE IF NOT EXISTS guildexp(
     XPLock text DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY("GuildID", "UserID")
 );
+
+CREATE TABLE IF NOT EXISTS luckydogs(
+    UserID integer,
+    LuckyDogs integer DEFAULT 0,
+    LastUpdated text DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY("UserID")
+)

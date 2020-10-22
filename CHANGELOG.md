@@ -16,6 +16,14 @@
 * Instead of help messages and such saying `@Doob ` for the prefix, it now says your server's prefix.
 * Removed the description for the Among Us Commands.
     * You can still find them in `doob/help {cmd}`
+* Added a new Patreon only command! `doob/luckydog`
+    * Gives you instant access to all the lucky dog's avaliable.
+* Lucky Dog Nitro Giveaways are BACK!
+    - Every month, whoever gets the most Lucky Dogs, gets 1 month of Nitro Classic!
+* New `doob/luckydogs` command!
+    - Check how many lucky dogs you have "caught" over the month.
+* Updated `doob/userinfo` "Bot or not" field.
+    - "Bot or not." ==> "Bot"
 
 ## v2.0.8
 * Updated description (on the help command) for

@@ -161,6 +161,7 @@ class Bot(BotBase):
         if not message.author.bot:
             await self.process_commands(message)
             db.execute("INSERT OR IGNORE INTO guildexp (UserID, GuildID) VALUES (?, ?)", message.author.id, message.guild.id)
+            db.execute("INSERT OR IGNORE INTO luckydogs (UserID) VALUES (?)", message.author.id)
             db.commit()
 
 #uh whats going on now?

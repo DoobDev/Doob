@@ -19,6 +19,8 @@ class Welcome(Cog):
 		print(f"{member.username} (member/user) have been added into the exp DB")
 		db.execute("INSERT INTO guildexp (UserID, GuildID) VALUES (?, ?)", member.id, member.guild.id)
 		print(f"{member.username} (member/user) have been added into the server exp DB")
+		db.execute("INSERT INTO luckydogs (UserID) VALUES (?)", member.id)
+		print(f"{member.username} (member/user) has been added into the LuckyDogs DB")
 		db.commit()
 
 	@Cog.listener()

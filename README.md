@@ -20,7 +20,7 @@ Doob is a multipurpose Discord bot with a built-in **leveling system**, great **
 ## Main Features
 Doob has some great features, such as:
 * Logging
-* A Global Leveling System (with leaderboard)
+* A Global (and server specific) Leveling System (with leaderboard)
 * Server + User info
 * Rolling Dice
 * Echo Command [(Patreon Only)](https://patreon.com/doobdev/)
@@ -29,7 +29,7 @@ Doob has some great features, such as:
 * Low Latency
 * Customizable Server Features [Don't like Level Messages? Turn them off!]
 * Robust Moderation Commands
-* AND MORE! (coming soon)
+* AND MORE!
 
 ## Doob on the web.
 - You can visit the Doob website at [https://doobbot.com](https://doobbot.com)
@@ -44,7 +44,9 @@ Submit an [Issue](https://github.com/doobdev/doob/issues) or a [Pull request](ht
 ## Requirements
 `pip install discord.py apscheduler git+https://github.com/rapptz/discord-ext-menus dblpy`
 
-You will need to make two additional files in `/lib/bot/`, `token.txt` (containing your bot token), and `topgg.txt`.
+You will need to make two additional files in `/lib/bot/`, `token.txt` (containing your bot token).
+
+Then move the files `/lib/bot/cogs/servercount.py` and `/lib/bot/cogs/stat.py` to the `lib/bot/NOT IN USE` folder.
 
 Start the bot after downloading prerequisites:
 
@@ -60,4 +62,4 @@ Doob Name: Me and my friend William in Biology.
 
 Doob extensive help: [@X Daniel](https://github.com/x-daniel-17)
 
-###### built with ♥, youtube tutorials, yelling at daniel in discord and stack overflow
+###### built with ♥, youtube tutorials, yelling at daniel in discord, stack overflow and twitch chat
