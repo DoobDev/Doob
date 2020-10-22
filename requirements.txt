@@ -7,20 +7,22 @@
 APScheduler == 3.6.3
 
 # lib\cogs\fun.py: 3
-aiohttp == 3.6.3
+aiohttp == 3.6.2
 
+# lib\NOT IN USE\TopGG.py: 1
 # lib\cogs\servercount.py: 1
-dblpy == 0.4.0
+dblpy == 0.3.4
 
+# lib\NOT IN USE\TopGG.py: 3
 # lib\bot\__init__.py: 9
-# lib\cogs\exp.py: 10
-# lib\cogs\fun.py: 6
+# lib\cogs\exp.py: 8
+# lib\cogs\fun.py: 7,8
 # lib\cogs\help.py: 9
-# lib\cogs\info.py: 6
+# lib\cogs\info.py: 6,7
 # lib\cogs\log.py: 4
-# lib\cogs\meta.py: 9
-# lib\cogs\misc.py: 3
-# lib\cogs\mod.py: 9
+# lib\cogs\meta.py: 9,10
+# lib\cogs\misc.py: 3,4
 # lib\cogs\servercount.py: 2,3
+# lib\cogs\stat.py: 1
 # lib\cogs\welcome.py: 1,2,3
 discord_ext_menus == 1.0.0a26+g84caae8
