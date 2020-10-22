@@ -1,13 +1,29 @@
 from datetime import datetime, timedelta
 from typing import Optional
 
-from discord import Embed, Member, Role, TextChannel
-from discord.ext.commands import Cog, Greedy
-from discord.ext.commands import CheckFailure
-from discord.ext.commands import command, has_permissions, bot_has_permissions
+from discord.utils import find
+from discord import Embed, Member, Role, TextChannel, NotFound, Object
+from discord.ext.commands import command, has_permissions, bot_has_permissions, Cog, Greedy, Converter, CheckFailure, BadArgument
 
 from ..db import db # pylint: disable=relative-beyond-top-level
 
+class BannedUser(Converter):
+	async def convert(self, ctx, arg):
+		if ctx.guild.me.guild_permissions.ban_members:
+			if arg.isdigit():
+				try:
+					return (await ctx.guild.fetch_ban(Object(id=int(arg)))).user
+				
+				except NotFound:
+					raise BadArgument
+		
+		banned = [e.user for e in await ctx.guild.bans()]
+		if banned:
+			if (user := find(lambda  u: str(u) == arg, banned)) is not None:
+				return user
+
+			else:
+				raise BadArgument
 class Mod(Cog):
 	def __init__(self, bot):
 		self.bot = bot
@@ -125,6 +141,18 @@ class Mod(Cog):
 		if isinstance(exc, CheckFailure):
 			await ctx.send("Insufficient permissions to perform that task.")
 
+	@command(name="unban", aliases=["pardon"])
+	@bot_has_permissions(ban_members=True)
+	@has_permissions(ban_members=True)
+	async def unban_command(self, ctx, targets: Greedy[BannedUser], *, reason: Optional[str] = "No reason provided."):
+		if not len(targets):
+					await ctx.send("One or more required arguments are missing.")
+
+		else:
+			for target in targets:
+				await ctx.guild.unban(target, reason=reason)
+				await ctx.send("Member unbanned.")
+
 	@command(name="clear", aliases=["purge"], brief="Clears amount of messages provided.")
 	@bot_has_permissions(manage_messages=True)
 	@has_permissions(manage_messages=True)
@@ -159,11 +187,21 @@ class Mod(Cog):
 			db.commit()
 			await ctx.send(f"Log channel set to <#{channel.id}>")
 
-	@Cog.listener()
-	async def on_ready(self):
-		if not self.bot.ready:
-			self.bot.cogs_ready.ready_up("mod")
-		
+	@command(name="setstarboardchannel", aliases=["ssbc", "starboardchannel", "setstar", "setstarboard"], brief="Set the server's starboard channel.")
+	@has_permissions(manage_guild=True)
+	async def set_starboard_channel(self, ctx, *, channel: Optional[TextChannel]):
+		"""Sets the starboard channel for the server.\n`Manage Server` permission required."""
+		current_channel = db.records("SELECT StarBoardChannel FROM guilds WHERE GuildID = ?", ctx.guild.id)
+		prefix = db.records("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
+
+		if channel == None:
+			await ctx.send(f"The current setting for the StarBoard Channel is currently: <#{current_channel[0][0]}>\nTo change it, type `{prefix[0][0]}setstarboardchannel #<starboard channel>`")
+
+		else:
+			db.execute("UPDATE guilds SET StarBoardChannel = ? WHERE GuildID = ?", str(channel.id), ctx.guild.id)
+			db.commit()
+			await ctx.send(f"StarBoard channel set to <#{channel.id}>")
+
 	@command(name="setmuterole", aliases=["smr", "muterole", "setmute"], brief="Set the server's mute role.")
 	@has_permissions(manage_guild=True)
 	async def set_mute_role(self, ctx, *, role: Optional[Role]):
@@ -178,6 +216,11 @@ class Mod(Cog):
 
 		else:
 			await ctx.send(f"Please try a different role.\nYou may need to move the `Doob` role in your server settings above the `{role}` role.")
+
+	@Cog.listener()
+	async def on_ready(self):
+		if not self.bot.ready:
+			self.bot.cogs_ready.ready_up("mod")
 
 def setup(bot):
 	bot.add_cog(Mod(bot))

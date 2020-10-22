@@ -41,4 +41,12 @@ CREATE TABLE IF NOT EXISTS luckydogs(
     LuckyDogs integer DEFAULT 0,
     LastUpdated text DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY("UserID")
+);
+
+CREATE TABLE IF NOT EXISTS starboard(
+    MessageID integer,
+    StarMessageID integer,
+    Stars integer DEFAULT 1,
+    GuildID integer,
+    PRIMARY KEY("MessageID", "GuildID")
 )

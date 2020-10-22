@@ -12,7 +12,7 @@ class Info(Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @command(name="userinfo", aliases=["member", "user", "profile", "ui"], brief="Gives info about a specific user.")
+    @command(name="userinfo", aliases=["member", "user", "profile", "ui", "whois"], brief="Gives info about a specific user.")
     @cooldown(1, 10, BucketType.user)
     async def user_info(self, ctx, target: Optional[Member]):
         """Gives you info about a user."""
