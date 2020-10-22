@@ -1,4 +1,5 @@
-## v2.0.9 | The muting update!
+## v2.0.9
+#### The muting update!
 * Finally! Doob has muting!
 * New `doob/mute` command!
     - Mutes a member from your server!
