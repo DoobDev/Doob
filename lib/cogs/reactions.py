@@ -17,7 +17,7 @@ class Reactions(Cog):
             message = await self.bot.get_channel(payload.channel_id).fetch_message(payload.message_id)
 
             if not message.author.bot and payload.member.id != message.author.id:
-                msg_id, stars = db.record("SELECT StarMessageID from starboard WHERE (GuildID, MessageID) = (?, ?)", guild.id, message.id) or (None, 0)
+                msg_id, stars = db.record("SELECT StarMessageID, Stars from starboard WHERE (GuildID, MessageID) = (?, ?)", guild.id, message.id) or (None, 0)
                 embed = Embed(title="⭐", description="Starred!", colour=message.author.colour, timestamp=datetime.utcnow())
 
                 embed.set_thumbnail(url=message.author.avatar_url)
