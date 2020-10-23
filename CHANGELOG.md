@@ -28,6 +28,8 @@
 * New `doob/unban` command!
 * Starboards!
     - New `doob/setstarboardchannel` command!
+* Updated starboard embed to have a "Jump to link"
+    - Lets you jump to the message that was starred.
 
 ## v2.0.8
 * Updated description (on the help command) for
