@@ -25,7 +25,7 @@ class Reactions(Cog):
 
                 fields = [("Author", message.author.mention, False),
                         ("Content", message.content or "Image", False),
-                        ("Jump To Link", f"[Jump](https://discord.com/channels/{message.guild.id}/{message.channel.id}/{message.id}", False]
+                        ("Jump To Link", f"[Jump](https://discord.com/channels/{message.guild.id}/{message.channel.id}/{message.id}", False)]
 
                 for name, value, inline in fields:
                     embed.add_field(name=name, value=value, inline=inline)
