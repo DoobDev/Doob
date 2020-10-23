@@ -24,7 +24,8 @@ class Reactions(Cog):
                 embed.set_footer(text=f"⭐ x{stars+1}")
 
                 fields = [("Author", message.author.mention, False),
-                        ("Content", message.content or "Image", False)]
+                        ("Content", message.content or "Image", False),
+                        ("Jump To Link", f"[Jump](https://discord.com/channels/{message.guild.id}/{message.channel.id}/{message.id}]
 
                 for name, value, inline in fields:
                     embed.add_field(name=name, value=value, inline=inline)
