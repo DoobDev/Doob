@@ -7,7 +7,7 @@
 APScheduler == 3.6.3
 
 # lib\cogs\fun.py: 3
-aiohttp == 3.6.3
+aiohttp == 3.7.1
 
 # lib\NOT IN USE\TopGG.py: 1
 # lib\cogs\servercount.py: 1
