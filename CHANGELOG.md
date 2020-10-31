@@ -30,6 +30,7 @@
     - New `doob/setstarboardchannel` command!
 * Updated starboard embed to have a "Jump to link"
     - Lets you jump to the message that was starred.
+* Really bad `doob/jumpscare` command lol.
 
 ## v2.0.8
 * Updated description (on the help command) for
