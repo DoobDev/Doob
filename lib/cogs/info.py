@@ -19,7 +19,7 @@ class Info(Cog):
         target = target or ctx.author
 
         homeGuild = self.bot.get_guild(702352937980133386)
-        patreonRole = get(homeGuild.roles, id=757041749716893739)  # Patreon role ID.
+        patreonRole = get(homeGuild.roles, id=754759867658403891)  # Patreon role ID.
 
         member = []
 
