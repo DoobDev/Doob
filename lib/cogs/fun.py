@@ -49,7 +49,7 @@ class Fun(Cog):
     async def echo_message(self, ctx, *, message):
         """Make Doob say a message! | `Patreon Only`"""
         homeGuild = self.bot.get_guild(702352937980133386)
-        patreonRole = get(homeGuild.roles, id=754759867658403891)  # Patreon role ID.
+        patreonRole = get(homeGuild.roles, id=757041749716893739)  # Patreon role ID.
 
         member = []
 
@@ -88,7 +88,7 @@ class Fun(Cog):
     async def lucky_dog_image(self, ctx, *, dog: Optional[str]):
         """Shows the lucky dogs possible!\nIsn't eligable for the Nitro Giveaways\n`Patreon` permission required"""
         homeGuild = self.bot.get_guild(702352937980133386)
-        patreonRole = get(homeGuild.roles, id=754759867658403891)
+        patreonRole = get(homeGuild.roles, id=757041749716893739)
 
         member = []
 
@@ -155,7 +155,7 @@ class Fun(Cog):
         URL = "https://dog.ceo/api/breeds/image/random"
 
         homeGuild = self.bot.get_guild(702352937980133386)
-        patreonRole = get(homeGuild.roles, id=754759867658403891)
+        patreonRole = get(homeGuild.roles, id=757041749716893739)
         
         member = []
 
