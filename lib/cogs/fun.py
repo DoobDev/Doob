@@ -4,7 +4,7 @@ from aiohttp import request
 from datetime import datetime
 
 from discord import Member, Embed, Colour
-from discord.ext.commands import Cog, command, BadArgument, cooldown, BucketType
+from discord.ext.commands import Cog, command, cooldown, BucketType
 from discord.utils import get
 
 from ..db import db # pylint: disable=relative-beyond-top-level
@@ -21,7 +21,7 @@ class Fun(Cog):
     @command(name="dice", aliases=["roll", "rolldice"], brief="Roll some dice!")
     @cooldown(1, 10, BucketType.user)
     async def roll_dice(self, ctx, die_string: str):
-        """Role some dice, (number)d(number) syntax"""
+        """Role some dice, (number)d(number) syntax."""
         dice, value = (int(term) for term in die_string.split("d"))
 
         if dice <= 40:
@@ -34,13 +34,13 @@ class Fun(Cog):
     @command(name="slap", brief="Slap a user, what did they do wrong to you?")
     @cooldown(1, 10, BucketType.user)
     async def slap_member(self, ctx, member: Optional[Member], *, reason: Optional[str]):
-        """Slap a member in the server with a reason"""
+        """Slap a member in the server with a reason."""
         if member == None:
             if reason == None:
                 await ctx.send(f"{ctx.author.mention} slapped {ctx.author.mention}!")
             elif reason != None:
                 await ctx.send(f"{ctx.author.mention} slapped {ctx.author.mention} instead of {reason}!")
-        
+
         else:
             await ctx.send(f"{ctx.author.mention} slapped {member.display_name}\nReason - {reason}!")
 

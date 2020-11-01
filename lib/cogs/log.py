@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from discord import Embed
-from discord.ext.commands import Cog, command
+from discord.ext.commands import Cog
 
 from ..db import db # pylint: disable=relative-beyond-top-level
 
@@ -27,7 +27,7 @@ class Log(Cog):
                 embed.add_field(name=name, value=value, inline=inline)
             embed.set_thumbnail(url=before.avatar_url)
             await logchannel.send(embed=embed)
-        
+
         elif before.roles != after.roles:
             embed = Embed(title="Member update", description=f"{before.name}'s Roles has been changed.", colour=after.colour,  timestamp=datetime.utcnow())
             logchannel = await self.bot.fetch_channel(db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", after.guild.id))

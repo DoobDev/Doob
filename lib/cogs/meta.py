@@ -4,7 +4,7 @@ from typing import Optional
 
 from apscheduler.triggers.cron import CronTrigger
 from discord import Activity, ActivityType, Embed, Member
-from discord import __version__ as discord_version
+#from discord import __version__ as discord_version
 from discord.ext.commands import Cog
 from discord.ext.commands import command, BucketType, cooldown
 from discord.utils import get
@@ -211,7 +211,7 @@ class Meta(Cog):
 
 		if ctx.author in homeGuild.members:
 			if patreonRole in member.roles:
-				await ctx.send(f"Thanks for supporting {ctx.author.mention}!\n<https://patreon.com/doobdev>") 
+				await ctx.send(f"Thanks for supporting {ctx.author.mention}!\n<https://patreon.com/doobdev>")
 
 			else:
 				await ctx.send("You can support Doob Dev by subscribing at <https://patreon.com/doobdev>!")

@@ -2,10 +2,10 @@ from asyncio import sleep
 from glob import glob
 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from discord import Embed, File, Colour
-from discord.errors import HTTPException, Forbidden
+from discord import Embed, Colour
+from discord.errors import Forbidden
 from discord.ext.commands import Bot as BotBase
-from discord.ext.commands import Context, when_mentioned_or, command, has_permissions
+from discord.ext.commands import Context, when_mentioned_or, has_permissions
 from discord.ext.commands import (CommandNotFound, BadArgument, MissingRequiredArgument, CommandOnCooldown)
 import os
 from ..db import db # pylint: disable=relative-beyond-top-level
@@ -29,7 +29,7 @@ class Ready(object):
         print(f'{cog} cog ready')
 
     def all_ready(self):
-        print(f'In loving memory of X Daniel that is still alive')
+        print('In loving memory of X Daniel that is still alive')
         return all([getattr(self, cog) for cog in COGS])
 
 class Bot(BotBase):
@@ -93,7 +93,7 @@ class Bot(BotBase):
             # embed = Embed(title="Oops!", description="This command didn't work correctly.", colour=Colour.red())
             # embed.add_field(name="❓ Join the Support Server:", value="https://discord.gg/hgQTTU7")
             # await args[0].send(embed=embed)
-            
+
             # if err == "on_command_error":
             # 	args[0].send("uh so py is being gay again sry")
             # else:

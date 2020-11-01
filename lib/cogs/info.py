@@ -113,7 +113,7 @@ class Info(Cog):
     async def server_info(self, ctx):
         """Gives you info about the server the command is executed in."""
         if ctx.guild.me.guild_permissions.administrator == True:
-            embed = Embed(title=f"Server's info", colour=ctx.guild.owner.colour, timestamp=datetime.utcnow())
+            embed = Embed(title="Server's info", colour=ctx.guild.owner.colour, timestamp=datetime.utcnow())
 
             statuses = [len(list(filter(lambda m: str(m.status) == "online", ctx.guild.members))),
                         len(list(filter(lambda m: str(m.status) == "idle", ctx.guild.members))),
@@ -143,9 +143,9 @@ class Info(Cog):
 
             embed.set_thumbnail(url=ctx.guild.icon_url)
             await ctx.send(embed=embed)
-        
+
         else:
-            embed = Embed(title=f"Server's info", colour=ctx.guild.owner.colour, timestamp=datetime.utcnow())
+            embed = Embed(title="Server's info", colour=ctx.guild.owner.colour, timestamp=datetime.utcnow())
 
             statuses = [len(list(filter(lambda m: str(m.status) == "online", ctx.guild.members))),
                         len(list(filter(lambda m: str(m.status) == "idle", ctx.guild.members))),

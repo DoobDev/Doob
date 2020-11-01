@@ -1,8 +1,8 @@
-from random import choice, randint
-from typing import Optional
+from random import randint
+
 
 from discord import Member, Embed, Colour
-from discord.ext.commands import Cog, command, BadArgument, cooldown, BucketType
+from discord.ext.commands import Cog, command, cooldown, BucketType
 
 class Jumpscare(Cog):
     def __init__(self, bot):
@@ -18,7 +18,7 @@ class Jumpscare(Cog):
             embed.set_image(url = "https://i.pinimg.com/originals/6d/f2/56/6df256a505c2c0851f0a906c00d7da93.gif")
             await ctx.send(f"{target.mention} lol")
             await ctx.send(embed=embed)
-        
+
         elif jumpscare == 2:
             embed = Embed(title="boo", description=f"{ctx.author.mention} fnaf jumpscare", colour=Colour.red())
             embed.set_footer(text=f"{target.display_name} boo", icon_url=target.avatar_url)
