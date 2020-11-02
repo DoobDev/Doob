@@ -206,7 +206,7 @@ class Fun(Cog):
                     await ctx.send(embed=embed)
 
             else:
-                random = randint(1,1003)
+                random = randint(1,503)
                 patreon_ad = randint(1, 4)
 
                 if random != 100 and random != 101 and random != 102 and random != 103:
@@ -258,7 +258,7 @@ class Fun(Cog):
                 
             
         else:
-            random = randint(1,1003)
+            random = randint(1,503)
             patreon_ad = randint(1, 4)
 
             if random != 100 and random != 101 and random != 102:
