@@ -144,7 +144,7 @@ class Meta(Cog):
 		embed.set_footer(text=f"{ctx.author.name} requested Doob's information", icon_url=ctx.author.avatar_url)
 
 		if patreon_status == True:
-			embed.add_field(name="Patreon", value=f"Thanks for [Donating](https://patreon.com/doobdev) {ctx.author}! :white_check_mark:", inline=False)
+			embed.add_field(name="Patreon", value=f"Thanks for [Donating](https://patreon.com/doobdev) {ctx.author.display_name}! :white_check_mark:", inline=False)
 			await ctx.send(embed=embed)
 
 		if patreon_status == False:
