@@ -1,10 +1,12 @@
 from time import time
 from datetime import datetime, timedelta
 from typing import Optional
-
+from psutil import Process, virtual_memory
+from platform import python_version
 from apscheduler.triggers.cron import CronTrigger
+
 from discord import Activity, ActivityType, Embed, Member
-#from discord import __version__ as discord_version
+from discord import __version__ as discord_version
 from discord.ext.commands import Cog
 from discord.ext.commands import command, BucketType, cooldown
 from discord.utils import get
@@ -107,7 +109,7 @@ class Meta(Cog):
 			await ctx.send(f"You don't have permissions to give updates about Doob\nType `{prefix[0][0]}help update` for more info.")
 
 	@command(name="info", aliases=["botinfo"], brief="Gives basic info about Doob.")
-	async def show_basic_bot_info(self, ctx):
+	async def show_bot_info(self, ctx):
 		"""Gives basic info about Doob."""
 
 		homeGuild = self.bot.get_guild(702352937980133386)
@@ -125,13 +127,25 @@ class Meta(Cog):
 
 				bot_version = self.bot.VERSION
 
+				proc = Process()
+				with proc.oneshot():
+					uptime = timedelta(seconds=time()-proc.create_time())
+					cpu_time = timedelta(seconds=(cpu := proc.cpu_times()).system + cpu.user)
+					mem_total = virtual_memory().total / (1025**2)
+					mem_of_total = proc.memory_percent()
+					mem_usg = mem_total * (mem_of_total / 100)
+
 				fields = [("Name", "Doob", False),
 							("Description", "A Discord bot made by mmatt using discord.py, he felt like making it so he did B)", False),
 							("Developers", "<@308000668181069824>, <@476188720521805825>", False),
 							("Doob's Server Count", f"{str(len(self.bot.guilds))}", True),
 							("Doob's Member Count", f"{str(len(self.bot.users))}", True),
 							("The ping for Doob is...", f" :ping_pong: {round(self.bot.latency * 1000)} ms", False),
-							("Library", "discord.py", True),
+							("Python Version", python_version(), True),
+							("Uptime", uptime, True),
+							("CPU Time", cpu_time, True),
+							("Memory Usage", f"{mem_usg:,.3f} MiB / {mem_total:,.0f} MiB ({mem_of_total:.0f}%)", True),
+							("Library", f"discord.py {discord_version}", True),
 							("Bot Version", f"{self.bot.VERSION} - [Changelog](https://github.com/doobdev/doob/blob/master/CHANGELOG.md#v{bot_version.replace('.', '')})", True),
 							("Top.gg Link", "https://top.gg/bot/680606346952966177", False),
 							("Invite Link", "[Invite Link Here](https://discordapp.com/oauth2/authorize?client_id=680606346952966177&scope=bot&permissions=271674430)", True),
@@ -149,6 +163,14 @@ class Meta(Cog):
 				embed = Embed(title="Doob Info", colour=ctx.author.colour, timestamp=datetime.utcnow())
 
 				bot_version = self.bot.VERSION
+			
+				proc = Process()
+				with proc.oneshot():
+					uptime = timedelta(seconds=time()-proc.create_time())
+					cpu_time = timedelta(seconds=(cpu := proc.cpu_times()).system + cpu.user)
+					mem_total = virtual_memory().total / (1025**2)
+					mem_of_total = proc.memory_percent()
+					mem_usg = mem_total * (mem_of_total / 100)
 
 				fields = [("Name", "Doob", False),
 							("Description", "A Discord bot made by mmatt using discord.py, he felt like making it so he did B)", False),
@@ -156,7 +178,11 @@ class Meta(Cog):
 							("Doob's Server Count", f"{str(len(self.bot.guilds))}", True),
 							("Doob's Member Count", f"{str(len(self.bot.users))}", True),
 							("The ping for Doob is...", f" :ping_pong: {round(self.bot.latency * 1000)} ms", False),
-							("Library", "discord.py", True),
+							("Python Version", python_version(), True),
+							("Uptime", uptime, True),
+							("CPU Time", cpu_time, True),
+							("Memory Usage", f"{mem_usg:,.3f} MiB / {mem_total:,.0f} MiB ({mem_of_total:.0f}%)", True),
+							("Library", f"discord.py {discord_version}", True),
 							("Bot Version", f"{self.bot.VERSION} - [Changelog](https://github.com/doobdev/doob/blob/master/CHANGELOG.md#v{bot_version.replace('.', '')})", True),
 							("Top.gg Link", "https://top.gg/bot/680606346952966177", False),
 							("Invite Link", "[Invite Link Here](https://discordapp.com/oauth2/authorize?client_id=680606346952966177&scope=bot&permissions=271674430)", True),
@@ -176,13 +202,25 @@ class Meta(Cog):
 
 			bot_version = self.bot.VERSION
 
+			proc = Process()
+			with proc.oneshot():
+				uptime = timedelta(seconds=time()-proc.create_time())
+				cpu_time = timedelta(seconds=(cpu := proc.cpu_times()).system + cpu.user)
+				mem_total = virtual_memory().total / (1025**2)
+				mem_of_total = proc.memory_percent()
+				mem_usg = mem_total * (mem_of_total / 100)
+
 			fields = [("Name", "Doob", False),
 						("Description", "A Discord bot made by mmatt using discord.py, he felt like making it so he did B)", False),
 						("Developers", "<@308000668181069824>, <@476188720521805825>", False),
 						("Doob's Server Count", f"{str(len(self.bot.guilds))}", True),
 						("Doob's Member Count", f"{str(len(self.bot.users))}", True),
 						("The ping for Doob is...", f" :ping_pong: {round(self.bot.latency * 1000)} ms", False),
-						("Library", "discord.py", True),
+						("Python Version", python_version(), True),
+						("Uptime", uptime, True),
+						("CPU Time", cpu_time, True),
+						("Memory Usage", f"{mem_usg:,.3f} MiB / {mem_total:,.0f} MiB ({mem_of_total:.0f}%)", True),
+						("Library", f"discord.py {discord_version}", True),
 						("Bot Version", f"{self.bot.VERSION} - [Changelog](https://github.com/doobdev/doob/blob/master/CHANGELOG.md#v{bot_version.replace('.', '')})", True),
 						("Top.gg Link", "https://top.gg/bot/680606346952966177", False),
 						("Invite Link", "[Invite Link Here](https://discordapp.com/oauth2/authorize?client_id=680606346952966177&scope=bot&permissions=271674430)", True),

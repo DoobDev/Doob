@@ -33,6 +33,7 @@
 * Really bad `doob/jumpscare` command lol.
 * Removed jumpscare
 * Lucky Dogs now occur 1/500
+* Updated `doob/info` to have system stats.
 
 ## v2.0.8
 * Updated description (on the help command) for
