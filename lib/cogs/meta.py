@@ -148,6 +148,7 @@ class Meta(Cog):
 			await ctx.send(embed=embed)
 
 		if patreon_status == False:
+			embed.add_field(name="Patreon", value="[Click Here for Patreon](https://patreon.com/doobdev)", inline=False)
 			await ctx.send(embed=embed)
 
 	@command(name="info", aliases=["botinfo"], brief="Gives basic info about Doob.")
