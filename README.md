@@ -39,7 +39,7 @@ Doob has some great features, such as:
 Use the doob/help command on Discord!
 
 ## Want to submit issues? Or fix existing ones?
-### Issue is for Bug Reports + Feature Requests | Pull requests are for improving/adding code.
+##### Issue is for Bug Reports + Feature Requests | Pull requests are for improving/adding code.
 Submit an [Issue](https://github.com/doobdev/doob/issues) or a [Pull request](https://github.com/doobdev/doob/pulls).
 
 ## Issue list:
