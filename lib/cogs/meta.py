@@ -108,8 +108,50 @@ class Meta(Cog):
 		elif ctx.author.id != owner_id:
 			await ctx.send(f"You don't have permissions to give updates about Doob\nType `{prefix[0][0]}help update` for more info.")
 
+	async def show_bot_info(self, ctx, patreon_status):
+		embed = Embed(title="Doob Info", colour=ctx.author.colour, timestamp=datetime.utcnow())
+
+		bot_version = self.bot.VERSION
+
+		proc = Process()
+		with proc.oneshot():
+			uptime = timedelta(seconds=time()-proc.create_time())
+			cpu_time = timedelta(seconds=(cpu := proc.cpu_times()).system + cpu.user)
+			mem_total = virtual_memory().total / (1025**2)
+			mem_of_total = proc.memory_percent()
+			mem_usg = mem_total * (mem_of_total / 100)
+
+		fields = [("Name", "Doob", False),
+					("Description", "A Discord bot made by mmatt using discord.py, he felt like making it so he did B)", False),
+					("Developers", "<@308000668181069824>, <@476188720521805825>", False),
+					("Doob's Server Count", f"{str(len(self.bot.guilds))}", True),
+					("Doob's Member Count", f"{str(len(self.bot.users))}", True),
+					("The ping for Doob is...", f" :ping_pong: {round(self.bot.latency * 1000)} ms", False),
+					("Python Version", python_version(), True),
+					("Uptime", uptime, True),
+					("CPU Time", cpu_time, True),
+					("Memory Usage", f"{mem_usg:,.3f} MiB / {mem_total:,.0f} MiB ({mem_of_total:.0f}%)", True),
+					("Library", f"discord.py {discord_version}", True),
+					("Bot Version", f"{self.bot.VERSION} - [Changelog](https://github.com/doobdev/doob/blob/master/CHANGELOG.md#v{bot_version.replace('.', '')})", True),
+					("Top.gg Link", "https://top.gg/bot/680606346952966177", False),
+					("Invite Link", "[Invite Link Here](https://discordapp.com/oauth2/authorize?client_id=680606346952966177&scope=bot&permissions=271674430)", True),
+					("GitHub Repository", "[Click Here](https://github.com/doobdev/doob)", True)]
+
+		for name, value, inline in fields:
+			embed.add_field(name=name, value=value, inline=inline)
+
+		embed.set_thumbnail(url=ctx.guild.me.avatar_url)
+		embed.set_footer(text=f"{ctx.author.name} requested Doob's information", icon_url=ctx.author.avatar_url)
+
+		if patreon_status == True:
+			embed.add_field(name="Patreon", value=f"Thanks for [Donating](https://patreon.com/doobdev) {ctx.author}! :white_check_mark:", inline=False)
+			await ctx.send(embed=embed)
+
+		if patreon_status == False:
+			await ctx.send(embed=embed)
+
 	@command(name="info", aliases=["botinfo"], brief="Gives basic info about Doob.")
-	async def show_bot_info(self, ctx):
+	async def show_bot_info_command(self, ctx):
 		"""Gives basic info about Doob."""
 
 		homeGuild = self.bot.get_guild(702352937980133386)
@@ -123,117 +165,13 @@ class Meta(Cog):
 
 		if ctx.author in homeGuild.members:
 			if patreonRole in member.roles:
-				embed = Embed(title="Doob Info", colour=ctx.author.colour, timestamp=datetime.utcnow())
+				await self.show_bot_info(ctx, patreon_status=True)
 
-				bot_version = self.bot.VERSION
-
-				proc = Process()
-				with proc.oneshot():
-					uptime = timedelta(seconds=time()-proc.create_time())
-					cpu_time = timedelta(seconds=(cpu := proc.cpu_times()).system + cpu.user)
-					mem_total = virtual_memory().total / (1025**2)
-					mem_of_total = proc.memory_percent()
-					mem_usg = mem_total * (mem_of_total / 100)
-
-				fields = [("Name", "Doob", False),
-							("Description", "A Discord bot made by mmatt using discord.py, he felt like making it so he did B)", False),
-							("Developers", "<@308000668181069824>, <@476188720521805825>", False),
-							("Doob's Server Count", f"{str(len(self.bot.guilds))}", True),
-							("Doob's Member Count", f"{str(len(self.bot.users))}", True),
-							("The ping for Doob is...", f" :ping_pong: {round(self.bot.latency * 1000)} ms", False),
-							("Python Version", python_version(), True),
-							("Uptime", uptime, True),
-							("CPU Time", cpu_time, True),
-							("Memory Usage", f"{mem_usg:,.3f} MiB / {mem_total:,.0f} MiB ({mem_of_total:.0f}%)", True),
-							("Library", f"discord.py {discord_version}", True),
-							("Bot Version", f"{self.bot.VERSION} - [Changelog](https://github.com/doobdev/doob/blob/master/CHANGELOG.md#v{bot_version.replace('.', '')})", True),
-							("Top.gg Link", "https://top.gg/bot/680606346952966177", False),
-							("Invite Link", "[Invite Link Here](https://discordapp.com/oauth2/authorize?client_id=680606346952966177&scope=bot&permissions=271674430)", True),
-							("GitHub Repository", "[Click Here](https://github.com/doobdev/doob)", True),
-							("Patreon", f"Thanks for [Donating](https://patreon.com/doobdev) {ctx.author}! :white_check_mark:", False)]
-
-				for name, value, inline in fields:
-					embed.add_field(name=name, value=value, inline=inline)
-
-				embed.set_thumbnail(url=ctx.guild.me.avatar_url)
-				embed.set_footer(text=f"{ctx.author.name} requested Doob's information", icon_url=ctx.author.avatar_url)
-
-				await ctx.send(embed=embed)
 			else:
-				embed = Embed(title="Doob Info", colour=ctx.author.colour, timestamp=datetime.utcnow())
-
-				bot_version = self.bot.VERSION
-			
-				proc = Process()
-				with proc.oneshot():
-					uptime = timedelta(seconds=time()-proc.create_time())
-					cpu_time = timedelta(seconds=(cpu := proc.cpu_times()).system + cpu.user)
-					mem_total = virtual_memory().total / (1025**2)
-					mem_of_total = proc.memory_percent()
-					mem_usg = mem_total * (mem_of_total / 100)
-
-				fields = [("Name", "Doob", False),
-							("Description", "A Discord bot made by mmatt using discord.py, he felt like making it so he did B)", False),
-							("Developers", "<@308000668181069824>, <@476188720521805825>", False),
-							("Doob's Server Count", f"{str(len(self.bot.guilds))}", True),
-							("Doob's Member Count", f"{str(len(self.bot.users))}", True),
-							("The ping for Doob is...", f" :ping_pong: {round(self.bot.latency * 1000)} ms", False),
-							("Python Version", python_version(), True),
-							("Uptime", uptime, True),
-							("CPU Time", cpu_time, True),
-							("Memory Usage", f"{mem_usg:,.3f} MiB / {mem_total:,.0f} MiB ({mem_of_total:.0f}%)", True),
-							("Library", f"discord.py {discord_version}", True),
-							("Bot Version", f"{self.bot.VERSION} - [Changelog](https://github.com/doobdev/doob/blob/master/CHANGELOG.md#v{bot_version.replace('.', '')})", True),
-							("Top.gg Link", "https://top.gg/bot/680606346952966177", False),
-							("Invite Link", "[Invite Link Here](https://discordapp.com/oauth2/authorize?client_id=680606346952966177&scope=bot&permissions=271674430)", True),
-							("GitHub Repository", "[Click Here](https://github.com/doobdev/doob)", True),
-							("Patreon", "[Donate to Doob and get cool perks!](https://patreon.com/doobdev)", False)]
-
-				for name, value, inline in fields:
-					embed.add_field(name=name, value=value, inline=inline)
-
-				embed.set_thumbnail(url=ctx.guild.me.avatar_url)
-				embed.set_footer(text=f"{ctx.author.name} requested Doob's information", icon_url=ctx.author.avatar_url)
-
-				await ctx.send(embed=embed)
+				await self.show_bot_info(ctx, patreon_status=False)
 
 		else:
-			embed = Embed(title="Doob Info", colour=ctx.author.colour, timestamp=datetime.utcnow())
-
-			bot_version = self.bot.VERSION
-
-			proc = Process()
-			with proc.oneshot():
-				uptime = timedelta(seconds=time()-proc.create_time())
-				cpu_time = timedelta(seconds=(cpu := proc.cpu_times()).system + cpu.user)
-				mem_total = virtual_memory().total / (1025**2)
-				mem_of_total = proc.memory_percent()
-				mem_usg = mem_total * (mem_of_total / 100)
-
-			fields = [("Name", "Doob", False),
-						("Description", "A Discord bot made by mmatt using discord.py, he felt like making it so he did B)", False),
-						("Developers", "<@308000668181069824>, <@476188720521805825>", False),
-						("Doob's Server Count", f"{str(len(self.bot.guilds))}", True),
-						("Doob's Member Count", f"{str(len(self.bot.users))}", True),
-						("The ping for Doob is...", f" :ping_pong: {round(self.bot.latency * 1000)} ms", False),
-						("Python Version", python_version(), True),
-						("Uptime", uptime, True),
-						("CPU Time", cpu_time, True),
-						("Memory Usage", f"{mem_usg:,.3f} MiB / {mem_total:,.0f} MiB ({mem_of_total:.0f}%)", True),
-						("Library", f"discord.py {discord_version}", True),
-						("Bot Version", f"{self.bot.VERSION} - [Changelog](https://github.com/doobdev/doob/blob/master/CHANGELOG.md#v{bot_version.replace('.', '')})", True),
-						("Top.gg Link", "https://top.gg/bot/680606346952966177", False),
-						("Invite Link", "[Invite Link Here](https://discordapp.com/oauth2/authorize?client_id=680606346952966177&scope=bot&permissions=271674430)", True),
-						("GitHub Repository", "[Click Here](https://github.com/doobdev/doob)", True),
-						("Patreon", "[Donate to Doob and get cool perks!](https://patreon.com/doobdev)", False)]
-
-			for name, value, inline in fields:
-				embed.add_field(name=name, value=value, inline=inline)
-
-			embed.set_thumbnail(url=ctx.guild.me.avatar_url)
-			embed.set_footer(text=f"{ctx.author.name} requested Doob's information", icon_url=ctx.author.avatar_url)
-
-			await ctx.send(embed=embed)
+			await self.show_bot_info(ctx, patreon_status=False)
 
 	@command(name="patreon", aliases=["donate", "donation"], brief="Show support to Doob Dev!")
 	async def patreon_link(self, ctx):
