@@ -6,13 +6,13 @@ steps:
     with:
       GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
       pattern: '<!-- issueTable -->' # suffixing "Demo" for this readme
-  - name: add-and-commit
+	- name: add-and-commit
 	uses: EndBug/add-and-commit@v4
 	with:
 	  message: README.md has been re-written
 	env:
 	  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  - name: push
+	- name: push
 	uses: ad-m/github-push-action@master
 	with:
-	  github_token: ${{ secrets.GITHUB_TOKEN }}
+		github_token: ${{ secrets.GITHUB_TOKEN }}
