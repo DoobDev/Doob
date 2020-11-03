@@ -1,6 +1,7 @@
 name: "rewrite readme"
 
 on:
+  issues:
   push:
     branches: master
 
@@ -13,6 +14,7 @@ jobs:
         with:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           pattern: "<!-- issueTableDemo -->"
+          state: "open"
       - name: add-and-commit
         uses: EndBug/add-and-commit@v4
         with:
