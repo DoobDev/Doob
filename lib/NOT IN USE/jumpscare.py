@@ -1,6 +1,5 @@
 from random import randint
 
-
 from discord import Member, Embed, Colour
 from discord.ext.commands import Cog, command, cooldown, BucketType
 
