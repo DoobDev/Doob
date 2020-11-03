@@ -1,10 +1,11 @@
 from asyncio import sleep
 from glob import glob
-
+import discord
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from discord import Embed, Colour
+from discord import Embed, Colour, Client, Intents
 from discord.errors import Forbidden
 from discord.ext.commands import Bot as BotBase
+#DISOCRDDDDDDDDDDDse
 from discord.ext.commands import Context, when_mentioned_or, has_permissions
 from discord.ext.commands import (CommandNotFound, BadArgument, MissingRequiredArgument, CommandOnCooldown)
 import os
@@ -34,15 +35,20 @@ class Ready(object):
 
 class Bot(BotBase):
     def __init__(self):
-        self.ready = False
-        self.cogs_ready = Ready()
+            self.ready = False
+            self.cogs_ready = Ready()
 
-        self.guild = None
-        self.scheduler = AsyncIOScheduler()
+            self.guild = None
+            self.scheduler = AsyncIOScheduler()
 
-        db.autosave(self.scheduler)
+            db.autosave(self.scheduler)
 
-        super().__init__(command_prefix=get_prefix, owner_ids=OWNER_IDS)
+            intents = discord.Intents.default()
+            intents.members = True
+            intents.presences = False
+
+            super().__init__(command_prefix=get_prefix, owner_ids=OWNER_IDS, chunk_guilds_at_startup = True,
+            intents=intents)
 
     def setup(self):
         for cog in COGS:
@@ -164,7 +170,4 @@ class Bot(BotBase):
             db.execute("INSERT OR IGNORE INTO luckydogs (UserID) VALUES (?)", message.author.id)
             db.commit()
 
-#uh whats going on now?
-# its not starting?
-#wut
 bot = Bot()

@@ -1,6 +1,8 @@
 Issues:
-    ☐ Patreon only stuff broke (#82) @critical
+    ✔ whole bot broke @critical @started(20-11-02 18:22) @done(20-11-02 19:47) @lasted(1h25m43s)
+    ✔ Patreon only stuff broke (#82) @critical @done(20-11-02 19:56)
     ☐ .env @critical
+    ✔ Member Count is broken @high @done(20-11-02 19:57)
     ☐ Server XP LB (#77) @high 
     ☐ Level Rewards (#75) @low 
     ☐ make doob/help cmd work with aliases (#71) @low 
