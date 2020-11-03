@@ -38,22 +38,15 @@ Doob has some great features, such as:
 ## What commands are there?
 Use the doob/help command on Discord!
 
-## Issues or want to improve some code?
+## Want to submit issues? Or fix existing ones?
+### Issue is for Bug Reports + Feature Requests | Pull requests are for improving/adding code.
 Submit an [Issue](https://github.com/doobdev/doob/issues) or a [Pull request](https://github.com/doobdev/doob/pulls).
 
-## Requirements
-`pip install discord.py apscheduler git+https://github.com/rapptz/discord-ext-menus dblpy`
+## Issue list:
 
-You will need to make two additional files in `/lib/bot/`, `token.txt` (containing your bot token).
+<!-- issueTable -->
 
-Then move the files `/lib/bot/cogs/servercount.py` and `/lib/bot/cogs/stat.py` to the `lib/bot/NOT IN USE` folder.
-
-Start the bot after downloading prerequisites:
-
-`python3 launcher.py`
-
-### ⚠️ Doob will use .env in the future - to store the token, you'll need to create your own .env file and fill it out correctly. 
-##### Go to Google if you need help!!
+<!-- issueTable -->
 
 ## Credits
 Doob Avatar: [@KittyKay000](https://twitter.com/KittyKay000)
