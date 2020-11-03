@@ -1,1 +1,1 @@
-# This directory exists purely so I can move servercount.py into this folder when I am testing the bot.
+# This directory exists so I can move unused files either for testing or for deprecated commands/files.
