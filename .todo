@@ -1,9 +1,10 @@
 Issues:
-    ☐ .env @critical
+    ☐ .env (#38) @critical
     ☐ Server XP LB (#77) @high 
     ☐ Level Rewards (#75) @low 
     ☐ make doob/help cmd work with aliases (#71) @low 
     ☐ meme command (#67) @low
+    ✔ "callable commands" (functions i think) (#84) @critical @started(20-11-03 02:56) @done(20-11-03 03:18) @lasted(22m30s) (this is when i finished serverinfo + userinfo)
     ✔ whole bot broke @critical @started(20-11-02 18:22) @done(20-11-02 19:47) @lasted(1h25m43s)
     ✔ Patreon only stuff broke (#82) @critical @done(20-11-02 19:56)
     ✔ Member Count is broken @high @done(20-11-02 19:57)
