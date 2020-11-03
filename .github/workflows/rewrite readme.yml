@@ -1,16 +1,25 @@
-steps:
-  - name: rewriteReadme
-    uses: seed-of-apricot/issue-list-readme@master
-    with:
-      GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-      pattern: "<!-- issueTableDemo -->"
-  - name: add-and-commit
-    uses: EndBug/add-and-commit@v4
-    with:
-      message: README.md has been re-written
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  - name: push
-    uses: ad-m/github-push-action@master
-    with:
-      github_token: ${{ secrets.GITHUB_TOKEN }}
+name: "rewrite readme"
+
+on:
+  push:
+    branches: master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: rewriteReadme
+        uses: seed-of-apricot/issue-list-readme@master
+        with:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          pattern: "<!-- issueTableDemo -->"
+      - name: add-and-commit
+        uses: EndBug/add-and-commit@v4
+        with:
+          message: README.md has been re-written
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: push
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
