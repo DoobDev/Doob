@@ -156,6 +156,8 @@ class Fun(Cog):
         patreonRole = get(homeGuild.roles, id=757041749716893739)
         
         member = []
+                       
+        URL = "https://dog.ceo/api/breeds/image/random"
 
         for pledger in homeGuild.members:
             if pledger == ctx.author:
