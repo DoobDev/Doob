@@ -1,3 +1,6 @@
+## v2.1.0
+* Per-Server XP Leaderboards (`doob/serverleaderboard`)
+
 ## v2.0.9
 #### The muting update!
 * Finally! Doob has muting!
