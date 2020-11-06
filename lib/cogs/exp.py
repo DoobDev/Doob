@@ -63,7 +63,7 @@ class ServerMenu(ListPageSource):
     async def format_page(self, menu, entries):
         offset = (menu.current_page*self.per_page) + 1
         fields = []
-        table = ("\n".join(f"{idx+offset}. {bot.get_user(entry[0]).name} (XP: {entry[1]} | Level: {entry[2]})"
+        table = ("\n".join(f"{idx+offset}. {bot.get_user(entry[0]).display_name} (XP: {entry[1]} | Level: {entry[2]})"
                    for idx, entry in enumerate(entries)))
 
         fields.append(("Ranks", table))
