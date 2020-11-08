@@ -59,7 +59,7 @@ class Meta(Cog):
 	@command(name="invite", aliases=["invitebot", "inv", "botinvite"], brief="Gives a link to invite Doob to your server.")
 	async def doob_invite_link(self, ctx):
 		"""Gives you a link to invite Doob to another server!"""
-		await ctx.send("You can invite the bot here! :link: <https://discordapp.com/oauth2/authorize?client_id=680606346952966177&scope=bot&permissions=271674430>")
+		await ctx.send("You can invite the bot here! :link: <https://discord.com/oauth2/authorize?client_id=680606346952966177&scope=bot&permissions=271674430>")
 
 	@command(name="ping", brief="Shows the bot's latency.")
 	@cooldown(1, 10, BucketType.user)
