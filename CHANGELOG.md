@@ -1,5 +1,7 @@
 ## v2.1.0
 * Per-Server XP Leaderboards (`doob/serverleaderboard`)
+* Removed `doob/slap`
+    - There has been an exploit discovered to ping everyone, decided to go ahead and remove the command, wasn't used at all.
 
 ## v2.0.9
 #### The muting update!
