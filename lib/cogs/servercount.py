@@ -2,6 +2,9 @@ import dbl
 
 from discord.ext import commands
 
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 class servercount(commands.Cog):
     """Handles interactions with the top.gg API"""
@@ -9,9 +12,7 @@ class servercount(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-        with open ("./lib/bot/topgg.txt", "r", encoding="utf-8") as tf:
-            self.token = tf.read() # set this to your DBL token
-        self.dblpy = dbl.DBLClient(self.bot, self.token, autopost=True) # Autopost will post your guild count every 30 minutes
+        self.dblpy = dbl.DBLClient(self.bot, os.environ.get('topgg'), autopost=True) # Autopost will post your guild count every 30 minutes
         print("\nTop.gg updated")
 
     @commands.Cog.listener()

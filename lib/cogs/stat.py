@@ -2,14 +2,15 @@ from discord.ext import commands
 
 import statcord
 
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
 class stat(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-        with open("./lib/bot/statcord.txt", "r", encoding="utf-8") as tf:
-            self.key = tf.read()
-
-        self.api = statcord.Client(self.bot, self.key)
+        self.api = statcord.Client(self.bot, os.environ.get('stat'))
         self.api.start_loop()
 
 

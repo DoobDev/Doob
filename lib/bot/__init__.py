@@ -10,6 +10,8 @@ from discord.ext.commands import Context, when_mentioned_or, has_permissions
 from discord.ext.commands import (CommandNotFound, BadArgument, MissingRequiredArgument, CommandOnCooldown)
 import os
 from ..db import db # pylint: disable=relative-beyond-top-level
+from dotenv import load_dotenv
+load_dotenv()
 
 OWNER_IDS = [308000668181069824]
 COGS = [path.split(os.sep)[-1][:-3] for path in glob("./lib/cogs/*.py")]
@@ -69,12 +71,10 @@ class Bot(BotBase):
         self.setup()
         #print(os.getenv("TOKEN")) # bruh
         # ^^ is printing "None"
-        with open("./lib/bot/token.txt", "r", encoding="utf-8") as tf:
-            self.TOKEN = tf.read()
         print("Authenticated...")
         print("Starting up")
         #super().run(os.getenv("TOKEN"), reconnect=True)
-        super().run(self.TOKEN, reconnect=True)
+        super().run(os.environ.get('TOKEN'), reconnect=True)
 
     async def process_commands(self, message):
         ctx = await self.get_context(message, cls=Context)
