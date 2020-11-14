@@ -113,7 +113,7 @@ class Fun(Cog):
                     embed = Embed(title="Lucky Dogs Possible:", description="1 = [Liquid Mendo](https://twitter.com/mendo)'s dog Koda\n2 = Old `GAMING` server PFP\n3 = [Weest](https://twitter.com/weesterner)'s dog Kevin\n4 = [@KittyKay000](https://twitter.com/kittykay000)'s concept drawing for Doob!", colour=ctx.author.colour)
                     embed.set_footer(text=f"Thanks for supporting Doob, {ctx.author.name}!", icon_url=ctx.author.avatar_url)
                     await ctx.send(embed=embed)
-            
+                # lol imagine commas
             else:
                 await ctx.send("This is a Patreon (<https://patreon.com/doobdev>) only command.")
         
