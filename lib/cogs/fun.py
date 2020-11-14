@@ -93,25 +93,25 @@ class Fun(Cog):
 
                 elif dog == "2":
                     embed = Embed(title="Lucky Dog Picture!", description="You selected the old `GAMING` server PFP!", colour=Colour.gold())
-                    embed.set_footer(text=f"Thanks for supporting Doob {ctx.author.name}!", icon_url=ctx.author.avatar_url)
+                    embed.set_footer(text=f"Thanks for supporting Doob, {ctx.author.name}!", icon_url=ctx.author.avatar_url)
                     embed.set_image(url="https://i.imgur.com/pzqRLdi.jpg")
                     await ctx.send(embed=embed)
 
                 elif dog == "3":
                     embed = Embed(title="Lucky Dog Picture!", description="This is [Weest](https://twitter.com/weesterner)'s dog Kevin!", colour=Colour.gold())
-                    embed.set_footer(text=f"Thanks for supporting Doob {ctx.author.name}!", icon_url=ctx.author.avatar_url)
+                    embed.set_footer(text=f"Thanks for supporting Doob, {ctx.author.name}!", icon_url=ctx.author.avatar_url)
                     embed.set_image(url="https://i.imgur.com/guF2Y3z.png")
                     await ctx.send(embed=embed)
                 
                 elif dog == "4":
                     embed = Embed(title="Lucky Dog Picture!", description="This is [@KittyKay000](https://twitter.com/kittykay000)'s concept drawing of Doob!", colour=Colour.gold())
-                    embed.set_footer(text=f"Thanks for supporting Doob {ctx.author.name}!", icon_url=ctx.author.avatar_url)
+                    embed.set_footer(text=f"Thanks for supporting Doob, {ctx.author.name}!", icon_url=ctx.author.avatar_url)
                     embed.set_image(url="https://i.imgur.com/KFOR8YJ.jpeg")
                     await ctx.send(embed=embed)
 
                 else:
                     embed = Embed(title="Lucky Dogs Possible:", description="1 = [Liquid Mendo](https://twitter.com/mendo)'s dog Koda\n2 = Old `GAMING` server PFP\n3 = [Weest](https://twitter.com/weesterner)'s dog Kevin\n4 = [@KittyKay000](https://twitter.com/kittykay000)'s concept drawing for Doob!", colour=ctx.author.colour)
-                    embed.set_footer(text=f"Thanks for supporting Doob {ctx.author.name}!", icon_url=ctx.author.avatar_url)
+                    embed.set_footer(text=f"Thanks for supporting Doob, {ctx.author.name}!", icon_url=ctx.author.avatar_url)
                     await ctx.send(embed=embed)
             
             else:
