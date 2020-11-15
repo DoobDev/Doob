@@ -74,7 +74,7 @@ class Mod(Cog):
 
 	@command(name="mute", aliases=["m", "silence"], brief="Mutes a member from the server.")
 	@bot_has_permissions(manage_roles=True)
-	@has_permissions(manage_roles=True, manage_guild=True)
+	@has_permissions(manage_roles=True)
 	async def mute_command(self, ctx, targets: Greedy[Member], *,
 						   reason: Optional[str] = "No reason provided."):
 		"""Mutes a member from the server\nRequires the `Manage Roles` and `Manage Server` permissions"""
