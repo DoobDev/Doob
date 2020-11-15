@@ -74,10 +74,10 @@ class Mod(Cog):
 
 	@command(name="mute", aliases=["m", "silence"], brief="Mutes a member from the server.")
 	@bot_has_permissions(manage_roles=True)
-	@has_permissions(manage_roles=True, manage_guild=True)
+	@has_permissions(manage_roles=True)
 	async def mute_command(self, ctx, targets: Greedy[Member], *,
 						   reason: Optional[str] = "No reason provided."):
-		"""Mutes a member from the server\nRequires the `Manage Roles` and `Manage Server` permissions"""
+		"""Mutes a member from the server\nRequires the `Manage Roles` permission"""
 		if not len(targets):
 			await ctx.send("One or more required arguments are missing.")
 
@@ -95,9 +95,9 @@ class Mod(Cog):
 
 	@command(name="unmute", aliases=["um"], brief="Unmutes a member from the server.")
 	@bot_has_permissions(manage_roles=True)
-	@has_permissions(manage_roles=True, manage_guild=True)
+	@has_permissions(manage_roles=True)
 	async def delmute_command(self, ctx, targets: Greedy[Member]):
-		"""Unmutes a member from the server\nRequires the `Manage Roles` and `Manage Server` permissions"""
+		"""Unmutes a member from the server\nRequires the `Manage Roles` permission"""
 		comma = ", "
 		tNames = []
 		for target in targets: 
