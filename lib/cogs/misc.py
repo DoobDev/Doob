@@ -39,6 +39,16 @@ class Misc(Cog):
 		for emoji in emojis:
 			await message.add_reaction(emoji)
 
+	@command(name="timebomb", aliases=["tbmsg", "tb", "timebombmessage"], brief="Send a message with a timelimit on it.")
+	@cooldown(1, 4, BucketType.user)
+	async def time_bomb_command(self, ctx, time: int, message : str):
+		"""Makes a message with a timelimit on it."""
+		embed = Embed(title="Time Message", description=message, colour=ctx.author.colour)
+		embed.set_thumbnail(url=ctx.author.avatar_url)
+		embed.set_footer(text=f"{ctx.author}", icon_url=ctx.author.avatar_url)
+
+		await ctx.send(embed=embed, delete_after=time)
+
 	@Cog.listener()
 	async def on_ready(self):
 		if not self.bot.ready:

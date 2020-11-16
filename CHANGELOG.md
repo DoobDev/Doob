@@ -2,6 +2,8 @@
 * Per-Server XP Leaderboards (`doob/serverleaderboard`)
 * Removed `doob/slap`
     - There has been an exploit discovered to ping everyone, decided to go ahead and remove the command, wasn't used at all.
+* New `doob/timebomb` command
+    - Lets you have a message with a time limit!
 
 ## v2.0.9
 #### The muting update!
