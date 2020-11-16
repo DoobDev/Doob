@@ -59,8 +59,10 @@ class Fun(Cog):
     @cooldown(3, 10, BucketType.user)
     async def dog_fact(self, ctx):
         """Get a wacky dog fact"""
+        # URL of the API
         URL = "https://some-random-api.ml/facts/dog"
 
+        # GETs a json response from URL, puts it into an embed, then sends it to the user.
         async with request("GET", URL, headers={}) as response:
             if response.status == 200:
                 data = await response.json()
@@ -68,6 +70,7 @@ class Fun(Cog):
                 embed.set_footer(text=f"{ctx.author} requested this fact!", icon_url=ctx.author.avatar_url)
                 await ctx.send(embed=embed)
             else:
+                # if the API responds with a status not being "200" (200=Working just fine), sends out an error message to the user with the status number.
                 await ctx.send(f"Dog fact API sent a {response.status} status.")
 
     @command(name="luckydog", aliases=["ldog"], brief="Get an instant Lucky Dog!")
@@ -126,6 +129,7 @@ class Fun(Cog):
         """Check how many Lucky dogs you have gotten in the last month!"""
         target = target or ctx.author
 
+        # Pulls from the database how many luckydogs a user has.
         LuckyDogs = db.records("SELECT LuckyDogs FROM luckydogs WHERE UserID = ?", target.id)
 
         embed = Embed(title=f"{target.name} has gotten:", description=f"{str(LuckyDogs[0][0])} Lucky Dog(s) this month.", colour=target.colour)
