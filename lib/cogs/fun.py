@@ -99,7 +99,7 @@ class Fun(Cog):
                     embed.set_footer(text=f"Thanks for supporting Doob, {ctx.author.name}!", icon_url=ctx.author.avatar_url)
                     embed.set_image(url="https://i.imgur.com/pzqRLdi.jpg")
                     await ctx.send(embed=embed)
-
+# test 
                 elif dog == "3":
                     embed = Embed(title="Lucky Dog Picture!", description="This is [Weest](https://twitter.com/weesterner)'s dog Kevin!", colour=Colour.gold())
                     embed.set_footer(text=f"Thanks for supporting Doob, {ctx.author.name}!", icon_url=ctx.author.avatar_url)
