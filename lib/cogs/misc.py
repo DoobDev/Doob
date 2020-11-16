@@ -41,11 +41,13 @@ class Misc(Cog):
 
 	@command(name="timebomb", aliases=["tbmsg", "tb", "timebombmessage"], brief="Send a message with a timelimit on it.")
 	@cooldown(1, 4, BucketType.user)
-	async def time_bomb_command(self, ctx, time: int, message : str):
-		"""Makes a message with a timelimit on it."""
+	async def time_bomb_command(self, ctx, time: int, *, message : str):
+		"""Makes a message with a timelimit on it, the time is in seconds."""
+		await ctx.message.delete()
+
 		embed = Embed(title="Time Message", description=message, colour=ctx.author.colour)
 		embed.set_thumbnail(url=ctx.author.avatar_url)
-		embed.set_footer(text=f"{ctx.author}", icon_url=ctx.author.avatar_url)
+		embed.set_footer(text=f"{ctx.author} | This message only lasts {str(time)} seconds.", icon_url=ctx.author.avatar_url)
 
 		await ctx.send(embed=embed, delete_after=time)
 
