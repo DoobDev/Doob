@@ -33,4 +33,4 @@ discord_ext_menus == 1.0.0a26+g84caae8
 psutil == 5.7.2
 
 # C:\Users\matt\Desktop\doob\lib\NOT IN USE\stat.py: 3
-statcord.py == 3.0.4
+statcord.py == 3.0.5
