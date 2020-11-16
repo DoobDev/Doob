@@ -1,3 +1,5 @@
+/* Builds the database using the following tables */
+
 CREATE TABLE IF NOT EXISTS guilds(
     GuildID integer PRIMARY KEY,
     Prefix text DEFAULT "doob/",
