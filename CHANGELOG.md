@@ -8,6 +8,13 @@
     - I saw [stageosu/Kaguya](https://github.com/stageosu/kaguya) do this recently, and I love the look of it, go check out Stage's bot, its great :D
 * Added `doob/streamlookup` command!
     - Lookup your favorite streamers, see if they are online or not, and if they are online, see information like what game they are playing!
+* Added `doob/owstats` command!
+    - Check your (or your friends) Overwatch stats in Discord!
+* Added `doob/setowusername` command!
+    - Add your platform, username, and region to be able to look up your stats on Doob!
+        - Only acceptable platforms are `pc` `xbl` and `psn`
+        - Only acceptable regions are `us` `eu` or `asia`
+        - For battletags, make sure you do `{username}-{numbers}` NOT `{username}#{numbers}`
 
 ## v2.0.9
 #### The muting update!

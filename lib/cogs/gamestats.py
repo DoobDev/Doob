@@ -18,32 +18,50 @@ class gamestats(Cog):
 	@command(name="owstats", aliases=["overwatch", "owprofile", "ow"], brief="Gets your Overwatch stats.")
 	@cooldown(1, 5, BucketType.user)
 	async def overwatch_stats(self, ctx, target: Optional[Member]):
-		"""Gets your Overwatch stats from tracker.gg!\nSet your overwatch profile by doing `doob/setowprofile {platform} {username}`"""
+		"""Gets your Overwatch stats from ow-api.com!\nSet your overwatch profile by doing `doob/setowprofile {platform} {username} {region}`"""
 		target = target or ctx.author
 		platform =  db.record("SELECT OverwatchPlatform FROM exp WHERE UserID = ?", target.id)
 		platformUserIdentifier = db.record("SELECT OverwatchUsername FROM exp WHERE UserID = ?", target.id)
-		URL = f"https://public-api.tracker.gg/v2/overwatch/standard/profile/{platform}/{platformUserIdentifier}"
+		platformRegion = db.record("SELECT OverwatchRegion FROM exp WHERE UserID = ?", target.id)
 
-		async with request("GET", URL, headers={'TRN-Api-Key': os.environ.get("trackerggtoken")}) as response:
+		URL = f"https://ow-api.com/v1/stats/{platform[0]}/{platformRegion[0]}/{platformUserIdentifier[0]}/complete"
+
+		async with request("GET", URL) as response:
 			if response.status == 200:
-				data = await response.json()
-				embed = Embed(title=f"{ctx.author}'s Overwatch Stats!", description="Sourced from [Tracker.gg](https://tracker.gg)", colour=ctx.author.colour)
+				embed = Embed(title=f"{target.display_name}'s Overwatch Stats!", description="Competitive Stats", colour=ctx.author.colour)
 				
-				fields = ["got em", data["things"], False]
+				fields = [("Below are per 10 min average stats.", "-----------------------------------------", False),
+						  ("Eliminations", f"{(await response.json())['competitiveStats']['careerStats']['allHeroes']['average']['eliminationsAvgPer10Min']}", True),
+						  ("All Damage Done", f"{(await response.json())['competitiveStats']['careerStats']['allHeroes']['average']['allDamageDoneAvgPer10Min']}", True),
+						  ("Final Blows", f"{(await response.json())['competitiveStats']['careerStats']['allHeroes']['average']['finalBlowsAvgPer10Min']}", True),
+						  ("Solo Kills", f"{(await response.json())['competitiveStats']['careerStats']['allHeroes']['average']['soloKillsAvgPer10Min']}", True),
+						  ("Time spent on fire", f"{(await response.json())['competitiveStats']['careerStats']['allHeroes']['average']['timeSpentOnFireAvgPer10Min']}", True),
+						  ("Healing done", f"{(await response.json())['competitiveStats']['careerStats']['allHeroes']['average']['healingDoneAvgPer10Min']}", True),
+						  ("Deaths", f"{(await response.json())['competitiveStats']['careerStats']['allHeroes']['average']['deathsAvgPer10Min']}", True),
+						  ("Hero Damage Done", f"{(await response.json())['competitiveStats']['careerStats']['allHeroes']['average']['heroDamageDoneAvgPer10Min']}", True),
+						  ("Below are 'best' stats", "-------------------------", False),
+						  ("Eliminations", f"{(await response.json())['competitiveStats']['careerStats']['allHeroes']['best']['eliminationsMostInGame']}", True),
+						  ("All Damage Done", f"{(await response.json())['competitiveStats']['careerStats']['allHeroes']['best']['allDamageDoneMostInGame']}", True),
+						  ("Final Blows", f"{(await response.json())['competitiveStats']['careerStats']['allHeroes']['best']['finalBlowsMostInGame']}", True),
+						  ("Solo Kills", f"{(await response.json())['competitiveStats']['careerStats']['allHeroes']['best']['soloKillsMostInGame']}", True),
+						  ("Time spent on fire", f"{(await response.json())['competitiveStats']['careerStats']['allHeroes']['best']['timeSpentOnFireMostInGame']}", True),
+						  ("Healing done", f"{(await response.json())['competitiveStats']['careerStats']['allHeroes']['best']['healingDoneMostInGame']}", True),
+						  ("Hero Damage Done", f"{(await response.json())['competitiveStats']['careerStats']['allHeroes']['best']['heroDamageDoneMostInGame']}", True)]
 
 				for name, value, inline in fields:
 					embed.add_field(name=name, value=value, inline=inline)
 
-				embed.set_footer(text=f"{ctx.author} requested this fact!", icon_url=ctx.author.avatar_url)
+				embed.set_footer(text="Sourced from ow-api.com", icon_url=ctx.author.avatar_url)
+				embed.set_thumbnail(url=(await response.json())['icon'])
 				await ctx.send(embed=embed)
 			else:
 				print(await response.json())
-				await ctx.send(f"Overwatch stats [Tracker.gg] API sent a {response.status} status.")
+				await ctx.send(f"Overwatch stats [ow-api.com] API sent a {response.status} status.")
 
-	@command(name="setowprofile", aliases=["setow", "owset", "setoverwatch"], brief="Sets your Overwatch profile.")
-	@cooldown(1, 10, BucketType.user)
-	async def set_overwatch_profile(self, ctx, platform: Optional[str], *, username: Optional[str]):
-		"""Sets your Overwatch platform + profile for `doob/owstats`\nOnly acceptable platforms are `battlenet` `xbl` and `psn`"""
+	@command(name="setowusername", aliases=["setplatform", "sowp", "sowu", "setusername"], brief="Sets your Overwatch username+platform.")
+	@cooldown(1, 5, BucketType.user)
+	async def set_overwatch_profile(self, ctx, platform: Optional[str], username: Optional[str], region: Optional[str]):
+		"""Sets your Overwatch platform + username for `doob/owstats`\nOnly acceptable platforms are `pc` `xbl` and `psn`\nOnly acceptable regions are `us` `eu` or `asia`\nFor battletags, make sure you do `{username}-{numbers}` NOT `{username}#{numbers}`"""
 
 		if platform == "psn":
 			embed=Embed(title="Setting Overwatch Profile:", description=f"PSN", colour=ctx.author.colour)
@@ -53,11 +71,12 @@ class gamestats(Cog):
 
 			db.execute("UPDATE exp SET OverwatchUsername = ? WHERE UserID = ?", username, ctx.author.id)
 			db.execute("UPDATE exp SET OverwatchPlatform = ? WHERE UserID = ?", platform, ctx.author.id)
+			db.execute("UPDATE exp SET OverwatchRegion = ? WHERE UserID = ?", region, ctx.author.id)
 			db.commit()
 
 			await ctx.send(embed=embed)
 
-		elif platform == "battlenet":
+		elif platform == "pc":
 			embed=Embed(title="Setting Overwatch Profile:", description=f"Battle.net", colour=ctx.author.colour)
 
 			embed.add_field(name="Overwatch Username", value=username)
@@ -65,6 +84,7 @@ class gamestats(Cog):
 
 			db.execute("UPDATE exp SET OverwatchUsername = ? WHERE UserID = ?", username, ctx.author.id)
 			db.execute("UPDATE exp SET OverwatchPlatform = ? WHERE UserID = ?", platform, ctx.author.id)
+			db.execute("UPDATE exp SET OverwatchRegion = ? WHERE UserID = ?", region, ctx.author.id)
 			db.commit()
 
 			await ctx.send(embed=embed)
@@ -77,6 +97,7 @@ class gamestats(Cog):
 
 			db.execute("UPDATE exp SET OverwatchUsername = ? WHERE UserID = ?", username, ctx.author.id)
 			db.execute("UPDATE exp SET OverwatchPlatform = ? WHERE UserID = ?", platform, ctx.author.id)
+			db.execute("UPDATE exp SET OverwatchRegion = ? WHERE UserID = ?", region, ctx.author.id)
 			db.commit()
 
 			await ctx.send(embed=embed)
@@ -84,53 +105,15 @@ class gamestats(Cog):
 		else:
 			platform =  db.record("SELECT OverwatchPlatform FROM exp WHERE UserID = ?", ctx.author.id)
 			username =  db.record("SELECT OverwatchUsername FROM exp WHERE UserID = ?", ctx.author.id)
+			region = db.record("SELECT OverwatchRegion FROM exp WHERE UserID = ?", ctx.author.id)
 			embed=Embed(title="Your Overwatch Profile", colour=ctx.author.colour)
 
-			embed.add_field(name="Overwatch Username", value=username)
-			embed.add_field(name="Overwatch Platform", value=platform)
+			embed.add_field(name="Overwatch Username", value=username[0])
+			embed.add_field(name="Overwatch Platform", value=platform[0])
+			embed.add_field(name="Overwatch Region", value=region[0])
 			embed.set_thumbnail(url=ctx.author.avatar_url)
 
 			await ctx.send(embed=embed)
-
-	@command(name="csgostats", aliases=["csgo", "csstats", "cstats", "csgoprofile", "cs"])
-	@cooldown(1, 5, BucketType.user)
-	async def csgo_stats(self, ctx, target: Optional[Member]):
-		"""Gets your CSGO stats from tracker.gg!\nSet your CSGO profile by doing `doob/setcsgoprofile {username}`"""
-		target = target or ctx.author
-		platformUserIdentifier =  db.record("SELECT CSGOUsername FROM exp WHERE UserID = ?", target.id)
-		URL = f"https://public-api.tracker.gg/v2/csgo/standard/profile/steam/{platformUserIdentifier}"
-
-		async with request("GET", URL, headers={'TRN-Api-Key': os.environ.get("trackerggtoken")}) as response:
-			if response.status == 200:
-				data = await response.json()
-				embed = Embed(title=f"{ctx.author}'s CSGO Stats!", description="Sourced from [Tracker.gg](https://tracker.gg)", colour=ctx.author.colour)
-				
-				fields = ["Time Played", 'GAMING', False]
-
-				print(data["data"])
-
-				for name, value, inline in fields:
-					embed.add_field(name=name, value=value, inline=inline)
-
-				embed.set_footer(text=f"{ctx.author} requested this fact!", icon_url=ctx.author.avatar_url)
-				await ctx.send(embed=embed)
-			else:
-				print(await response.json())
-				await ctx.send(f"CSGO stats [Tracker.gg] API sent a {response.status} status.")
-
-	@command(name="setcsgoprofile", aliases=["setcs", "csset", "setcsgo"], brief="Sets your CSGO profile.")
-	@cooldown(1, 5, BucketType.user)
-	async def set_csgo_profile(self, ctx, *, username: Optional[str]):
-		"""Sets your CSGO username for `doob/csgostats`"""
-		embed=Embed(title="Setting CSGO Profile:", description=f"{ctx.author}", colour=ctx.author.colour)
-
-		embed.add_field(name="Steam Username", value=username)
-		embed.set_thumbnail(url=ctx.author.avatar_url)
-
-		db.execute("UPDATE exp SET CSGOUsername = ? WHERE UserID = ?", username, ctx.author.id)
-		db.commit()
-
-		await ctx.send(embed=embed)
 
 	@Cog.listener()
 	async def on_ready(self):
