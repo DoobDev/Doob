@@ -5,7 +5,6 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from discord import Embed, Colour, Client, Intents
 from discord.errors import Forbidden
 from discord.ext.commands import Bot as BotBase
-#DISOCRDDDDDDDDDDDse
 from discord.ext.commands import Context, when_mentioned_or, has_permissions
 from discord.ext.commands import (CommandNotFound, BadArgument, MissingRequiredArgument, CommandOnCooldown)
 import os
