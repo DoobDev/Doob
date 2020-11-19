@@ -6,6 +6,8 @@
     - Lets you have a message with a time limit!
 * Doob Logging now sends in regular messages instead of embeds.
     - I saw [stageosu/Kaguya](https://github.com/stageosu/kaguya) do this recently, and I love the look of it, go check out Stage's bot, its great :D
+* Added `doob/streamlookup` command!
+    - Lookup your favorite streamers, see if they are online or not, and if they are online, see information like what game they are playing!
 
 ## v2.0.9
 #### The muting update!
