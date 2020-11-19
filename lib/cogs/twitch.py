@@ -32,7 +32,7 @@ class Twitch(Cog):
                 async with request("GET", StreamInfo_URL, headers={'Client-ID': os.environ.get("twitchclientid"), 'Accept': 'application/vnd.twitchtv.v5+json'}) as response2:
                     if response2.status == 200:
                         if (await response2.json())['stream'] != None:
-                            embed = Embed(title=f"{username} Stream Info", colour=Colour.dark_purple(),  timestamp=datetime.utcnow())
+                            embed = Embed(title=f"{(await response2.json())['stream']['channel']['display_name']} Stream Info", colour=Colour.dark_purple(),  timestamp=datetime.utcnow())
 
                             fields = [("Name", f"{(await response2.json())['stream']['channel']['display_name']}", False),
                                     ("Title", f"{(await response2.json())['stream']['channel']['status']}", True),
@@ -54,7 +54,7 @@ class Twitch(Cog):
                         else:
                             UserInfo_URL = f'https://api.twitch.tv/kraken/users/{User_ID}'
                             async with request("GET", UserInfo_URL, headers={'Client-ID': os.environ.get("twitchclientid"), 'Accept': 'application/vnd.twitchtv.v5+json'}) as response3:
-                                embed = Embed(title=f"{username} User Info", colour=ctx.author.colour, timestamp=datetime.utcnow())
+                                embed = Embed(title=f"{(await response3.json())['display_name']} User Info", colour=ctx.author.colour, timestamp=datetime.utcnow())
 
                                 fields = [("Name", (await response3.json())["display_name"], False),
                                             ("Bio", (await response3.json())["bio"], False),
