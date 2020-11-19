@@ -4,6 +4,8 @@
     - There has been an exploit discovered to ping everyone, decided to go ahead and remove the command, wasn't used at all.
 * New `doob/timebomb` command
     - Lets you have a message with a time limit!
+* Doob Logging now sends in regular messages instead of embeds.
+    - I saw [stageosu/Kaguya](https://github.com/stageosu/kaguya) do this recently, and I love the look of it, go check out Stage's bot, its great :D
 
 ## v2.0.9
 #### The muting update!
