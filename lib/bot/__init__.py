@@ -1,22 +1,33 @@
 from asyncio import sleep
+
 from glob import glob
+
 import discord
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from discord import Embed, Colour, Client, Intents
+
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+
 from discord.errors import Forbidden
+
 from discord.ext.commands import Bot as BotBase
 from discord.ext.commands import Context, when_mentioned_or, has_permissions
 from discord.ext.commands import (CommandNotFound, BadArgument, MissingRequiredArgument, CommandOnCooldown)
+
 import os
+
 from ..db import db # pylint: disable=relative-beyond-top-level
+
 from dotenv import load_dotenv
+# Loads the .env file from ./.env
 load_dotenv()
 
+# Put Owner's Discord IDs into the list below
 OWNER_IDS = [308000668181069824]
+# Loads the cogs from the path
 COGS = [path.split(os.sep)[-1][:-3] for path in glob("./lib/cogs/*.py")]
 IGNORE_EXCEPTIONS = (CommandNotFound, BadArgument)
 
-
+# Gets the prefix from the DB
 def get_prefix(bot, message):
     prefix = db.field("SELECT Prefix FROM guilds WHERE GuildID = ?", message.guild.id)
     return when_mentioned_or(prefix)(bot, message)
@@ -44,6 +55,8 @@ class Bot(BotBase):
 
             db.autosave(self.scheduler)
 
+            # Gives access to Discord's intents.
+            # If you have a bot with over 75 servers, you will need to get whitelisted to use these. If not, you can enable them in your developer dashboard at https://discord.dev
             intents = discord.Intents.default()
             intents.members = True
             intents.presences = False
@@ -68,11 +81,9 @@ class Bot(BotBase):
 
         print("Running setup!")
         self.setup()
-        #print(os.getenv("TOKEN")) # bruh
-        # ^^ is printing "None"
         print("Authenticated...")
         print("Starting up")
-        #super().run(os.getenv("TOKEN"), reconnect=True)
+        # Gets the token from the .env to authenticate the bot.
         super().run(os.environ.get('TOKEN'), reconnect=True)
 
     async def process_commands(self, message):
@@ -107,13 +118,12 @@ class Bot(BotBase):
             #   await args[0].send(f"Something went wrong!\n\nError: {newerror}")
 
             
-            #await args[0].send(f"Something went wrong. :/\n{err.original}")
+            # await args[0].send(f"Something went wrong. :/\n{err.original}")
             raise err
 
+    # Basic error handling for Doob
     async def on_command_error(self, ctx, exc):
         if any([isinstance(exc, error) for error in IGNORE_EXCEPTIONS]):
-            #newerror = (error[:175] + '... (it was too long/op)') if len(err) > 175 else err
-            print("ok boys we got to this stage, time to put it in")
             await ctx.send(f"Something went wrong!\n\nError: {exc.original}", delete_after = 10)
 
         elif isinstance(exc, MissingRequiredArgument):
@@ -123,9 +133,6 @@ class Bot(BotBase):
             await ctx.send(f'That command is on a {str(exc.cooldown.type).split(".")[-1]} cooldown! Try again in {exc.retry_after:,.2f} seconds.', delete_after = exc.retry_after)
 
         elif hasattr(exc, "original"):
-            # if isinstance(exc.original, HTTPException):
-            #     await ctx.send("Unable to send message.", delete_after = 10)
-
             if isinstance(exc.original, Forbidden):
                 await ctx.send("Doob doesn't have permissions to do that.", delete_after = 10)
 
@@ -141,11 +148,13 @@ class Bot(BotBase):
             self.scheduler.start()
             while not self.cogs_ready.all_ready():
                 await sleep(1.0)
-
+            
+            # Puts all users into the exp DB
             db.multiexec("INSERT OR IGNORE INTO exp (UserID) VALUES (?)",
                             ((member.id,) for guild in self.guilds for member in guild.members if not member.bot))
             print("Updated exp table.")
 
+            # Puts all users in the votes DB
             db.multiexec("INSERT OR IGNORE INTO votes (UserID) VALUES (?)",
                             ((member.id,) for guild in self.guilds for member in guild.members if not member.bot))
             print("Updated votes table.")
@@ -165,6 +174,7 @@ class Bot(BotBase):
     async def on_message(self, message):
         if not message.author.bot:
             await self.process_commands(message)
+            # If someone types a message, then they get inserted into the guildexp and luckydogs DB
             db.execute("INSERT OR IGNORE INTO guildexp (UserID, GuildID) VALUES (?, ?)", message.author.id, message.guild.id)
             db.execute("INSERT OR IGNORE INTO luckydogs (UserID) VALUES (?)", message.author.id)
             db.commit()
