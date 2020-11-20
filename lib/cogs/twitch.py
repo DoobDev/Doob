@@ -17,7 +17,7 @@ class Twitch(Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @command(name="streamlookup", aliases=["lookup", "twitch", "twitchsearch", "twitchlookup"], brief="Get Twitch stream information.")
+    @command(name="streamlookup", aliases=["lookup", "twitch", "twitchsearch", "twitchlookup", "stream"], brief="Get Twitch stream information.")
     @cooldown(1, 5, BucketType.user)
     async def stream_lookup_command(self, ctx, *, username: str):
         """Request some information on a specific Twitch Stream/User!\n`Username` = Twitch Username"""
