@@ -16,7 +16,8 @@ CREATE TABLE IF NOT EXISTS exp(
     XPLock text DEFAULT CURRENT_TIMESTAMP,
     OverwatchUsername text,
     OverwatchPlatform text,
-    OverwatchRegion text
+    OverwatchRegion text,
+    LastfmUsername text
 );
 
 CREATE TABLE IF NOT EXISTS "mutes" (
