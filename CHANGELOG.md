@@ -15,6 +15,7 @@
         - Only acceptable platforms are `pc` `xbl` and `psn`
         - Only acceptable regions are `us` `eu` or `asia`
         - For battletags, make sure you do `{username}-{numbers}` NOT `{username}#{numbers}`
+* Changed around some of the fields on `doob/streamlookup`
 
 ## v2.0.9
 #### The muting update!

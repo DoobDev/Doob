@@ -41,7 +41,8 @@ class Twitch(Cog):
                                     ("Lagnuage", f"{(await response2.json())['stream']['channel']['broadcaster_language']}", True),
                                     ("Followers", f"{(await response2.json())['stream']['channel']['followers']}", True),
                                     ("Patner Status", f"{(await response2.json())['stream']['channel']['partner']}", True),
-                                    ("Went live at:", f"{(await response2.json())['stream']['created_at']}", True),]
+                                    ("Went live at:", f"{(await response2.json())['stream']['created_at']}", True),
+                                    ("URL", (await response2.json())['stream']['channel']["url"], False)]
 
                             for name, value, inline in fields:
                                 embed.add_field(name=name, value=value, inline=inline)
@@ -52,22 +53,31 @@ class Twitch(Cog):
                             await ctx.send(embed=embed)
 
                         else:
-                            UserInfo_URL = f'https://api.twitch.tv/kraken/users/{User_ID}'
+                            UserInfo_URL = f'https://api.twitch.tv/kraken/channels/{User_ID}'
+                            UserInfo2_URL = f'https://api.twitch.tv/kraken/users/{User_ID}'
                             async with request("GET", UserInfo_URL, headers={'Client-ID': os.environ.get("twitchclientid"), 'Accept': 'application/vnd.twitchtv.v5+json'}) as response3:
-                                embed = Embed(title=f"{(await response3.json())['display_name']} User Info", colour=ctx.author.colour, timestamp=datetime.utcnow())
+                                async with request("GET", UserInfo2_URL, headers={'Client-ID': os.environ.get("twitchclientid"), 'Accept': 'application/vnd.twitchtv.v5+json'}) as response4:
+                                    embed = Embed(title=f"{(await response3.json())['display_name']} User Info", colour=ctx.author.colour, timestamp=datetime.utcnow())
 
-                                fields = [("Name", (await response3.json())["display_name"], False),
-                                            ("Bio", (await response3.json())["bio"], False),
-                                            ("Account Type", (await response3.json())["type"], False),
-                                            ("Creation Date", (await response3.json())["created_at"], False),
-                                            ("Last Updated", (await response3.json())["updated_at"], False)]
+                                    fields = [("Name", (await response3.json())["display_name"], False),
+                                                ("Bio", (await response4.json())["bio"], False),
+                                                ("Account Type", (await response4.json())["type"], True),
+                                                ("Creation Date", (await response3.json())["created_at"], False),
+                                                ("Last Updated", (await response3.json())["updated_at"], False),
+                                                ("Followers", (await response3.json())["followers"], True),
+                                                ("Partner Status", (await response3.json())["partner"], True),
+                                                ("Language", (await response3.json())["language"], True),
+                                                ("URL", (await response3.json())["url"], False)]
 
-                                for name, value, inline in fields:
-                                    embed.add_field(name=name, value=value, inline=inline)
+                                    for name, value, inline in fields:
+                                        embed.add_field(name=name, value=value, inline=inline)
 
-                                embed.set_thumbnail(url=(await response3.json())["logo"])
+                                    embed.set_thumbnail(url=(await response3.json())["logo"])
 
-                                await ctx.send(embed=embed)
+                                    if (await response3.json())['profile_banner'] != None:
+                                        embed.set_image(url=(await response3.json())["profile_banner"])
+
+                                    await ctx.send(embed=embed)
                             
 
     @stream_lookup_command.error
