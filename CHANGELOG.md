@@ -16,6 +16,8 @@
         - Only acceptable regions are `us` `eu` or `asia`
         - For battletags, make sure you do `{username}-{numbers}` NOT `{username}#{numbers}`
 * Changed around some of the fields on `doob/streamlookup`
+* Added `doob/bio` command!
+    - Lookup your/or your friend's Discord.bio profile in Discord!
 
 ## v2.0.9
 #### The muting update!
