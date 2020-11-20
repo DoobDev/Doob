@@ -7,6 +7,8 @@ from aiohttp import request
 
 from datetime import datetime
 
+import json
+
 from typing import Optional
 
 import os
@@ -42,7 +44,10 @@ class Bio(Cog):
                 fields = [("Bio", data['details']['description'], False),
                           ("Location", data['details']['location'], True),
                           ("Likes", f"💙 {data['details']['likes']}", True),
-                          ("")
+                          ("Verified Status", data['details']['verified'], True),
+                          ("Premium Status", data['details']['premium'], True),
+                          ("Occupation", data['details']['occupation'], True),
+                          ("Birthday", data['details']['birthday'], True),
                           ("Email", f"||{data['details']['email']}||", False)]
 
                 for name, value, inline in fields:
