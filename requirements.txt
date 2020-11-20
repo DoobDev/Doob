@@ -33,3 +33,5 @@ psutil == 5.7.3
 
 # C:\Users\matt\Desktop\doob\lib\NOT IN USE\stat.py: 3
 statcord.py == 3.0.5
+
+python-dotenv == 0.15.0
