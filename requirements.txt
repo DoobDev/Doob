@@ -27,10 +27,11 @@ dblpy == 0.4.0
 # C:\Users\matt\Desktop\doob\lib\cogs\mod.py: 6
 # C:\Users\matt\Desktop\doob\lib\cogs\reactions.py: 3,4
 # C:\Users\matt\Desktop\doob\lib\cogs\welcome.py: 1
-discord_ext_menus == 1.0.0a26+g84caae8
-
+git+git://github.com/rapptz/discord-ext-menus.git#egg=discord-ext-menus
 # C:\Users\matt\Desktop\doob\lib\cogs\meta.py: 4
 psutil == 5.7.3
 
 # C:\Users\matt\Desktop\doob\lib\NOT IN USE\stat.py: 3
 statcord.py == 3.0.5
+
+python-dotenv == 0.15.0
