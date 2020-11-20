@@ -14,6 +14,8 @@ from discord.utils import get
 
 from ..db import db # pylint: disable=relative-beyond-top-level
 
+import os
+
 owner_id = 308000668181069824
 
 class Meta(Cog):
@@ -80,6 +82,24 @@ class Meta(Cog):
 			db.commit()
 			self.bot.scheduler.shutdown()
 			await self.bot.logout()
+		else:
+			await ctx.send("You don't have permission to shutdown the bot.")
+
+	@command(name="restart", brief="Owner Only Command to restart the bot.")
+	async def restart(self, ctx):
+		"""Command to restart, and update the bot to its latest version.\n`Owner` permission required"""
+		if ctx.author.id == owner_id:
+			await ctx.send("Restarting...")
+
+			db.commit()
+			self.bot.scheduler.shutdown()
+			await self.bot.logout()
+
+			print("Fetching latest version from doobdev/doob@master")
+			os.system("git pull origin master")
+			print("Starting bot.")
+			os.system("python3.8 launcher.py")
+
 		else:
 			await ctx.send("You don't have permission to shutdown the bot.")
 
