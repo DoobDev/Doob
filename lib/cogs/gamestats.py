@@ -31,25 +31,28 @@ class gamestats(Cog):
 
 		async with request("GET", URL) as response:
 			if response.status == 200:
+
+				data = (await response.json())['competitiveStats']['careerStats']['allHeroes']
+
 				embed = Embed(title=f"{target.display_name}'s Overwatch Stats!", description="Competitive Stats", colour=ctx.author.colour)
 				# All of the stats from the API, all into the fields.
 				fields = [("Below are per 10 min average stats.", "-----------------------------------------", False),
-						  ("Eliminations", f"{(await response.json())['competitiveStats']['careerStats']['allHeroes']['average']['eliminationsAvgPer10Min']}", True),
-						  ("All Damage Done", f"{(await response.json())['competitiveStats']['careerStats']['allHeroes']['average']['allDamageDoneAvgPer10Min']}", True),
-						  ("Final Blows", f"{(await response.json())['competitiveStats']['careerStats']['allHeroes']['average']['finalBlowsAvgPer10Min']}", True),
-						  ("Solo Kills", f"{(await response.json())['competitiveStats']['careerStats']['allHeroes']['average']['soloKillsAvgPer10Min']}", True),
-						  ("Time spent on fire", f"{(await response.json())['competitiveStats']['careerStats']['allHeroes']['average']['timeSpentOnFireAvgPer10Min']}", True),
-						  ("Healing done", f"{(await response.json())['competitiveStats']['careerStats']['allHeroes']['average']['healingDoneAvgPer10Min']}", True),
-						  ("Deaths", f"{(await response.json())['competitiveStats']['careerStats']['allHeroes']['average']['deathsAvgPer10Min']}", True),
-						  ("Hero Damage Done", f"{(await response.json())['competitiveStats']['careerStats']['allHeroes']['average']['heroDamageDoneAvgPer10Min']}", True),
+						  ("Eliminations", f"{data['average']['eliminationsAvgPer10Min']}", True),
+						  ("All Damage Done", f"{data['average']['allDamageDoneAvgPer10Min']}", True),
+						  ("Final Blows", f"{data['average']['finalBlowsAvgPer10Min']}", True),
+						  ("Solo Kills", f"{data['average']['soloKillsAvgPer10Min']}", True),
+						  ("Time spent on fire", f"{data['average']['timeSpentOnFireAvgPer10Min']}", True),
+						  ("Healing done", f"{data['average']['healingDoneAvgPer10Min']}", True),
+						  ("Deaths", f"{data['average']['deathsAvgPer10Min']}", True),
+						  ("Hero Damage Done", f"{data['average']['heroDamageDoneAvgPer10Min']}", True),
 						  ("Below are 'best' stats", "-------------------------", False),
-						  ("Eliminations", f"{(await response.json())['competitiveStats']['careerStats']['allHeroes']['best']['eliminationsMostInGame']}", True),
-						  ("All Damage Done", f"{(await response.json())['competitiveStats']['careerStats']['allHeroes']['best']['allDamageDoneMostInGame']}", True),
-						  ("Final Blows", f"{(await response.json())['competitiveStats']['careerStats']['allHeroes']['best']['finalBlowsMostInGame']}", True),
-						  ("Solo Kills", f"{(await response.json())['competitiveStats']['careerStats']['allHeroes']['best']['soloKillsMostInGame']}", True),
-						  ("Time spent on fire", f"{(await response.json())['competitiveStats']['careerStats']['allHeroes']['best']['timeSpentOnFireMostInGame']}", True),
-						  ("Healing done", f"{(await response.json())['competitiveStats']['careerStats']['allHeroes']['best']['healingDoneMostInGame']}", True),
-						  ("Hero Damage Done", f"{(await response.json())['competitiveStats']['careerStats']['allHeroes']['best']['heroDamageDoneMostInGame']}", True)]
+						  ("Eliminations", f"{data['best']['eliminationsMostInGame']}", True),
+						  ("All Damage Done", f"{data['best']['allDamageDoneMostInGame']}", True),
+						  ("Final Blows", f"{data['best']['finalBlowsMostInGame']}", True),
+						  ("Solo Kills", f"{data['best']['soloKillsMostInGame']}", True),
+						  ("Time spent on fire", f"{data['best']['timeSpentOnFireMostInGame']}", True),
+						  ("Healing done", f"{data['best']['healingDoneMostInGame']}", True),
+						  ("Hero Damage Done", f"{data['best']['heroDamageDoneMostInGame']}", True)]
 
 				# Adds the fields.
 				for name, value, inline in fields:
