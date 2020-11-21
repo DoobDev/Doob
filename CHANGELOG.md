@@ -27,6 +27,10 @@
     - To do other people's do `doob/lastfm search {username}`
 * Added `doob/lastfm recent`!
     - See the last 5 songs you or someone else has listened to!
+* Added `doob/lastfm top albums`!
+    - Get your top 10 most listened to albums on Last.fm
+* Added `doob/lastfm artist charts`!
+    - See the top 10 artists on Last.fm!
 
 ## v2.0.9
 #### The muting update!
