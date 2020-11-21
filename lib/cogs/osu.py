@@ -49,7 +49,6 @@ class osu(Cog):
         embed.set_thumbnail(url=f"https://a.ppy.sh/{user.user_id}")
 
         await ctx.send(embed=embed)
-
     
     @command(name="setosu", aliases=["setosuusername", 'setosuuser', 'sou'], brief="Set your osu! username!")
     @cooldown(1, 5, BucketType.user)
