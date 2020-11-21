@@ -22,13 +22,12 @@ Doob has some great features, such as:
 * Logging
 * A Global (and server specific) Leveling System (with leaderboard)
 * Server + User info
-* Rolling Dice
-* Echo Command [(Patreon Only)](https://patreon.com/doobdev/)
-* Dog Facts and Pictures (with some Lucky Dogs from Twitch Streamers)
-* Among Us Impostor/Not An Impostor commands
-* Low Latency
+* Fun Commands
 * Customizable Server Features [Don't like Level Messages? Turn them off!]
 * Robust Moderation Commands
+* Twitch Stream Integration
+* Last.fm Integration
+* Discord.bio Integration
 * AND MORE!
 
 ## Doob on the web.
@@ -41,12 +40,6 @@ Use the doob/help command on Discord!
 ## Want to submit issues? Or fix existing ones?
 ##### Issue is for Bug Reports + Feature Requests | Pull requests are for improving/adding code.
 Submit an [Issue](https://github.com/doobdev/doob/issues) or a [Pull request](https://github.com/doobdev/doob/pulls).
-
-## Issue list:
-
-<!-- issueTable -->
-
-<!-- issueTable -->
 
 ## Credits
 - Doob Avatar: [@KittyKay000](https://twitter.com/KittyKay000)
