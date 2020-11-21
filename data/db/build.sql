@@ -17,7 +17,8 @@ CREATE TABLE IF NOT EXISTS exp(
     OverwatchUsername text,
     OverwatchPlatform text,
     OverwatchRegion text,
-    LastfmUsername text
+    LastfmUsername text,
+    osuUsername text
 );
 
 CREATE TABLE IF NOT EXISTS "mutes" (
