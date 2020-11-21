@@ -31,6 +31,10 @@
     - Get your top 10 most listened to albums on Last.fm
 * Added `doob/lastfm artist charts`!
     - See the top 10 artists on Last.fm!
+* Added `doob/lastfm top tracks`!
+    - See the top 10 tracks you have played on last.fm!
+* Added `doob/lastfm top artists`!
+    - See the top 10 artists you have played on last.fm!
 
 ## v2.0.9
 #### The muting update!

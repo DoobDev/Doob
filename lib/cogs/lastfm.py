@@ -28,6 +28,7 @@ class LastFM(Cog):
         User_URL = f"https://ws.audioscrobbler.com/2.0/?method=user.getinfo&user={username}&api_key={os.environ.get('lastfmkey')}&format=json"
         top_tracks_url = f"https://ws.audioscrobbler.com/2.0/?method=user.gettoptags&user={username}&api_key={os.environ.get('lastfmkey')}&limit=5&format=json"
         loved_tracks_url = f"https://ws.audioscrobbler.com/2.0/?method=user.getlovedtracks&user={username}&api_key={os.environ.get('lastfmkey')}&format=json"
+        recent_tracks_url = f"https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user={username}&api_key={os.environ.get('lastfmkey')}&format=json&limit=1"
         
         async with request("GET", User_URL) as response:
             if response.status == 200:
@@ -38,9 +39,9 @@ class LastFM(Cog):
 
                 ts = int(data['registered']['unixtime'])
                             
-                fields = [("Play Count:", f"{data['playcount']}", False),
-                        ("Country:", data['country'], False),
-                        ("Registered since:", datetime.utcfromtimestamp(ts).strftime('%m-%d-%Y | %H:%M:%S'), False)]
+                fields = [("Play Count:", f"{data['playcount']}", True),
+                        ("Country:", data['country'], True),
+                        ("Registered since:", datetime.utcfromtimestamp(ts).strftime('%m-%d-%Y | %H:%M:%S'), True)]
 
                 for name, value, inline in fields:
                     embed.add_field(name=name, value=value, inline=inline)
@@ -61,6 +62,11 @@ class LastFM(Cog):
 
                     if tags_list:
                         embed.add_field(name="Top Tags:", value=', '.join(tags_list))
+
+                async with request("GET", recent_tracks_url) as recent:
+                    recent_data = (await recent.json())['recenttracks']
+
+                    embed.add_field(name="Most Recent Track:", value=f"{recent_data['track'][0]['artist']['#text']} - {recent_data['track'][0]['name']}", inline=False)
 
                 if data['type'] == "subscriber":
                     embed.add_field(name="Last.fm Pro Status", value="Subscribed", inline=False)
@@ -114,9 +120,9 @@ class LastFM(Cog):
     
     @lastfm.group(name="top")
     async def top_group(self, ctx):
-        if ctx.invoked_subcommand != self.top_albums_command:
+        if ctx.invoked_subcommand != self.top_albums_command and ctx.invoked_subcommand != self.top_tracks_command and ctx.invoked_subcommand != self.top_artist_command:
             prefix = db.record("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
-            await ctx.send(f"Try these commands instead.\n`{prefix[0]}fm top albums`")
+            await ctx.send(f"Try these commands instead.\n`{prefix[0]}fm top albums`\n`{prefix[0]}fm top tracks`\n`{prefix[0]}fm top artists")
 
     @top_group.command(name="albums")
     async def top_albums_command(self, ctx, username: Optional[str]):
@@ -149,6 +155,78 @@ class LastFM(Cog):
 
             else:
                 embed=Embed(title=f"⚠ - No top albums found for {data['@attr']['user']}.", colour=ctx.author.colour)
+
+                message = await ctx.send(embed=embed)
+            
+                await message.add_reaction("⚠️")
+
+    @top_group.command(name="tracks")
+    async def top_tracks_command(self, ctx, username: Optional[str]):
+        username = username or db.record("SELECT LastfmUsername FROM exp WHERE UserID = ?", ctx.author.id)[0]
+
+        top_tracks_url = f"https://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user={username}&api_key={os.environ.get('lastfmkey')}&format=json&limit=10"
+        User_URL = f"https://ws.audioscrobbler.com/2.0/?method=user.getinfo&user={username}&api_key={os.environ.get('lastfmkey')}&format=json"
+
+        async with request("GET", top_tracks_url) as response:
+            data = (await response.json())['artists']
+
+            llist = list()
+
+            for i in data['artist']:
+                llist.append(f"‣ #{i['@attr']['rank']} - {i['artist']['name']} - {i['name']} ({i['playcount']} plays)")
+
+            if llist:
+                embed=Embed(title=f"{data['@attr']['user']}'s 10 top tracks", 
+                            description='\n'.join(llist), colour=ctx.author.colour)
+
+                embed.set_thumbnail(url=data['track'][0]['image'][3]['#text'])
+
+                async with request("GET", User_URL) as icon:
+                    icon_url = (await icon.json())['user']
+
+                    if icon_url['image'][3]['#text'] != "": 
+                        embed.set_footer(text=f"last.fm/users/{data['@attr']['user']}", icon_url=icon_url['image'][3]['#text'])
+
+                await ctx.send(embed=embed)
+
+            else:
+                embed=Embed(title=f"⚠ - No top tracks found for {data['@attr']['user']}.", colour=ctx.author.colour)
+
+                message = await ctx.send(embed=embed)
+            
+                await message.add_reaction("⚠️")
+
+    @top_group.command(name="artists", aliases=["artist"])
+    async def top_artist_command(self, ctx, username: Optional[str]):
+        username = username or db.record("SELECT LastfmUsername FROM exp WHERE UserID = ?", ctx.author.id)[0]
+
+        top_artists_url = f"https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user={username}&api_key={os.environ.get('lastfmkey')}&format=json&limit=10"
+        User_URL = f"https://ws.audioscrobbler.com/2.0/?method=user.getinfo&user={username}&api_key={os.environ.get('lastfmkey')}&format=json"
+
+        async with request("GET", top_artists_url) as response:
+            data = (await response.json())['topartists']
+
+            llist = list()
+
+            for i in data['artist']:
+                llist.append(f"‣ #{i['@attr']['rank']} - {i['name']} - ({i['playcount']} plays)")
+
+            if llist:
+                embed=Embed(title=f"{data['@attr']['user']}'s 10 top artists", 
+                            description='\n'.join(llist), colour=ctx.author.colour)
+
+                embed.set_thumbnail(url=data['artist'][0]['image'][3]['#text'])
+
+                async with request("GET", User_URL) as icon:
+                    icon_url = (await icon.json())['user']
+
+                    if icon_url['image'][3]['#text'] != "": 
+                        embed.set_footer(text=f"last.fm/users/{data['@attr']['user']}", icon_url=icon_url['image'][3]['#text'])
+
+                await ctx.send(embed=embed)
+
+            else:
+                embed=Embed(title=f"⚠ - No top artists found for {data['@attr']['user']}.", colour=ctx.author.colour)
 
                 message = await ctx.send(embed=embed)
             
