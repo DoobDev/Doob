@@ -97,7 +97,7 @@ class LastFM(Cog):
             llist = list()
 
             for i in data['track']:
-                llist.append(f"‣ {i['name']}")
+                llist.append(f"‣ {i['name']} - {i['artist']['#text']}")
 
             if llist:
                 embed=Embed(title=f"{data['@attr']['user']}'s 5 recent tracks", 
