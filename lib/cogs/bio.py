@@ -24,11 +24,14 @@ class Bio(Cog):
     async def discord_bio_command(self, ctx, *, target: Optional[Member]):
         """Lookup your Discord.bio profile information here.""" 
 
+        # Target = the target the user specified, if there is nobody they specified, it defaults back to the author.
         target = target or ctx.author
 
+        # Discord.bio's API URL
         User_URL = f"https://api.discord.bio/user/details/{target.id}"
+        
         async with request("GET", User_URL) as response:
-            if response.status == 200:
+            if response.status == 200: # This is to make sure the API is working.
                 data = (await response.json())['payload']['user']
 
                 title = f"{target.display_name}'s discord.bio profile"
