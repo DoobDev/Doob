@@ -4,6 +4,7 @@ from typing import Optional
 from psutil import Process, virtual_memory
 from platform import python_version
 from apscheduler.triggers.cron import CronTrigger
+from asyncio import sleep
 
 from discord import Activity, ActivityType, Embed, Member
 from discord import __version__ as discord_version
@@ -94,9 +95,11 @@ class Meta(Cog):
 			db.commit()
 			self.bot.scheduler.shutdown()
 			await self.bot.logout()
+			await sleep(1)
 
 			print("Fetching latest version from doobdev/doob@master")
 			os.system("git pull origin master")
+			await sleep(2)
 			print("Starting bot.")
 			os.system("python3.8 launcher.py")
 
