@@ -32,17 +32,20 @@ class Bio(Cog):
         
         async with request("GET", User_URL) as response:
             if response.status == 200: # This is to make sure the API is working.
-                data = (await response.json())['payload']['user']
+                data = (await response.json())['payload']['user'] # This gets the user's information from the .json file the API gives you.
 
-                title = f"{target.display_name}'s discord.bio profile"
-                desc = f"https://dsc.bio/{data['details']['slug']}"
+                title = f"{target.display_name}'s discord.bio profile" # Sets the title for the embed
+                desc = f"https://dsc.bio/{data['details']['slug']}" # Sets the description for the embed
 
-                if data['details']['premium'] == True:
-                    title = f"{target.display_name}'s discord.bio profile 💎"
+                if data['details']['premium'] == True: # If they are a premium subscriber to Discord.bio
+                    title = f"{target.display_name}'s discord.bio profile 💎" # Give them this title/description
                     desc = f"💎 https://dsc.bio/{data['details']['slug']} 💎"
 
                 embed=Embed(title=title, description=desc,
-                colour=target.colour, timestamp=datetime.utcnow())
+                colour=target.colour, timestamp=datetime.utcnow()) # Embed setup.
+
+                # This is where all the data comes in, pretty self explainitory if you look through the .json file
+                # given to you by the API.
 
                 fields = [("Bio", data['details']['description'], False),
                           ("Location", data['details']['location'], True),
@@ -53,17 +56,20 @@ class Bio(Cog):
                           ("Birthday", data['details']['birthday'], True),
                           ("Email", f"||{data['details']['email']}||", False)]
 
+                # Adds all the items from the `fields` variable into the embed. 
                 for name, value, inline in fields:
                     embed.add_field(name=name, value=value, inline=inline)
 
+                # Sets the embed thumbnail to the target's avatar on Discord
                 embed.set_thumbnail(url=target.avatar_url)
                 
+                # If they have a banner on Discord.bio, show it as the "image" in the embed.
                 if data['details']['banner'] != None:
                     embed.set_image(url=data['details']['banner'])
 
                 await ctx.send(embed=embed)
 
-            else:
+            else: # If the API status is something other then a 200, it sends you a message telling you which status it sent
                 await ctx.send(f"Discord.bio API returned a {response.status} status.")
 
     @Cog.listener() 
