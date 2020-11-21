@@ -1,3 +1,9 @@
+## v2.1.1
+* Added `doob/osu`
+    - See your osu! profile!
+* Added `doob/setosu`
+    - Set your osu! profile for `doob/osu`!
+
 ## v2.1.0
 * Per-Server XP Leaderboards (`doob/serverleaderboard`)
 * Removed `doob/slap`
