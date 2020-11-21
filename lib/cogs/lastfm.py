@@ -122,7 +122,7 @@ class LastFM(Cog):
     async def top_group(self, ctx):
         if ctx.invoked_subcommand != self.top_albums_command and ctx.invoked_subcommand != self.top_tracks_command and ctx.invoked_subcommand != self.top_artist_command:
             prefix = db.record("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
-            await ctx.send(f"Try these commands instead.\n`{prefix[0]}fm top albums`\n`{prefix[0]}fm top tracks`\n`{prefix[0]}fm top artists")
+            await ctx.send(f"Try these commands instead.\n`{prefix[0]}fm top albums`\n`{prefix[0]}fm top tracks`\n`{prefix[0]}fm top artists`")
 
     @top_group.command(name="albums")
     async def top_albums_command(self, ctx, username: Optional[str]):
