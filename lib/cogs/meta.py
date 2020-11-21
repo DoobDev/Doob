@@ -95,11 +95,9 @@ class Meta(Cog):
 			db.commit()
 			self.bot.scheduler.shutdown()
 			await self.bot.logout()
-			await sleep(1)
 
 			print("Fetching latest version from doobdev/doob@master")
 			os.system("git pull origin master")
-			await sleep(2)
 			print("Starting bot.")
 			os.system("python3.8 launcher.py")
 
