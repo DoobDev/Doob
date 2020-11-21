@@ -1,4 +1,4 @@
-from discord.ext.commands import Cog, command, BucketType, cooldown
+from discord.ext.commands import Cog, command, BucketType, cooldown, group
 from discord import Embed, Colour
 
 from ..db import db # pylint: disable=relative-beyond-top-level
@@ -17,11 +17,13 @@ class LastFM(Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @command(name="lastfm", aliases=["fm"], brief="Get your Last.fm information.")
-    @cooldown(1, 5, BucketType.user)
-    async def lastfm_lookup_command(self, ctx, *, username: Optional[str]):
-        """Request some information on a specific Last.fm User!\n`Username` = Last.fm Username"""
+    async def fm_search(self, ctx, username: Optional[str]):
         username = username or db.record("SELECT LastfmUsername FROM exp WHERE UserID = ?", ctx.author.id)[0]
+        prefix = db.record("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
+
+        if db.record("SELECT LastfmUsername FROM exp WHERE UserID = ?", ctx.author.id)[0] == None:
+            await ctx.send(f"Your Last.fm username is set to None\nSet it to your username by doing `{prefix[0]}setlastfm`")
+            return
 
         User_URL = f"https://ws.audioscrobbler.com/2.0/?method=user.getinfo&user={username}&api_key={os.environ.get('lastfmkey')}&format=json"
         top_tracks_url = f"https://ws.audioscrobbler.com/2.0/?method=user.gettoptags&user={username}&api_key={os.environ.get('lastfmkey')}&limit=5&format=json"
@@ -37,8 +39,8 @@ class LastFM(Cog):
                 ts = int(data['registered']['unixtime'])
                             
                 fields = [("Play Count:", f"{data['playcount']}", False),
-                          ("Country:", data['country'], False),
-                          ("Registered since:", datetime.utcfromtimestamp(ts).strftime('%m-%d-%Y | %H:%M:%S'), False)]
+                        ("Country:", data['country'], False),
+                        ("Registered since:", datetime.utcfromtimestamp(ts).strftime('%m-%d-%Y | %H:%M:%S'), False)]
 
                 for name, value, inline in fields:
                     embed.add_field(name=name, value=value, inline=inline)
@@ -70,6 +72,52 @@ class LastFM(Cog):
 
             else:
                 await ctx.send(f"The Last.fm API returned a {response.status} status.")
+
+    @group(name="lastfm", aliases=["fm"], brief="Get your Last.fm information.")
+    #@cooldown(1, 5, BucketType.user)
+    async def lastfm(self, ctx):
+        """Request some information on a specific Last.fm User!\n`Username` = Last.fm Username"""
+        if ctx.invoked_subcommand is None:
+            await self.fm_search(ctx, username=db.record("SELECT LastfmUsername FROM exp WHERE UserID = ?", ctx.author.id)[0])
+
+    @lastfm.command(name="recent", aliases=['recenttracks', 'recentracks'], brief="Gives you the 5 most recent tracks from a user.")
+    async def recent_tracks_command(self, ctx, username: Optional[str]):
+        username = username or db.record("SELECT LastfmUsername FROM exp WHERE UserID = ?", ctx.author.id)[0]
+        prefix = db.record("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
+
+        if db.record("SELECT LastfmUsername FROM exp WHERE UserID = ?", ctx.author.id)[0] == None:
+            await ctx.send(f"Your Last.fm username is set to None\nSet it to your username by doing `{prefix[0]}setlastfm`")
+            return
+
+        recent_tracks_url = f"https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user={username}&api_key={os.environ.get('lastfmkey')}&format=json&limit=5"
+    
+        async with request("GET", recent_tracks_url) as response:
+            data = (await response.json())['recenttracks']
+
+            llist = list()
+
+            for i in data['track']:
+                llist.append(f"‣ {i['name']}")
+
+            if llist:
+                embed=Embed(title=f"{data['@attr']['user']}'s 5 recent tracks", 
+                            description='\n'.join(llist), colour=ctx.author.colour)
+
+                await ctx.send(embed=embed)
+
+
+            else:
+                embed=Embed(title=f"⚠ - No recent tracks found for {data['@attr']['user']}.", colour=ctx.author.colour)
+
+                message = await ctx.send(embed=embed)
+            
+                await message.add_reaction("⚠️")
+
+    @lastfm.command(name="search", brief="Search a last.fm account.")
+    async def search_command(self, ctx, username: Optional[str]):
+        username = username or db.record("SELECT LastfmUsername FROM exp WHERE UserID = ?", ctx.author.id)[0]
+
+        await self.fm_search(ctx, username)
 
     @command(name="setlastfm", aliases=["setfm"], brief="Sets your Last.fm username.")
     @cooldown(1, 5, BucketType.user)
