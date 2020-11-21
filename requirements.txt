@@ -35,3 +35,5 @@ psutil == 5.7.3
 statcord.py == 3.0.5
 
 python-dotenv == 0.15.0
+
+git+git://github.com/Renondedju/Osu.py#egg=Osu.py
