@@ -130,7 +130,7 @@ class Meta(Cog):
 			await ctx.send(f"You don't have permissions to give updates about Doob\nType `{prefix[0][0]}help update` for more info.")
 
 	async def show_bot_info(self, ctx, patreon_status):
-		embed = Embed(title="Doob Info", colour=ctx.author.colour, timestamp=datetime.utcnow())
+		embed = Embed(title="Doob Info  <:doob:754762131085459498>", colour=ctx.author.colour, timestamp=datetime.utcnow())
 
 		bot_version = self.bot.VERSION
 
@@ -142,8 +142,8 @@ class Meta(Cog):
 			mem_of_total = proc.memory_percent()
 			mem_usg = mem_total * (mem_of_total / 100)
 
-		fields = [("Name", "Doob", False),
-					("Description", "A Discord bot made by mmatt using discord.py, he felt like making it so he did B)", False),
+		fields = [("Name", "Doob <:doob:754762131085459498>", False),
+					("Description", "The multipurpose Discord Bot with global leveling and powerful logging tools for your server.", False),
 					("Developers", "<@308000668181069824>, <@476188720521805825>", False),
 					("Doob's Server Count", f"{str(len(self.bot.guilds))}", True),
 					("Doob's Member Count", f"{str(len(self.bot.users))}", True),

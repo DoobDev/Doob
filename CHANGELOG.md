@@ -22,6 +22,11 @@
     - Lookup your/your friend's Last.fm profiles directly in Discord!
 * Added `doob/setlastfm` command!
     - Set your default last.fm username, so you don't have to type your username every time you want to use a Last.fm command.
+* Added some Doob emojis to `doob/info`
+* `doob/lastfm` only does your profile now.
+    - To do other people's do `doob/lastfm search {username}`
+* Added `doob/lastfm recent`!
+    - See the last 5 songs you or someone else has listened to!
 
 ## v2.0.9
 #### The muting update!
