@@ -69,7 +69,7 @@ class Meta(Cog):
 	async def ping(self, ctx):
 		"""Ping Pong!~\nShows the bot latency and response time."""
 		start = time()
-		message = await ctx.send("Loading...")
+		message = await ctx.send("Loading... <a:loadingdoob:755141175840866364>")
 		end = time()
 		await message.edit(content=f"Pong! :ping_pong: Latency: {self.bot.latency*1000:,.0f} ms. Response time: {(end-start)*1000:,.0f} ms.")
 

@@ -42,7 +42,6 @@ class Ready(object):
         print(f'{cog} cog ready')
 
     def all_ready(self):
-        print('In loving memory of X Daniel that is still alive')
         return all([getattr(self, cog) for cog in COGS])
 
 class Bot(BotBase):
@@ -94,7 +93,7 @@ class Bot(BotBase):
                     await self.invoke(ctx)
 
             else:
-                await ctx.send("Please wait, Doob hasn't fully started up yet", delete_after=10)
+                await ctx.send("Please wait, Doob hasn't fully started up yet <a:loadingdoob:755141175840866364>", delete_after=10)
 
     async def on_connect(self):
         self.update_db()
