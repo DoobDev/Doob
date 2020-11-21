@@ -237,6 +237,7 @@ class Fun(Cog):
         URL = "https://dog.ceo/api/breeds/image/random"
 
         if random != 100 and random != 101 and random != 102:
+            # This is for the "Patreon Ad" at the top of doob/dog you get times.
             if patreon_ad != 1:
                 async with request("GET", URL, headers={}) as response:
                     if response.status == 200:
@@ -253,6 +254,7 @@ class Fun(Cog):
                         embed.set_image(url=data["message"])
                         await ctx.send(embed=embed)
 
+        # If they get a lucky dog, run this instead of ^.
         elif random == 100:
             embed = Embed(title="Lucky Dog Picture!", description="This is [Liquid Mendo](https://twitter.com/mendo)'s dog Koda!", colour=Colour.gold())
             embed.set_footer(text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 1000 chance of getting this picture!", icon_url=ctx.author.avatar_url)
