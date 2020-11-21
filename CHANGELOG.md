@@ -17,7 +17,11 @@
         - For battletags, make sure you do `{username}-{numbers}` NOT `{username}#{numbers}`
 * Changed around some of the fields on `doob/streamlookup`
 * Added `doob/bio` command!
-    - Lookup your/or your friend's Discord.bio profile in Discord!
+    - Lookup your/your friend's Discord.bio profile in Discord!
+* Added `doob/lastfm` command!
+    - Lookup your/your friend's Last.fm profiles directly in Discord!
+* Added `doob/setlastfm` command!
+    - Set your default last.fm username, so you don't have to type your username every time you want to use a Last.fm command.
 
 ## v2.0.9
 #### The muting update!
