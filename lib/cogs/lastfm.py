@@ -24,13 +24,47 @@ class LastFM(Cog):
         username = username or db.record("SELECT LastfmUsername FROM exp WHERE UserID = ?", ctx.author.id)[0]
 
         User_URL = f"https://ws.audioscrobbler.com/2.0/?method=user.getinfo&user={username}&api_key={os.environ.get('lastfmkey')}&format=json"
+        top_tracks_url = f"https://ws.audioscrobbler.com/2.0/?method=user.gettoptags&user={username}&api_key={os.environ.get('lastfmkey')}&limit=5&format=json"
+        loved_tracks_url = f"https://ws.audioscrobbler.com/2.0/?method=user.getlovedtracks&user={username}&api_key={os.environ.get('lastfmkey')}&format=json"
+        
         async with request("GET", User_URL) as response:
             if response.status == 200:
                 data = (await response.json())['user']
 
-                embed=Embed(title=f"{data['name']}'s Last.fm profile")
+                embed=Embed(title=f"{data['name']}'s Last.fm profile", description=data['url'],
+                            colour=ctx.author.colour)
 
-                embed.set_thumbnail(url=data['image'][3]['#text'])
+                ts = int(data['registered']['unixtime'])
+                            
+                fields = [("Play Count:", f"{data['playcount']}", False),
+                          ("Country:", data['country'], False),
+                          ("Registered since:", datetime.utcfromtimestamp(ts).strftime('%m-%d-%Y | %H:%M:%S'), False)]
+
+                for name, value, inline in fields:
+                    embed.add_field(name=name, value=value, inline=inline)
+
+                async with request("GET", loved_tracks_url) as loved:
+                    loved_data = (await loved.json())['lovedtracks']['@attr']
+
+                    embed.add_field(name="Loved Tracks:", value=loved_data['total'], inline=True)
+
+
+                async with request("GET", top_tracks_url) as tags:
+                    tags_data = (await tags.json())['toptags']
+                        
+                    tags_list = list()
+
+                    for i in tags_data['tag']:
+                        tags_list.append(i['name'])
+
+                    if tags_list:
+                        embed.add_field(name="Top Tags:", value=', '.join(tags_list))
+
+                if data['type'] == "subscriber":
+                    embed.add_field(name="Last.fm Pro Status", value="Subscribed", inline=False)
+
+                if data['image'][3]['#text'] != "": 
+                    embed.set_thumbnail(url=data['image'][3]['#text'])
 
                 await ctx.send(embed=embed)
 
