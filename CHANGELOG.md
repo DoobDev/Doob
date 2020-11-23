@@ -1,3 +1,16 @@
+## v2.1.2
+* `doob/osu` checks if you have no username saved
+    - If you don't, it tells you how to add your username.
+* `doob/osuset` is now an alias for `doob/setosu`
+* Added `doob/fm artist search`!
+    - Search for artists and get their 
+        1. Listeners
+        2. Play Count
+        3. Wiki Link
+        4. Similar Artists
+        5. Top Tracks
+        6. Top Albums
+
 ## v2.1.1
 * Added `doob/osu`
     - See your osu! profile!

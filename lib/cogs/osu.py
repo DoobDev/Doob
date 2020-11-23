@@ -21,6 +21,12 @@ class osu(Cog):
     @command(name="osu", aliases=["osuprofile"], brief="Get some information about your osu! account!")
     @cooldown(1, 5, BucketType.user)
     async def osu_command(self, ctx, username: Optional[str]):
+        prefix = db.record("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
+
+        if db.record("SELECT osuUsername FROM exp WHERE UserID = ?", ctx.author.id)[0] == None:
+            await ctx.send(f"Your Last.fm username is set to None\nSet it to your username by doing `{prefix[0]}setlastfm`")
+            return
+        
         username = username or db.record("SELECT osuUsername FROM exp WHERE UserID = ?", ctx.author.id)[0]
 
         api = OsuApi(os.environ.get('osu_api'))
@@ -50,7 +56,7 @@ class osu(Cog):
 
         await ctx.send(embed=embed)
     
-    @command(name="setosu", aliases=["setosuusername", 'setosuuser', 'sou'], brief="Set your osu! username!")
+    @command(name="setosu", aliases=["setosuusername", 'setosuuser', 'sou', 'osuset'], brief="Set your osu! username!")
     @cooldown(1, 5, BucketType.user)
     async def osu_set_command(self, ctx, username: Optional[str]):
         if username != None:
