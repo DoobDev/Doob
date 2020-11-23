@@ -55,6 +55,11 @@ class Misc(Cog):
 		else:
 			await ctx.send("Please try again with a lower time.", delete_after=15)
 
+	@command(name="vote", aliases=["upvote"], brief="Vote for Doob on Top.gg!")
+	@cooldown(1, 4, BucketType.user)
+	async def topgg_upvote_command(self, ctx):
+		await ctx.send("Vote for Doob at: https://top.gg/bot/680606346952966177/vote")
+
 	@Cog.listener()
 	async def on_ready(self):
 		if not self.bot.ready:

@@ -1,3 +1,7 @@
+## v2.1.3
+* Made `doob/fm artist search` only when the response status is 200
+* Added `doob/vote`
+
 ## v2.1.2
 * `doob/osu` checks if you have no username saved
     - If you don't, it tells you how to add your username.

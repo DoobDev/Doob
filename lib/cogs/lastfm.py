@@ -269,57 +269,64 @@ class LastFM(Cog):
         info_url = f"https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist={artist}&api_key={os.environ.get('lastfmkey')}&format=json"
         toptracks = f"https://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist={artist}&api_key={os.environ.get('lastfmkey')}&format=json&limit=5"
         topalbums = f"https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist={artist}&api_key={os.environ.get('lastfmkey')}&format=json&limit=5"
-        # artist_pfp_url = f""
-        # if anyone knows an API for getting artist's pfp without needing a unique ID
-        # pls let me know on Discord (mmatt#0001)
-        # Last.fm's api sucks, and doesn't grab them correctly.
+        # spotify_search = f"https://api.spotify.com/v1/search&type=artist&q={artist}&limit=1"
 
         async with request("GET", info_url) as response:
-            data = (await response.json())['artist']
+            if response.status == 200:
+                data = (await response.json())['artist']
 
-            embed=Embed(title=f"{data['name']} info on Last.fm",
-                        description=data['url'], colour=ctx.author.colour)
+                embed=Embed(title=f"{data['name']} info on Last.fm",
+                            description=data['url'], colour=ctx.author.colour)
 
-            fields = [("Listeners:", data['stats']['listeners'], True),
-                      ("Play Count:", data['stats']['playcount'], True),
-                      ("Wiki:", data['bio']['links']['link']['href'], False)]          
+                fields = [("Listeners:", data['stats']['listeners'], True),
+                        ("Play Count:", data['stats']['playcount'], True),
+                        ("Wiki:", data['bio']['links']['link']['href'], False)]          
 
-            for name, value, inline in fields:
-                embed.add_field(name=name, value=value, inline=inline)
+                for name, value, inline in fields:
+                    embed.add_field(name=name, value=value, inline=inline)
 
-            similar = list()
+                similar = list()
 
-            for i in data['similar']['artist']:
-                similar.append(i['name'])
+                for i in data['similar']['artist']:
+                    similar.append(i['name'])
 
-            if similar:
-                embed.add_field(name="Similar Artists:", value=', '.join(similar))
+                if similar:
+                    embed.add_field(name="Similar Artists:", value=', '.join(similar))
 
-            async with request("GET", toptracks) as response:
-                toptracks = (await response.json())['toptracks']
+                async with request("GET", toptracks) as response:
+                    if response.status == 200:
+                        toptracks = (await response.json())['toptracks']
 
-                tracks = list()
+                        tracks = list()
 
-                for i in toptracks['track']:
-                    tracks.append(f"‣ #{i['@attr']['rank']} {i['name']}: Play Count ‣ {i['playcount']}")
+                        for i in toptracks['track']:
+                            tracks.append(f"‣ #{i['@attr']['rank']} {i['name']}: Play Count ‣ {i['playcount']}")
 
-                if tracks:
-                    embed.add_field(name="Top Tracks:", value='\n'.join(tracks), inline=False)
+                        if tracks:
+                            embed.add_field(name="Top Tracks:", value='\n'.join(tracks), inline=False)
 
-            async with request("GET", topalbums) as response:
-                topalbums = (await response.json())['topalbums']
+                async with request("GET", topalbums) as response:
+                    if response.status == 200:
+                        topalbums = (await response.json())['topalbums']
 
-                albums = list()
+                        albums = list()
 
-                for i in topalbums['album']:
-                    albums.append(f"‣ {i['name']}: Play Count ‣ {i['playcount']}")
+                        for i in topalbums['album']:
+                            albums.append(f"‣ {i['name']}: Play Count ‣ {i['playcount']}")
 
-                if albums:
-                    embed.add_field(name="Top Albums:", value='\n'.join(albums), inline=False)
-  
-            embed.set_thumbnail(url=data['image'][3]['#text'])
+                        if albums:
+                            embed.add_field(name="Top Albums:", value='\n'.join(albums), inline=False)
 
-            await ctx.send(embed=embed)
+                # async with request("GET", spotify_search, headers={"Authorization Bearer:": os.environ.get('spotify_id'), 'Content_Type': 'application/json'}) as response:
+                #     if response.status == 200:
+                #         data = (await response.json(content_type=None))['artists']['items'][0]
+
+                #         embed.set_thumbnail(url=data['images'][0]['url'])
+
+                    else:
+                        await ctx.send(f"spotify sucks {response.status} error")
+
+                await ctx.send(embed=embed)
             
 
     @command(name="setlastfm", aliases=["setfm"], brief="Sets your Last.fm username.")
