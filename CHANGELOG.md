@@ -4,7 +4,7 @@
 * Added `doob/stopgiveaway`
     - Stops a giveaway!
 * Removed cooldown on `doob/echo`
-* Made the message delete iteself on `doob/echo`
+* Made the message delete itself on `doob/echo`
     - Ex: `doob/echo Hello` <== That message would be deleted.
 
 ## v2.1.3
