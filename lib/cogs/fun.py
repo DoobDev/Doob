@@ -37,7 +37,6 @@ class Fun(Cog):
             await ctx.send("Please roll a lower number of dice.", delete_after=10)
 
     @command(name="echo", aliases=["say"], brief="Make Doob say something!")
-    @cooldown(1, 10, BucketType.user)
     async def echo_message(self, ctx, *, message):
         """Make Doob say a message! | `Patreon Only`"""
         homeGuild = self.bot.get_guild(702352937980133386)         # Support Server ID.
@@ -53,6 +52,7 @@ class Fun(Cog):
         if ctx.author in homeGuild.members:
             if patreonRole in member.roles:
                 # If they are, run the command.
+                    await ctx.message.delete()
                     await ctx.send(message)
                     print(f"{ctx.author.name} used the Echo command and said {message}")
 

@@ -1,3 +1,12 @@
+## v2.1.4
+* Added `doob/startgiveaway`
+    - Starts a giveaway!
+* Added `doob/stopgiveaway`
+    - Stops a giveaway!
+* Removed cooldown on `doob/echo`
+* Made the message delete iteself on `doob/echo`
+    - Ex: `doob/echo Hello` <== That message would be deleted.
+
 ## v2.1.3
 * Made `doob/fm artist search` only when the response status is 200
 * Added `doob/vote`
