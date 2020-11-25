@@ -167,7 +167,7 @@ class Mod(Cog):
 				deleted = await ctx.channel.purge(limit=limit, after=datetime.utcnow()-timedelta(days=14),
 												  check=_check)
 
-				await ctx.send(f"Deleted {len(deleted):,} messages.", delete_after=5)
+				await ctx.send(f"Deleted {len(deleted):,} messages.", delete_after=10)
 
 		else:
 			await ctx.send("The limit provided is not within acceptable bounds.")
