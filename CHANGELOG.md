@@ -1,3 +1,6 @@
+## v2.1.4.1
+* Added `doob/fm --np`
+
 ## v2.1.4
 * Added `doob/startgiveaway`
     - Starts a giveaway!
