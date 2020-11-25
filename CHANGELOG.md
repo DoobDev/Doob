@@ -1,5 +1,7 @@
-## v2.1.4.1
+## v2.1.5
 * Added `doob/fm --np`
+* Added `doob/russianroulette`
+    - Put people in a russian roulette to be banned.
 
 ## v2.1.4
 * Added `doob/startgiveaway`

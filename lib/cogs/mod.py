@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from typing import Optional
+from random import randint
 
 from discord.utils import find
 from discord import Embed, Member, Role, TextChannel, NotFound, Object
@@ -136,10 +137,35 @@ class Mod(Cog):
 				
 				else:
 					await ctx.send("Something went wrong.\nYou might not be able to ban that member.")
+
 	@ban_command.error
 	async def ban_command_error(self, ctx, exc):
 		if isinstance(exc, CheckFailure):
 			await ctx.send("Insufficient permissions to perform that task.")
+
+	@command(name="russianroulette", aliases=['banroulette', 'luckyban'], brief="If you don't survive the roulette, you get banned!")
+	@has_permissions(ban_members=True)
+	async def russian_roulette_command(self, ctx, targets: Greedy[Member]):
+		"""1/10 Chance to not get banned, good luck have fun.\n`Ban Members` permission required."""
+		roll = randint(1, 11)
+
+		if roll == 1:
+			if not len(targets):
+				await ctx.send("One or more required arguments are missing.")
+
+			else:
+				for target in targets:
+					if (ctx.guild.me.top_role.position != target.top_role.position
+						and ctx.author.top_role.position > target.top_role.position):
+						
+						await target.ban(reason="He couldn't survive russian roulette.")
+						await ctx.send("You will (or will not) be missed.")
+					
+					else:
+						await ctx.send("Something went wrong.\nYou might not be able to ban that member.\nYou survived this one...")
+
+		else:
+			await ctx.send("You survived.")
 
 	@command(name="unban", aliases=["pardon"])
 	@bot_has_permissions(ban_members=True)
