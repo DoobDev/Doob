@@ -146,7 +146,7 @@ class Mod(Cog):
 	@command(name="russianroulette", aliases=['banroulette', 'luckyban'], brief="If you don't survive the roulette, you get banned!")
 	@has_permissions(ban_members=True)
 	async def russian_roulette_command(self, ctx, targets: Greedy[Member]):
-		"""1/10 Chance to not get banned, good luck have fun.\n`Ban Members` permission required."""
+		"""1/6 Chance to not get banned, good luck have fun.\n`Ban Members` permission required."""
 		roll = randint(1, 7)
 
 		if roll == 1:
