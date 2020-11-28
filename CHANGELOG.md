@@ -1,3 +1,7 @@
+## v2.1.6
+* Added a **HUGE** cooldown to `doob/russianroulette`
+    - 1 command per 30 seconds in a guild.
+
 ## v2.1.5
 * Added `doob/fm --np`
 * Added `doob/russianroulette`

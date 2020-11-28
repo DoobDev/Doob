@@ -4,7 +4,7 @@ from random import randint
 
 from discord.utils import find
 from discord import Embed, Member, Role, TextChannel, NotFound, Object
-from discord.ext.commands import command, has_permissions, bot_has_permissions, Cog, Greedy, Converter, CheckFailure, BadArgument
+from discord.ext.commands import command, has_permissions, bot_has_permissions, Cog, Greedy, Converter, CheckFailure, BadArgument, BucketType, cooldown
 
 from ..db import db # pylint: disable=relative-beyond-top-level
 
@@ -145,6 +145,7 @@ class Mod(Cog):
 
 	@command(name="russianroulette", aliases=['banroulette', 'luckyban', 'rr'], brief="If you don't survive the roulette, you get banned!")
 	@has_permissions(ban_members=True)
+	@cooldown(1, 30, BucketType.guild)
 	async def russian_roulette_command(self, ctx, targets: Greedy[Member]):
 		"""1/6 Chance to get banned, good luck have fun.\n`Ban Members` permission required."""
 		for target in targets:
