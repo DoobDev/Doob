@@ -23,7 +23,7 @@ class Log(Cog):
             fields = [("Before", before.display_name, False),
                       ("After", after.display_name, False)]
 
-            log = f"🟡🙋 - Display Name Updated from {before.name} (ID: `{before.id}`) at {datetime.utcnow()}\nBefore: `{before.display_name}`\nAfter: `{after.display_name}`"
+            log = f"🟡🙋 - Display Name Updated from {before.name} (ID: `{before.id}`) at `{datetime.utcnow()}`\nBefore: `{before.display_name}`\nAfter: `{after.display_name}`"
 
             await logchannel.send(log)
 

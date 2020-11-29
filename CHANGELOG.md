@@ -1,6 +1,15 @@
 ## v2.2.0
 * `doob/timebomb` now has a timelimit of 1000 seconds.
 
+## v2.1.6
+* Added a **HUGE** cooldown to `doob/russianroulette`
+    - 1 command per 30 seconds in a guild.
+
+## v2.1.5
+* Added `doob/fm --np`
+* Added `doob/russianroulette`
+    - Put people in a russian roulette to be banned.
+
 ## v2.1.4
 * Added `doob/startgiveaway`
     - Starts a giveaway!

@@ -1,9 +1,10 @@
 from datetime import datetime, timedelta
 from typing import Optional
+from random import randint
 
 from discord.utils import find
 from discord import Embed, Member, Role, TextChannel, NotFound, Object
-from discord.ext.commands import command, has_permissions, bot_has_permissions, Cog, Greedy, Converter, CheckFailure, BadArgument
+from discord.ext.commands import command, has_permissions, bot_has_permissions, Cog, Greedy, Converter, CheckFailure, BadArgument, BucketType, cooldown
 
 from ..db import db # pylint: disable=relative-beyond-top-level
 
@@ -136,10 +137,38 @@ class Mod(Cog):
 				
 				else:
 					await ctx.send("Something went wrong.\nYou might not be able to ban that member.")
+
 	@ban_command.error
 	async def ban_command_error(self, ctx, exc):
 		if isinstance(exc, CheckFailure):
 			await ctx.send("Insufficient permissions to perform that task.")
+
+	@command(name="russianroulette", aliases=['banroulette', 'luckyban', 'rr'], brief="If you don't survive the roulette, you get banned!")
+	@has_permissions(ban_members=True)
+	@cooldown(1, 30, BucketType.guild)
+	async def russian_roulette_command(self, ctx, targets: Greedy[Member]):
+		"""1/6 Chance to get banned, good luck have fun.\n`Ban Members` permission required."""
+		for target in targets:
+			roll = randint(1, 7)
+
+			if roll == 1:
+				if not len(targets):
+					await ctx.send("One or more required arguments are missing.")
+
+				else:
+					for target in targets:
+						if (ctx.guild.me.top_role.position != target.top_role.position
+							and ctx.author.top_role.position > target.top_role.position):
+							
+							await target.ban(reason="They couldn't survive russian roulette.")
+							await ctx.send(f"{target.display_name} [`{target.id}`] will (or will not) be missed.")
+						
+						else:
+							await ctx.send("Something went wrong.\nYou might not be able to ban that member.\nYou survived this one...")
+
+			else:
+				for target in targets:
+					await ctx.send(f"{target.display_name} [`{target.id}`] survived.\n(rolled a `{roll}`, needs to hit a `1` to get banned.)")
 
 	@command(name="unban", aliases=["pardon"])
 	@bot_has_permissions(ban_members=True)
@@ -167,7 +196,7 @@ class Mod(Cog):
 				deleted = await ctx.channel.purge(limit=limit, after=datetime.utcnow()-timedelta(days=14),
 												  check=_check)
 
-				await ctx.send(f"Deleted {len(deleted):,} messages.", delete_after=5)
+				await ctx.send(f"Deleted {len(deleted):,} messages.", delete_after=10)
 
 		else:
 			await ctx.send("The limit provided is not within acceptable bounds.")

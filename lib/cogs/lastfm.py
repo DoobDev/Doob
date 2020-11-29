@@ -86,6 +86,37 @@ class LastFM(Cog):
         if ctx.invoked_subcommand is None:
             await self.fm_search(ctx, username=db.record("SELECT LastfmUsername FROM users WHERE UserID = ?", ctx.author.id)[0])
 
+    @lastfm.command(name="--np", aliases=['-np', 'np'])
+    async def now_playing_command(self, ctx, username: Optional[str]):
+        username = username or db.record("SELECT LastfmUsername FROM exp WHERE UserID = ?", ctx.author.id)[0]
+        prefix = db.record("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
+
+        if db.record("SELECT LastfmUsername FROM exp WHERE UserID = ?", ctx.author.id)[0] == None:
+            await ctx.send(f"Your Last.fm username is set to None\nSet it to your username by doing `{prefix[0]}setlastfm`")
+            return
+
+        now_playing_url = f"https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user={username}&api_key={os.environ.get('lastfmkey')}&format=json&limit=1"
+        
+        async with request("GET", now_playing_url) as response:
+            data = (await response.json())['recenttracks']
+
+            llist = list()
+
+            for i in data['track']:
+                llist.append(f"‣ {i['name']} - {i['artist']['#text']}")
+
+            if llist:
+                embed=Embed(title=f"{data['@attr']['user']}'s most recent track", 
+                            description='\n'.join(llist), colour=ctx.author.colour)
+
+                await ctx.send(embed=embed)
+
+            else:
+                embed=Embed(title=f"⚠ - No recent tracks found for {data['@attr']['user']}.", colour=ctx.author.colour)
+
+                message = await ctx.send(embed=embed)
+            
+                await message.add_reaction("⚠️")
     @lastfm.command(name="recent", aliases=['recenttracks', 'recentracks'], brief="Gives you the 5 most recent tracks from a user.")
     async def recent_tracks_command(self, ctx, username: Optional[str]):
         username = username or db.record("SELECT LastfmUsername FROM users WHERE UserID = ?", ctx.author.id)[0]
