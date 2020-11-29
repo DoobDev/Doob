@@ -10,7 +10,7 @@ APScheduler == 3.6.3
 # doob/lib/cogs/gamestats.py: 6
 # doob/lib/cogs/lastfm.py: 6
 # doob/lib/cogs/twitch.py: 6
-aiohttp == 3.7.3
+aiohttp == 3.7.0 # Don't upgrade, discord.py doesn't support 3.7.3
 
 # doob/lib/NOT IN USE/TopGG.py: 1
 # doob/lib/cogs/servercount.py: 1
