@@ -99,7 +99,7 @@ class Meta(Cog):
 			print("Fetching latest version from doobdev/doob@master")
 			os.system("git pull origin master")
 			print("Installing requirements.txt")
-			os.system("python3.8 -m pip install -r requirements.txt")
+			os.system("python3.8 -m pip install -U -r requirements.txt")
 			print("Starting bot.")
 			os.system("python3.8 launcher.py")
 
