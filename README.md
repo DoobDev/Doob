@@ -26,6 +26,7 @@ Doob has some great features, such as:
 * Last.fm Integration
 * Discord.bio Integration
 * AND MORE!
+* I watched my grandpa say penis
 
 ## Doob on the web.
 - You can visit the Doob website at [https://doobbot.com](https://doobbot.com)

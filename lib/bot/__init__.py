@@ -148,10 +148,10 @@ class Bot(BotBase):
             while not self.cogs_ready.all_ready():
                 await sleep(1.0)
             
-            # Puts all users into the exp DB
-            db.multiexec("INSERT OR IGNORE INTO exp (UserID) VALUES (?)",
+            # Puts all users into the users DB
+            db.multiexec("INSERT OR IGNORE INTO users (UserID) VALUES (?)",
                             ((member.id,) for guild in self.guilds for member in guild.members if not member.bot))
-            print("Updated exp table.")
+            print("Updated users table.")
 
             # Puts all users in the votes DB
             db.multiexec("INSERT OR IGNORE INTO votes (UserID) VALUES (?)",

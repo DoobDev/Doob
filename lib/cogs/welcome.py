@@ -13,8 +13,8 @@ class Welcome(Cog):
 
 	@Cog.listener()
 	async def on_member_join(self, member):
-		db.execute("INSERT INTO exp (UserID) VALUES (?)", member.id)
-		print(f"{member.username} (member/user) have been added into the exp DB")
+		db.execute("INSERT INTO users (UserID) VALUES (?)", member.id)
+		print(f"{member.username} (member/user) have been added into the users DB")
 		db.execute("INSERT INTO guildexp (UserID, GuildID) VALUES (?, ?)", member.id, member.guild.id)
 		print(f"{member.username} (member/user) have been added into the server exp DB")
 		db.execute("INSERT INTO luckydogs (UserID) VALUES (?)", member.id)
@@ -25,9 +25,9 @@ class Welcome(Cog):
 	async def on_guild_join(self, guild):
 		db.execute("INSERT INTO guilds (GuildID) VALUES (?)", guild.id)
 		print(f"{guild.name} (guild) have been added into the DB")
-		db.multiexec("INSERT OR IGNORE INTO exp (UserID) VALUES (?)",
+		db.multiexec("INSERT OR IGNORE INTO users (UserID) VALUES (?)",
 						((member.id,) for member in guild.members if not member.bot))
-		print(f"{guild.name} users have been added into the exp DB")
+		print(f"{guild.name} users have been added into the users DB")
 		db.commit()
 
 def setup(bot):

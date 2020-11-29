@@ -22,9 +22,9 @@ class gamestats(Cog):
 		target = target or ctx.author
 
 		# Grabs the platform, username, and region from the database in which the user set before running the command.
-		platform =  db.record("SELECT OverwatchPlatform FROM exp WHERE UserID = ?", target.id)
-		platformUserIdentifier = db.record("SELECT OverwatchUsername FROM exp WHERE UserID = ?", target.id)
-		platformRegion = db.record("SELECT OverwatchRegion FROM exp WHERE UserID = ?", target.id)
+		platform =  db.record("SELECT OverwatchPlatform FROM users WHERE UserID = ?", target.id)
+		platformUserIdentifier = db.record("SELECT OverwatchUsername FROM users WHERE UserID = ?", target.id)
+		platformRegion = db.record("SELECT OverwatchRegion FROM users WHERE UserID = ?", target.id)
 
 		# URL of the stats API.
 		URL = f"https://ow-api.com/v1/stats/{platform[0]}/{platformRegion[0]}/{platformUserIdentifier[0]}/complete"
@@ -77,9 +77,9 @@ class gamestats(Cog):
 			embed.add_field(name="Overwatch Username", value=username)
 			embed.set_thumbnail(url=ctx.author.avatar_url)
 
-			db.execute("UPDATE exp SET OverwatchUsername = ? WHERE UserID = ?", username, ctx.author.id)
-			db.execute("UPDATE exp SET OverwatchPlatform = ? WHERE UserID = ?", platform, ctx.author.id)
-			db.execute("UPDATE exp SET OverwatchRegion = ? WHERE UserID = ?", region, ctx.author.id)
+			db.execute("UPDATE users SET OverwatchUsername = ? WHERE UserID = ?", username, ctx.author.id)
+			db.execute("UPDATE users SET OverwatchPlatform = ? WHERE UserID = ?", platform, ctx.author.id)
+			db.execute("UPDATE users SET OverwatchRegion = ? WHERE UserID = ?", region, ctx.author.id)
 			db.commit()
 
 			await ctx.send(embed=embed)
@@ -91,9 +91,9 @@ class gamestats(Cog):
 			embed.add_field(name="Overwatch Username", value=username)
 			embed.set_thumbnail(url=ctx.author.avatar_url)
 
-			db.execute("UPDATE exp SET OverwatchUsername = ? WHERE UserID = ?", username, ctx.author.id)
-			db.execute("UPDATE exp SET OverwatchPlatform = ? WHERE UserID = ?", platform, ctx.author.id)
-			db.execute("UPDATE exp SET OverwatchRegion = ? WHERE UserID = ?", region, ctx.author.id)
+			db.execute("UPDATE users SET OverwatchUsername = ? WHERE UserID = ?", username, ctx.author.id)
+			db.execute("UPDATE users SET OverwatchPlatform = ? WHERE UserID = ?", platform, ctx.author.id)
+			db.execute("UPDATE users SET OverwatchRegion = ? WHERE UserID = ?", region, ctx.author.id)
 			db.commit()
 
 			await ctx.send(embed=embed)
@@ -105,18 +105,18 @@ class gamestats(Cog):
 			embed.add_field(name="Overwatch Username", value=username)
 			embed.set_thumbnail(url=ctx.author.avatar_url)
 
-			db.execute("UPDATE exp SET OverwatchUsername = ? WHERE UserID = ?", username, ctx.author.id)
-			db.execute("UPDATE exp SET OverwatchPlatform = ? WHERE UserID = ?", platform, ctx.author.id)
-			db.execute("UPDATE exp SET OverwatchRegion = ? WHERE UserID = ?", region, ctx.author.id)
+			db.execute("UPDATE users SET OverwatchUsername = ? WHERE UserID = ?", username, ctx.author.id)
+			db.execute("UPDATE users SET OverwatchPlatform = ? WHERE UserID = ?", platform, ctx.author.id)
+			db.execute("UPDATE users SET OverwatchRegion = ? WHERE UserID = ?", region, ctx.author.id)
 			db.commit()
 
 			await ctx.send(embed=embed)
 		
 		# If they didn't want to set anything, show them what they currently have in the database.
 		else:
-			platform =  db.record("SELECT OverwatchPlatform FROM exp WHERE UserID = ?", ctx.author.id)
-			username =  db.record("SELECT OverwatchUsername FROM exp WHERE UserID = ?", ctx.author.id)
-			region = db.record("SELECT OverwatchRegion FROM exp WHERE UserID = ?", ctx.author.id)
+			platform =  db.record("SELECT OverwatchPlatform FROM users WHERE UserID = ?", ctx.author.id)
+			username =  db.record("SELECT OverwatchUsername FROM users WHERE UserID = ?", ctx.author.id)
+			region = db.record("SELECT OverwatchRegion FROM users WHERE UserID = ?", ctx.author.id)
 			embed=Embed(title="Your Overwatch Profile", colour=ctx.author.colour)
 
 			embed.add_field(name="Overwatch Username", value=username[0])

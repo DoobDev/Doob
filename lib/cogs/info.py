@@ -13,8 +13,8 @@ class Info(Cog):
         self.bot = bot
 
     async def user_info(self, ctx, target, patreon_status):
-        ids = db.column("SELECT UserID FROM exp ORDER BY XP DESC")
-        xp, lvl = db.record("SELECT XP, Level FROM exp WHERE UserID = ?", target.id) or (None, None)
+        ids = db.column("SELECT UserID FROM users ORDER BY XP DESC")
+        xp, lvl = db.record("SELECT XP, Level FROM users WHERE UserID = ?", target.id) or (None, None)
 
         embed = Embed(title=f"{target.name}'s info", colour=target.colour, timestamp=datetime.utcnow())
 

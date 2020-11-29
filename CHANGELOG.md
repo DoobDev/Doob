@@ -1,3 +1,6 @@
+## v2.2.0
+* `doob/timebomb` now has a timelimit of 1000 seconds.
+
 ## v2.1.4
 * Added `doob/startgiveaway`
     - Starts a giveaway!

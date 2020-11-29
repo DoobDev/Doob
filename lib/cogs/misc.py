@@ -3,9 +3,19 @@ from discord.ext.commands import CheckFailure
 from discord.ext.commands import command, has_permissions, cooldown, BucketType
 from discord import Embed, Message, Reaction
 
+import requests
+
+import json
+
 import random
 
 from ..db import db # pylint: disable=relative-beyond-top-level
+
+owner_id = 308000668181069824
+
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 class Misc(Cog):
 	def __init__(self, bot):
@@ -93,7 +103,7 @@ class Misc(Cog):
 	@cooldown(1, 4, BucketType.user)
 	async def time_bomb_command(self, ctx, time: int, *, message : str):
 		"""Makes a message with a timelimit on it, the time is in seconds."""
-		if time >= 10000:
+		if time >= 1000:
 			await ctx.message.delete()
 
 			embed = Embed(title="Time Message", description=message, colour=ctx.author.colour)
@@ -109,6 +119,23 @@ class Misc(Cog):
 	@cooldown(1, 4, BucketType.user)
 	async def topgg_upvote_command(self, ctx):
 		await ctx.send("Vote for Doob at: https://top.gg/bot/680606346952966177/vote")
+
+	@command(name="createissue", brief="Lets the owner create a GitHub issue.")
+	async def create_issue_command(self, ctx, title: str):
+		if ctx.author.id == owner_id:
+			URL = "https://api.github.com/repos/doobdev/doob/issues"
+
+			PASSWORD = os.environ.get('github_secret')
+
+			session = requests.Session()
+			session.auth = (PASSWORD)
+			# Create our issue
+			issue = {'title': title}
+			# Add the issue to our repository
+			session.post(URL, json.dumps(issue))
+
+		else:
+			await ctx.send("You aren't the owner of Doob")
 
 	@Cog.listener()
 	async def on_ready(self):

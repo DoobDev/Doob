@@ -18,10 +18,10 @@ class LastFM(Cog):
         self.bot = bot
 
     async def fm_search(self, ctx, username: Optional[str]):
-        username = username or db.record("SELECT LastfmUsername FROM exp WHERE UserID = ?", ctx.author.id)[0]
+        username = username or db.record("SELECT LastfmUsername FROM users WHERE UserID = ?", ctx.author.id)[0]
         prefix = db.record("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
 
-        if db.record("SELECT LastfmUsername FROM exp WHERE UserID = ?", ctx.author.id)[0] == None:
+        if db.record("SELECT LastfmUsername FROM users WHERE UserID = ?", ctx.author.id)[0] == None:
             await ctx.send(f"Your Last.fm username is set to None\nSet it to your username by doing `{prefix[0]}setlastfm`")
             return
 
@@ -84,14 +84,14 @@ class LastFM(Cog):
     async def lastfm(self, ctx):
         """Request some information on a specific Last.fm User!\n`Username` = Last.fm Username"""
         if ctx.invoked_subcommand is None:
-            await self.fm_search(ctx, username=db.record("SELECT LastfmUsername FROM exp WHERE UserID = ?", ctx.author.id)[0])
+            await self.fm_search(ctx, username=db.record("SELECT LastfmUsername FROM users WHERE UserID = ?", ctx.author.id)[0])
 
     @lastfm.command(name="recent", aliases=['recenttracks', 'recentracks'], brief="Gives you the 5 most recent tracks from a user.")
     async def recent_tracks_command(self, ctx, username: Optional[str]):
-        username = username or db.record("SELECT LastfmUsername FROM exp WHERE UserID = ?", ctx.author.id)[0]
+        username = username or db.record("SELECT LastfmUsername FROM users WHERE UserID = ?", ctx.author.id)[0]
         prefix = db.record("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
 
-        if db.record("SELECT LastfmUsername FROM exp WHERE UserID = ?", ctx.author.id)[0] == None:
+        if db.record("SELECT LastfmUsername FROM users WHERE UserID = ?", ctx.author.id)[0] == None:
             await ctx.send(f"Your Last.fm username is set to None\nSet it to your username by doing `{prefix[0]}setlastfm`")
             return
 
@@ -127,7 +127,7 @@ class LastFM(Cog):
 
     @top_group.command(name="albums")
     async def top_albums_command(self, ctx, username: Optional[str]):
-        username = username or db.record("SELECT LastfmUsername FROM exp WHERE UserID = ?", ctx.author.id)[0]
+        username = username or db.record("SELECT LastfmUsername FROM users WHERE UserID = ?", ctx.author.id)[0]
 
         top_albums_url = f"https://ws.audioscrobbler.com/2.0/?method=user.gettopalbums&user={username}&api_key={os.environ.get('lastfmkey')}&format=json&limit=10"
         User_URL = f"https://ws.audioscrobbler.com/2.0/?method=user.getinfo&user={username}&api_key={os.environ.get('lastfmkey')}&format=json"
@@ -163,7 +163,7 @@ class LastFM(Cog):
 
     @top_group.command(name="tracks")
     async def top_tracks_command(self, ctx, username: Optional[str]):
-        username = username or db.record("SELECT LastfmUsername FROM exp WHERE UserID = ?", ctx.author.id)[0]
+        username = username or db.record("SELECT LastfmUsername FROM users WHERE UserID = ?", ctx.author.id)[0]
 
         top_tracks_url = f"https://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user={username}&api_key={os.environ.get('lastfmkey')}&format=json&limit=10"
         User_URL = f"https://ws.audioscrobbler.com/2.0/?method=user.getinfo&user={username}&api_key={os.environ.get('lastfmkey')}&format=json"
@@ -199,7 +199,7 @@ class LastFM(Cog):
 
     @top_group.command(name="artists", aliases=["artist"])
     async def top_artist_command(self, ctx, username: Optional[str]):
-        username = username or db.record("SELECT LastfmUsername FROM exp WHERE UserID = ?", ctx.author.id)[0]
+        username = username or db.record("SELECT LastfmUsername FROM users WHERE UserID = ?", ctx.author.id)[0]
 
         top_artists_url = f"https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user={username}&api_key={os.environ.get('lastfmkey')}&format=json&limit=10"
         User_URL = f"https://ws.audioscrobbler.com/2.0/?method=user.getinfo&user={username}&api_key={os.environ.get('lastfmkey')}&format=json"
@@ -235,7 +235,7 @@ class LastFM(Cog):
 
     @lastfm.command(name="search", brief="Search a last.fm account.")
     async def search_command(self, ctx, username: Optional[str]):
-        username = username or db.record("SELECT LastfmUsername FROM exp WHERE UserID = ?", ctx.author.id)[0]
+        username = username or db.record("SELECT LastfmUsername FROM users WHERE UserID = ?", ctx.author.id)[0]
 
         await self.fm_search(ctx, username)
 
@@ -339,13 +339,13 @@ class LastFM(Cog):
 
             embed.set_thumbnail(url=ctx.author.avatar_url)
 
-            db.execute("UPDATE exp SET LastfmUsername = ? WHERE UserID = ?", username, ctx.author.id)
+            db.execute("UPDATE users SET LastfmUsername = ? WHERE UserID = ?", username, ctx.author.id)
             db.commit()
 
             await ctx.send(embed=embed)
 
         else:
-            username =  db.record("SELECT LastfmUsername FROM exp WHERE UserID = ?", ctx.author.id)
+            username =  db.record("SELECT LastfmUsername FROM users WHERE UserID = ?", ctx.author.id)
             embed=Embed(title="Your Last.fm username", description=username[0], 
                         colour=ctx.author.colour)
 

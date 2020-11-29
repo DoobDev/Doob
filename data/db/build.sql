@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS guilds(
     LevelMessages text DEFAULT "no"
 );
 
-CREATE TABLE IF NOT EXISTS exp(
+CREATE TABLE IF NOT EXISTS users(
     UserID integer PRIMARY KEY,
     XP integer DEFAULT 0,
     Level integer DEFAULT 0,

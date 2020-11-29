@@ -23,11 +23,11 @@ class osu(Cog):
     async def osu_command(self, ctx, username: Optional[str]):
         prefix = db.record("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
 
-        if db.record("SELECT osuUsername FROM exp WHERE UserID = ?", ctx.author.id)[0] == None:
+        if db.record("SELECT osuUsername FROM users WHERE UserID = ?", ctx.author.id)[0] == None:
             await ctx.send(f"Your Last.fm username is set to None\nSet it to your username by doing `{prefix[0]}setlastfm`")
             return
         
-        username = username or db.record("SELECT osuUsername FROM exp WHERE UserID = ?", ctx.author.id)[0]
+        username = username or db.record("SELECT osuUsername FROM users WHERE UserID = ?", ctx.author.id)[0]
 
         api = OsuApi(os.environ.get('osu_api'))
 
@@ -64,13 +64,13 @@ class osu(Cog):
 
             embed.set_thumbnail(url=ctx.author.avatar_url)
 
-            db.execute("UPDATE exp SET osuUsername = ? WHERE UserID = ?", username, ctx.author.id)
+            db.execute("UPDATE users SET osuUsername = ? WHERE UserID = ?", username, ctx.author.id)
             db.commit()
 
             await ctx.send(embed=embed)
 
         else:
-            username =  db.record("SELECT osuUsername FROM exp WHERE UserID = ?", ctx.author.id)
+            username =  db.record("SELECT osuUsername FROM users WHERE UserID = ?", ctx.author.id)
             embed=Embed(title="Your osu! username", description=username[0], 
                         colour=ctx.author.colour)
 

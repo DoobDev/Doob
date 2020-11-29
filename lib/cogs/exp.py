@@ -75,7 +75,7 @@ class Exp(Cog):
         self.bot = bot
 
     async def process_xp(self, message):
-        xp, lvl, xplock = db.record("SELECT XP, Level, XPLock FROM exp WHERE UserID = ?", message.author.id)
+        xp, lvl, xplock = db.record("SELECT XP, Level, XPLock FROM users WHERE UserID = ?", message.author.id)
         xp_g, lvl_g, xplock_g = db.record(f"SELECT XP, Level, XPLock FROM guildexp WHERE UserID = {message.author.id} AND GuildID = {message.guild.id}")
 
         if datetime.utcnow() > datetime.fromisoformat(xplock):
@@ -90,7 +90,7 @@ class Exp(Cog):
 
         new_lvl = int(((xp + xp_to_add)//42) ** 0.55)
 
-        db.execute("UPDATE exp SET XP = XP + ?, Level = ?, XPLock = ? WHERE UserID = ?",
+        db.execute("UPDATE users SET XP = XP + ?, Level = ?, XPLock = ? WHERE UserID = ?",
                    xp_to_add, new_lvl, (datetime.utcnow()+timedelta(seconds=50)).isoformat(), message.author.id)
 
         if new_lvl > lvl:
@@ -116,9 +116,9 @@ class Exp(Cog):
         """Shows your Global+Server Doob level, rank and XP!"""
         target = target or ctx.author
 
-        ids = db.column("SELECT UserID FROM exp ORDER BY XP DESC")
-        # ids_g = db.column("SELECT UserID FROM exp ORDER BY XP DESC WHERE GuildID = ?", ctx.guild.id)
-        xp, lvl = db.record("SELECT XP, Level FROM exp WHERE UserID = ?", target.id) or (None, None)
+        ids = db.column("SELECT UserID FROM users ORDER BY XP DESC")
+        # ids_g = db.column("SELECT UserID FROM users ORDER BY XP DESC WHERE GuildID = ?", ctx.guild.id)
+        xp, lvl = db.record("SELECT XP, Level FROM users WHERE UserID = ?", target.id) or (None, None)
         xp_g, lvl_g = db.record("SELECT XP, Level FROM guildexp WHERE (UserID, GuildID) = (?, ?)", target.id, ctx.guild.id) or (None, None)
 
         if lvl is not None:
@@ -145,7 +145,7 @@ class Exp(Cog):
     @command(name="leaderboard", aliases=["lb", "xplb"], brief="Show who's on top of the Doob GlobalXP Leaderboard!")
     async def display_leaderboard(self, ctx):
         """Displays the Global XP Leaderboard for Doob."""
-        records = db.records("SELECT UserID, XP, Level FROM exp ORDER BY XP DESC")
+        records = db.records("SELECT UserID, XP, Level FROM users ORDER BY XP DESC")
 
         menu = MenuPages(source=Menu(ctx, records), clear_reactions_after=True, timeout=100.0)
         await menu.start(ctx)
