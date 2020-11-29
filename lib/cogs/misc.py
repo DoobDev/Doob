@@ -120,23 +120,6 @@ class Misc(Cog):
 	async def topgg_upvote_command(self, ctx):
 		await ctx.send("Vote for Doob at: https://top.gg/bot/680606346952966177/vote")
 
-	@command(name="createissue", brief="Lets the owner create a GitHub issue.")
-	async def create_issue_command(self, ctx, title: str):
-		if ctx.author.id == owner_id:
-			URL = "https://api.github.com/repos/doobdev/doob/issues"
-
-			PASSWORD = os.environ.get('github_secret')
-
-			session = requests.Session()
-			session.auth = (PASSWORD)
-			# Create our issue
-			issue = {'title': title}
-			# Add the issue to our repository
-			session.post(URL, json.dumps(issue))
-
-		else:
-			await ctx.send("You aren't the owner of Doob")
-
 	@Cog.listener()
 	async def on_ready(self):
 		if not self.bot.ready:
