@@ -200,11 +200,11 @@ class LastFM(Cog):
         User_URL = f"https://ws.audioscrobbler.com/2.0/?method=user.getinfo&user={username}&api_key={os.environ.get('lastfmkey')}&format=json"
 
         async with request("GET", top_tracks_url) as response:
-            data = (await response.json())['artists']
+            data = (await response.json())['toptracks']
 
             llist = list()
 
-            for i in data['artist']:
+            for i in data['track']:
                 llist.append(f"‣ #{i['@attr']['rank']} - {i['artist']['name']} - {i['name']} ({i['playcount']} plays)")
 
             if llist:
