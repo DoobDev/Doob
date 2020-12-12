@@ -40,9 +40,6 @@ dblpy == 0.4.0
 # doob/lib/cogs/meta.py: 4
 psutil == 5.7.3
 
-# doob/lib/cogs/osu.py: 2
-pyosu == 1.1
-
 # doob/lib/bot/__init__.py: 20
 # doob/lib/cogs/bio.py: 15
 # doob/lib/cogs/gamestats.py: 11
@@ -59,5 +56,5 @@ requests == 2.25.0
 # doob/lib/cogs/stat.py: 3
 statcord.py == 3.0.5
 
-git+git://github.com/Renondedju/Osu.py#egg=Osu.py
+git+git://github.com/Renondedju/Osu.py#egg=pyosu
 git+git://github.com/rapptz/discord-ext-menus.git#egg=discord-ext-menus
