@@ -24,7 +24,7 @@ class osu(Cog):
         prefix = db.record("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
 
         if db.record("SELECT osuUsername FROM users WHERE UserID = ?", ctx.author.id)[0] == None:
-            await ctx.send(f"Your Last.fm username is set to None\nSet it to your username by doing `{prefix[0]}setlastfm`")
+            await ctx.send(f"Your osu! username is set to None\nSet it to your username by doing `{prefix[0]}setosu`")
             return
         
         username = username or db.record("SELECT osuUsername FROM users WHERE UserID = ?", ctx.author.id)[0]
@@ -36,18 +36,18 @@ class osu(Cog):
         embed=Embed(title=f"{user.username}'s osu! profile", description=f"https://osu.ppy.sh/u/{user.username}",
                     colour=ctx.author.colour, timestamp=datetime.utcnow())
 
-        fields = [("Play Count", user.playcount, True),
-                  ("Rank", user.pp_rank, True),
-                  ("Country Rank", user.pp_country_rank, True),
-                  ("Total Score", user.total_score, False),
-                  ("Accuracy", user.accuracy, False),
-                  ("Level", user.level, True),
+        fields = [("Play Count", "{:,}".format(user.playcount), True),
+                  ("Rank", "{:,}".format(user.pp_rank), True),
+                  ("Country Rank", "{:,}".format(user.pp_country_rank), True),
+                  ("Total Score", "{:,}".format(round(user.total_score)), False),
+                  ("Accuracy", "{:,}".format(round(user.accuracy, 2)), False),
+                  ("Level", "{:,}".format(round(user.level)), True),
                   ("Country", user.country, False),
-                  ("<:rankingA:779734932519387136> Ranks", user.count_rank_a, True),
-                  ("<:rankingS:779734932850343958> Ranks", user.count_rank_s, True),
-                  ("<:rankingSd:779734932795686943> Ranks", user.count_rank_sh, True),
-                  ("<:rankingSS:779734933178417163> Ranks", user.count_rank_ss, True),
-                  ("<:rankingSSd:779734933077884968> Ranks", user.count_rank_ssh, True)]
+                  ("<:rankingA:779734932519387136> Ranks", "{:,}".format(user.count_rank_a), True),
+                  ("<:rankingS:779734932850343958> Ranks", "{:,}".format(user.count_rank_s), True),
+                  ("<:rankingSd:779734932795686943> Ranks", "{:,}".format(user.count_rank_sh), True),
+                  ("<:rankingSS:779734933178417163> Ranks", "{:,}".format(user.count_rank_ss), True),
+                  ("<:rankingSSd:779734933077884968> Ranks", "{:,}".format(user.count_rank_ssh), True)]
 
         for name, value, inline in fields:
             embed.add_field(name=name, value=value, inline=inline)
