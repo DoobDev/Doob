@@ -56,4 +56,10 @@ CREATE TABLE IF NOT EXISTS starboard(
     Stars integer DEFAULT 1,
     GuildID integer,
     PRIMARY KEY("MessageID", "GuildID")
+);
+
+CREATE TABLE IF NOT EXISTS afk(
+    UserID integer,
+    TimeStarted text DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY("UserID")
 )
