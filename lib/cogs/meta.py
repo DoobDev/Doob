@@ -147,7 +147,7 @@ class Meta(Cog):
 
 		fields = [("Name", "Doob <:doob:754762131085459498>", False),
 					("Description", "The multipurpose Discord Bot with global leveling and powerful logging tools for your server.", False),
-					("Developers", "<@308000668181069824>, <@476188720521805825>", False),
+					("Developers", "<@308000668181069824>", False),
 					("Doob's Server Count", f"{str(len(self.bot.guilds))}", True),
 					("Doob's Member Count", f"{str(len(self.bot.users))}", True),
 					("The ping for Doob is...", f" :ping_pong: {round(self.bot.latency * 1000)} ms", False),
