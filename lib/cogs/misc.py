@@ -122,17 +122,6 @@ class Misc(Cog):
 	async def topgg_upvote_command(self, ctx):
 		await ctx.send("Vote for Doob at: https://top.gg/bot/680606346952966177/vote")
 
-	@command(name="brb", aliases=["afk", "startbrb"], brief="Starts a BRB timer.")
-	@cooldown(1, 4, BucketType.user)
-	async def start_afk_command(self, ctx):
-		db.execute("INSERT INTO afk SET VALUES = ?", ctx.author.id)
-		db.commit()
-
-		embed = Embed(title=f"{ctx.author.display_name} will be right back.", timestamp=datetime.utcnow())
-		embed.set_thumbnail(url=ctx.author.avatar_url)
-
-		await ctx.send(embed=embed)
-		
 	@Cog.listener()
 	async def on_ready(self):
 		if not self.bot.ready:
