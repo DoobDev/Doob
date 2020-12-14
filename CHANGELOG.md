@@ -3,6 +3,8 @@
 * Added rounding to:
     - osu! commands
 * Made `doob/setosu` show your profile picture from osu! instead of from Discord.
+* (if all went well) Added `doob/remind`
+    - Lets you set a reminder!
 
 ## v2.2.0
 * `doob/timebomb` now has a timelimit of 1000 seconds.

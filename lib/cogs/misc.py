@@ -3,6 +3,8 @@ from discord.ext.commands import CheckFailure
 from discord.ext.commands import command, has_permissions, cooldown, BucketType
 from discord import Embed, Message, Reaction
 
+from discord.ext import timers
+
 from datetime import datetime
 
 import requests
@@ -53,7 +55,6 @@ class Misc(Cog):
 		for emoji in emojis:
 			await message.add_reaction(emoji)
 
-	
 	@command(name="giveaway", aliases=['startgiveaway'], brief="Creates a giveaway, that will choose a winner!")
 	@cooldown(1, 5, BucketType.user)
 	@has_permissions(administrator=True)
@@ -126,6 +127,20 @@ class Misc(Cog):
 	async def on_ready(self):
 		if not self.bot.ready:
 			self.bot.cogs_ready.ready_up("misc")
+
+	@command(name="remind", aliases=['remindme'], brief="Set a reminder")
+	async def remind(self, ctx, time, *, text):
+		"""Remind to do something on a date.\nThe format is: `Y/M/D`."""
+		date = datetime(*map(int, time.split("/")))
+		timers.Timer(self.bot, "reminder", date, args=(ctx.channel.id, ctx.author.id, text)).start()
+
+		await ctx.send("Reminder set!")
+
+	@Cog.listener()
+	async def on_reminder(self, author_id, text):
+		author = self.bot.get_user(author_id)
+		
+		await author.send(f"<@{author.id}>, remember to: {text}")
 
 def setup(bot):
 	bot.add_cog(Misc(bot))
