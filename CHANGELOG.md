@@ -1,6 +1,8 @@
 ## v2.2.1
+### (bigger update then usual, because the main bot was offline while I was working on this stuff, so I just wanted it to be 1 update instead of speread across a bunch of different updates)
 * Added rounding to:
     - osu! commands
+* Made `doob/setosu` show your profile picture from osu! instead of from Discord.
 
 ## v2.2.0
 * `doob/timebomb` now has a timelimit of 1000 seconds.

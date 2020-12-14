@@ -60,9 +60,12 @@ class osu(Cog):
     @cooldown(1, 5, BucketType.user)
     async def osu_set_command(self, ctx, username: Optional[str]):
         if username != None:
+            api = OsuApi(os.environ.get('osu_api'))
+            user = await api.get_user(user=username, mode=0, type_str='string')
+
             embed=Embed(title="Setting osu! username:", description=username, colour=ctx.author.colour)
 
-            embed.set_thumbnail(url=ctx.author.avatar_url)
+            embed.set_thumbnail(url=f"https://a.ppy.sh/{user.user_id}")
 
             db.execute("UPDATE users SET osuUsername = ? WHERE UserID = ?", username, ctx.author.id)
             db.commit()
@@ -70,11 +73,14 @@ class osu(Cog):
             await ctx.send(embed=embed)
 
         else:
-            username =  db.record("SELECT osuUsername FROM users WHERE UserID = ?", ctx.author.id)
-            embed=Embed(title="Your osu! username", description=username[0], 
+            username = db.record("SELECT osuUsername FROM users WHERE UserID = ?", ctx.author.id)[0]
+            api = OsuApi(os.environ.get('osu_api'))
+            user = await api.get_user(user=username, mode=0, type_str='string')
+
+            embed=Embed(title="Your osu! username", description=username, 
                         colour=ctx.author.colour)
 
-            embed.set_thumbnail(url=ctx.author.avatar_url)
+            embed.set_thumbnail(url=f"https://a.ppy.sh/{user.user_id}")
 
             await ctx.send(embed=embed)
 
