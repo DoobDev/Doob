@@ -10,7 +10,7 @@ psutil == 5.7.3
 
 python_dotenv == 0.15.0
 
-requests == 2.25.0
+requests == 2.25.1
 
 statcord.py == 3.0.5
 
