@@ -1,4 +1,4 @@
-# ➤ Doob [![time tracker](https://wakatime.com/badge/github/DoobDev/Doob.svg)](https://wakatime.com/badge/github/DoobDev/Doob)
+# ➤ Doob <img src="https://github.com/DoobDev/Doob/raw/master/images/logo.png" alt="Doob Logo" width=25/> [![time tracker](https://wakatime.com/badge/github/DoobDev/Doob.svg)](https://wakatime.com/badge/github/DoobDev/Doob)
 
 [![Discord Bots](https://top.gg/api/widget/status/680606346952966177.svg)](https://top.gg/bot/680606346952966177)
 [![Discord Bots](https://top.gg/api/widget/upvotes/680606346952966177.svg?noavatar=true)](https://top.gg/bot/680606346952966177)
