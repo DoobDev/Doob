@@ -56,7 +56,7 @@ pyosu == 0.5.2
 python_dotenv == 0.15.0
 
 # doob/lib/cogs/misc.py: 10
-requests == 2.18.4
+requests == 2.20.0
 
 # doob/lib/NOT IN USE/stat.py: 3
 statcord.py == 3.0.5
