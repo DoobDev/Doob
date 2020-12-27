@@ -44,7 +44,7 @@ discord_timers == 0.1.0
 psutil == 5.7.3
 
 # doob/lib/cogs/osu.py: 2
-pyosu == 0.5.2
+
 
 # doob/lib/NOT IN USE/servercount.py: 6
 # doob/lib/NOT IN USE/stat.py: 6
