@@ -30,7 +30,7 @@ class HelpMenu(ListPageSource):
         offset = (menu.current_page*self.per_page) + 1
         len_data = len(self.entries)
 
-        embed = Embed(title="Help", description="Doob Help Menu!", colour=self.ctx.author.colour)
+        embed = Embed(title="Help", description="[Subcommands Docs](https://mmatt.gitbook.io/docs/) | [Donate](https://patreon.com/doobdev) | [Top.gg Link](https://top.gg/bot/680606346952966177/)", colour=self.ctx.author.colour)
         embed.set_thumbnail(url=self.ctx.guild.me.avatar_url)
         embed.set_footer(text=f"{offset:,} - {min(len_data, offset+self.per_page-1):,} of {len_data:,} commands.")
         
