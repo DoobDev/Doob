@@ -88,10 +88,10 @@ class LastFM(Cog):
 
     @lastfm.command(name="--np", aliases=['-np', 'np'])
     async def now_playing_command(self, ctx, username: Optional[str]):
-        username = username or db.record("SELECT LastfmUsername FROM exp WHERE UserID = ?", ctx.author.id)[0]
+        username = username or db.record("SELECT LastfmUsername FROM users WHERE UserID = ?", ctx.author.id)[0]
         prefix = db.record("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
 
-        if db.record("SELECT LastfmUsername FROM exp WHERE UserID = ?", ctx.author.id)[0] == None:
+        if db.record("SELECT LastfmUsername FROM users WHERE UserID = ?", ctx.author.id)[0] == None:
             await ctx.send(f"Your Last.fm username is set to None\nSet it to your username by doing `{prefix[0]}setlastfm`")
             return
 

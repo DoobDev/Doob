@@ -1,4 +1,9 @@
+## v2.3.1
+* Forgot to move to `users` table instead of `exp` table on 2 lines.
+    - This fixes `doob/fm --np`
+
 ## v2.2.1
+### This should technically be v2.3.0, but I'm dumb lol
 ### (bigger update then usual, because the main bot was offline while I was working on this stuff, so I just wanted it to be 1 update instead of speread across a bunch of different updates)
 * Added rounding to:
     - osu! commands
