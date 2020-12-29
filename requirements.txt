@@ -41,7 +41,7 @@ discord.py == 1.5.1
 discord_timers == 0.1.0
 
 # doob/lib/cogs/meta.py: 4
-psutil == 5.7.3
+psutil == 5.8.0
 
 # doob/lib/cogs/osu.py: 2
 
@@ -58,7 +58,7 @@ psutil == 5.7.3
 python_dotenv == 0.15.0
 
 # doob/lib/cogs/misc.py: 10
-requests == 2.20.0
+requests == 2.25.1
 
 # doob/lib/NOT IN USE/stat.py: 3
 statcord.py == 3.0.5
