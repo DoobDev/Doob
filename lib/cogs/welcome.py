@@ -30,5 +30,20 @@ class Welcome(Cog):
 		print(f"{guild.name} users have been added into the users DB")
 		db.commit()
 
+	@Cog.listener()
+	async def on_message(self, message):
+		if message.guild:
+			return
+
+		if message.content == "help":
+			await message.author.send("Type `@Doob help` in a server with @Doob to get a command list!\nSupport Server: https://discord.gg/hgQTTU7")
+		
+		if message.content == "donate":
+			await message.author.send("How generous!\nhttps://patreon.com/doobdev")
+
+		else:
+			await message.author.send("Most commands can only be used in servers, not DMs!")
+
+
 def setup(bot):
 	bot.add_cog(Welcome(bot))

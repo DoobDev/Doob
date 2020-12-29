@@ -7,8 +7,6 @@ from discord.ext import timers
 
 from datetime import datetime
 
-import requests
-
 import json
 
 import random
@@ -135,23 +133,6 @@ class Misc(Cog):
 		timers.Timer(self.bot, "reminder", date, args=(ctx.channel.id, ctx.author.id, text)).start()
 
 		await ctx.send("Reminder set!")
-
-	# This command isn't ready yet, but I have to push a quick fix xd
-	# @command(name="weather", aliases=['forcast'], brief="Get weather data for a city.")
-	# async def weather_command(self, ctx, city: str):
-	# 	"""Get weather data from your city using the OpenWeatherMap API."""
-
-    #     URL = f"api.openweathermap.org/data/2.5/weather?q={city}&appid={os.environ.get('weather_key')}"
-
-    #     async with request("GET", URL, headers={}) as response:
-    #         if response.status == 200:
-    #             data = await response.json()
-    #             embed = Embed(title="Dog Fact!", description=data["fact"], colour=ctx.author.colour)
-    #             embed.set_footer(text=f"{ctx.author} requested this forcast!", icon_url=ctx.author.avatar_url)
-    #             await ctx.send(embed=embed)
-
-    #         else:
-    #             await ctx.send(f"OpenWeatherMap API sent a {response.status} status.")
 
 	@Cog.listener()
 	async def on_reminder(self, author_id, text):

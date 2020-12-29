@@ -1,3 +1,9 @@
+## v2.3.3
+* Added some DM commands
+    - DM the bot, "donate" and it gives you a donation link.
+    - DM the bot, "help" and it gives you instructions on how to get help.
+    - DM the bot anything else, and it tells you that most commands can't be DMd
+
 ## v2.3.2
 * Fixed `doob/timebomb`'s lower time error.
 
