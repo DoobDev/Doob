@@ -1,3 +1,6 @@
+## v2.3.2
+* Fixed `doob/timebomb`'s lower time error.
+
 ## v2.3.1
 * Forgot to move to `users` table instead of `exp` table on 2 lines.
     - This fixes `doob/fm --np`

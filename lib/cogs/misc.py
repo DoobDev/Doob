@@ -106,7 +106,7 @@ class Misc(Cog):
 	@cooldown(1, 4, BucketType.user)
 	async def time_bomb_command(self, ctx, time: int, *, message : str):
 		"""Makes a message with a timelimit on it, the time is in seconds."""
-		if time >= 1000:
+		if time < 1000:
 			await ctx.message.delete()
 
 			embed = Embed(title="Time Message", description=message, colour=ctx.author.colour)
@@ -116,7 +116,7 @@ class Misc(Cog):
 			await ctx.send(embed=embed, delete_after=time)
 
 		else:
-			await ctx.send("Please try again with a lower time.", delete_after=15)
+			await ctx.send(f"Please try again with a lower time, {time} is too big.", delete_after=15)
 
 	@command(name="vote", aliases=["upvote"], brief="Vote for Doob on Top.gg!")
 	@cooldown(1, 4, BucketType.user)
