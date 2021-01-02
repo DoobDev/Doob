@@ -5,6 +5,8 @@ from discord import Embed, Message, Reaction
 
 from discord.ext import timers
 
+from discord.utils import get
+
 from datetime import datetime
 
 import json
@@ -165,6 +167,30 @@ class Misc(Cog):
     @cooldown(1, 4, BucketType.user)
     async def topgg_upvote_command(self, ctx):
         await ctx.send("Vote for Doob at: https://top.gg/bot/680606346952966177/vote")
+
+    @command(name="phone", aliases=["iphone"], brief="phone")
+    @cooldown(1, 4, BucketType.user)
+    async def phone_command(self, ctx):
+        """phone\n`Patreon Only`"""
+        homeGuild = self.bot.get_guild(702352937980133386)  # Support Server ID.
+        patreonRole = get(homeGuild.roles, id=757041749716893739)  # Patreon role ID.
+
+        member = []
+
+        # Checks if a user is a Patreon member.
+        for pledger in homeGuild.members:
+            if pledger == ctx.author:
+                member = pledger
+
+        if ctx.author in homeGuild.members:
+            if patreonRole in member.roles:
+                await ctx.send("https://cdn.discordapp.com/attachments/721514198000992350/794840218514751499/IYUimA7gyac7sxrB3uKu9Mb1ZZOJVtgAAAA.png")
+
+            else:
+                await ctx.send("You are not a Patron to Doob, subscribe to any of the tiers at <https://patreon.com/doobdev> to gain access to this command.")
+
+        else:
+            await ctx.send("You are not a Patron to Doob, subscribe to any of the tiers at <https://patreon.com/doobdev> to gain access to this command.")
 
     @Cog.listener()
     async def on_ready(self):

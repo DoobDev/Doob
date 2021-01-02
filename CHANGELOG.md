@@ -1,3 +1,6 @@
+## v2.3.4
+* Added `Patreon Only` command `doob/phone`.
+
 ## v2.3.3
 * Added some DM commands
     - DM the bot, "donate" and it gives you a donation link.
