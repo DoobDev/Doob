@@ -259,8 +259,8 @@ class Meta(Cog):
     async def show_bot_info_command(self, ctx):
         """Gives basic info about Doob."""
 
-        homeGuild = self.bot.get_guild(702352937980133386)
-        patreonRole = get(homeGuild.roles, id=757041749716893739)
+        homeGuild = self.bot.get_guild(config["homeGuild_id"])  # Support Server ID.
+        patreonRole = get(homeGuild.roles, id=config["patreonRole_id"])  # Patreon role ID.
 
         member = []
 
@@ -285,8 +285,8 @@ class Meta(Cog):
     )
     async def patreon_link(self, ctx):
         """Gives a link to the Patreon for Doob!\nWe apprecieate your support!~"""
-        homeGuild = self.bot.get_guild(702352937980133386)
-        patreonRole = get(homeGuild.roles, id=757041749716893739)
+        homeGuild = self.bot.get_guild(config["homeGuild_id"])  # Support Server ID.
+        patreonRole = get(homeGuild.roles, id=config["patreonRole_id"])  # Patreon role ID.
 
         member = []
 

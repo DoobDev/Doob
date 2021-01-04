@@ -9,7 +9,11 @@ from discord.utils import get
 
 from datetime import datetime
 
+
 import json
+
+with open("config.json") as config_file:
+    config = json.load(config_file)
 
 import random
 
@@ -172,12 +176,11 @@ class Misc(Cog):
     @cooldown(1, 4, BucketType.user)
     async def phone_command(self, ctx):
         """phone\n`Patreon Only`"""
-        homeGuild = self.bot.get_guild(702352937980133386)  # Support Server ID.
-        patreonRole = get(homeGuild.roles, id=757041749716893739)  # Patreon role ID.
+        homeGuild = self.bot.get_guild(config["homeGuild_id"])  # Support Server ID.
+        patreonRole = get(homeGuild.roles, id=config["patreonRole_id"])  # Patreon role ID.
 
         member = []
 
-        # Checks if a user is a Patreon member.
         for pledger in homeGuild.members:
             if pledger == ctx.author:
                 member = pledger

@@ -9,6 +9,10 @@ from discord.utils import get
 
 from ..db import db  # pylint: disable=relative-beyond-top-level
 
+import json
+
+with open("config.json") as config_file:
+    config = json.load(config_file)
 
 class Fun(Cog):
     def __init__(self, bot):
@@ -40,8 +44,8 @@ class Fun(Cog):
     @command(name="echo", aliases=["say"], brief="Make Doob say something!")
     async def echo_message(self, ctx, *, message):
         """Make Doob say a message! | `Patreon Only`"""
-        homeGuild = self.bot.get_guild(702352937980133386)  # Support Server ID.
-        patreonRole = get(homeGuild.roles, id=757041749716893739)  # Patreon role ID.
+        homeGuild = self.bot.get_guild(config["homeGuild_id"])  # Support Server ID.
+        patreonRole = get(homeGuild.roles, id=config["patreonRole_id"])  # Patreon role ID.
 
         member = []
 
@@ -104,8 +108,8 @@ class Fun(Cog):
     @cooldown(2, 5, BucketType.user)
     async def lucky_dog_image(self, ctx, *, dog: Optional[str]):
         """Shows the lucky dogs possible!\nIsn't eligable for the Nitro Giveaways\n`Patreon` permission required"""
-        homeGuild = self.bot.get_guild(702352937980133386)  # Support Server ID.
-        patreonRole = get(homeGuild.roles, id=757041749716893739)  # Patreon role ID.
+        homeGuild = self.bot.get_guild(config["homeGuild_id"])  # Support Server ID.
+        patreonRole = get(homeGuild.roles, id=config["patreonRole_id"])  # Patreon role ID.
 
         member = []
 
@@ -230,9 +234,8 @@ class Fun(Cog):
             "SELECT LuckyDogs FROM luckydogs WHERE UserID = ?", ctx.author.id
         )
 
-        # Support Server ID/Patreon Role ID
-        homeGuild = self.bot.get_guild(702352937980133386)
-        patreonRole = get(homeGuild.roles, id=757041749716893739)
+        homeGuild = self.bot.get_guild(config["homeGuild_id"])  # Support Server ID.
+        patreonRole = get(homeGuild.roles, id=config["patreonRole_id"])  # Patreon role ID.
 
         member = []
 
