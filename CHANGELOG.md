@@ -27,7 +27,8 @@
 * Added `doob/queue`
     - Lets you see the queue for that server.
 
-## I worked super hard for this to come out, however I must provide a disclaimer that at this time (1/4/2021) this is in **OPEN BETA**, meaning this *might* be on the public bot (meaning by the time this changelog is out, I might not have figured out how to install lavalink [the "music"/"voice" ""server""] on my VPS.), but it still might be buggy and stuff like command descriptions aren't finished yet.
+## I worked super hard for this to come out, however I must provide a disclaimer that at this time (1/4/2021) this is in **OPEN BETA**, ~~meaning this *might* be on the public bot (meaning by the time this changelog is out, I might not have figured out how to install lavalink [the "music"/"voice" ""server""] on my VPS.)~~, but it still might be buggy and stuff like command descriptions aren't finished yet.
+(Music is available on the public bot.)
 
 ## v2.3.4
 * Added `Patreon Only` command `doob/phone`.
