@@ -1,3 +1,6 @@
+## v2.4.1
+* Added command descriptions for music commands.
+
 ## v2.4.0
 ### Added music support to Doob!
 * Added `doob/connect`
