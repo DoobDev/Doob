@@ -73,7 +73,7 @@ class Bot(BotBase):
             owner_ids=OWNER_IDS,
             chunk_guilds_at_startup=True,
             intents=intents,
-            case_insensitive=True
+            case_insensitive=True,
         )
 
     def setup(self):
@@ -126,7 +126,7 @@ class Bot(BotBase):
             # embed = Embed(title="Oops!", description="This command didn't work correctly.", colour=Colour.red())
             # embed.add_field(name="❓ Join the Support Server:", value="https://discord.gg/hgQTTU7")
             # await args[0].send(embed=embed)
-            
+
             raise err
 
     # Basic error handling for Doob

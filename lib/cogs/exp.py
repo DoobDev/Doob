@@ -165,11 +165,14 @@ class Exp(Cog):
         xp, lvl = db.record(
             "SELECT XP, Level FROM users WHERE UserID = ?", target.id
         ) or (None, None)
-        xp_g, lvl_g = db.record(
-            "SELECT XP, Level FROM guildexp WHERE (UserID, GuildID) = (?, ?)",
-            target.id,
-            ctx.guild.id,
-        ) or (None, None)
+        xp_g, lvl_g = (
+            db.record(
+                "SELECT XP, Level FROM guildexp WHERE (UserID, GuildID) = (?, ?)",
+                target.id,
+                ctx.guild.id,
+            )
+            or (None, None)
+        )
 
         if lvl is not None:
             await ctx.send(

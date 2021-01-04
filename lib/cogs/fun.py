@@ -14,6 +14,7 @@ import json
 with open("config.json") as config_file:
     config = json.load(config_file)
 
+
 class Fun(Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -45,7 +46,9 @@ class Fun(Cog):
     async def echo_message(self, ctx, *, message):
         """Make Doob say a message! | `Patreon Only`"""
         homeGuild = self.bot.get_guild(config["homeGuild_id"])  # Support Server ID.
-        patreonRole = get(homeGuild.roles, id=config["patreonRole_id"])  # Patreon role ID.
+        patreonRole = get(
+            homeGuild.roles, id=config["patreonRole_id"]
+        )  # Patreon role ID.
 
         member = []
 
@@ -109,7 +112,9 @@ class Fun(Cog):
     async def lucky_dog_image(self, ctx, *, dog: Optional[str]):
         """Shows the lucky dogs possible!\nIsn't eligable for the Nitro Giveaways\n`Patreon` permission required"""
         homeGuild = self.bot.get_guild(config["homeGuild_id"])  # Support Server ID.
-        patreonRole = get(homeGuild.roles, id=config["patreonRole_id"])  # Patreon role ID.
+        patreonRole = get(
+            homeGuild.roles, id=config["patreonRole_id"]
+        )  # Patreon role ID.
 
         member = []
 
@@ -235,7 +240,9 @@ class Fun(Cog):
         )
 
         homeGuild = self.bot.get_guild(config["homeGuild_id"])  # Support Server ID.
-        patreonRole = get(homeGuild.roles, id=config["patreonRole_id"])  # Patreon role ID.
+        patreonRole = get(
+            homeGuild.roles, id=config["patreonRole_id"]
+        )  # Patreon role ID.
 
         member = []
 

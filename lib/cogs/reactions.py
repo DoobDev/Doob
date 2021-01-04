@@ -24,11 +24,14 @@ class Reactions(Cog):
             )
 
             if not message.author.bot and payload.member.id != message.author.id:
-                msg_id, stars = db.record(
-                    "SELECT StarMessageID, Stars from starboard WHERE (GuildID, MessageID) = (?, ?)",
-                    guild.id,
-                    message.id,
-                ) or (None, 0)
+                msg_id, stars = (
+                    db.record(
+                        "SELECT StarMessageID, Stars from starboard WHERE (GuildID, MessageID) = (?, ?)",
+                        guild.id,
+                        message.id,
+                    )
+                    or (None, 0)
+                )
                 embed = Embed(
                     title=f"⭐ x{stars+1}",
                     colour=message.author.colour,

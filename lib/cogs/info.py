@@ -79,7 +79,9 @@ class Info(Cog):
         target = target or ctx.author
 
         homeGuild = self.bot.get_guild(config["homeGuild_id"])  # Support Server ID.
-        patreonRole = get(homeGuild.roles, id=config["patreonRole_id"])  # Patreon role ID.
+        patreonRole = get(
+            homeGuild.roles, id=config["patreonRole_id"]
+        )  # Patreon role ID.
 
         member = []
 

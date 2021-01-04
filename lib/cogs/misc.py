@@ -177,7 +177,9 @@ class Misc(Cog):
     async def phone_command(self, ctx):
         """phone\n`Patreon Only`"""
         homeGuild = self.bot.get_guild(config["homeGuild_id"])  # Support Server ID.
-        patreonRole = get(homeGuild.roles, id=config["patreonRole_id"])  # Patreon role ID.
+        patreonRole = get(
+            homeGuild.roles, id=config["patreonRole_id"]
+        )  # Patreon role ID.
 
         member = []
 
@@ -187,13 +189,19 @@ class Misc(Cog):
 
         if ctx.author in homeGuild.members:
             if patreonRole in member.roles:
-                await ctx.send("https://cdn.discordapp.com/attachments/721514198000992350/794840218514751499/IYUimA7gyac7sxrB3uKu9Mb1ZZOJVtgAAAA.png")
+                await ctx.send(
+                    "https://cdn.discordapp.com/attachments/721514198000992350/794840218514751499/IYUimA7gyac7sxrB3uKu9Mb1ZZOJVtgAAAA.png"
+                )
 
             else:
-                await ctx.send("You are not a Patron to Doob, subscribe to any of the tiers at <https://patreon.com/doobdev> to gain access to this command.")
+                await ctx.send(
+                    "You are not a Patron to Doob, subscribe to any of the tiers at <https://patreon.com/doobdev> to gain access to this command."
+                )
 
         else:
-            await ctx.send("You are not a Patron to Doob, subscribe to any of the tiers at <https://patreon.com/doobdev> to gain access to this command.")
+            await ctx.send(
+                "You are not a Patron to Doob, subscribe to any of the tiers at <https://patreon.com/doobdev> to gain access to this command."
+            )
 
     @Cog.listener()
     async def on_ready(self):
