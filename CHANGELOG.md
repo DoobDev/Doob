@@ -1,3 +1,34 @@
+## v2.4.0
+### Added music support to Doob!
+* Added `doob/connect`
+    - Connects to a Voice Channel
+* Added `doob/disconnect`
+    - Disconnects from a Voice Channel
+* Added `doob/play`
+    - Plays a song either linked from YouTube, or searched.
+* Added `doob/pause`
+    - Pauses the current song.
+* Added `doob/resume`
+    - Resumes the current song.
+        - (Using `doob/play` with nothing after it does the same thing.)
+* Added `doob/stop`
+    - Stops the music, and clears the queue.
+* Added `doob/next`
+    - Skips the current track.
+* Added `doob/previous`
+    - Goes to the previous track in the queue and plays it.
+* Added `doob/shuffle`
+    - Shuffles the queue.
+* Added `doob/repeat`
+    - Allows you to repeat using `none`, `1`, or `all`.
+        - `none` = Stops repeating
+        - `1` = 1 track repeating
+        - `all` = Queue repeating.
+* Added `doob/queue`
+    - Lets you see the queue for that server.
+
+## I worked super hard for this to come out, however I must provide a disclaimer that at this time (1/4/2021) this is in **OPEN BETA**, meaning this *might* be on the public bot (meaning by the time this changelog is out, I might not have figured out how to install lavalink [the "music"/"voice" ""server""] on my VPS.), but it still might be buggy and stuff like command descriptions aren't finished yet.
+
 ## v2.3.4
 * Added `Patreon Only` command `doob/phone`.
 
