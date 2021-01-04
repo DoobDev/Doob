@@ -73,6 +73,7 @@ class Bot(BotBase):
             owner_ids=OWNER_IDS,
             chunk_guilds_at_startup=True,
             intents=intents,
+            case_insensitive=True
         )
 
     def setup(self):
@@ -125,15 +126,7 @@ class Bot(BotBase):
             # embed = Embed(title="Oops!", description="This command didn't work correctly.", colour=Colour.red())
             # embed.add_field(name="❓ Join the Support Server:", value="https://discord.gg/hgQTTU7")
             # await args[0].send(embed=embed)
-
-            # if err == "on_command_error":
-            # 	args[0].send("uh so py is being gay again sry")
-            # else:
-            #   newerror = (err.original[:175] + '... (it was too long/op)') if len(err.original) > 175 else err.original
-            #   print("ok boys we got to this stage, time to put it in")
-            #   await args[0].send(f"Something went wrong!\n\nError: {newerror}")
-
-            # await args[0].send(f"Something went wrong. :/\n{err.original}")
+            
             raise err
 
     # Basic error handling for Doob
