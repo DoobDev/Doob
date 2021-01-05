@@ -8,6 +8,10 @@ from discord.utils import get
 
 from ..db import db  # pylint: disable=relative-beyond-top-level
 
+import json
+
+with open("config.json") as config_file:
+    config = json.load(config_file)
 
 class Info(Cog):
     def __init__(self, bot):
