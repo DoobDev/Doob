@@ -1,0 +1,11 @@
+{
+"Create Discord Command": {
+  "prefix": "cdc",
+  "body": [
+    "    @command(name=\"${1:name}\")",
+    "    async def ${1:name}_command(self, ctx):",
+    "        await ctx.send(f\"${1:message}\")"
+  ],
+  "description": "Create Discord Command"
+}
+}
