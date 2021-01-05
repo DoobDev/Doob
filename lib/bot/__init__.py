@@ -98,7 +98,7 @@ class Bot(BotBase):
         print("Authenticated...")
         print("Starting up")
         # Gets the token from the .env to authenticate the bot.
-        super().run(os.environ.get("TOKEN"), reconnect=True)
+        super().run(os.environ.get('TOKEN'), reconnect=True)
 
     async def process_commands(self, message):
         ctx = await self.get_context(message, cls=Context)
