@@ -54,7 +54,7 @@ psutil == 5.7.2
 python_dotenv == 0.15.0
 
 # C:\Users\matt\Desktop\doob\lib\cogs\stat.py: 3
-statcord.py == 3.0.4
+statcord.py == 3.0.5
 
 # C:\Users\matt\Desktop\doob\lib\cogs\music.py: 8
 wavelink == 0.9.6
