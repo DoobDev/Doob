@@ -59,7 +59,7 @@ statcord.py == 3.0.5
 # C:\Users\matt\Desktop\doob\lib\cogs\music.py: 8
 wavelink == 0.9.6
 
-discord.py == 1.5.1
+discord.py == 1.6.0
 
 git+git://github.com/Renondedju/Osu.py#egg=pyosu
 git+git://github.com/rapptz/discord-ext-menus.git#egg=discord-ext-menus
