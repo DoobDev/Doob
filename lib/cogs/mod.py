@@ -393,7 +393,11 @@ class Mod(Cog):
         """Create a voice channel in the guild the command was executed in.\n`Manage Server` permission required."""
         channel = await ctx.guild.create_voice_channel(name)
 
-        await ctx.send(f"Your Voice Channel has been created.\n<#{channel.id}>")
+        invite = await channel.create_invite(
+            reason="Made using the create voice channel command."
+        )
+
+        await ctx.send(f"Your Voice Channel has been created.\n{invite}")
 
     @Cog.listener()
     async def on_ready(self):
