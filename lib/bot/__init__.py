@@ -16,6 +16,7 @@ from discord.ext.commands import (
     BadArgument,
     MissingRequiredArgument,
     CommandOnCooldown,
+    MissingPermissions,
 )
 
 import os
@@ -122,11 +123,6 @@ class Bot(BotBase):
 
     async def on_error(self, err, *args, **kwargs):
         if err == "on_command_error":
-
-            # embed = Embed(title="Oops!", description="This command didn't work correctly.", colour=Colour.red())
-            # embed.add_field(name="❓ Join the Support Server:", value="https://discord.gg/hgQTTU7")
-            # await args[0].send(embed=embed)
-
             raise err
 
     # Basic error handling for Doob
@@ -144,6 +140,9 @@ class Bot(BotBase):
                 f'That command is on a {str(exc.cooldown.type).split(".")[-1]} cooldown! Try again in {exc.retry_after:,.2f} seconds.',
                 delete_after=exc.retry_after,
             )
+
+        elif isinstance(exc, MissingPermissions):
+            await ctx.reply("You don't have permissions for that.", delete_after=10)
 
         elif hasattr(exc, "original"):
             if isinstance(exc.original, Forbidden):

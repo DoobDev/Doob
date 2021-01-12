@@ -73,11 +73,6 @@ class Mod(Cog):
                         "Something went wrong.\nYou might not be able to kick that member."
                     )
 
-    @kick_command.error
-    async def kick_command_error(self, ctx, exc):
-        if isinstance(exc, CheckFailure):
-            await ctx.reply("Insufficient permissions to perform that task.")
-
     async def mute_members(self, message, targets, reason):
         unmutes = []
         mute_role = db.field(
@@ -163,11 +158,6 @@ class Mod(Cog):
         embed = Embed(title="Unmuted:", description=f"{comma.join(tNames)}")
         await ctx.reply(embed=embed)
 
-    @mute_command.error
-    async def mute_command_error(self, ctx, exc):
-        if isinstance(exc, CheckFailure):
-            await ctx.reply("Insufficient permissions to perform that task.")
-
     @command(
         name="ban", aliases=["b", "banmember"], brief="Ban a member from the server."
     )
@@ -198,11 +188,6 @@ class Mod(Cog):
                     await ctx.reply(
                         "Something went wrong.\nYou might not be able to ban that member."
                     )
-
-    @ban_command.error
-    async def ban_command_error(self, ctx, exc):
-        if isinstance(exc, CheckFailure):
-            await ctx.reply("Insufficient permissions to perform that task.")
 
     @command(
         name="russianroulette",

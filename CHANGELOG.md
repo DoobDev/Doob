@@ -1,3 +1,7 @@
+## v2.4.4
+* Added basic error handling for not having permissions for a command.
+* Removed the error handling from Ban/Kick/Mute commands, because of the change above.
+
 ## v2.4.3
 * Added `doob/createtextchannel`
 * Added `doob/createvoicechannel`
