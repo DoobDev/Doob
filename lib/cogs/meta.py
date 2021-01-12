@@ -170,9 +170,9 @@ class Meta(Cog):
                     text=f"Authored by: {ctx.author.display_name}",
                     icon_url=ctx.author.avatar_url,
                 )
-                await ctx.reply(embed=embed)
+                await ctx.send(embed=embed)
         elif ctx.author.id != owner_id:
-            await ctx.reply(
+            await ctx.send(
                 f"You don't have permissions to give updates about Doob\nType `{prefix[0][0]}help update` for more info."
             )
 
