@@ -70,7 +70,7 @@ class Info(Cog):
             embed.add_field(name=name, value=value, inline=inline)
 
         embed.set_thumbnail(url=target.avatar_url)
-        await ctx.send(embed=embed)
+        await ctx.reply(embed=embed)
 
     @command(
         name="userinfo",
@@ -150,10 +150,10 @@ class Info(Cog):
             embed.add_field(
                 name="Banned members", value=len(await ctx.guild.bans()), inline=True
             )
-            await ctx.send(embed=embed)
+            await ctx.reply(embed=embed)
 
         else:
-            await ctx.send(embed=embed)
+            await ctx.reply(embed=embed)
 
     @command(
         name="serverinfo",

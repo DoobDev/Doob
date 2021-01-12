@@ -175,12 +175,12 @@ class Exp(Cog):
         )
 
         if lvl is not None:
-            await ctx.send(
+            await ctx.reply(
                 f"`Global Rank:`\n{target.display_name} is level {lvl:,} with {xp:,} xp and is rank {ids.index(target.id)+1} of {len(ids):,} users globally.\n`Server Rank:`\n{target.display_name} is server level {lvl_g:,} with {xp_g:,} server xp."
             )
 
         else:
-            ctx.send("That member is not in the XP Database.")
+            ctx.reply("That member is not in the XP Database.")
 
     @command(
         name="levelmessages",
@@ -207,10 +207,10 @@ class Exp(Cog):
                 ctx.guild.id,
             )
             db.commit()
-            await ctx.send(f"Level messages set to `{yes_or_no}`.")
+            await ctx.reply(f"Level messages set to `{yes_or_no}`.")
 
         else:
-            await ctx.send(
+            await ctx.reply(
                 f"The current setting for Level Messages is: `{levelmessages[0][0]}`\nTo change it, type `{prefix[0][0]}levelmessages (yes or no)`"
             )
 

@@ -23,7 +23,7 @@ class Fun(Cog):
     async def say_hello(self, ctx):
         """Say Hi to Doob!"""
         # Chooses Hello, Hi, or Hey at random, to say Hi to the user.
-        await ctx.send(f"{choice(('Hello', 'Hi', 'Hey'))} {ctx.author.mention}!")
+        await ctx.reply(f"{choice(('Hello', 'Hi', 'Hey'))} {ctx.author.mention}!")
 
     @command(name="dice", aliases=["roll", "rolldice"], brief="Roll some dice!")
     @cooldown(1, 10, BucketType.user)
@@ -35,12 +35,12 @@ class Fun(Cog):
         if dice <= 40:
             rolls = [randint(1, value) for i in range(dice)]
 
-            await ctx.send(" + ".join([str(r) for r in rolls]) + f" = {sum(rolls)}")
+            await ctx.reply(" + ".join([str(r) for r in rolls]) + f" = {sum(rolls)}")
 
         # If the dice number is too high, we don't run the command
         # This is because higher then 40 dice can lead to errors regarding message length.
         else:
-            await ctx.send("Please roll a lower number of dice.", delete_after=10)
+            await ctx.reply("Please roll a lower number of dice.", delete_after=10)
 
     @command(name="echo", aliases=["say"], brief="Make Doob say something!")
     async def echo_message(self, ctx, *, message):
@@ -61,18 +61,18 @@ class Fun(Cog):
             if patreonRole in member.roles:
                 # If they are, run the command.
                 await ctx.message.delete()
-                await ctx.send(message)
+                await ctx.reply(message)
                 print(f"{ctx.author.name} used the Echo command and said {message}")
 
             # This else is for if they are in the server, but not a Patron
             else:
-                await ctx.send(
+                await ctx.reply(
                     "You are not a Patron to Doob, subscribe to any of the tiers at <https://patreon.com/doobdev> to gain access to this command."
                 )
 
         # This else is for if they aren't in the server, and are not a Patreon (you can only get Patron benefits by joining the Support Server)
         else:
-            await ctx.send(
+            await ctx.reply(
                 "You are not a Patron to Doob, subscribe to any of the tiers at <https://patreon.com/doobdev> to gain access to this command."
             )
 
@@ -102,10 +102,10 @@ class Fun(Cog):
                     text=f"{ctx.author} requested this fact!",
                     icon_url=ctx.author.avatar_url,
                 )
-                await ctx.send(embed=embed)
+                await ctx.reply(embed=embed)
             else:
                 # if the API responds with a status not being "200" (200=Working just fine), sends out an error message to the user with the status number.
-                await ctx.send(f"Dog fact API sent a {response.status} status.")
+                await ctx.reply(f"Dog fact API sent a {response.status} status.")
 
     @command(name="luckydog", aliases=["ldog"], brief="Get an instant Lucky Dog!")
     @cooldown(2, 5, BucketType.user)
@@ -139,7 +139,7 @@ class Fun(Cog):
                     embed.set_image(
                         url="https://pbs.twimg.com/media/EgXfe_XUcAABT41?format=jpg&name=360x360"
                     )
-                    await ctx.send(embed=embed)
+                    await ctx.reply(embed=embed)
 
                 elif dog == "2":
                     embed = Embed(
@@ -152,7 +152,7 @@ class Fun(Cog):
                         icon_url=ctx.author.avatar_url,
                     )
                     embed.set_image(url="https://i.imgur.com/pzqRLdi.jpg")
-                    await ctx.send(embed=embed)
+                    await ctx.reply(embed=embed)
 
                 elif dog == "3":
                     embed = Embed(
@@ -165,7 +165,7 @@ class Fun(Cog):
                         icon_url=ctx.author.avatar_url,
                     )
                     embed.set_image(url="https://i.imgur.com/guF2Y3z.png")
-                    await ctx.send(embed=embed)
+                    await ctx.reply(embed=embed)
 
                 elif dog == "4":
                     embed = Embed(
@@ -178,7 +178,7 @@ class Fun(Cog):
                         icon_url=ctx.author.avatar_url,
                     )
                     embed.set_image(url="https://i.imgur.com/KFOR8YJ.jpeg")
-                    await ctx.send(embed=embed)
+                    await ctx.reply(embed=embed)
 
                 else:
                     embed = Embed(
@@ -190,16 +190,16 @@ class Fun(Cog):
                         text=f"Thanks for supporting Doob, {ctx.author.name}!",
                         icon_url=ctx.author.avatar_url,
                     )
-                    await ctx.send(embed=embed)
+                    await ctx.reply(embed=embed)
 
             # Refer to line 59 and 63 for reasoning on the bottom 2 elses.
             else:
-                await ctx.send(
+                await ctx.reply(
                     "This is a Patreon (<https://patreon.com/doobdev>) only command."
                 )
 
         else:
-            await ctx.send(
+            await ctx.reply(
                 "This is a Patreon (<https://patreon.com/doobdev>) only command."
             )
 
@@ -229,7 +229,7 @@ class Fun(Cog):
             icon_url=ctx.author.avatar_url,
         )
         embed.set_thumbnail(url=target.avatar_url)
-        await ctx.send(embed=embed)
+        await ctx.reply(embed=embed)
 
     @command(name="dog", aliases=["dogimage"], brief="See a random picture of a dog!")
     @cooldown(2, 5, BucketType.user)
@@ -271,7 +271,7 @@ class Fun(Cog):
                             )
                             # embed.set_footer(text=f"DEBUG: L_DOG: {random}")
                             embed.set_image(url=data["message"])
-                            await ctx.send(embed=embed)
+                            await ctx.reply(embed=embed)
 
                 # This is the Lucky Dog stuff, if the user rolls one of these numbers, they get a "Lucky Dog", that gives them the special dog
                 # and gives them 1 "Lucky Dog" into the DB
@@ -294,7 +294,7 @@ class Fun(Cog):
                         datetime.utcnow(),
                         ctx.author.id,
                     )
-                    await ctx.send(embed=embed)
+                    await ctx.reply(embed=embed)
 
                 elif random == 51:
                     embed = Embed(
@@ -313,7 +313,7 @@ class Fun(Cog):
                         datetime.utcnow(),
                         ctx.author.id,
                     )
-                    await ctx.send(embed=embed)
+                    await ctx.reply(embed=embed)
 
                 elif random == 52:
                     embed = Embed(
@@ -332,7 +332,7 @@ class Fun(Cog):
                         datetime.utcnow(),
                         ctx.author.id,
                     )
-                    await ctx.send(embed=embed)
+                    await ctx.reply(embed=embed)
 
                 elif random == 53:
                     embed = Embed(
@@ -351,7 +351,7 @@ class Fun(Cog):
                         datetime.utcnow(),
                         ctx.author.id,
                     )
-                    await ctx.send(embed=embed)
+                    await ctx.reply(embed=embed)
 
             else:
                 # If they aren't a Patron, it calls the function below.
@@ -379,7 +379,7 @@ class Fun(Cog):
                         data = await response.json()
                         embed = Embed(title="Dog Picture!", colour=ctx.author.colour)
                         embed.set_image(url=data["message"])
-                        await ctx.send(embed=embed)
+                        await ctx.reply(embed=embed)
             elif patreon_ad == 1:
                 async with request("GET", URL, headers={}) as response:
                     if response.status == 200:
@@ -391,7 +391,7 @@ class Fun(Cog):
                             url="https://patreon.com/doobdev",
                         )
                         embed.set_image(url=data["message"])
-                        await ctx.send(embed=embed)
+                        await ctx.reply(embed=embed)
 
         # If they get a lucky dog, run this instead of ^.
         elif random == 100:
@@ -413,7 +413,7 @@ class Fun(Cog):
                 datetime.utcnow(),
                 ctx.author.id,
             )
-            await ctx.send(embed=embed)
+            await ctx.reply(embed=embed)
 
         elif random == 101:
             embed = Embed(
@@ -432,7 +432,7 @@ class Fun(Cog):
                 datetime.utcnow(),
                 ctx.author.id,
             )
-            await ctx.send(embed=embed)
+            await ctx.reply(embed=embed)
 
         elif random == 102:
             embed = Embed(
@@ -451,7 +451,7 @@ class Fun(Cog):
                 datetime.utcnow(),
                 ctx.author.id,
             )
-            await ctx.send(embed=embed)
+            await ctx.reply(embed=embed)
 
         elif random == 103:
             embed = Embed(
@@ -470,7 +470,7 @@ class Fun(Cog):
                 datetime.utcnow(),
                 ctx.author.id,
             )
-            await ctx.send(embed=embed)
+            await ctx.reply(embed=embed)
 
     @command(
         name="notanimposter",
@@ -484,10 +484,10 @@ class Fun(Cog):
 
         # Checks if the target is an "@everyone" or "@here" ping, so Doob doesn't ping the entire server.
         if target == "@everyone" or target == "@here":
-            await ctx.send("nope, no ping pong here.")
+            await ctx.reply("nope, no ping pong here.")
 
         else:
-            await ctx.send(
+            await ctx.reply(
                 f". 　　　。　　　　•　 　ﾟ　　。 　　.\n　　　.　　　 　　.　　　　　。　　 。　. 　\n\n.　　 。　　　　　 ඞ 。 . 　　 • 　　　　•\n\n　　ﾟ　　 {target} was not An Impostor.　 。　.\n\n　　'　　　 1 Impostor remain 　 　　。\n\n　　ﾟ　　　.　　　. ,　　　　.　 ."
             )
 
@@ -502,10 +502,10 @@ class Fun(Cog):
         target = target or ctx.author
 
         if target == "@everyone" or target == "@here":
-            await ctx.send("nope, no ping pong here.")
+            await ctx.reply("nope, no ping pong here.")
 
         else:
-            await ctx.send(
+            await ctx.reply(
                 f". 　　　。　　　　•　 　ﾟ　　。 　　.\n　　　.　　　 　　.　　　　　。　　 。　. 　\n\n.　　 。　　　　　 ඞ 。 . 　　 • 　　　　•\n\n　　ﾟ　　 {target} was An Impostor.　 。　.\n\n　　'　　　 0 Impostors remain 　 　　。\n\n　　ﾟ　　　.　　　. ,　　　　.　 ."
             )
 

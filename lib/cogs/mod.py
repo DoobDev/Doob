@@ -57,7 +57,7 @@ class Mod(Cog):
     ):
         """Kicks a member from the server.\n`Kick Members` permission required."""
         if not len(targets):
-            await ctx.send("One or more required arguments are missing.")
+            await ctx.reply("One or more required arguments are missing.")
 
         else:
             for target in targets:
@@ -67,16 +67,16 @@ class Mod(Cog):
                 ):
 
                     await target.kick(reason=reason)
-                    await ctx.send("Member Kicked.")
+                    await ctx.reply("Member Kicked.")
                 else:
-                    await ctx.send(
+                    await ctx.reply(
                         "Something went wrong.\nYou might not be able to kick that member."
                     )
 
     @kick_command.error
     async def kick_command_error(self, ctx, exc):
         if isinstance(exc, CheckFailure):
-            await ctx.send("Insufficient permissions to perform that task.")
+            await ctx.reply("Insufficient permissions to perform that task.")
 
     async def mute_members(self, message, targets, reason):
         unmutes = []
@@ -119,7 +119,7 @@ class Mod(Cog):
     ):
         """Mutes a member from the server\nRequires the `Manage Roles` permission"""
         if not len(targets):
-            await ctx.send("One or more required arguments are missing.")
+            await ctx.reply("One or more required arguments are missing.")
 
         else:
             unmutes = await self.mute_members(ctx.message, targets, reason)
@@ -135,7 +135,7 @@ class Mod(Cog):
                         f"DELETE FROM mutes WHERE UserID = {target.id} AND GuildID = {ctx.guild.id}"
                     )
                     db.commit()
-                    await ctx.send("Unmuted! <:PogU:560267624966258690>")
+                    await ctx.reply("Unmuted! <:PogU:560267624966258690>")
 
     @command(name="unmute", aliases=["um"], brief="Unmutes a member from the server.")
     @bot_has_permissions(manage_roles=True)
@@ -161,12 +161,12 @@ class Mod(Cog):
             target_embed += f" {target.display_name},"
 
         embed = Embed(title="Unmuted:", description=f"{comma.join(tNames)}")
-        await ctx.send(embed=embed)
+        await ctx.reply(embed=embed)
 
     @mute_command.error
     async def mute_command_error(self, ctx, exc):
         if isinstance(exc, CheckFailure):
-            await ctx.send("Insufficient permissions to perform that task.")
+            await ctx.reply("Insufficient permissions to perform that task.")
 
     @command(
         name="ban", aliases=["b", "banmember"], brief="Ban a member from the server."
@@ -182,7 +182,7 @@ class Mod(Cog):
     ):
         """Bans a member from the server\n`Ban Members` permission required."""
         if not len(targets):
-            await ctx.send("One or more required arguments are missing.")
+            await ctx.reply("One or more required arguments are missing.")
 
         else:
             for target in targets:
@@ -192,17 +192,17 @@ class Mod(Cog):
                 ):
 
                     await target.ban(reason=reason)
-                    await ctx.send("Member banned.")
+                    await ctx.reply("Member banned.")
 
                 else:
-                    await ctx.send(
+                    await ctx.reply(
                         "Something went wrong.\nYou might not be able to ban that member."
                     )
 
     @ban_command.error
     async def ban_command_error(self, ctx, exc):
         if isinstance(exc, CheckFailure):
-            await ctx.send("Insufficient permissions to perform that task.")
+            await ctx.reply("Insufficient permissions to perform that task.")
 
     @command(
         name="russianroulette",
@@ -218,7 +218,7 @@ class Mod(Cog):
 
             if roll == 1:
                 if not len(targets):
-                    await ctx.send("One or more required arguments are missing.")
+                    await ctx.reply("One or more required arguments are missing.")
 
                 else:
                     for target in targets:
@@ -230,18 +230,18 @@ class Mod(Cog):
                             await target.ban(
                                 reason="They couldn't survive russian roulette."
                             )
-                            await ctx.send(
+                            await ctx.reply(
                                 f"{target.display_name} [`{target.id}`] will (or will not) be missed."
                             )
 
                         else:
-                            await ctx.send(
+                            await ctx.reply(
                                 "Something went wrong.\nYou might not be able to ban that member.\nYou survived this one..."
                             )
 
             else:
                 for target in targets:
-                    await ctx.send(
+                    await ctx.reply(
                         f"{target.display_name} [`{target.id}`] survived.\n(rolled a `{roll}`, needs to hit a `1` to get banned.)"
                     )
 
@@ -256,12 +256,12 @@ class Mod(Cog):
         reason: Optional[str] = "No reason provided.",
     ):
         if not len(targets):
-            await ctx.send("One or more required arguments are missing.")
+            await ctx.reply("One or more required arguments are missing.")
 
         else:
             for target in targets:
                 await ctx.guild.unban(target, reason=reason)
-                await ctx.send("Member unbanned.")
+                await ctx.reply("Member unbanned.")
 
     @command(
         name="clear", aliases=["purge"], brief="Clears amount of messages provided."
@@ -285,10 +285,10 @@ class Mod(Cog):
                     check=_check,
                 )
 
-                await ctx.send(f"Deleted {len(deleted):,} messages.", delete_after=10)
+                await ctx.reply(f"Deleted {len(deleted):,} messages.", delete_after=10)
 
         else:
-            await ctx.send("The limit provided is not within acceptable bounds.")
+            await ctx.reply("The limit provided is not within acceptable bounds.")
 
     @command(
         name="setlogchannel",
@@ -304,7 +304,7 @@ class Mod(Cog):
         prefix = db.records("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
 
         if channel == None:
-            await ctx.send(
+            await ctx.reply(
                 f"The current setting for the Log Channel is currently: <#{current_channel[0][0]}>\nTo change it, type `{prefix[0][0]}setlogchannel #<log channel>`"
             )
 
@@ -315,7 +315,7 @@ class Mod(Cog):
                 ctx.guild.id,
             )
             db.commit()
-            await ctx.send(f"Log channel set to <#{channel.id}>")
+            await ctx.reply(f"Log channel set to <#{channel.id}>")
 
     @command(
         name="setstarboardchannel",
@@ -331,7 +331,7 @@ class Mod(Cog):
         prefix = db.records("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
 
         if channel == None:
-            await ctx.send(
+            await ctx.reply(
                 f"The current setting for the StarBoard Channel is currently: <#{current_channel[0][0]}>\nTo change it, type `{prefix[0][0]}setstarboardchannel #<starboard channel>`"
             )
 
@@ -342,7 +342,7 @@ class Mod(Cog):
                 ctx.guild.id,
             )
             db.commit()
-            await ctx.send(f"StarBoard channel set to <#{channel.id}>")
+            await ctx.reply(f"StarBoard channel set to <#{channel.id}>")
 
     @command(
         name="setmuterole",
@@ -364,10 +364,10 @@ class Mod(Cog):
                 ctx.guild.id,
             )
             db.commit()
-            await ctx.send(f"Mute role set to `{role}`")
+            await ctx.reply(f"Mute role set to `{role}`")
 
         else:
-            await ctx.send(
+            await ctx.reply(
                 f"Please try a different role.\nYou may need to move the `Doob` role in your server settings above the `{role}` role."
             )
 

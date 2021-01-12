@@ -69,7 +69,7 @@ class Help(Cog):
         )
 
         embed.add_field(name="Command description", value=command.help)
-        await ctx.send(embed=embed)
+        await ctx.reply(embed=embed)
 
     @command(name="help", aliases=["commands"], brief="Shows this message!")
     @cooldown(1, 5, BucketType.user)
@@ -88,7 +88,7 @@ class Help(Cog):
                 await self.cmd_help(ctx, command)
 
             else:
-                await ctx.send(
+                await ctx.reply(
                     "That command does not exist.\nTry looking through `doob/help` to see the actual command name, and not the alias."
                 )
 

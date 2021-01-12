@@ -122,7 +122,7 @@ class Twitch(Cog):
                                 ]
                             )
 
-                            await ctx.send(embed=embed)
+                            await ctx.reply(embed=embed)
 
                         else:
                             UserInfo_URL = (
@@ -211,13 +211,13 @@ class Twitch(Cog):
                                             ]
                                         )
 
-                                    await ctx.send(embed=embed)
+                                    await ctx.reply(embed=embed)
 
     @stream_lookup_command.error
     async def stream_lookup_command_error(self, ctx, exc):
         if hasattr(exc, "original"):
             if isinstance(exc.original, IndexError):
-                await ctx.send("User does not seem to exist on Twitch.tv")
+                await ctx.reply("User does not seem to exist on Twitch.tv")
 
     @Cog.listener()
     async def on_ready(self):

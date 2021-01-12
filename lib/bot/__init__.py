@@ -108,7 +108,7 @@ class Bot(BotBase):
                 await self.invoke(ctx)
 
             else:
-                await ctx.send(
+                await ctx.reply(
                     "Please wait, Doob hasn't fully started up yet <a:loadingdoob:755141175840866364>",
                     delete_after=10,
                 )
@@ -132,22 +132,22 @@ class Bot(BotBase):
     # Basic error handling for Doob
     async def on_command_error(self, ctx, exc):
         if any([isinstance(exc, error) for error in IGNORE_EXCEPTIONS]):
-            await ctx.send(
+            await ctx.reply(
                 f"Something went wrong!\n\nError: {exc.original}", delete_after=10
             )
 
         elif isinstance(exc, MissingRequiredArgument):
-            await ctx.send("Required arguments missing.", delete_after=10)
+            await ctx.reply("Required arguments missing.", delete_after=10)
 
         elif isinstance(exc, CommandOnCooldown):
-            await ctx.send(
+            await ctx.reply(
                 f'That command is on a {str(exc.cooldown.type).split(".")[-1]} cooldown! Try again in {exc.retry_after:,.2f} seconds.',
                 delete_after=exc.retry_after,
             )
 
         elif hasattr(exc, "original"):
             if isinstance(exc.original, Forbidden):
-                await ctx.send(
+                await ctx.reply(
                     "Doob doesn't have permissions to do that.", delete_after=10
                 )
 

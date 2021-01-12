@@ -19,6 +19,10 @@ import os
 
 owner_id = 308000668181069824
 
+import json
+
+with open("config.json") as config_file:
+    config = json.load(config_file)
 
 class Meta(Cog):
     def __init__(self, bot):
@@ -57,9 +61,9 @@ class Meta(Cog):
         if ctx.author.id == owner_id:
             self.message = text
             await self.set()
-            await ctx.send(f"Bot Status has been updated to {text}")
+            await ctx.reply(f"Bot Status has been updated to {text}")
         else:
-            await ctx.send("You don't have permission to do that.")
+            await ctx.reply("You don't have permission to do that.")
 
     @command(
         name="support",
@@ -68,7 +72,7 @@ class Meta(Cog):
     )
     async def support_server_link(self, ctx):
         """Gives a link to the Doob Support Server where you can get help from the developer!"""
-        await ctx.send("Join the support server at: :link: https://discord.gg/hgQTTU7")
+        await ctx.reply("Join the support server at: :link: https://discord.gg/hgQTTU7")
 
     @command(
         name="invite",
@@ -77,7 +81,7 @@ class Meta(Cog):
     )
     async def doob_invite_link(self, ctx):
         """Gives you a link to invite Doob to another server!"""
-        await ctx.send(
+        await ctx.reply(
             "You can invite the bot here! :link: <https://discord.com/oauth2/authorize?client_id=680606346952966177&scope=bot&permissions=271674430>"
         )
 
@@ -86,7 +90,7 @@ class Meta(Cog):
     async def ping(self, ctx):
         """Ping Pong!~\nShows the bot latency and response time."""
         start = time()
-        message = await ctx.send("Loading... <a:loadingdoob:755141175840866364>")
+        message = await ctx.reply("Loading... <a:loadingdoob:755141175840866364>")
         end = time()
         await message.edit(
             content=f"Pong! :ping_pong: Latency: {self.bot.latency*1000:,.0f} ms. Response time: {(end-start)*1000:,.0f} ms."
@@ -98,19 +102,19 @@ class Meta(Cog):
     async def shutdown(self, ctx):
         """Command to shutdown the bot and save it's database.\n`Owner` permission required"""
         if ctx.author.id == owner_id:
-            await ctx.send("Shutting down")
+            await ctx.reply("Shutting down")
 
             db.commit()
             self.bot.scheduler.shutdown()
             await self.bot.logout()
         else:
-            await ctx.send("You don't have permission to shutdown the bot.")
+            await ctx.reply("You don't have permission to shutdown the bot.")
 
     @command(name="restart", brief="Owner Only Command to restart the bot.")
     async def restart(self, ctx):
         """Command to restart, and update the bot to its latest version.\n`Owner` permission required"""
         if ctx.author.id == owner_id:
-            await ctx.send("Restarting...")
+            await ctx.reply("Restarting...")
 
             db.commit()
             self.bot.scheduler.shutdown()
@@ -124,7 +128,7 @@ class Meta(Cog):
             os.system("python3.8 launcher.py")
 
         else:
-            await ctx.send("You don't have permission to shutdown the bot.")
+            await ctx.reply("You don't have permission to shutdown the bot.")
 
     @command(
         name="nitrogiveaway",
@@ -133,13 +137,13 @@ class Meta(Cog):
     async def nitro_giveaway_command(self, ctx, *, target: Optional[Member]):
         """Command to tell people how to claim the Discord Nitro Classic gift.\n`Owner` permission required"""
         if ctx.author.id == owner_id:
-            # await ctx.send(f"{target}, To claim the Discord Nitro Classic gift, check <#757666920773189662> to see if the Nitro has been claimed for this week!\nDon't know when to claim the Nitro? If you have gotten a Lucky Dog (from doing `doob/dog`) DM `mmatt#001` with a screenshot!")
-            await ctx.send(
+            # await ctx.reply(f"{target}, To claim the Discord Nitro Classic gift, check <#757666920773189662> to see if the Nitro has been claimed for this week!\nDon't know when to claim the Nitro? If you have gotten a Lucky Dog (from doing `doob/dog`) DM `mmatt#001` with a screenshot!")
+            await ctx.reply(
                 f"{target.mention}, Lucky Dog Nitro Giveaways!\nGet the most lucky dogs in the month (check how many you have by doing `doob/luckydogs`) and you can win Nitro Classic!\nCheck <#757666920773189662> to see if someone has claimed it for this month!"
             )
 
         else:
-            await ctx.send(
+            await ctx.reply(
                 "You don't have permission to use this command.", delete_after=10
             )
 
@@ -165,9 +169,9 @@ class Meta(Cog):
                     text=f"Authored by: {ctx.author.display_name}",
                     icon_url=ctx.author.avatar_url,
                 )
-                await ctx.send(embed=embed)
+                await ctx.reply(embed=embed)
         elif ctx.author.id != owner_id:
-            await ctx.send(
+            await ctx.reply(
                 f"You don't have permissions to give updates about Doob\nType `{prefix[0][0]}help update` for more info."
             )
 
@@ -245,7 +249,7 @@ class Meta(Cog):
                 value=f"Thanks for [Donating](https://patreon.com/doobdev) {ctx.author.display_name}! :white_check_mark:",
                 inline=False,
             )
-            await ctx.send(embed=embed)
+            await ctx.reply(embed=embed)
 
         if patreon_status == False:
             embed.add_field(
@@ -253,7 +257,7 @@ class Meta(Cog):
                 value="[Click Here for Patreon](https://patreon.com/doobdev)",
                 inline=False,
             )
-            await ctx.send(embed=embed)
+            await ctx.reply(embed=embed)
 
     @command(name="info", aliases=["botinfo"], brief="Gives basic info about Doob.")
     async def show_bot_info_command(self, ctx):
@@ -300,17 +304,17 @@ class Meta(Cog):
 
         if ctx.author in homeGuild.members:
             if patreonRole in member.roles:
-                await ctx.send(
+                await ctx.reply(
                     f"Thanks for supporting {ctx.author.mention}!\n<https://patreon.com/doobdev>"
                 )
 
             else:
-                await ctx.send(
+                await ctx.reply(
                     "You can support Doob Dev by subscribing at <https://patreon.com/doobdev>!"
                 )
 
         else:
-            await ctx.send(
+            await ctx.reply(
                 "You can support Doob Dev by subscribing at <https://patreon.com/doobdev>!"
             )
 
