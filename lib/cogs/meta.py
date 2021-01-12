@@ -24,6 +24,7 @@ import json
 with open("config.json") as config_file:
     config = json.load(config_file)
 
+
 class Meta(Cog):
     def __init__(self, bot):
         self.bot = bot

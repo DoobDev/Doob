@@ -303,7 +303,9 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
         elif isinstance(obj, discord.Guild):
             return self.wavelink.get_player(obj.id, cls=Player)
 
-    @commands.command(name="connect", aliases=["join"], brief="Connect Doob to a Voice Channel")
+    @commands.command(
+        name="connect", aliases=["join"], brief="Connect Doob to a Voice Channel"
+    )
     async def connect_command(
         self, ctx, *, channel: typing.Optional[discord.VoiceChannel]
     ):
@@ -319,7 +321,9 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
         elif isinstance(exc, NoVoiceChannel):
             await ctx.reply("No voice channel could be found.")
 
-    @commands.command(name="disconnect", aliases=["leave"], brief="Make Doob leave a voice channel.")
+    @commands.command(
+        name="disconnect", aliases=["leave"], brief="Make Doob leave a voice channel."
+    )
     async def disconnect_command(self, ctx):
         """Disonnect Doob from a voice channel."""
         player = self.get_player(ctx)
