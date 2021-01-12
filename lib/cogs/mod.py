@@ -285,7 +285,7 @@ class Mod(Cog):
                     check=_check,
                 )
 
-                await ctx.reply(f"Deleted {len(deleted):,} messages.", delete_after=10)
+                await ctx.send(f"Deleted {len(deleted):,} messages.", delete_after=10)
 
         else:
             await ctx.reply("The limit provided is not within acceptable bounds.")

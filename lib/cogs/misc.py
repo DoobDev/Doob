@@ -159,7 +159,7 @@ class Misc(Cog):
                 icon_url=ctx.author.avatar_url,
             )
 
-            await ctx.reply(embed=embed, delete_after=time)
+            await ctx.send(embed=embed, delete_after=time)
 
         else:
             await ctx.reply(
