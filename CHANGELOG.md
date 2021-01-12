@@ -1,3 +1,7 @@
+## v2.4.3
+* Added `doob/createtextchannel`
+* Added `doob/createvoicechannel`
+
 ## v2.4.2
 * Now running on Discord.py 1.6.0
 * Instead of the commands just sending, it replies to you.

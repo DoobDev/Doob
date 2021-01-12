@@ -371,6 +371,30 @@ class Mod(Cog):
                 f"Please try a different role.\nYou may need to move the `Doob` role in your server settings above the `{role}` role."
             )
 
+    @command(
+        name="createtextchannel",
+        aliases=["ctc", "textchannel"],
+        brief="Create a text channel.",
+    )
+    @has_permissions(manage_guild=True)
+    async def create_text_channel_command(self, ctx, name: str):
+        """Create a text channel in the guild the command was executed in.\n`Manage Server` permission required."""
+        channel = await ctx.guild.create_text_channel(name)
+
+        await ctx.send(f"Your Text Channel has been created.\n<#{channel.id}>")
+
+    @command(
+        name="createvoicechannel",
+        aliases=["cvc", "voicechannel"],
+        brief="Create a voice channel.",
+    )
+    @has_permissions(manage_guild=True)
+    async def create_voice_channel_command(self, ctx, name: str):
+        """Create a voice channel in the guild the command was executed in.\n`Manage Server` permission required."""
+        channel = await ctx.guild.create_voice_channel(name)
+
+        await ctx.send(f"Your Voice Channel has been created.\n<#{channel.id}>")
+
     @Cog.listener()
     async def on_ready(self):
         if not self.bot.ready:
