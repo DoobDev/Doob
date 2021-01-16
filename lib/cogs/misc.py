@@ -224,6 +224,32 @@ class Misc(Cog):
 
         await author.send(f"<@{author.id}>, remember to: {text}")
 
+    @command(
+        name="ownerprefix",
+        aliases=["opo"],
+        brief="Changes the prefix. | Bot Owner Override.",
+    )
+    async def override_change_prefix(self, ctx, new: str):
+        """Changes the prefix for the server.\nOnly the bot owner can use the override command."""
+
+        prefix = db.records("SELECT Prefix FROM guilds WHERE GuildID = ?", ctx.guild.id)
+
+        if ctx.author.id == owner_id:
+            db.execute(
+                "UPDATE guilds SET Prefix = ? WHERE GuildID = ?", new, ctx.guild.id
+            )
+            embed = Embed(
+                title="Prefix Changed",
+                description=f"Prefix has been changed to `{new}`",
+            )
+
+            await ctx.reply(embed=embed)
+
+        else:
+            await ctx.reply(
+                f"This is the owner override command, only the owner of the bot can use this. If you are a server manager, use `{prefix[0][0]}prefix` command."
+            )
+
 
 def setup(bot):
     bot.add_cog(Misc(bot))

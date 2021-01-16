@@ -1,3 +1,6 @@
+## v2.4.5
+* Added `doob/ownerprefix`
+
 ## v2.4.4
 * Added basic error handling for not having permissions for a command.
 * Removed the error handling from Ban/Kick/Mute commands, because of the change above.
