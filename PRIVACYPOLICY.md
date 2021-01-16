@@ -22,11 +22,11 @@
     
     d) Role IDs' are stored for mute role purposes.
     
-    e) Overwatch Username, Platform, and Regions are all stored for using the http://ow-api.com/ in the `doob/owstats` command.
+    e) Overwatch Username, Platform, and Regions are all stored for using the http://ow-api.com/ in the `d!owstats` command.
     
-    f) Last.fm username is stored for using the Last.fm API in the `doob/fm` group of commands.
+    f) Last.fm username is stored for using the Last.fm API in the `d!fm` group of commands.
     
-    g) osu! username is stored for using the osu! api in the `doob/osu` command.
+    g) osu! username is stored for using the osu! api in the `d!osu` command.
 
 3) **Other than Discord, do we share your data with any 3rd parties?**
 No, we do not share data with any 3rd parties!
@@ -38,4 +38,4 @@ They can contact me, `mmatt#0001` on Discord, and `mmattbtw@pm.me` via email.
 
 ## Please let me know if you see something that I am missing, I don't want to be wrong.
 
-`Last Updated: 11/27/2020`
+`Last Updated: 1/15/2021`

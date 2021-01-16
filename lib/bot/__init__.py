@@ -99,7 +99,12 @@ class Bot(BotBase):
         print("Authenticated...")
         print("Starting up")
         # Gets the token from the .env to authenticate the bot.
+        
+        # The following "fmt" comments are so that black, Doob's code style of choice, doesn't touch this line, if black touches it, then some Ubuntu machines can't run the bot.
+
+        # fmt: off
         super().run(os.environ.get('TOKEN'), reconnect=True)
+        # fmt: on
 
     async def process_commands(self, message):
         ctx = await self.get_context(message, cls=Context)

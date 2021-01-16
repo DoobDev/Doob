@@ -24,7 +24,7 @@ class gamestats(Cog):
     )
     @cooldown(1, 5, BucketType.user)
     async def overwatch_stats(self, ctx, target: Optional[Member]):
-        """Gets your Overwatch stats from ow-api.com!\nSet your overwatch profile by doing `doob/setowprofile {platform} {username} {region}`"""
+        """Gets your Overwatch stats from ow-api.com!\nSet your overwatch profile by doing `d!setowprofile {platform} {username} {region}`"""
         target = target or ctx.author
 
         # Grabs the platform, username, and region from the database in which the user set before running the command.
@@ -142,7 +142,7 @@ class gamestats(Cog):
         username: Optional[str],
         region: Optional[str],
     ):
-        """Sets your Overwatch platform + username for `doob/owstats`\nOnly acceptable platforms are `pc` `xbl` and `psn`\nOnly acceptable regions are `us` `eu` or `asia`\nFor battletags, make sure you do `{username}-{numbers}` NOT `{username}#{numbers}`"""
+        """Sets your Overwatch platform + username for `d!owstats`\nOnly acceptable platforms are `pc` `xbl` and `psn`\nOnly acceptable regions are `us` `eu` or `asia`\nFor battletags, make sure you do `{username}-{numbers}` NOT `{username}#{numbers}`"""
 
         # If the platform they chose was PSN, set their Username, Platform, and Region to what they said when they executed the command
         if platform == "psn":

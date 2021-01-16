@@ -372,7 +372,7 @@ class Fun(Cog):
         URL = "https://dog.ceo/api/breeds/image/random"
 
         if random != 100 and random != 101 and random != 102:
-            # This is for the "Patreon Ad" at the top of doob/dog you get times.
+            # This is for the "Patreon Ad" at the top of d!dog you get times.
             if patreon_ad != 1:
                 async with request("GET", URL, headers={}) as response:
                     if response.status == 200:

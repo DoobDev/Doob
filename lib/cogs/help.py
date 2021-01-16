@@ -89,7 +89,7 @@ class Help(Cog):
 
             else:
                 await ctx.reply(
-                    "That command does not exist.\nTry looking through `doob/help` to see the actual command name, and not the alias."
+                    "That command does not exist.\nTry looking through `d!help` to see the actual command name, and not the alias."
                 )
 
     @Cog.listener()

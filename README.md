@@ -36,7 +36,7 @@ Doob has some great features, such as:
 - Visit the Dev blog at [https://doobdev.github.io](https://doobdev.github.io)
 
 ## ➤ What commands are there?
-Use the doob/help command on Discord!
+Use the d!help command on Discord!
 
 ## ➤ Want to submit issues? Or fix existing ones?
 ##### Issue is for Bug Reports + Feature Requests | Pull requests are for improving/adding code.

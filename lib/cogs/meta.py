@@ -138,9 +138,9 @@ class Meta(Cog):
     async def nitro_giveaway_command(self, ctx, *, target: Optional[Member]):
         """Command to tell people how to claim the Discord Nitro Classic gift.\n`Owner` permission required"""
         if ctx.author.id == owner_id:
-            # await ctx.reply(f"{target}, To claim the Discord Nitro Classic gift, check <#757666920773189662> to see if the Nitro has been claimed for this week!\nDon't know when to claim the Nitro? If you have gotten a Lucky Dog (from doing `doob/dog`) DM `mmatt#001` with a screenshot!")
+            # await ctx.reply(f"{target}, To claim the Discord Nitro Classic gift, check <#757666920773189662> to see if the Nitro has been claimed for this week!\nDon't know when to claim the Nitro? If you have gotten a Lucky Dog (from doing `d!dog`) DM `mmatt#001` with a screenshot!")
             await ctx.reply(
-                f"{target.mention}, Lucky Dog Nitro Giveaways!\nGet the most lucky dogs in the month (check how many you have by doing `doob/luckydogs`) and you can win Nitro Classic!\nCheck <#757666920773189662> to see if someone has claimed it for this month!"
+                f"{target.mention}, Lucky Dog Nitro Giveaways!\nGet the most lucky dogs in the month (check how many you have by doing `d!luckydogs`) and you can win Nitro Classic!\nCheck <#757666920773189662> to see if someone has claimed it for this month!"
             )
 
         else:

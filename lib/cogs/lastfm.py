@@ -526,7 +526,7 @@ class LastFM(Cog):
     @command(name="setlastfm", aliases=["setfm"], brief="Sets your Last.fm username.")
     @cooldown(1, 5, BucketType.user)
     async def set_lastfm_username(self, ctx, username: Optional[str]):
-        """Sets your Last.fm username for `doob/lastfm`"""
+        """Sets your Last.fm username for `d!lastfm`"""
 
         if username != None:
             embed = Embed(
