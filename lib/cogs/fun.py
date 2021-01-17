@@ -509,6 +509,62 @@ class Fun(Cog):
                 f". 　　　。　　　　•　 　ﾟ　　。 　　.\n　　　.　　　 　　.　　　　　。　　 。　. 　\n\n.　　 。　　　　　 ඞ 。 . 　　 • 　　　　•\n\n　　ﾟ　　 {target} was An Impostor.　 。　.\n\n　　'　　　 0 Impostors remain 　 　　。\n\n　　ﾟ　　　.　　　. ,　　　　.　 ."
             )
 
+    @command(name="valroll", brief="Roll a random VALORANT character.")
+    @cooldown(1, 2, BucketType.user)
+    async def roll_valorant_command(self, ctx):
+        """Get a random VALORANT character to play!"""
+        characters = ("Viper", "Sova", "Sage", "Reyna", "Raze", "Phoenix", "Omen", "Jett", "Cypher", "Brimstone", "Breach", "Killjoy", "Skye", "Yoru")
+
+        char = choice((characters))
+        
+        print(char)
+
+        embed = Embed(title=f"Play: {char}", description="Enjoy!", colour=ctx.author.colour)
+
+        if char == "Brimstone":
+            embed.set_image(url="https://static.wikia.nocookie.net/valorant/images/3/37/Brimstone_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020239")
+
+        if char == "Viper":
+            embed.set_image(url="https://static.wikia.nocookie.net/valorant/images/9/91/Viper_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020322")
+
+        if char == "Omen":
+            embed.set_image(url="https://static.wikia.nocookie.net/valorant/images/0/06/Omen_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020233")
+
+        if char == "Killjoy":
+            embed.set_image(url="https://static.wikia.nocookie.net/valorant/images/8/8c/Killjoy.png/revision/latest/scale-to-width-down/587?cb=20200729134445")
+
+        if char == "Cypher":
+            embed.set_image(url="https://static.wikia.nocookie.net/valorant/images/b/bb/Cypher_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020329")
+
+        if char == "Sova":
+            embed.set_image(url="https://static.wikia.nocookie.net/valorant/images/6/61/Sova_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020314")
+
+        if char == "Sage":
+            embed.set_image(url="https://static.wikia.nocookie.net/valorant/images/1/1e/Sage_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020306")
+
+        if char == "Phoenix":
+            embed.set_image(url="https://static.wikia.nocookie.net/valorant/images/1/1e/Sage_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020306")
+
+        if char == "Jett":
+            embed.set_image(url="https://static.wikia.nocookie.net/valorant/images/7/79/Jett_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020209")
+
+        if char == "Reyna":
+            embed.set_image(url="https://static.wikia.nocookie.net/valorant/images/4/41/Reyna_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020340")
+
+        if char == "Raze":
+            embed.set_image(url="https://static.wikia.nocookie.net/valorant/images/c/c4/Raze_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020217")
+
+        if char == "Breach":
+            embed.set_image(url="https://static.wikia.nocookie.net/valorant/images/5/5c/Breach_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020225")
+
+        if char == "Skye":
+            embed.set_image(url="https://static.wikia.nocookie.net/valorant/images/b/b9/Skye_Keyart_final.png/revision/latest/scale-to-width-down/587?cb=20201013182515")
+
+        if char == "Yoru":
+            embed.set_image(url="https://static.wikia.nocookie.net/valorant/images/a/a1/Yoru2.png/revision/latest/scale-to-width-down/587?cb=20210112180407")
+
+        await ctx.reply(embed=embed)
+
     @Cog.listener()
     async def on_ready(self):
         if not self.bot.ready:

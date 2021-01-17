@@ -1,3 +1,7 @@
+## v2.5.1
+* Added `d!valroll`
+    - Rolls a random VALORANT character for you to play.
+
 ## v2.5.0
 * Changed Doob's default prefix to `d!`.
     - The only reason it was `doob/` to begin with was because Top.gg muted Doob for having too much of a unique prefix "back then". Now, Top.gg removed all bots from their server, so there is no reason to have a 5 character prefix.
