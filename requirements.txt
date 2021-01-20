@@ -3,7 +3,7 @@
 # C:\Users\matt\Desktop\doob\lib\bot\__init__.py: 8
 # C:\Users\matt\Desktop\doob\lib\cogs\meta.py: 6
 # C:\Users\matt\Desktop\doob\lib\db\db.py: 4
-APScheduler == 3.6.3
+APScheduler == 3.7.0
 
 # C:\Users\matt\Desktop\doob\lib\cogs\bio.py: 6
 # C:\Users\matt\Desktop\doob\lib\cogs\fun.py: 3
