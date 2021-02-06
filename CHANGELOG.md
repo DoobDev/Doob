@@ -1,3 +1,7 @@
+## v2.6.0
+* Added `d!battle` [Doob#132]
+    - Battle a friend or foe!
+
 ## v2.5.1
 * Added `d!valroll`
     - Rolls a random VALORANT character for you to play.

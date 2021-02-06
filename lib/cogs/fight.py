@@ -2,6 +2,7 @@ import discord
 import asyncio
 import math
 import random
+from discord.ext.commands import Cog, command
 
 
 class Player:
@@ -11,7 +12,7 @@ class Player:
         self.defense = 0
 
 
-class Battle(commands.Cog):
+class Fight(Cog):
     def __init__(self, bot):
         self.bot = bot
         self.occupied = []
@@ -45,39 +46,39 @@ class Battle(commands.Cog):
             if choice.content.lower() == "defend":
                 healAmount, defenseMaxed = await self.defend(p1)
                 if defenseMaxed:
-                    await ctx.send(f"You healed for `{healAmount}`, but your defense is maxed out")
+                    await ctx.reply(f"You healed for `{healAmount}`, but your defense is maxed out")
                 else:
-                    await ctx.send(f"You healed for `{healAmount}`, and your defense rose by `5`")
+                    await ctx.reply(f"You healed for `{healAmount}`, and your defense rose by `5`")
             elif choice.content.lower() == "attack":
                 damage = await self.attack(p2)
-                await ctx.send(f"You attacked dealing **{damage}** damage")
+                await ctx.reply(f"You attacked dealing **{damage}** damage")
             elif choice.content.lower() == "escape":
-                await ctx.send(f"{p1.member.name} tried escaping. **tried**")
-                await ctx.send(embed=discord.Embed(title="CRITICAL HIT", description="9999 Damage!",
+                await ctx.reply(f"{p1.member.name} tried escaping. **tried**")
+                await ctx.reply(embed=discord.Embed(title="CRITICAL HIT", description="9999 Damage!",
                                                    colour=discord.Color.red()))
                 p1.hp = -9999
 
         except asyncio.TimeoutError:
-            await ctx.send(f"`{p2.member.name}` got tired of waiting and bonked `{p1.member.name}` on the head.")
-            await ctx.send(embed=discord.Embed(title="CRITICAL HIT", description="9999 Damage!",
+            await ctx.reply(f"`{p2.member.name}` got tired of waiting and bonked `{p1.member.name}` on the head.")
+            await ctx.reply(embed=discord.Embed(title="CRITICAL HIT", description="9999 Damage!",
                                                colour=discord.Color.red()))
             p1.hp = -9999
-        await ctx.send(
+        await ctx.reply(
             f" \n {p1.member.mention} STATS:  **HP:** `{p1.hp}` |  **Defense**: `{p1.defense}`\n \n {p2.member.mention} STATS: **HP**: `{p2.hp}` |  **Defense**: `{p2.defense}` \n")
 
-    @commands.command(aliases=["battle"])
-    async def fight(self, ctx, opponent: discord.Member):
+    @command(name="fight", aliases=["battle"])
+    async def fight_command(self, ctx, opponent: discord.Member):
         if ctx.channel.id in self.occupied:
-            await ctx.send("This battlefield is occupied")
+            await ctx.reply("This battlefield is occupied")
 
         else:
             self.occupied.append(ctx.channel.id)
         if opponent == ctx.message.author:
-            await ctx.send(f"{ctx.author.mention} hurt itself in its confusion.")
+            await ctx.reply(f"{ctx.author.mention} hurt itself in its confusion.")
             self.occupied.remove(ctx.channel.id)
             return
         if opponent.bot:
-            await ctx.send(f"You try fighting the robot.\n\n*pieces of you can be found cut up on the battlefield*")
+            await ctx.reply(f"You try fighting the robot.\n\n*pieces of you can be found cut up on the battlefield*")
             self.occupied.remove(ctx.channel.id)
             return
         if (random.randrange(0, 2)) == 0:
@@ -86,10 +87,10 @@ class Battle(commands.Cog):
         else:
             p1 = Player(opponent)
             p2 = Player(ctx.message.author)
-        await ctx.send(embed=discord.Embed(title="Battle",
+        await ctx.reply(embed=discord.Embed(title="Battle",
                                            description=f"""{ctx.author.mention} is challenging {opponent.mention}!
         let the games begin."""))
-        await ctx.send(f"{p1.member.mention} got the jump on {p2.member.mention}!")
+        await ctx.reply(f"{p1.member.mention} got the jump on {p2.member.mention}!")
         toggle = True
         while p1.hp >= 0 and p2.hp >= 0:
             if toggle:
@@ -116,6 +117,12 @@ class Battle(commands.Cog):
         if case == 3:
             await ctx.send(f"{winner.member.mention} Is victorious!")
 
+        
+    @Cog.listener()
+    async def on_ready(self):
+        if not self.bot.ready:
+            self.bot.cogs_ready.ready_up("fight")
+
 
 def setup(client):
-    client.add_cog(Battle(client))
+    client.add_cog(Fight(client))
