@@ -1,3 +1,6 @@
+## v2.6.1
+* Added a description for `d!fight` command.
+
 ## v2.6.0
 * Added `d!battle` [Doob#132]
     - Battle a friend or foe!

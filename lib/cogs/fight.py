@@ -66,8 +66,9 @@ class Fight(Cog):
         await ctx.send(
             f" \n {p1.member.mention} STATS:  **HP:** `{p1.hp}` |  **Defense**: `{p1.defense}`\n \n {p2.member.mention} STATS: **HP**: `{p2.hp}` |  **Defense**: `{p2.defense}` \n")
 
-    @command(name="fight", aliases=["battle"])
+    @command(name="fight", aliases=["battle"], brief="Fight a friend, or foe!")
     async def fight_command(self, ctx, opponent: discord.Member):
+        """Fight another member in the Discord server with the fight command, you can attack, defend, or flee!"""
         if ctx.channel.id in self.occupied:
             await ctx.send("This battlefield is occupied")
 
