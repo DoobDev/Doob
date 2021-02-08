@@ -1,5 +1,7 @@
 ## v2.6.1
 * Added a description for `d!fight` command.
+* Added `d!overlay`
+    - From: https://github.com/DoobDev/Krinio/blob/master/lib/cogs/overlay.py
 
 ## v2.6.0
 * Added `d!battle` [Doob#132]
