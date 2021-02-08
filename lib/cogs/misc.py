@@ -250,7 +250,9 @@ class Misc(Cog):
                 f"This is the owner override command, only the owner of the bot can use this. If you are a server manager, use `{prefix[0][0]}prefix` command."
             )
 
-    @command(name="overlay", aliases=["streamkit"], brief="Gives Discord Streamkit Overlay.")
+    @command(
+        name="overlay", aliases=["streamkit"], brief="Gives Discord Streamkit Overlay."
+    )
     @cooldown(1, 5, BucketType.user)
     async def streamkit_overlay_command(self, ctx):
         """Gives a Discord Streamkit Overlay link for your Livestreams"""
@@ -281,6 +283,7 @@ class Misc(Cog):
                     "Please join a voice channel before running the `overlay` command.",
                     delete_after=15,
                 )
+
 
 def setup(bot):
     bot.add_cog(Misc(bot))
