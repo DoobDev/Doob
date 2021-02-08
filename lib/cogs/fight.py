@@ -18,8 +18,9 @@ class Fight(Cog):
         self.occupied = []
 
     async def attack(self, player):
-        damage = int((math.pow(random.randrange(30, 95), 1.35) / 10)
-                     * 1 - player.defense / 100)
+        damage = int(
+            (math.pow(random.randrange(30, 95), 1.35) / 10) * 1 - player.defense / 100
+        )
         player.hp -= damage
         return damage
 
@@ -36,35 +37,60 @@ class Fight(Cog):
         return heal, False
 
     async def turn(self, ctx, p1, p2):
-        await ctx.send(f"{p1.member.mention} **choose a move**:  `attack`, `defend`, `escape`")
+        await ctx.send(
+            f"{p1.member.mention} **choose a move**:  `attack`, `defend`, `escape`"
+        )
         try:
-            choice = await self.bot.wait_for('message',
-                                             check=lambda m: m.channel == ctx.channel and m.author == p1.member and
-                                             (
-                                                 m.content == "attack" or m.content == "defend" or m.content == "escape"),
-                                             timeout=30)
+            choice = await self.bot.wait_for(
+                "message",
+                check=lambda m: m.channel == ctx.channel
+                and m.author == p1.member
+                and (
+                    m.content == "attack"
+                    or m.content == "defend"
+                    or m.content == "escape"
+                ),
+                timeout=30,
+            )
             if choice.content.lower() == "defend":
                 healAmount, defenseMaxed = await self.defend(p1)
                 if defenseMaxed:
-                    await ctx.send(f"You healed for `{healAmount}`, but your defense is maxed out")
+                    await ctx.send(
+                        f"You healed for `{healAmount}`, but your defense is maxed out"
+                    )
                 else:
-                    await ctx.send(f"You healed for `{healAmount}`, and your defense rose by `5`")
+                    await ctx.send(
+                        f"You healed for `{healAmount}`, and your defense rose by `5`"
+                    )
             elif choice.content.lower() == "attack":
                 damage = await self.attack(p2)
                 await ctx.send(f"You attacked dealing **{damage}** damage")
             elif choice.content.lower() == "escape":
                 await ctx.send(f"{p1.member.name} tried escaping. **tried**")
-                await ctx.send(embed=discord.Embed(title="CRITICAL HIT", description="9999 Damage!",
-                                                   colour=discord.Color.red()))
+                await ctx.send(
+                    embed=discord.Embed(
+                        title="CRITICAL HIT",
+                        description="9999 Damage!",
+                        colour=discord.Color.red(),
+                    )
+                )
                 p1.hp = -9999
 
         except asyncio.TimeoutError:
-            await ctx.send(f"`{p2.member.name}` got tired of waiting and bonked `{p1.member.name}` on the head.")
-            await ctx.send(embed=discord.Embed(title="CRITICAL HIT", description="9999 Damage!",
-                                               colour=discord.Color.red()))
+            await ctx.send(
+                f"`{p2.member.name}` got tired of waiting and bonked `{p1.member.name}` on the head."
+            )
+            await ctx.send(
+                embed=discord.Embed(
+                    title="CRITICAL HIT",
+                    description="9999 Damage!",
+                    colour=discord.Color.red(),
+                )
+            )
             p1.hp = -9999
         await ctx.send(
-            f" \n {p1.member.mention} STATS:  **HP:** `{p1.hp}` |  **Defense**: `{p1.defense}`\n \n {p2.member.mention} STATS: **HP**: `{p2.hp}` |  **Defense**: `{p2.defense}` \n")
+            f" \n {p1.member.mention} STATS:  **HP:** `{p1.hp}` |  **Defense**: `{p1.defense}`\n \n {p2.member.mention} STATS: **HP**: `{p2.hp}` |  **Defense**: `{p2.defense}` \n"
+        )
 
     @command(name="fight", aliases=["battle"], brief="Fight a friend, or foe!")
     async def fight_command(self, ctx, opponent: discord.Member):
@@ -79,7 +105,9 @@ class Fight(Cog):
             self.occupied.remove(ctx.channel.id)
             return
         if opponent.bot:
-            await ctx.send(f"You try fighting the robot.\n\n*pieces of you can be found cut up on the battlefield*")
+            await ctx.send(
+                f"You try fighting the robot.\n\n*pieces of you can be found cut up on the battlefield*"
+            )
             self.occupied.remove(ctx.channel.id)
             return
         if (random.randrange(0, 2)) == 0:
@@ -88,9 +116,13 @@ class Fight(Cog):
         else:
             p1 = Player(opponent)
             p2 = Player(ctx.message.author)
-        await ctx.send(embed=discord.Embed(title="Battle",
-                                           description=f"""{ctx.author.mention} is challenging {opponent.mention}!
-        let the games begin."""))
+        await ctx.send(
+            embed=discord.Embed(
+                title="Battle",
+                description=f"""{ctx.author.mention} is challenging {opponent.mention}!
+        let the games begin.""",
+            )
+        )
         await ctx.send(f"{p1.member.mention} got the jump on {p2.member.mention}!")
         toggle = True
         while p1.hp >= 0 and p2.hp >= 0:
@@ -110,15 +142,18 @@ class Fight(Cog):
             loser = p1
         case = random.randrange(0, 4)
         if case == 0:
-            await ctx.send(f"{winner.member.mention} is having human meat for dinner tonight.")
+            await ctx.send(
+                f"{winner.member.mention} is having human meat for dinner tonight."
+            )
         if case == 1:
-            await ctx.send(f"{winner.member.mention} is dancing on `{loser.member.name}`'s corpse.")
+            await ctx.send(
+                f"{winner.member.mention} is dancing on `{loser.member.name}`'s corpse."
+            )
         if case == 2:
             await ctx.send(f"{winner.member.mention} did some good stabbing.")
         if case == 3:
             await ctx.send(f"{winner.member.mention} Is victorious!")
 
-        
     @Cog.listener()
     async def on_ready(self):
         if not self.bot.ready:
