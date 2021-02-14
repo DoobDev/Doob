@@ -1,3 +1,7 @@
+## v2.6.2
+* Added `d!twitch` subcommands.
+    - Documented at: https://mmatt.gitbook.io/docs/#d-twitch-subcommands
+
 ## v2.6.1
 * Added a description for `d!fight` command.
 * Added `d!overlay`

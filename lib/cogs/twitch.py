@@ -1,4 +1,4 @@
-from discord.ext.commands import Cog, command, BucketType, cooldown
+from discord.ext.commands import Cog, command, BucketType, cooldown, group
 from discord import Embed, Colour
 
 from ..db import db  # pylint: disable=relative-beyond-top-level
@@ -19,15 +19,7 @@ class Twitch(Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @command(
-        name="streamlookup",
-        aliases=["lookup", "twitch", "twitchsearch", "twitchlookup", "stream"],
-        brief="Get Twitch stream information.",
-    )
-    @cooldown(1, 5, BucketType.user)
-    async def stream_lookup_command(self, ctx, *, username: str):
-        """Request some information on a specific Twitch Stream/User!\n`Username` = Twitch Username"""
-
+    async def twitch_search(self, ctx, username: str):
         User_URL = f"https://api.twitch.tv/kraken/users?login={username}"
         async with request(
             "GET",
@@ -213,11 +205,82 @@ class Twitch(Cog):
 
                                     await ctx.reply(embed=embed)
 
-    @stream_lookup_command.error
-    async def stream_lookup_command_error(self, ctx, exc):
+    @group(
+        name="twitch",
+        aliases=["lookup", "streamlookup", "twitchsearch", "twitchlookup", "stream"],
+        brief="Get Twitch stream information.",
+    )
+    @cooldown(1, 5, BucketType.user)
+    async def twitch(self, ctx):
+        """Request some information on a specific Twitch Stream/User!\n`Username` = Twitch Username"""
+        if ctx.invoked_subcommand is None:
+            await ctx.reply("Doing `d!twitch` doesn't work anymore! Looking to search someone? Try `d!twitch -search {username}`")
+
+    @twitch.command(name="-search", aliases=["-s"])
+    async def twitch_search_command(self, ctx, username: str):
+        await self.twitch_search(ctx, username=username)
+
+    @twitch_search_command.error
+    async def twitch_search_command_error(self, ctx, exc):
         if hasattr(exc, "original"):
             if isinstance(exc.original, IndexError):
                 await ctx.reply("User does not seem to exist on Twitch.tv")
+
+    @twitch.command(name="-title", aliases=["-t"])
+    async def twitch_title_command(self, ctx, username: str):
+        User_URL = f"https://api.twitch.tv/kraken/users?login={username}"
+        async with request(
+            "GET",
+            User_URL,
+            headers={
+                "Client-ID": os.environ.get("twitchclientid"),
+                "Accept": "application/vnd.twitchtv.v5+json",
+            },
+        ) as response:
+            if response.status == 200:
+                User_ID = (await response.json())["users"][0]["_id"]
+
+                StreamInfo_URL = f"https://api.twitch.tv/kraken/streams/{User_ID}"
+
+                async with request(
+                    "GET",
+                    StreamInfo_URL,
+                    headers={
+                        "Client-ID": os.environ.get("twitchclientid"),
+                        "Accept": "application/vnd.twitchtv.v5+json",
+                    },
+                ) as response2:
+                    if response2.status == 200:
+                        if (await response2.json())["stream"] != None:
+                            embed = Embed(
+                                title=f"{(await response2.json())['stream']['channel']['display_name']} Stream Info",
+                                colour=Colour.dark_purple(),
+                                timestamp=datetime.utcnow(),
+                            )
+
+                            fields = [
+                                (
+                                    "Title",
+                                    f"{(await response2.json())['stream']['channel']['status']}",
+                                    True,
+                                ),
+                                (
+                                    "Game",
+                                    f"{(await response2.json())['stream']['channel']['game']}",
+                                    True,
+                                ),
+                            ]
+
+                            for name, value, inline in fields:
+                                embed.add_field(name=name, value=value, inline=inline)
+
+                            embed.set_thumbnail(
+                                url=(await response2.json())["stream"]["channel"][
+                                    "logo"
+                                ]
+                            )
+
+                            await ctx.reply(embed=embed)
 
     @Cog.listener()
     async def on_ready(self):
