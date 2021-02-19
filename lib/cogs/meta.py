@@ -188,7 +188,7 @@ class Meta(Cog):
         proc = Process()
         with proc.oneshot():
             uptime = timedelta(seconds=time() - proc.create_time())
-            cpu_time = timedelta(seconds=(cpu := proc.cpu_times()).system + cpu.user)
+            cpu_time = timedelta(seconds=(cpu := proc.cpu_times()).system + cpu.user) # pylint: disable=used-before-assignment
             mem_total = virtual_memory().total / (1025 ** 2)
             mem_of_total = proc.memory_percent()
             mem_usg = mem_total * (mem_of_total / 100)
