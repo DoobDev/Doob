@@ -1,5 +1,5 @@
 ﻿aiohttp==3.6.3
-APScheduler==3.6.3
+APScheduler==3.7.0
 dblpy==0.4.0
 discord-timers==0.1.0
 discord.py==1.6.0
