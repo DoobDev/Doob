@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest an idea for this project
+about: Suggest an idea for this project | Have an idea? But not an EXACT feature request, check out https://github.com/DoobDev/Doob/discussions!
 title: ''
 labels: feature_request
 assignees: mmattbtw
@@ -18,3 +18,5 @@ A clear and concise description of any alternative solutions or features you've 
 
 **Additional context**
 Add any other context or screenshots about the feature request here.
+
+- [ ] I have acknowledged that this is a command/feature that will benefit the user base.
