@@ -3,7 +3,7 @@ from typing import Optional
 from random import randint
 
 from discord.utils import find
-from discord import Embed, Member, Role, TextChannel, NotFound, Object
+from discord import (Embed, Member, Role, TextChannel, NotFound, Object, Colour, Permissions)
 from discord.ext.commands import (
     command,
     has_permissions,
@@ -15,6 +15,7 @@ from discord.ext.commands import (
     BadArgument,
     BucketType,
     cooldown,
+    group,
 )
 
 from ..db import db  # pylint: disable=relative-beyond-top-level
@@ -459,6 +460,99 @@ class Mod(Cog):
             icon_url=ctx.author.avatar_url,
         )
         embed.set_thumbnail(url=ctx.author.avatar_url)
+
+        await ctx.reply(embed=embed)
+
+
+    @group(name="role", aliases=["roles"], brief="Manage or see roles in your server.")
+    @has_permissions(manage_roles=True)
+    async def role(self, ctx):
+        if ctx.invoked_subcommand is None:
+            comma = ",\n"
+            tNames = []
+
+            for roles in ctx.guild.roles:
+                tNames.append(f"{roles.mention}")
+
+            embed=Embed(title=f"Roles in {ctx.guild.name}", description=comma.join(tNames), colour=ctx.author.colour)
+
+            embed.set_thumbnail(url=ctx.guild.icon_url)
+
+            await ctx.reply(embed=embed)
+
+    @role.command(name="-add", aliases=["-a"], brief="Add a role to a user (or multiple).")
+    @has_permissions(manage_roles=True)
+    async def add_role_command(self, ctx, targets: Greedy[Member], roles: Greedy[Role]):
+        comma = ", "
+        tNames = []
+        tNames2 = []
+
+        for target in targets:
+            for role in roles:
+                await target.add_roles(role)
+
+        for target in targets:
+            tNames.append(f"{target.mention}")
+
+        for role in roles:
+            tNames2.append(f"{role.mention}")
+
+        embed=Embed(title="Added roles", colour=Colour.green())
+
+        fields = [("Members:", comma.join(tNames), False),
+                  ("Roles:", comma.join(tNames2), False)]
+
+        for name, value, inline in fields:
+            embed.add_field(name=name, value=value, inline=inline)
+
+        await ctx.reply(embed=embed)
+
+    @role.command(name="-remove", aliases=["-r"], brief="Remove a role from a user (or multiple).")
+    @has_permissions(manage_roles=True)
+    async def remove_role_command(self, ctx, targets: Greedy[Member], roles: Greedy[Role]):
+        comma = ", "
+        tNames = []
+        tNames2 = []
+
+        for target in targets:
+            for role in roles:
+                await target.remove_roles(role)
+
+        for target in targets:
+            tNames.append(f"{target.mention}")
+
+        for role in roles:
+            tNames2.append(f"{role.mention}")
+
+        embed=Embed(title="Removed roles", colour=Colour.red())
+
+        fields = [("Members:", comma.join(tNames), False),
+                  ("Roles:", comma.join(tNames2), False)]
+
+        for name, value, inline in fields:
+            embed.add_field(name=name, value=value, inline=inline)
+
+        await ctx.reply(embed=embed)
+
+    @role.command(name="-create", aliases=["-c"], brief="Creates a role for the server.")
+    @has_permissions(manage_roles=True)
+    async def create_role_command(self, ctx, name: str):
+        await ctx.guild.create_role(name=name)
+
+        embed=Embed(title="Role created!", description=name, colour=Colour.green())
+
+    @role.command(name="-delete", aliases=["-d"], brief="Delete a role from the server.")
+    @has_permissions(manage_roles=True)
+    async def delete_role_command(self, ctx, roles: Greedy[Role]):
+        for role in roles:
+            await role.delete()
+
+        comma = ", "
+        tNames = []
+        for role in roles:
+            tNames.append(f"{role.name}")
+
+        embed=Embed(title="Roles deleted", description=comma.join(tNames), colour=Colour.red())
 
         await ctx.reply(embed=embed)
 

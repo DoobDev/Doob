@@ -1,3 +1,8 @@
+## v2.6.4
+* Added `d!role`
+* Added `d!role` subcommands.
+    - Documented at: https://mmatt.gitbook.io/docs/#d-role-subcommands
+
 ## v2.6.3
 * Added `d!warn`
 * Added `d!warnings`
