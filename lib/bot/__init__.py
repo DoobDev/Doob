@@ -179,9 +179,16 @@ class Bot(BotBase):
             )
             print("Updated users table.")
 
-            #db.multiexec(f"INSERT OR IGNORE INTO globalwarns (UserID) VALUES (?)", member.id)
-            db.multiexec("INSERT OR IGNORE INTO globalwarns (UserID) VALUES (?)", ((member.id,) for guild in self.guilds for member in guild.members
-            if not member.bot),)
+            # db.multiexec(f"INSERT OR IGNORE INTO globalwarns (UserID) VALUES (?)", member.id)
+            db.multiexec(
+                "INSERT OR IGNORE INTO globalwarns (UserID) VALUES (?)",
+                (
+                    (member.id,)
+                    for guild in self.guilds
+                    for member in guild.members
+                    if not member.bot
+                ),
+            )
             print("Updated global warns table.")
 
             # Puts all users in the votes DB
@@ -220,9 +227,16 @@ class Bot(BotBase):
             db.execute(
                 "INSERT OR IGNORE INTO luckydogs (UserID) VALUES (?)", message.author.id
             )
-            
-            db.execute(f"INSERT OR IGNORE INTO warns (UserID, GuildID) VALUES (?, ?)", message.author.id, message.guild.id)
-            db.execute(f"INSERT OR IGNORE INTO globalwarns (UserID) VALUES (?)", message.author.id)
+
+            db.execute(
+                f"INSERT OR IGNORE INTO warns (UserID, GuildID) VALUES (?, ?)",
+                message.author.id,
+                message.guild.id,
+            )
+            db.execute(
+                f"INSERT OR IGNORE INTO globalwarns (UserID) VALUES (?)",
+                message.author.id,
+            )
 
             db.commit()
 
