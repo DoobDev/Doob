@@ -24,6 +24,10 @@ class Welcome(Cog):
         print(f"{member.username} (member/user) have been added into the server exp DB")
         db.execute("INSERT INTO luckydogs (UserID) VALUES (?)", member.id)
         print(f"{member.username} (member/user) has been added into the LuckyDogs DB")
+        db.execute(f"INSERT OR IGNORE INTO warns (UserID, GuildID) VALUES (?, ?)", member.id, member.guild.id)
+        print(f"{member.username} (member/user) has been added into the Warns DB.")
+        db.execute(f"INSERT OR IGNORE INTO globalwarns (UserID) VALUES (?)", member.id)
+        print(f"{member.username} (member/user) have been added into the global warns DB.")
         db.commit()
 
     @Cog.listener()

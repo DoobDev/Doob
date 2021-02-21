@@ -23,6 +23,8 @@ class Info(Cog):
         xp, lvl = db.record(
             "SELECT XP, Level FROM users WHERE UserID = ?", target.id
         ) or (None, None)
+        warnings = db.records(f"SELECT Warns FROM warns WHERE UserID = {target.id} AND GuildID = {ctx.guild.id}")[0][0]
+        globalwarns = db.records(f"SELECT Warns FROM warns WHERE UserID = {target.id}")[0][0]
 
         embed = Embed(
             title=f"{target.name}'s info",
@@ -45,6 +47,8 @@ class Info(Cog):
                 f"{ids.index(target.id)+1} of {len(ids):,} users globally.",
                 True,
             ),
+            ("Warnings (Server)", warnings, False),
+            ("Warnings (Global)", globalwarns, True),
             ("Bot", target.bot, False),
             ("Top role", target.top_role.mention, True),
             ("Status", str(target.status).title(), True),

@@ -1,3 +1,7 @@
+## v2.6.3
+* Added `d!warn`
+* Added `d!warnings`
+
 ## v2.6.2
 * Added `d!twitch` subcommands.
     - Documented at: https://mmatt.gitbook.io/docs/#d-twitch-subcommands

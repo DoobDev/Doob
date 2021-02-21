@@ -384,6 +384,52 @@ class Mod(Cog):
 
         await ctx.send(f"Your Voice Channel has been created.\n{invite}")
 
+    @command(name="warn", aliases=["w"], brief="Warn a user.")
+    @has_permissions(manage_guild=True)
+    async def warn_command(self, ctx, targets: Greedy[Member], *, reason: Optional[str]):
+        comma = ", "
+        tNames = []
+        for target in targets:
+            tNames.append(f"{target.display_name}")
+
+        for target in targets:
+            user = self.bot.get_user(target.id)
+            warns = db.records(
+                f"SELECT Warns FROM warns WHERE UserID = {target.id} AND GuildID = {ctx.guild.id}"
+            )[0][0]
+            globalwarns = db.records(f"SELECT Warns FROM globalwarns WHERE UserID = {target.id}")[0][0]
+
+            db.execute("UPDATE warns SET warns = ? WHERE UserID = ? AND GuildID = ?", warns+1, target.id, ctx.guild.id)
+            db.execute("UPDATE globalwarns SET warns = ? WHERE UserID = ?", globalwarns+1, target.id)
+            db.commit()
+
+            if reason == None:
+                await user.send(f"🔸 You have been warned in {ctx.guild.name} for no reason.")
+
+            else:
+                await user.send(f"🔸 You have been warned in {ctx.guild.name} for {reason}")
+        
+        await ctx.reply(f"Done!\nWarned: {comma.join(tNames)}")
+
+    @command(name="warnings", aliases=["warns"], brief="See your warnings in the current server, and across all servers.")
+    @cooldown(1, 5, BucketType.user)
+    async def show_warnings_command(self, ctx):
+        warns = db.records(f"SELECT Warns FROM warns WHERE UserID = {ctx.author.id} AND GuildID = {ctx.guild.id}")[0][0]
+        globalwarns = db.records(f"SELECT Warns from globalwarns WHERE UserID = {ctx.author.id}")[0][0]
+
+        embed = Embed(title=f"Warnings for {ctx.author.display_name}", colour=ctx.author.colour)
+        
+        fields = [("This server", warns, False),
+                  ("Globally across all servers*", globalwarns, False)]
+
+        for name, value, inline in fields:
+            embed.add_field(name=name, value=value, inline=inline)
+        
+        embed.set_footer(text="*Warnings globally across all server with Doob, using Doob's warnings.", icon_url=ctx.author.avatar_url)
+        embed.set_thumbnail(url=ctx.author.avatar_url)
+
+        await ctx.reply(embed=embed)
+
     @Cog.listener()
     async def on_ready(self):
         if not self.bot.ready:

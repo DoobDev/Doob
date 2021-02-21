@@ -56,4 +56,17 @@ CREATE TABLE IF NOT EXISTS starboard(
     Stars integer DEFAULT 1,
     GuildID integer,
     PRIMARY KEY("MessageID", "GuildID")
+);
+
+CREATE TABLE IF NOT EXISTS warns(
+    UserID integer,
+    Warns integer DEFAULT 0,
+    GuildID integer,
+    PRIMARY KEY("UserID", "GuildID")   
+);
+
+CREATE TABLE IF NOT EXISTS globalwarns(
+    UserID integer,
+    Warns integer DEFAULT 0,
+    PRIMARY KEY("UserID")
 )
