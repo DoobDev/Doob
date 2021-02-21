@@ -4,7 +4,7 @@
       "        comma = \", \"",
       "        tNames = []",
       "        for ${1:name} in ${2:list}:",
-      "            tNames.append(f\"{${2:list}.name}\")",
+      "            tNames.append(f\"{${1:name}.name}\")",
       "",
       "        print(f\"{comma.join(tNames)}\")"
     ],
