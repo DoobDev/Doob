@@ -480,7 +480,10 @@ class Mod(Cog):
             tNames = []
 
             for roles in ctx.guild.roles:
-                tNames.append(f"{roles.mention}")
+                if roles.name == "@everyone":
+                    tNames.append("@everyone")
+                else:
+                    tNames.append(f"{roles.mention}")
 
             embed = Embed(
                 title=f"Roles in {ctx.guild.name}",
