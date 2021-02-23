@@ -34,7 +34,7 @@ class HelpMenu(ListPageSource):
 
         embed = Embed(
             title="Help",
-            description="[Subcommands Docs](https://mmatt.gitbook.io/docs/) | [Donate](https://patreon.com/doobdev) | [Top.gg Link](https://top.gg/bot/680606346952966177/)",
+            description="[Subcommands Docs](https://docs.doobbot.com/) | [Donate](https://patreon.com/doobdev) | [Top.gg Link](https://top.gg/bot/680606346952966177/)",
             colour=self.ctx.author.colour,
         )
         embed.set_thumbnail(url=self.ctx.guild.me.avatar_url)
