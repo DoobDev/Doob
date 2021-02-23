@@ -1,7 +1,7 @@
 ## v2.6.4
 * Added `d!role`
 * Added `d!role` subcommands.
-    - Documented at: https://mmatt.gitbook.io/docs/#d-role-subcommands
+    - Documented at: https://docs.doobbot.com/#d-role-subcommands
 
 ## v2.6.3
 * Added `d!warn`
@@ -9,7 +9,7 @@
 
 ## v2.6.2
 * Added `d!twitch` subcommands.
-    - Documented at: https://mmatt.gitbook.io/docs/#d-twitch-subcommands
+    - Documented at: https://docs.doobbot.com/#d-twitch-subcommands
 
 ## v2.6.1
 * Added a description for `d!fight` command.
