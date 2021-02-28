@@ -2,7 +2,6 @@
 
 [![Discord Bots](https://top.gg/api/widget/status/680606346952966177.svg)](https://top.gg/bot/680606346952966177)
 [![Discord Bots](https://top.gg/api/widget/upvotes/680606346952966177.svg?noavatar=true)](https://top.gg/bot/680606346952966177)
-[![Discord Bots](https://top.gg/api/widget/lib/680606346952966177.svg?noavatar=true)](https://top.gg/bot/680606346952966177)
 [![Discord Bots](https://top.gg/api/widget/owner/680606346952966177.svg?noavatar=true)](https:/top.gg/bot/680606346952966177)
 [![Discord Bots](https://top.gg/api/widget/servers/680606346952966177.svg?noavatar=true)](https://top.gg/bot/680606346952966177)
 
