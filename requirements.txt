@@ -6,6 +6,6 @@ discord.py==1.6.0
 psutil==5.7.2
 python-dotenv==0.15.0
 statcord.py==3.0.8
-wavelink==0.9.8
+wavelink==0.9.9
 
 git+git://github.com/rapptz/discord-ext-menus.git#egg=discord-ext-menus
