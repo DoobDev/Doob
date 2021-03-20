@@ -31,8 +31,8 @@ Doob has some great features, such as:
 * AND MORE!
 
 ## ➤ Doob on the web.
-- You can visit the Doob website at [https://doobbot.com](https://doobbot.com)
-- Visit the Dev blog at [https://doobdev.github.io](https://doobdev.github.io)
+* You can visit the Doob website at [https://doobbot.com](https://doobbot.com)
+* Visit the Dev blog at [https://doobdev.github.io](https://doobdev.github.io)
 
 ## ➤ What commands are there?
 Use the d!help command on Discord!
@@ -42,9 +42,9 @@ Use the d!help command on Discord!
 Submit an [Issue](https://github.com/doobdev/doob/issues) or a [Pull request](https://github.com/doobdev/doob/pulls).
 
 ## ➤ Credits
-- Doob Avatar: [@KittyKay000](https://twitter.com/KittyKay000)
-- Doob Name: Me and my friend William in Biology.
-- Doob extensive help: [@X Daniel](https://github.com/x-daniel-17)
-- Moral Support: Mason      
+* Doob Avatar: [@KittyKay000](https://twitter.com/KittyKay000)
+* Doob Name: Me and my friend William in Biology.
+* Doob extensive help: [@X Daniel](https://github.com/x-daniel-17)
+* Moral Support: Mason      
 
 ###### built with ♥, youtube tutorials, yelling at daniel in discord, stack overflow and twitch chat
