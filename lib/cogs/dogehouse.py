@@ -15,6 +15,7 @@ class DogeHouse(Cog):
         embed = Embed(
             title="DogeHouse Stats!",
             description="https://dogehouse.tv/",
+            colour=ctx.author.color
         )
 
         if response.status_code == 200:
@@ -30,7 +31,7 @@ class DogeHouse(Cog):
             embed.set_footer(text="Timestamp: " + data["timestamp"])
 
             embed.set_thumbnail(
-                url="https://github.com/benawad/dogehouse/blob/staging/feta/assets/regular-doge.png?raw=true"
+                url="https://github.com/benawad/dogehouse/blob/staging/feta/assets/dogehouse.png?raw=true"
             )
 
             await ctx.reply(embed=embed)
