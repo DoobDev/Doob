@@ -1,15 +1,7 @@
 from discord.ext.commands import Cog, command
-from discord import Embed, colour
-
-from ..db import db  # pylint: disable=relative-beyond-top-level
-
-import json
+from discord import Embed
 
 import requests
-
-with open("config.json") as config_file:
-    config = json.load(config_file)
-
 
 class DogeHouse(Cog):
     def __init__(self, bot):
