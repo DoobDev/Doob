@@ -1,5 +1,5 @@
 {
-"Create New D.py Cog": {
+  "Create New D.py Cog": {
     "prefix": "cncog",
     "body": [
       "from discord.ext.commands import Cog, command, cooldown, BucketType",
