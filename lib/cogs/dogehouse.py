@@ -22,7 +22,7 @@ class DogeHouse(Cog):
 
         embed = Embed(
             title="DogeHouse Stats!",
-            description="https://dogehosue.tv",
+            description="https://dogehouse.tv/",
         )
 
         if response.status_code == 200:
