@@ -1,3 +1,6 @@
+## v2.6.5
+* Added `d!dogehouse`
+
 ## v2.6.4
 * Added `d!role`
 * Added `d!role` subcommands.
