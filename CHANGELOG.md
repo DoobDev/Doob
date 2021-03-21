@@ -1,5 +1,7 @@
-## v2.6.5
+## v2.6.6
 * Added `d!dogehouse`
+
+## v2.6.5
 * Added `d!owoify`
 
 ## v2.6.4
