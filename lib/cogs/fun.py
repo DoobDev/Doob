@@ -532,6 +532,7 @@ class Fun(Cog):
             "Killjoy",
             "Skye",
             "Yoru",
+            "Astra",
         )
 
         char = choice((characters))
@@ -610,6 +611,11 @@ class Fun(Cog):
         if char == "Yoru":
             embed.set_image(
                 url="https://static.wikia.nocookie.net/valorant/images/a/a1/Yoru2.png/revision/latest/scale-to-width-down/587?cb=20210112180407"
+            )
+
+        if char == "Astra":
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/valorant/images/8/8a/Astra_artwork.png/revision/latest/scale-to-width-down/326?cb=20210302170140"
             )
 
         await ctx.reply(embed=embed)
