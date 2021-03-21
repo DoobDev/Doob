@@ -9,7 +9,7 @@ from discord.utils import get
 
 from owoify import Owoifator
 
-owoifator = Owoifator()
+owoifactor = Owoifator()
 
 from ..db import db  # pylint: disable=relative-beyond-top-level
 
@@ -619,6 +619,13 @@ class Fun(Cog):
             )
 
         await ctx.reply(embed=embed)
+
+    @command(name="owoify", aliases=["owo"], brief="'Owoify' your text.")
+    async def owoify_command(self, ctx, *, text: str):
+        """<:4Weird:799869851190558751> 🤚🛑 STOP IT WEEBS"""
+        owo_text = owoifactor.owoify(text)
+
+        await ctx.reply(f"{owo_text}")
 
     @Cog.listener()
     async def on_ready(self):
