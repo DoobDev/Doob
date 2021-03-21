@@ -14,10 +14,10 @@
 <span class="badge-patreon"><a href="https://www.patreon.com/doobdev" title="Donate to this project using Patreon"><img src="https://img.shields.io/badge/patreon-donate-yellow.svg" alt="Patreon donate button" /></a></span>
 
 
-## ➤ About
+## `📚` About
 Doob is a multipurpose Discord bot with a built-in **leveling system**, great **logging features**, actual fun, **fun commands**, and best of all, the developer is very active, and develops the bot frequently. 
 
-## ➤ Main Features
+## `🔮` Main Features
 Doob has some great features, such as:
 * Logging
 * A Global (and server specific) Leveling System (with leaderboard)
@@ -30,21 +30,21 @@ Doob has some great features, such as:
 * Discord.bio Integration
 * AND MORE!
 
-## ➤ Doob on the web.
-- You can visit the Doob website at [https://doobbot.com](https://doobbot.com)
-- Visit the Dev blog at [https://doobdev.github.io](https://doobdev.github.io)
+## `🌐` Doob on the web.
+* You can visit the Doob website at [https://doobbot.com](https://doobbot.com)
+* Visit the Dev blog at [https://doobdev.github.io](https://doobdev.github.io)
 
-## ➤ What commands are there?
+## `🔷` What commands are there?
 Use the d!help command on Discord!
 
-## ➤ Want to submit issues? Or fix existing ones?
+## `🚧` Want to submit issues? Or fix existing ones?
 ##### Issue is for Bug Reports + Feature Requests | Pull requests are for improving/adding code.
 Submit an [Issue](https://github.com/doobdev/doob/issues) or a [Pull request](https://github.com/doobdev/doob/pulls).
 
-## ➤ Credits
-- Doob Avatar: [@KittyKay000](https://twitter.com/KittyKay000)
-- Doob Name: Me and my friend William in Biology.
-- Doob extensive help: [@X Daniel](https://github.com/x-daniel-17)
-- Moral Support: Mason      
+## `🙌` Credits
+* Doob Avatar: [@KittyKay000](https://twitter.com/KittyKay000)
+* Doob Name: Me and my friend William in Biology.
+* Doob extensive help: [@X Daniel](https://github.com/x-daniel-17)
+* Moral Support: Mason      
 
 ###### built with ♥, youtube tutorials, yelling at daniel in discord, stack overflow and twitch chat

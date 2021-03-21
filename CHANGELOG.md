@@ -1,5 +1,6 @@
 ## v2.6.5
 * Added `d!dogehouse`
+* Added `d!owoify`
 
 ## v2.6.4
 * Added `d!role`
