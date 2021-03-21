@@ -7,6 +7,10 @@ from discord import Member, Embed, Colour
 from discord.ext.commands import Cog, command, cooldown, BucketType
 from discord.utils import get
 
+from owoify import Owoifator
+
+owoifactor = Owoifator()
+
 from ..db import db  # pylint: disable=relative-beyond-top-level
 
 import json
@@ -609,6 +613,13 @@ class Fun(Cog):
             )
 
         await ctx.reply(embed=embed)
+
+    @command(name="owoify", aliases=["owo"], brief="'Owoify' your text.")
+    async def owoify_command(self, ctx, *, text: str):
+        """<:4Weird:799869851190558751> 🤚🛑 STOP IT WEEBS"""
+        owo_text = owoifactor.owoify(text)
+
+        await ctx.reply(f"{owo_text}")
 
     @Cog.listener()
     async def on_ready(self):
