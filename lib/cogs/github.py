@@ -66,7 +66,7 @@ class GitHub(Cog):
     @issue.command(name="-close", aliases=["-d", "-cl"])
     async def close_github_issue(self, ctx, issue_number: int, *, reason: Optional[str]):
         if ctx.author.id == owner_id:
-            if reason == None:
+            if reason is None:
                 reason = ""
 
             ghclient = Github(token)
