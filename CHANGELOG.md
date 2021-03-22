@@ -1,3 +1,9 @@
+## v2.6.6
+* Added `d!issue`
+* Added `d!issue` subcommands.
+    - Documented at: https://docs.doobbot.com/#d-issue-subcommands
+    - Owner Only
+
 ## v2.6.5
 * Added `d!owoify`
 
