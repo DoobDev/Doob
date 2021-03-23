@@ -1,3 +1,6 @@
+## v2.6.7
+* Fixed `d!bio` command description. (#160)
+
 ## v2.6.6
 * Added `d!issue`
 * Added `d!issue` subcommands.
