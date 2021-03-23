@@ -4,7 +4,7 @@ from aiohttp import request
 from datetime import datetime
 
 from discord import Member, Embed, Colour
-from discord.ext.commands import Cog, command, cooldown, BucketType
+from discord.ext.commands import Cog, command, cooldown, BucketType, group
 from discord.utils import get
 
 from owoify import Owoifator
@@ -513,10 +513,7 @@ class Fun(Cog):
                 f". 　　　。　　　　•　 　ﾟ　　。 　　.\n　　　.　　　 　　.　　　　　。　　 。　. 　\n\n.　　 。　　　　　 ඞ 。 . 　　 • 　　　　•\n\n　　ﾟ　　 {target} was An Impostor.　 。　.\n\n　　'　　　 0 Impostors remain 　 　　。\n\n　　ﾟ　　　.　　　. ,　　　　.　 ."
             )
 
-    @command(name="valroll", brief="Roll a random VALORANT character.")
-    @cooldown(1, 2, BucketType.user)
-    async def roll_valorant_command(self, ctx):
-        """Get a random VALORANT character to play!"""
+    async def valroll_func(self, ctx):
         characters = (
             "Viper",
             "Sova",
@@ -611,6 +608,163 @@ class Fun(Cog):
         elif char == "Yoru":
             embed.set_image(
                 url="https://static.wikia.nocookie.net/valorant/images/a/a1/Yoru2.png/revision/latest/scale-to-width-down/587?cb=20210112180407"
+            )
+
+        elif char == "Astra":
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/valorant/images/8/8a/Astra_artwork.png/revision/latest/scale-to-width-down/326?cb=20210302170140"
+            )
+
+        await ctx.reply(embed=embed)
+
+    @group(name="valroll", brief="Roll a random VALORANT character.")
+    @cooldown(1, 2, BucketType.user)
+    async def valroll(self, ctx):
+        """Get a random VALORANT character to play!"""
+        if ctx.invoked_subcommand is None:
+            await self.valroll_func(ctx)
+
+    @valroll.command(name="-duelists", aliases=["-duel"])
+    async def valroll_duelists_command(self, ctx):
+        characters = (
+            "Reyna",
+            "Raze",
+            "Phoenix",
+            "Jett",
+            "Yoru",
+        )
+
+        char = choice((characters))
+
+        print(char)
+
+        embed = Embed(
+            title=f"Play: {char}", description="Enjoy!", colour=ctx.author.colour
+        )
+
+        if char == "Phoenix":
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/valorant/images/1/1e/Sage_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020306"
+            )
+
+        elif char == "Jett":
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/valorant/images/7/79/Jett_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020209"
+            )
+
+        elif char == "Reyna":
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/valorant/images/4/41/Reyna_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020340"
+            )
+
+        elif char == "Raze":
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/valorant/images/c/c4/Raze_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020217"
+            )
+
+        elif char == "Yoru":
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/valorant/images/a/a1/Yoru2.png/revision/latest/scale-to-width-down/587?cb=20210112180407"
+            )
+
+        await ctx.reply(embed=embed)
+
+    @valroll.command(name="-sentinels", aliases=["-sen", "-sentinel"])
+    async def valroll_sentinels_command(self, ctx):
+        characters = (
+            "Sage",
+            "Cypher",
+            "Killjoy",
+        )
+
+        char = choice((characters))
+
+        print(char)
+
+        embed = Embed(
+            title=f"Play: {char}", description="Enjoy!", colour=ctx.author.colour
+        )
+
+        if char == "Sage":
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/valorant/images/1/1e/Sage_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020306"
+            )
+
+        elif char == "Cypher":
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/valorant/images/b/bb/Cypher_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020329"
+            )
+
+        elif char == "Killjoy":
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/valorant/images/8/8c/Killjoy.png/revision/latest/scale-to-width-down/587?cb=20200729134445"
+            )
+
+        await ctx.reply(embed=embed)
+
+    @valroll.command(name="-initiators", aliases=["-init", "-initiator"])
+    async def valroll_initiators_command(self, ctx):
+        characters = (
+            "Breach",
+            "Sova",
+            "Skye",
+        )
+
+        char = choice((characters))
+
+        print(char)
+
+        embed = Embed(
+            title=f"Play: {char}", description="Enjoy!", colour=ctx.author.colour
+        )
+
+        if char == "Breach":
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/valorant/images/5/5c/Breach_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020225"
+            )
+
+        elif char == "Sova":
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/valorant/images/6/61/Sova_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020314"
+            )
+
+        elif char == "Skye":
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/valorant/images/b/b9/Skye_Keyart_final.png/revision/latest/scale-to-width-down/587?cb=20201013182515"
+            )
+
+        await ctx.reply(embed=embed)
+
+    @valroll.command(name="-controllers", aliases=["-ctrl", "-controller"])
+    async def valroll_controllers_command(self, ctx):
+        characters = (
+            "Omen",
+            "Brimstone",
+            "Viper",
+            "Astra",
+        )
+
+        char = choice((characters))
+
+        print(char)
+
+        embed = Embed(
+            title=f"Play: {char}", description="Enjoy!", colour=ctx.author.colour
+        )
+
+        if char == "Omen":
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/valorant/images/0/06/Omen_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020233"
+            )
+
+        elif char == "Brimstone":
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/valorant/images/3/37/Brimstone_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020239"
+            )
+
+        elif char == "Viper":
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/valorant/images/9/91/Viper_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020322"
             )
 
         elif char == "Astra":

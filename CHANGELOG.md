@@ -1,6 +1,8 @@
 ## v2.6.7
 * Fixed `d!bio` command description. (#160)
-* Added `d!owroll` (#!63)
+* Added `d!owroll` (#63)
+* Added `d!valroll` subcommands. (#164)
+    - Documented at: https://docs.doobbot.com/#d-valroll-subcommands
 
 ## v2.6.6
 * Added `d!issue`
