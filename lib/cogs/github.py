@@ -49,15 +49,27 @@ class GitHub(Cog):
             await self.show_github_issues(ctx)
 
     @issue.command(name="-create", aliases=["-c"])
-    async def create_github_issue(self, ctx, label: str, *, title: str):
+    async def create_github_issue(self, ctx, label: str, priority_label: str, *, title: str):
         if ctx.author.id == owner_id:
             ghclient = Github(token)
             repo = ghclient.get_repo("DoobDev/Doob")
+            
+            if priority_label == "high":
+                gh_priority_label = "High Priority"
+
+            elif priority_label == "medium":
+                gh_priority_label = "Medium Priority"
+
+            elif priority_label == "low":
+                gh_priority_label = "Low Priority"
+
             issue = repo.create_issue(
                 title=title,
                 body="`Issue Created via Doob for Discord`",
                 labels=[label]
             )
+                
+            issue.add_to_labels(gh_priority_label)
 
             await ctx.reply(f"Issue Created. {issue.html_url}")
         else:
