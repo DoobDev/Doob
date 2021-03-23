@@ -24,7 +24,7 @@ class Bio(Cog):
     @command(
         name="bio",
         aliases=["dbio", "discordbio"],
-        brief="Get Twitch stream information.",
+        brief="Get Discord.bio profile information.",
     )
     @cooldown(1, 5, BucketType.user)
     async def discord_bio_command(self, ctx, *, target: Optional[Member]):
