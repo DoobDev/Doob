@@ -548,72 +548,72 @@ class Fun(Cog):
                 url="https://static.wikia.nocookie.net/valorant/images/3/37/Brimstone_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020239"
             )
 
-        if char == "Viper":
+        elif char == "Viper":
             embed.set_image(
                 url="https://static.wikia.nocookie.net/valorant/images/9/91/Viper_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020322"
             )
 
-        if char == "Omen":
+        elif char == "Omen":
             embed.set_image(
                 url="https://static.wikia.nocookie.net/valorant/images/0/06/Omen_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020233"
             )
 
-        if char == "Killjoy":
+        elif char == "Killjoy":
             embed.set_image(
                 url="https://static.wikia.nocookie.net/valorant/images/8/8c/Killjoy.png/revision/latest/scale-to-width-down/587?cb=20200729134445"
             )
 
-        if char == "Cypher":
+        elif char == "Cypher":
             embed.set_image(
                 url="https://static.wikia.nocookie.net/valorant/images/b/bb/Cypher_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020329"
             )
 
-        if char == "Sova":
+        elif char == "Sova":
             embed.set_image(
                 url="https://static.wikia.nocookie.net/valorant/images/6/61/Sova_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020314"
             )
 
-        if char == "Sage":
+        elif char == "Sage":
             embed.set_image(
                 url="https://static.wikia.nocookie.net/valorant/images/1/1e/Sage_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020306"
             )
 
-        if char == "Phoenix":
+        elif char == "Phoenix":
             embed.set_image(
                 url="https://static.wikia.nocookie.net/valorant/images/1/1e/Sage_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020306"
             )
 
-        if char == "Jett":
+        elif char == "Jett":
             embed.set_image(
                 url="https://static.wikia.nocookie.net/valorant/images/7/79/Jett_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020209"
             )
 
-        if char == "Reyna":
+        elif char == "Reyna":
             embed.set_image(
                 url="https://static.wikia.nocookie.net/valorant/images/4/41/Reyna_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020340"
             )
 
-        if char == "Raze":
+        elif char == "Raze":
             embed.set_image(
                 url="https://static.wikia.nocookie.net/valorant/images/c/c4/Raze_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020217"
             )
 
-        if char == "Breach":
+        elif char == "Breach":
             embed.set_image(
                 url="https://static.wikia.nocookie.net/valorant/images/5/5c/Breach_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020225"
             )
 
-        if char == "Skye":
+        elif char == "Skye":
             embed.set_image(
                 url="https://static.wikia.nocookie.net/valorant/images/b/b9/Skye_Keyart_final.png/revision/latest/scale-to-width-down/587?cb=20201013182515"
             )
 
-        if char == "Yoru":
+        elif char == "Yoru":
             embed.set_image(
                 url="https://static.wikia.nocookie.net/valorant/images/a/a1/Yoru2.png/revision/latest/scale-to-width-down/587?cb=20210112180407"
             )
 
-        if char == "Astra":
+        elif char == "Astra":
             embed.set_image(
                 url="https://static.wikia.nocookie.net/valorant/images/8/8a/Astra_artwork.png/revision/latest/scale-to-width-down/326?cb=20210302170140"
             )
