@@ -1,3 +1,6 @@
+## v2.6.8
+* Added `d!dogehouse`
+
 ## v2.6.7
 * Fixed `d!bio` command description. (#160)
 * Added `d!owroll` (#63)
