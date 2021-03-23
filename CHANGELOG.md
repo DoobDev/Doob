@@ -3,6 +3,7 @@
 * Added `d!owroll` (#63)
 * Added `d!valroll` subcommands. (#164)
     - Documented at: https://docs.doobbot.com/#d-valroll-subcommands
+* Added priority labels to `d!issue -c`
 
 ## v2.6.6
 * Added `d!issue`
