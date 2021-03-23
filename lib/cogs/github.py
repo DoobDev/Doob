@@ -62,14 +62,14 @@ class GitHub(Cog):
 
             elif priority_label == "low":
                 gh_priority_label = "Low Priority"
-            
-            ghlabel = list(label, gh_priority_label)
 
             issue = repo.create_issue(
                 title=title,
                 body="`Issue Created via Doob for Discord`",
-                labels=[ghlabel]
+                labels=[label]
             )
+                
+            issue.add_to_labels(gh_priority_label)
 
             await ctx.reply(f"Issue Created. {issue.html_url}")
         else:
