@@ -65,7 +65,7 @@ class Fun(Cog):
             if patreonRole in member.roles:
                 # If they are, run the command.
                 await ctx.message.delete()
-                await ctx.reply(message)
+                await ctx.start(message)
                 print(f"{ctx.author.name} used the Echo command and said {message}")
 
             # This else is for if they are in the server, but not a Patron
