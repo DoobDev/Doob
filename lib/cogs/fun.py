@@ -781,7 +781,11 @@ class Fun(Cog):
 
         await ctx.reply(f"{owo_text}")
 
-    @command(name="owroll", aliases=["overwatchroll"], brief="Roll a random Overwatch character.")
+    @command(
+        name="owroll",
+        aliases=["overwatchroll"],
+        brief="Roll a random Overwatch character.",
+    )
     @cooldown(1, 3, BucketType.user)
     async def overwatch_roll_command(self, ctx):
         """Get a random Overwatch character to play!"""
@@ -817,7 +821,7 @@ class Fun(Cog):
             "Lúcio",
             "Mercy",
             "Moira",
-            "Zenyatta"
+            "Zenyatta",
         )
 
         char = choice((characters))
@@ -829,100 +833,164 @@ class Fun(Cog):
         )
 
         if char == "D.va":
-            embed.set_image(url="https://static.wikia.nocookie.net/overwatch/images/d/dc/Dva_portrait.png/revision/latest/scale-to-width-down/786?cb=20160429040128")
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/overwatch/images/d/dc/Dva_portrait.png/revision/latest/scale-to-width-down/786?cb=20160429040128"
+            )
 
         elif char == "Orisa":
-            embed.set_image(url="https://static.wikia.nocookie.net/overwatch/images/f/f9/Orisa_portrait.png/revision/latest/scale-to-width-down/795?cb=20170323183330")
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/overwatch/images/f/f9/Orisa_portrait.png/revision/latest/scale-to-width-down/795?cb=20170323183330"
+            )
 
         elif char == "Reinhardt":
-            embed.set_image(url="https://static.wikia.nocookie.net/overwatch/images/a/a2/Reinhardt-ow2.png/revision/latest/scale-to-width-down/1000?cb=20201021030948")
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/overwatch/images/a/a2/Reinhardt-ow2.png/revision/latest/scale-to-width-down/1000?cb=20201021030948"
+            )
 
         elif char == "Roadhog":
-            embed.set_image(url="https://static.wikia.nocookie.net/overwatch/images/1/15/Roadhog_portrait_m.png/revision/latest/scale-to-width-down/1000?cb=20160429040723")
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/overwatch/images/1/15/Roadhog_portrait_m.png/revision/latest/scale-to-width-down/1000?cb=20160429040723"
+            )
 
         elif char == "Sigma":
-            embed.set_image(url="https://static.wikia.nocookie.net/overwatch/images/6/6a/Sigma_Portrait.png/revision/latest/scale-to-width-down/621?cb=20200326150607")
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/overwatch/images/6/6a/Sigma_Portrait.png/revision/latest/scale-to-width-down/621?cb=20200326150607"
+            )
 
         elif char == "Winston":
-            embed.set_image(url="https://static.wikia.nocookie.net/overwatch/images/1/1f/Winston-ow2.png/revision/latest/scale-to-width-down/852?cb=20201122033102")
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/overwatch/images/1/1f/Winston-ow2.png/revision/latest/scale-to-width-down/852?cb=20201122033102"
+            )
 
         elif char == "Wrecking Ball":
-            embed.set_image(url="https://static.wikia.nocookie.net/overwatch/images/8/83/WreckingBall_portrait.png/revision/latest?cb=20190114232714")
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/overwatch/images/8/83/WreckingBall_portrait.png/revision/latest?cb=20190114232714"
+            )
 
         elif char == "Zarya":
-            embed.set_image(url="https://static.wikia.nocookie.net/overwatch/images/d/d1/Zarya_portrait.png/revision/latest/scale-to-width-down/725?cb=20160429041121")
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/overwatch/images/d/d1/Zarya_portrait.png/revision/latest/scale-to-width-down/725?cb=20160429041121"
+            )
 
         elif char == "Ashe":
-            embed.set_image(url="https://static.wikia.nocookie.net/overwatch/images/c/c1/Ashe_portrait2.png/revision/latest/scale-to-width-down/878?cb=20181106125518")
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/overwatch/images/c/c1/Ashe_portrait2.png/revision/latest/scale-to-width-down/878?cb=20181106125518"
+            )
 
         elif char == "Bastion":
-            embed.set_image(url="https://static.wikia.nocookie.net/overwatch/images/6/6a/Bastion_portrait.png/revision/latest/scale-to-width-down/932?cb=20160429042023")
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/overwatch/images/6/6a/Bastion_portrait.png/revision/latest/scale-to-width-down/932?cb=20160429042023"
+            )
 
         elif char == "Doomfist":
-            embed.set_image(url="https://static.wikia.nocookie.net/overwatch/images/0/0e/Doomfist_portrait.png/revision/latest/scale-to-width-down/699?cb=20170807035611")
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/overwatch/images/0/0e/Doomfist_portrait.png/revision/latest/scale-to-width-down/699?cb=20170807035611"
+            )
 
         elif char == "Echo":
-            embed.set_image(url="https://static.wikia.nocookie.net/overwatch/images/5/53/Echo_portrait.png/revision/latest/scale-to-width-down/321?cb=20200319191425")
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/overwatch/images/5/53/Echo_portrait.png/revision/latest/scale-to-width-down/321?cb=20200319191425"
+            )
 
         elif char == "Genji":
-            embed.set_image(url="https://static.wikia.nocookie.net/overwatch/images/2/23/Genji-ow2.png/revision/latest/scale-to-width-down/521?cb=20201122032955")
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/overwatch/images/2/23/Genji-ow2.png/revision/latest/scale-to-width-down/521?cb=20201122032955"
+            )
 
         elif char == "Hanzo":
-            embed.set_image(url="https://static.wikia.nocookie.net/overwatch/images/c/c2/Hanzo_portrait.png/revision/latest/scale-to-width-down/579?cb=20160429042113")
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/overwatch/images/c/c2/Hanzo_portrait.png/revision/latest/scale-to-width-down/579?cb=20160429042113"
+            )
 
         elif char == "Junkrat":
-            embed.set_image(url="https://static.wikia.nocookie.net/overwatch/images/5/53/Junkrat_portrait.png/revision/latest/scale-to-width-down/545?cb=20160429040823")
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/overwatch/images/5/53/Junkrat_portrait.png/revision/latest/scale-to-width-down/545?cb=20160429040823"
+            )
 
         elif char == "McCree":
-            embed.set_image(url="https://static.wikia.nocookie.net/overwatch/images/f/f3/Mccree_portrait.png/revision/latest/scale-to-width-down/748?cb=20160429041214")
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/overwatch/images/f/f3/Mccree_portrait.png/revision/latest/scale-to-width-down/748?cb=20160429041214"
+            )
 
         elif char == "Mei":
-            embed.set_image(url="https://static.wikia.nocookie.net/overwatch/images/3/33/Mei-ow2.png/revision/latest/scale-to-width-down/595?cb=20201122033029")
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/overwatch/images/3/33/Mei-ow2.png/revision/latest/scale-to-width-down/595?cb=20201122033029"
+            )
 
         elif char == "Pharah":
-            embed.set_image(url="https://static.wikia.nocookie.net/overwatch/images/f/fe/Pharah_portrait.png/revision/latest/scale-to-width-down/725?cb=20160429041650")
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/overwatch/images/f/fe/Pharah_portrait.png/revision/latest/scale-to-width-down/725?cb=20160429041650"
+            )
 
         elif char == "Reaper":
-            embed.set_image(url="https://static.wikia.nocookie.net/overwatch/images/e/ee/Reaper_portrait.png/revision/latest/scale-to-width-down/721?cb=20160429041404")
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/overwatch/images/e/ee/Reaper_portrait.png/revision/latest/scale-to-width-down/721?cb=20160429041404"
+            )
 
         elif char == "Soldier: 76":
-            embed.set_image(url="https://static.wikia.nocookie.net/overwatch/images/c/c3/Soldier76_portrait.png/revision/latest/scale-to-width-down/653?cb=20160429041023")
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/overwatch/images/c/c3/Soldier76_portrait.png/revision/latest/scale-to-width-down/653?cb=20160429041023"
+            )
 
         elif char == "Sombra":
-            embed.set_image(url="https://static.wikia.nocookie.net/overwatch/images/f/fc/Sombra_portrait.png/revision/latest/scale-to-width-down/518?cb=20170105140023")
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/overwatch/images/f/fc/Sombra_portrait.png/revision/latest/scale-to-width-down/518?cb=20170105140023"
+            )
 
         elif char == "Symmetra":
-            embed.set_image(url="https://static.wikia.nocookie.net/overwatch/images/e/eb/Symmetra_portrait.png/revision/latest/scale-to-width-down/546?cb=20160429041836")
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/overwatch/images/e/eb/Symmetra_portrait.png/revision/latest/scale-to-width-down/546?cb=20160429041836"
+            )
 
         elif char == "Torbjörn":
-            embed.set_image(url="https://static.wikia.nocookie.net/overwatch/images/e/e5/Torbjorn_portrait.png/revision/latest/scale-to-width-down/819?cb=20160429041926")
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/overwatch/images/e/e5/Torbjorn_portrait.png/revision/latest/scale-to-width-down/819?cb=20160429041926"
+            )
 
         elif char == "Tracer":
-            embed.set_image(url="https://static.wikia.nocookie.net/overwatch/images/0/07/Tracer-ow2.png/revision/latest/scale-to-width-down/424?cb=20201122033046")
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/overwatch/images/0/07/Tracer-ow2.png/revision/latest/scale-to-width-down/424?cb=20201122033046"
+            )
 
         elif char == "Widowmaker":
-            embed.set_image(url="https://static.wikia.nocookie.net/overwatch/images/1/1e/Widow.png/revision/latest/scale-to-width-down/1000?cb=20201211185156")
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/overwatch/images/1/1e/Widow.png/revision/latest/scale-to-width-down/1000?cb=20201211185156"
+            )
 
         elif char == "Ana":
-            embed.set_image(url="https://static.wikia.nocookie.net/overwatch/images/0/0b/Ana_portrait2.png/revision/latest/scale-to-width-down/1000?cb=20181108050042")
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/overwatch/images/0/0b/Ana_portrait2.png/revision/latest/scale-to-width-down/1000?cb=20181108050042"
+            )
 
         elif char == "Baptiste":
-            embed.set_image(url="https://static.wikia.nocookie.net/overwatch/images/1/1c/Baptiste_Portrait.png/revision/latest/scale-to-width-down/502?cb=20200326145408")
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/overwatch/images/1/1c/Baptiste_Portrait.png/revision/latest/scale-to-width-down/502?cb=20200326145408"
+            )
 
         elif char == "Brigitte":
-            embed.set_image(url="https://static.wikia.nocookie.net/overwatch/images/7/7b/Brigitte_portrait.png/revision/latest/scale-to-width-down/750?cb=20190114232133")
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/overwatch/images/7/7b/Brigitte_portrait.png/revision/latest/scale-to-width-down/750?cb=20190114232133"
+            )
 
         elif char == "Lúcio":
-            embed.set_image(url="https://static.wikia.nocookie.net/overwatch/images/4/44/Lucio-ow2.png/revision/latest/scale-to-width-down/455?cb=20201122033010")
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/overwatch/images/4/44/Lucio-ow2.png/revision/latest/scale-to-width-down/455?cb=20201122033010"
+            )
 
         elif char == "Mercy":
-            embed.set_image(url="https://static.wikia.nocookie.net/overwatch/images/7/75/Mercy-ow2.png/revision/latest/scale-to-width-down/505?cb=20201122032817")
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/overwatch/images/7/75/Mercy-ow2.png/revision/latest/scale-to-width-down/505?cb=20201122032817"
+            )
 
         elif char == "Moira":
-            embed.set_image(url="https://static.wikia.nocookie.net/overwatch/images/a/a2/Moira_portrait0.png/revision/latest/scale-to-width-down/747?cb=20181108054744")
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/overwatch/images/a/a2/Moira_portrait0.png/revision/latest/scale-to-width-down/747?cb=20181108054744"
+            )
 
         elif char == "Zenyatta":
-            embed.set_image(url="https://static.wikia.nocookie.net/overwatch/images/f/f5/Zenyatta_portrait.png/revision/latest/scale-to-width-down/846?cb=20160429042336")
+            embed.set_image(
+                url="https://static.wikia.nocookie.net/overwatch/images/f/f5/Zenyatta_portrait.png/revision/latest/scale-to-width-down/846?cb=20160429042336"
+            )
 
         await ctx.reply(embed=embed)
 
