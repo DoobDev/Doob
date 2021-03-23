@@ -10,3 +10,5 @@ pythonenv3.8
 lib/bot/statcord.txt
 lib/bot/trackergg api.txt
 .idea
+pyproject.toml
+poetry.lock
