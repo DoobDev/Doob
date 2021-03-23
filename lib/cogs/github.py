@@ -49,7 +49,7 @@ class GitHub(Cog):
             await self.show_github_issues(ctx)
 
     @issue.command(name="-create", aliases=["-c"])
-    async def create_github_issue(self, ctx, label: str, *, title: str):
+    async def create_github_issue(self, ctx, label: str, *, title: str, priority_label: str):
         if ctx.author.id == owner_id:
             ghclient = Github(token)
             repo = ghclient.get_repo("DoobDev/Doob")
