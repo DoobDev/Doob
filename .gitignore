@@ -12,3 +12,4 @@ lib/bot/trackergg api.txt
 .idea
 pyproject.toml
 poetry.lock
+.DS_store
