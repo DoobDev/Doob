@@ -577,7 +577,7 @@ class Fun(Cog):
 
         elif char == "Phoenix":
             embed.set_image(
-                url="https://static.wikia.nocookie.net/valorant/images/1/1e/Sage_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020306"
+                url="https://static.wikia.nocookie.net/valorant/images/f/fa/Phoenix_artwork.png/revision/latest/scale-to-width-down/652?cb=20200602020246"
             )
 
         elif char == "Jett":
@@ -644,7 +644,7 @@ class Fun(Cog):
 
         if char == "Phoenix":
             embed.set_image(
-                url="https://static.wikia.nocookie.net/valorant/images/1/1e/Sage_artwork.png/revision/latest/scale-to-width-down/587?cb=20200602020306"
+                url="https://static.wikia.nocookie.net/valorant/images/f/fa/Phoenix_artwork.png/revision/latest/scale-to-width-down/652?cb=20200602020246"
             )
 
         elif char == "Jett":
