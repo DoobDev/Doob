@@ -994,6 +994,10 @@ class Fun(Cog):
 
         await ctx.reply(embed=embed)
 
+    @command(name="coinflip", aliases=["cf"], brief="Flip a coin")
+    async def coin_flip_command(self, ctx):
+        await ctx.reply(choice(("Heads!", "Tails!")))
+
     @Cog.listener()
     async def on_ready(self):
         if not self.bot.ready:
