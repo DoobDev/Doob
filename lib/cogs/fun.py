@@ -1,4 +1,4 @@
-from random import choice, randint
+from random import choice, randint, random
 from typing import Optional
 from aiohttp import request
 from datetime import datetime
@@ -996,7 +996,10 @@ class Fun(Cog):
 
     @command(name="coinflip", aliases=["cf"], brief="Flip a coin")
     async def coin_flip_command(self, ctx):
-        await ctx.reply(choice(("Heads!", "Tails!")))
+        if random() > 0.001:
+            await ctx.reply(choice(("Heads!", "Tails!")))
+        else:
+            await ctx.reply("The coin landed on its side...")
 
     @Cog.listener()
     async def on_ready(self):
