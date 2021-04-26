@@ -5,7 +5,7 @@ discord-timers==0.1.0
 discord.py==1.7.1
 psutil==5.8.0
 python-dotenv==0.17.0
-statcord.py==3.0.9
+statcord.py==3.1.0
 wavelink==0.9.9
 owoify==0.3.1
 PyGithub==1.54.1
