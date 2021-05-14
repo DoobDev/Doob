@@ -83,7 +83,7 @@ class Meta(Cog):
     async def doob_invite_link(self, ctx):
         """Gives you a link to invite Doob to another server!"""
         await ctx.reply(
-            "You can invite the bot here! :link: <https://discord.com/oauth2/authorize?client_id=680606346952966177&scope=bot&permissions=271674430>"
+            "You can invite the bot here! :link: <https://mmatt.link/invdoob>"
         )
 
     @command(name="ping", brief="Shows the bot's latency.")
@@ -227,7 +227,7 @@ class Meta(Cog):
             ("Top.gg Link", "https://top.gg/bot/680606346952966177", False),
             (
                 "Invite Link",
-                "[Invite Link Here](https://discordapp.com/oauth2/authorize?client_id=680606346952966177&scope=bot&permissions=271674430)",
+                "[Invite Link Here](https://mmatt.link/invdoob)",
                 True,
             ),
             (
