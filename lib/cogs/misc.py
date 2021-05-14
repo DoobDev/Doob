@@ -1,7 +1,7 @@
 from discord.ext.commands import Cog
 from discord.ext.commands import CheckFailure
 from discord.ext.commands import command, has_permissions, cooldown, BucketType
-from discord import Embed, Message, Reaction
+from discord import Embed, Message, Reaction, Emoji
 
 from discord.ext import timers
 
@@ -267,7 +267,7 @@ class Misc(Cog):
             timestamp=datetime.utcnow(),
         )
         embed.set_footer(
-            text=f"Reported By: {ctx.author}", icon_url=ctx.message.author.avatar_url
+            text=f"Requested By: {ctx.author}", icon_url=ctx.message.author.avatar_url
         )
         embed.set_thumbnail(
             url="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/OBS.svg/1024px-OBS.svg.png"
@@ -284,6 +284,26 @@ class Misc(Cog):
                     delete_after=15,
                 )
 
+    @command(name="emote", aliases=["emoji"], brief="Gets Emote info.")
+    async def get_emote_command(self, ctx, emote: Emoji):
+        embed = Embed(title=f"{emote.name} Info", colour=ctx.author.colour, timestamp=datetime.utcnow())
+
+        fields = [("Name", emote.name, False),
+                  ("ID", emote.id, False),
+                  ("Does the emote require colons?", emote.require_colons, False),
+                  ("Animated?", emote.animated, False),
+                  ("Twitch Sub Emote?", emote.managed, False),
+                  ("Guild", emote.guild.name, False),
+                  #("Creator", emote.user.username, False),
+                  ("Created At", emote.created_at, False),
+                  ("URL", emote.url, False)]
+
+        for name, value, inline in fields:
+            embed.add_field(name=name, value=value, inline=inline)
+
+        embed.set_image(url=emote.url)
+
+        await ctx.reply(embed=embed)
 
 def setup(bot):
     bot.add_cog(Misc(bot))
