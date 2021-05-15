@@ -208,22 +208,6 @@ class Misc(Cog):
         if not self.bot.ready:
             self.bot.cogs_ready.ready_up("misc")
 
-    @command(name="remind", aliases=["remindme"], brief="Set a reminder")
-    async def remind(self, ctx, time, *, text):
-        """Remind to do something on a date.\nThe format is: `Y/M/D`."""
-        date = datetime(*map(int, time.split("/")))
-        timers.Timer(
-            self.bot, "reminder", date, args=(ctx.channel.id, ctx.author.id, text)
-        ).start()
-
-        await ctx.reply("Reminder set!")
-
-    @Cog.listener()
-    async def on_reminder(self, author_id, text):
-        author = self.bot.get_user(author_id)
-
-        await author.send(f"<@{author.id}>, remember to: {text}")
-
     @command(
         name="ownerprefix",
         aliases=["opo"],
