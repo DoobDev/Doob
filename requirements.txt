@@ -8,7 +8,7 @@ python-dotenv==0.17.1
 statcord.py==3.1.0
 wavelink==0.9.9
 owoify==0.3.1
-PyGithub==1.54.1
+PyGithub==1.55
 discord-py-slash-command==1.1.2
 
 git+git://github.com/rapptz/discord-ext-menus.git#egg=discord-ext-menus
