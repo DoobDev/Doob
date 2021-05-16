@@ -1,3 +1,7 @@
+## v2.7.0
+Too many changes, forgot to docuement, sorry.
+- https://github.com/DoobDev/Doob/milestone/1?closed=1
+
 ## v2.6.8
 * Added `d!dogehouse`
 

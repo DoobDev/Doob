@@ -17,6 +17,7 @@ from discord.ext.commands import (
     MissingRequiredArgument,
     CommandOnCooldown,
     MissingPermissions,
+    EmojiNotFound
 )
 
 import os
@@ -134,12 +135,12 @@ class Bot(BotBase):
 
     # Basic error handling for Doob
     async def on_command_error(self, ctx, exc):
-        if any([isinstance(exc, error) for error in IGNORE_EXCEPTIONS]):
-            await ctx.reply(
-                f"Something went wrong!\n\nError: {exc.original}", delete_after=10
-            )
+        # if any([isinstance(exc, error) for error in IGNORE_EXCEPTIONS]):
+        #     await ctx.reply(
+        #         f"Something went wrong!\n\nError: {exc.original}", delete_after=10
+        #     )
 
-        elif isinstance(exc, MissingRequiredArgument):
+        if isinstance(exc, MissingRequiredArgument):
             await ctx.reply("Required arguments missing.", delete_after=10)
 
         elif isinstance(exc, CommandOnCooldown):
@@ -150,6 +151,9 @@ class Bot(BotBase):
 
         elif isinstance(exc, MissingPermissions):
             await ctx.reply("You don't have permissions for that.", delete_after=10)
+
+        elif isinstance(exc, EmojiNotFound):
+            await ctx.reply("This emote could not be found. This is likely because Doob isn't in the same server as this emote.", delete_after=10)
 
         elif hasattr(exc, "original"):
             if isinstance(exc.original, Forbidden):
