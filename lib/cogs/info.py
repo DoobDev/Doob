@@ -158,12 +158,12 @@ class Info(Cog):
             timestamp=datetime.utcnow(),
         )
 
-        statuses = [
-            len(list(filter(lambda m: str(m.status) == "online", ctx.guild.members))),
-            len(list(filter(lambda m: str(m.status) == "idle", ctx.guild.members))),
-            len(list(filter(lambda m: str(m.status) == "dnd", ctx.guild.members))),
-            len(list(filter(lambda m: str(m.status) == "offline", ctx.guild.members))),
-        ]
+        #statuses = [
+        #    len(list(filter(lambda m: str(m.status) == "online", ctx.guild.members))),
+        #    len(list(filter(lambda m: str(m.status) == "idle", ctx.guild.members))),
+        #    len(list(filter(lambda m: str(m.status) == "dnd", ctx.guild.members))),
+        #    len(list(filter(lambda m: str(m.status) == "offline", ctx.guild.members))),
+        #]
 
         fields = [
             ("ID", ctx.guild.id, True),
@@ -173,11 +173,11 @@ class Info(Cog):
             ("Members", len(ctx.guild.members), True),
             ("Humans", len(list(filter(lambda m: not m.bot, ctx.guild.members))), True),
             ("Bots", len(list(filter(lambda m: m.bot, ctx.guild.members))), True),
-            (
-                "Statuses",
-                f"🟢 {statuses[0]} 🟠 {statuses[1]} 🔴 {statuses[2]} ⚪ {statuses[3]}",
-                True,
-            ),
+            #(
+            #    "Statuses",
+            #    f"🟢 {statuses[0]} 🟠 {statuses[1]} 🔴 {statuses[2]} ⚪ {statuses[3]}",
+            #    True,
+            #),
             ("Text channels", len(ctx.guild.text_channels), True),
             ("Voice channels", len(ctx.guild.voice_channels), True),
             ("Categories", len(ctx.guild.categories), True),
