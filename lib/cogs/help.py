@@ -84,7 +84,7 @@ class Help(Cog):
             await menu.start(ctx)
 
         else:
-            if (command := get(self.bot.commands, name=cmd)) :
+            if command := get(self.bot.commands, name=cmd):
                 await self.cmd_help(ctx, command)
 
             else:

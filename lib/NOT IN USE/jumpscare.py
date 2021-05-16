@@ -1,3 +1,6 @@
+"""
+FROM HALLOWEEN 2020
+"""
 from random import randint
 
 from discord import Member, Embed, Colour

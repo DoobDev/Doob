@@ -1,3 +1,6 @@
+"""
+UPDATES Doob's Statcord PAGE
+"""
 from discord.ext import commands
 
 import statcord

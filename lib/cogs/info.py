@@ -6,6 +6,9 @@ from discord import Embed, Member
 from discord.ext.commands import Cog, command, cooldown, BucketType
 from discord.utils import get
 
+from discord_slash.utils.manage_commands import create_option
+from discord_slash import cog_ext, SlashContext
+
 from ..db import db  # pylint: disable=relative-beyond-top-level
 
 import json
@@ -79,7 +82,7 @@ class Info(Cog):
             embed.add_field(name=name, value=value, inline=inline)
 
         embed.set_thumbnail(url=target.avatar_url)
-        await ctx.reply(embed=embed)
+        await ctx.send(embed=embed)
 
     @command(
         name="userinfo",
@@ -91,6 +94,41 @@ class Info(Cog):
         """Gives you info about a user."""
         target = target or ctx.author
 
+        homeGuild = self.bot.get_guild(config["homeGuild_id"])  # Support Server ID.
+        patreonRole = get(
+            homeGuild.roles, id=config["patreonRole_id"]
+        )  # Patreon role ID.
+
+        member = []
+
+        for pledger in homeGuild.members:
+            if pledger == ctx.author:
+                member = pledger
+
+        if ctx.author in homeGuild.members:
+            if patreonRole in member.roles:
+                patreon_status = True
+                await self.user_info(ctx, target, patreon_status)
+
+            else:
+                await self.user_info(ctx, target, patreon_status=False)
+
+        else:
+            await self.user_info(ctx, target, patreon_status=False)
+
+    @cog_ext.cog_slash(
+        name="userinfo",
+        description="Gives you info about a user.",
+        options=[
+            create_option(
+                name="target",
+                description="User you would like to recieve info on.",
+                option_type=6,
+                required=True,
+            )
+        ],
+    )
+    async def user_info_slash(self, ctx, target: Optional[Member]):
         homeGuild = self.bot.get_guild(config["homeGuild_id"])  # Support Server ID.
         patreonRole = get(
             homeGuild.roles, id=config["patreonRole_id"]
@@ -159,10 +197,10 @@ class Info(Cog):
             embed.add_field(
                 name="Banned members", value=len(await ctx.guild.bans()), inline=True
             )
-            await ctx.reply(embed=embed)
+            await ctx.send(embed=embed)
 
         else:
-            await ctx.reply(embed=embed)
+            await ctx.send(embed=embed)
 
     @command(
         name="serverinfo",
@@ -175,6 +213,17 @@ class Info(Cog):
         if ctx.guild.me.guild_permissions.administrator == True:
             await self.server_info(ctx, banned_members=True)
 
+        else:
+            await self.server_info(ctx, banned_members=False)
+
+    @cog_ext.cog_slash(
+        name="serverinfo",
+        description="Gives you info about your server.",
+    )
+    async def server_info_slash_command(self, ctx):
+        if ctx.guild.me.guild_permissions.administrator == True:
+            await self.server_info(ctx, banned_members=True)
+        
         else:
             await self.server_info(ctx, banned_members=False)
 

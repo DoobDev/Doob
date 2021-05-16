@@ -1,3 +1,6 @@
+"""
+UPDATES Doob's SERVER COUNT ON TOPGG
+"""
 import dbl
 
 from discord.ext import commands

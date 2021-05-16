@@ -563,10 +563,12 @@ class Mod(Cog):
         name="-create", aliases=["-c"], brief="Creates a role for the server."
     )
     @has_permissions(manage_roles=True)
-    async def create_role_command(self, ctx, name: str):
+    async def create_role_command(self, ctx, *, name: str):
         await ctx.guild.create_role(name=name)
 
         embed = Embed(title="Role created!", description=name, colour=Colour.green())
+
+        await ctx.send(embed=embed)
 
     @role.command(
         name="-delete", aliases=["-d"], brief="Delete a role from the server."

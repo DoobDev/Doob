@@ -1,3 +1,6 @@
+"""
+SADLY PYOSU NO LONGER WORKS (iirc)
+"""
 import asyncio
 from pyosu import OsuApi
 

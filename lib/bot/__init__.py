@@ -21,6 +21,8 @@ from discord.ext.commands import (
 
 import os
 
+from discord_slash import SlashCommand
+
 from ..db import db  # pylint: disable=relative-beyond-top-level
 
 from dotenv import load_dotenv
@@ -242,3 +244,4 @@ class Bot(BotBase):
 
 
 bot = Bot()
+slash = SlashCommand(bot, sync_commands=True, sync_on_cog_reload=True)

@@ -1,3 +1,6 @@
+"""
+DONT MOVE IF YOU HAVENT SET UP DOOB MUSIC
+"""
 import asyncio
 import typing
 import re

@@ -270,17 +270,23 @@ class Misc(Cog):
 
     @command(name="emote", aliases=["emoji"], brief="Gets Emote info.")
     async def get_emote_command(self, ctx, emote: Emoji):
-        embed = Embed(title=f"{emote.name} Info", colour=ctx.author.colour, timestamp=datetime.utcnow())
+        embed = Embed(
+            title=f"{emote.name} Info",
+            colour=ctx.author.colour,
+            timestamp=datetime.utcnow(),
+        )
 
-        fields = [("Name", emote.name, False),
-                  ("ID", emote.id, False),
-                  ("Does the emote require colons?", emote.require_colons, False),
-                  ("Animated?", emote.animated, False),
-                  ("Twitch Sub Emote?", emote.managed, False),
-                  ("Guild", emote.guild.name, False),
-                  #("Creator", emote.user.username, False),
-                  ("Created At", emote.created_at, False),
-                  ("URL", emote.url, False)]
+        fields = [
+            ("Name", emote.name, False),
+            ("ID", emote.id, False),
+            ("Does the emote require colons?", emote.require_colons, False),
+            ("Animated?", emote.animated, False),
+            ("Twitch Sub Emote?", emote.managed, False),
+            ("Guild", emote.guild.name, False),
+            # ("Creator", emote.user.username, False),
+            ("Created At", emote.created_at, False),
+            ("URL", emote.url, False),
+        ]
 
         for name, value, inline in fields:
             embed.add_field(name=name, value=value, inline=inline)
@@ -288,6 +294,7 @@ class Misc(Cog):
         embed.set_image(url=emote.url)
 
         await ctx.reply(embed=embed)
+
 
 def setup(bot):
     bot.add_cog(Misc(bot))
