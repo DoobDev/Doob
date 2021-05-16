@@ -1,3 +1,6 @@
+## 2.7.1
+* Added Error handling for EmojiNotFound
+
 ## v2.7.0
 Too many changes, forgot to docuement, sorry.
 - https://github.com/DoobDev/Doob/milestone/1?closed=1
