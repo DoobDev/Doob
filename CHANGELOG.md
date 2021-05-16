@@ -1,4 +1,8 @@
-## 2.7.1
+## v2.7.2
+* Added /support
+* Added /invite
+
+## v2.7.1
 * Added Error handling for EmojiNotFound
 
 ## v2.7.0
