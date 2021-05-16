@@ -1001,6 +1001,44 @@ class Fun(Cog):
         else:
             await ctx.reply("The coin landed on its side...")
 
+    @command(name="coinfliptimes", aliases=["cft"], brief="Flip a coin multiple times")
+    async def coin_flip_times_command(self, ctx, num: int):
+        heads = 0
+        tails = 0
+
+        if num <= 1000:
+            num = num
+            num_limit = False
+        else:
+            num = 1000
+            num_limit = True
+
+        for x in range(0, num):
+            coinflip = choice(("Heads", "Tails"))
+            if coinflip == "Heads":
+                heads += 1
+            elif coinflip == "Tails":
+                tails += 1
+
+        embed=Embed(title="Coinflip Results:",
+                    description=f"Tails: {str(tails)}\nHeads: {str(heads)}",
+                    colour=ctx.author.color)
+
+        if tails > heads:
+            embed.set_footer(text=f"Tails won by {tails-heads}!", icon_url=ctx.author.avatar_url)
+
+        elif tails < heads:
+            embed.set_footer(text=f"Heads won by {heads-tails}!", icon_url=ctx.author.avatar_url)
+
+        else:
+            embed.set_footer(text="TIE!", icon_url=ctx.author.avatar_url)
+
+        if num_limit:
+            embed.set_footer(text="The maximum number is 1000, your number was too big.", icon_url=ctx.author.avatar_url)
+
+        await ctx.reply(embed=embed)
+        
+
     @Cog.listener()
     async def on_ready(self):
         if not self.bot.ready:
