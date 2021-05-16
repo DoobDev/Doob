@@ -223,7 +223,7 @@ class Info(Cog):
     async def server_info_slash_command(self, ctx):
         if ctx.guild.me.guild_permissions.administrator == True:
             await self.server_info(ctx, banned_members=True)
-        
+
         else:
             await self.server_info(ctx, banned_members=False)
 
