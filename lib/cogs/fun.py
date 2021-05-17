@@ -7,6 +7,9 @@ from discord import Member, Embed, Colour
 from discord.ext.commands import Cog, command, cooldown, BucketType, group
 from discord.utils import get
 
+from discord_slash.utils.manage_commands import create_option
+from discord_slash import cog_ext, SlashContext
+
 from owoify import Owoifator
 
 owoifactor = Owoifator()
@@ -371,6 +374,10 @@ class Fun(Cog):
         # Rolls a number for the "Patreon Ad", which is just a small ad at the top of the embed telling them that they can get
         # a higher chance of getting a Lucky Dog by subscribing to the Patreon.
         patreon_ad = randint(1, 4)
+
+        LuckyDogs = db.records(
+            "SELECT LuckyDogs FROM luckydogs WHERE UserID = ?", ctx.author.id
+        )
 
         # URL for the API
         URL = "https://dog.ceo/api/breeds/image/random"
@@ -1020,24 +1027,32 @@ class Fun(Cog):
             elif coinflip == "Tails":
                 tails += 1
 
-        embed=Embed(title="Coinflip Results:",
-                    description=f"Tails: {str(tails)}\nHeads: {str(heads)}",
-                    colour=ctx.author.color)
+        embed = Embed(
+            title="Coinflip Results:",
+            description=f"Tails: {str(tails)}\nHeads: {str(heads)}",
+            colour=ctx.author.color,
+        )
 
         if tails > heads:
-            embed.set_footer(text=f"Tails won by {tails-heads}!", icon_url=ctx.author.avatar_url)
+            embed.set_footer(
+                text=f"Tails won by {tails-heads}!", icon_url=ctx.author.avatar_url
+            )
 
         elif tails < heads:
-            embed.set_footer(text=f"Heads won by {heads-tails}!", icon_url=ctx.author.avatar_url)
+            embed.set_footer(
+                text=f"Heads won by {heads-tails}!", icon_url=ctx.author.avatar_url
+            )
 
         else:
             embed.set_footer(text="TIE!", icon_url=ctx.author.avatar_url)
 
         if num_limit:
-            embed.set_footer(text="The maximum number is 1000, your number was too big.", icon_url=ctx.author.avatar_url)
+            embed.set_footer(
+                text="The maximum number is 1000, your number was too big.",
+                icon_url=ctx.author.avatar_url,
+            )
 
         await ctx.reply(embed=embed)
-        
 
     @Cog.listener()
     async def on_ready(self):

@@ -78,7 +78,9 @@ class Meta(Cog):
         """Gives a link to the Doob Support Server where you can get help from the developer!"""
         await ctx.reply("Join the support server at: :link: https://discord.gg/hgQTTU7")
 
-    @cog_ext.cog_slash(name="support", description="Get a link to the Doob support server.")
+    @cog_ext.cog_slash(
+        name="support", description="Get a link to the Doob support server."
+    )
     async def support_server_link_slashcmd(self, ctx):
         await ctx.send("Join the support server at: :link: https://discord.gg/hgQTTU7")
 
@@ -93,7 +95,9 @@ class Meta(Cog):
             "You can invite the bot here! :link: <https://mmatt.link/invdoob>"
         )
 
-    @cog_ext.cog_slash(name="invite", description="Gives a link to invite Doob to your server.")
+    @cog_ext.cog_slash(
+        name="invite", description="Gives a link to invite Doob to your server."
+    )
     async def doob_invite_link_slashcmd(self, ctx):
         await ctx.send(
             "You can invite the bot here! :link: <https://mmatt.link/invdoob>"
