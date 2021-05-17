@@ -66,6 +66,9 @@ class Links(Cog):
         ShortLinkAmount = db.records(
             "SELECT ShortLinkAmount FROM users WHERE UserID = ?", ctx.author.id
         )
+
+        log_channel = await self.bot.fetch_channel(config["ShortLinkLogs"])
+
         try:
             homeGuild = self.bot.get_guild(config["homeGuild_id"])  # Support Server ID.
             patreonRole = get(
@@ -114,6 +117,7 @@ class Links(Cog):
             if r.status_code == requests.codes.ok:
                 link = r.json()
                 shortUrl = link["shortUrl"]
+                destination = link["destination"]
                 await ctx.send(f"Boom! Shortened: :link: <https://{shortUrl}>")
 
                 db.execute(
@@ -122,6 +126,9 @@ class Links(Cog):
                     ctx.author.id,
                 )
                 db.commit()
+
+                owner_id = config["owner_ids"][0]
+                await log_channel.send(f"New Short Link <<@{owner_id}>>\n<:doob:754762131085459498> :link: <https://{shortUrl}>\nLong :link: {destination}\n(scan with `-trace`)")
 
             elif r.status_code == 403:
                 await ctx.send(

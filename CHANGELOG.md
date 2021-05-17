@@ -1,3 +1,6 @@
+## v2.8.2
+* Added short link logs (#206)
+
 ## v2.8.1
 * Changed invite link.
 
