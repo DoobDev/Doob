@@ -18,7 +18,8 @@ CREATE TABLE IF NOT EXISTS users(
     OverwatchPlatform text,
     OverwatchRegion text,
     LastfmUsername text,
-    osuUsername text
+    osuUsername text,
+    ShortLinkAmount integer DEFAULT 0
 );
 
 CREATE TABLE IF NOT EXISTS "mutes" (

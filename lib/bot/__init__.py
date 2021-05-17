@@ -17,7 +17,7 @@ from discord.ext.commands import (
     MissingRequiredArgument,
     CommandOnCooldown,
     MissingPermissions,
-    EmojiNotFound
+    EmojiNotFound,
 )
 
 import os
@@ -153,7 +153,10 @@ class Bot(BotBase):
             await ctx.reply("You don't have permissions for that.", delete_after=10)
 
         elif isinstance(exc, EmojiNotFound):
-            await ctx.reply("This emote could not be found. This is likely because Doob isn't in the same server as this emote.", delete_after=10)
+            await ctx.reply(
+                "This emote could not be found. This is likely because Doob isn't in the same server as this emote.",
+                delete_after=10,
+            )
 
         elif hasattr(exc, "original"):
             if isinstance(exc.original, Forbidden):
