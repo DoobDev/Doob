@@ -1,3 +1,6 @@
+## v2.8.1
+* Changed invite link.
+
 ## v2.8.0
 * Added `d!coinfliptimes`
     - Flips a coin the amount of times you want, and shows you the outcome.

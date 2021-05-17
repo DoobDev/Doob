@@ -92,7 +92,7 @@ class Meta(Cog):
     async def doob_invite_link(self, ctx):
         """Gives you a link to invite Doob to another server!"""
         await ctx.reply(
-            "You can invite the bot here! :link: <https://mmatt.link/invdoob>"
+            "You can invite the bot here! :link: <https://doob.link/invite>"
         )
 
     @cog_ext.cog_slash(
@@ -100,7 +100,7 @@ class Meta(Cog):
     )
     async def doob_invite_link_slashcmd(self, ctx):
         await ctx.send(
-            "You can invite the bot here! :link: <https://mmatt.link/invdoob>"
+            "You can invite the bot here! :link: <https://doob.link/invite>"
         )
 
     @command(name="ping", brief="Shows the bot's latency.")
@@ -227,7 +227,7 @@ class Meta(Cog):
             ("Top.gg Link", "https://top.gg/bot/680606346952966177", False),
             (
                 "Invite Link",
-                "[Invite Link Here](https://mmatt.link/invdoob)",
+                "[Invite Link Here](https://doob.link/invite)",
                 True,
             ),
             (
