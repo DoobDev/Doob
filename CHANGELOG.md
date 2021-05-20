@@ -1,3 +1,7 @@
+## v2.8.3
+* Added unlimited short links for owners (#207)
+* Made a better description for d!link
+
 ## v2.8.2
 * Added short link logs (#206)
 
