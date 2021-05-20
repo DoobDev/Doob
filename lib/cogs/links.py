@@ -48,10 +48,13 @@ class Links(Cog):
 
         if ctx.author in homeGuild.members:
             if patreonRole in member.roles:
-                if ShortLinkAmount[0][0] >= 12:
-                    await ctx.send("You have too many short links! (12)")
-                else:
+                if ctx.author.id in config["owner_ids"]:
                     await self.after_check_shorten_link_func(ctx, url, vanity)
+                else:
+                    if ShortLinkAmount[0][0] >= 12:
+                        await ctx.send("You have too many short links! (12)")
+                    else:
+                        await self.after_check_shorten_link_func(ctx, url, vanity)
             else:
                 if ShortLinkAmount[0][0] >= 6:
                     await ctx.send("You have too many short links! (6)")
@@ -147,7 +150,7 @@ class Links(Cog):
     )
     @cooldown(1, 10, BucketType.user)
     async def shorten_link_command(self, ctx, url: str, vanity: Optional[str]):
-        """Vanity URLs are only available to [Patrons](https://patreon.com/doobdev)"""
+        """Vanity URLs are only available to [Patrons](https://patreon.com/doobdev)\nYou get 6 short links\n(upgrade to 12 when you [subscribe](https://patreon.com/doobdev))"""
         await self.shorten_link_func(ctx, url, vanity)
 
     @cog_ext.cog_slash(
