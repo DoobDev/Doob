@@ -48,7 +48,7 @@ class Links(Cog):
 
         if ctx.author in homeGuild.members:
             if patreonRole in member.roles:
-                if ctx.author in config["owner_ids"]:
+                if ctx.author.id in config["owner_ids"]:
                     await self.after_check_shorten_link_func(ctx, url, vanity)
                 else:
                     if ShortLinkAmount[0][0] >= 12:
