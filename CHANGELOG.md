@@ -1,3 +1,7 @@
+## v2.8.4
+* Added who made the link to short link logs (#209)
+* Added end poll command (d!endpoll) (#212)
+
 ## v2.8.3
 * Added unlimited short links for owners (#207)
 * Made a better description for d!link
