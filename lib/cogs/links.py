@@ -150,7 +150,7 @@ class Links(Cog):
     )
     @cooldown(1, 10, BucketType.user)
     async def shorten_link_command(self, ctx, url: str, vanity: Optional[str]):
-        """Vanity URLs are only available to [Patrons](https://patreon.com/doobdev)"""
+        """Vanity URLs are only available to [Patrons](https://patreon.com/doobdev)\nYou get 6 short links\n(upgrade to 12 when you [subscribe](https://patreon.com/doobdev))"""
         await self.shorten_link_func(ctx, url, vanity)
 
     @cog_ext.cog_slash(
