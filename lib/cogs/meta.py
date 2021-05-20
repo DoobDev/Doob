@@ -99,9 +99,7 @@ class Meta(Cog):
         name="invite", description="Gives a link to invite Doob to your server."
     )
     async def doob_invite_link_slashcmd(self, ctx):
-        await ctx.send(
-            "You can invite the bot here! :link: <https://doob.link/invite>"
-        )
+        await ctx.send("You can invite the bot here! :link: <https://doob.link/invite>")
 
     @command(name="ping", brief="Shows the bot's latency.")
     @cooldown(1, 10, BucketType.user)

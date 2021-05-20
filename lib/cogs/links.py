@@ -131,7 +131,9 @@ class Links(Cog):
                 db.commit()
 
                 owner_id = config["owner_ids"][0]
-                await log_channel.send(f"New Short Link <<@{owner_id}>>\n<:doob:754762131085459498> :link: <https://{shortUrl}>\nLong :link: {destination}\n(scan with `-trace`)")
+                await log_channel.send(
+                    f"New Short Link <<@{owner_id}>>\n<:doob:754762131085459498> :link: <https://{shortUrl}>\nLong :link: {destination}\n(scan with `-trace`)"
+                )
 
             elif r.status_code == 403:
                 await ctx.send(
