@@ -63,17 +63,53 @@ class Misc(Cog):
     async def start_poll(self, ctx, *, question: str):
         """Starts a poll with the question/name the user wants!"""
         embed = Embed(
-            title="Poll Started", description=question, colour=ctx.author.colour
+            title="Poll Started!", description=question, colour=ctx.author.colour
         )
         embed.set_footer(
             text=f"{ctx.author} started this poll.", icon_url=ctx.author.avatar_url
         )
-        message = await ctx.reply(embed=embed)
+        message = await ctx.send(embed=embed)
 
         emojis = ["✅", "❌"]
 
         for emoji in emojis:
             await message.add_reaction(emoji)
+
+    @command(name="endpoll", brief="Lets a user end a poll.")
+    @cooldown(1, 5, BucketType.user)
+    async def end_poll(self, ctx, *, message_id: Message):
+        """Ends the poll and shows results."""
+        channel = self.bot.get_channel(message_id.channel.id)
+        message = await channel.fetch_message(message_id.id)
+
+        reaction1 = get(message.reactions, emoji="✅")
+        reaction2 = get(message.reactions, emoji="❌")
+
+        if reaction1.count > reaction2.count:
+            winner = "✅"
+            winner_count = reaction1.count
+            loser_count = reaction2.count
+        elif reaction2.count > reaction1.count:
+            winner = "❌"
+            winner_count = reaction2.count
+            loser_count = reaction1.count
+
+        else:
+            winner="Tie!"
+
+        if winner == "Tie!":
+            embed = Embed(title="Poll ended!", description="Poll ended in a tie!", colour=0xFFFF00)
+
+        else:
+            if winner == "❌":
+                embed = Embed(title="Poll ended!", description=f"{winner} has by with {winner_count-loser_count} votes!", colour=0xae0700)
+            
+            elif winner == "✅":
+                embed = Embed(title="Poll ended!", description=f"{winner} has by with {winner_count-loser_count} votes!", colour=0x66ff00)
+
+        embed.set_footer(text=f"Poll ended by: {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
+
+        await message.edit(embed=embed)
 
     @command(
         name="giveaway",

@@ -132,7 +132,7 @@ class Links(Cog):
 
                 owner_id = config["owner_ids"][0]
                 await log_channel.send(
-                    f"New Short Link <<@{owner_id}>>\n<:doob:754762131085459498> :link: <https://{shortUrl}>\nLong :link: {destination}\n(scan with `-trace`)"
+                    f"New Short Link <<@{owner_id}>>\nFrom: <@{ctx.author.id}> (Username: {ctx.author.name}#{ctx.author.discriminator} // ID: {ctx.author.id})\n<:doob:754762131085459498> :link: <https://{shortUrl}>\nLong :link: {destination}\n(scan with `-trace`)"
                 )
 
             elif r.status_code == 403:
