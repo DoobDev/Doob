@@ -1,13 +1,13 @@
 ## v2.8.4
-* Added who made the link to short link logs (#209)
-* Added end poll command (d!endpoll) (#212)
+* Added who made the link to short link logs ([#209](https://github.com/doobdev/Doob/issues/209))
+* Added end poll command (d!endpoll) ([#212](https://github.com/doobdev/Doob/issues/212))
 
 ## v2.8.3
-* Added unlimited short links for owners (#207)
+* Added unlimited short links for owners ([#207](https://github.com/doobdev/Doob/issues/207))
 * Made a better description for d!link
 
 ## v2.8.2
-* Added short link logs (#206)
+* Added short link logs ([#206](https://github.com/doobdev/Doob/issues/206))
 
 ## v2.8.1
 * Changed invite link.
@@ -36,9 +36,9 @@ Too many changes, forgot to docuement, sorry.
 * Added `d!dogehouse`
 
 ## v2.6.7
-* Fixed `d!bio` command description. (#160)
-* Added `d!owroll` (#63)
-* Added `d!valroll` subcommands. (#164)
+* Fixed `d!bio` command description. ([#160](https://github.com/doobdev/Doob/issues/160))
+* Added `d!owroll` ([#163](https://github.com/doobdev/Doob/issues/163))
+* Added `d!valroll` subcommands. ([#164](https://github.com/doobdev/Doob/issues/164))
     - Documented at: https://docs.doobbot.com/#d-valroll-subcommands
 * Added priority labels to `d!issue -c`
 
@@ -70,7 +70,7 @@ Too many changes, forgot to docuement, sorry.
     - From: https://github.com/DoobDev/Krinio/blob/master/lib/cogs/overlay.py
 
 ## v2.6.0
-* Added `d!battle` [Doob#132]
+* Added `d!battle` ([#132](https://github.com/doobdev/Doob/pull/132))
     - Battle a friend or foe!
 
 ## v2.5.1
