@@ -95,19 +95,32 @@ class Misc(Cog):
             loser_count = reaction1.count
 
         else:
-            winner="Tie!"
+            winner = "Tie!"
 
         if winner == "Tie!":
-            embed = Embed(title="Poll ended!", description="Poll ended in a tie!", colour=0xFFFF00)
+            embed = Embed(
+                title="Poll ended!", description="Poll ended in a tie!", colour=0xFFFF00
+            )
 
         else:
             if winner == "❌":
-                embed = Embed(title="Poll ended!", description=f"{winner} has by with {winner_count-loser_count} votes!", colour=0xae0700)
-            
-            elif winner == "✅":
-                embed = Embed(title="Poll ended!", description=f"{winner} has by with {winner_count-loser_count} votes!", colour=0x66ff00)
+                embed = Embed(
+                    title="Poll ended!",
+                    description=f"{winner} has by with {winner_count-loser_count} votes!",
+                    colour=0xAE0700,
+                )
 
-        embed.set_footer(text=f"Poll ended by: {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
+            elif winner == "✅":
+                embed = Embed(
+                    title="Poll ended!",
+                    description=f"{winner} has by with {winner_count-loser_count} votes!",
+                    colour=0x66FF00,
+                )
+
+        embed.set_footer(
+            text=f"Poll ended by: {ctx.author.display_name}",
+            icon_url=ctx.author.avatar_url,
+        )
 
         await message.edit(embed=embed)
 

@@ -8,6 +8,8 @@ from discord.ext.menus import MenuPages, ListPageSource
 from discord.ext.commands import Cog
 from discord.ext.commands import command, cooldown, BucketType
 
+from discord_components import Button, ButtonStyle, InteractionType
+
 
 def syntax(command):
     cmd_and_aliases = "|".join([str(command), *command.aliases])
@@ -69,7 +71,26 @@ class Help(Cog):
         )
 
         embed.add_field(name="Command description", value=command.help)
-        await ctx.reply(embed=embed)
+        await ctx.send(
+            embed=embed,
+            components=[
+                Button(
+                    style=ButtonStyle.URL,
+                    label="❗️ Subcommand Docs",
+                    url="https://docs.doobbot.com/",
+                ),
+                Button(
+                    style=ButtonStyle.URL,
+                    label="💸 Donate",
+                    url="https://patreon.com/doobdev/",
+                ),
+                Button(
+                    style=ButtonStyle.URL,
+                    label="🗳 Top.gg Link",
+                    url="https://top.gg/bot/680606346952966177/",
+                ),
+            ],
+        )
 
     @command(name="help", aliases=["commands"], brief="Shows this message!")
     @cooldown(1, 5, BucketType.user)
@@ -89,7 +110,24 @@ class Help(Cog):
 
             else:
                 await ctx.reply(
-                    "That command does not exist.\nTry looking through `d!help` to see the actual command name, and not the alias."
+                    "That command does not exist.\nTry looking through `d!help` to see the actual command name, and not the alias.",
+                    components=[
+                        Button(
+                            style=ButtonStyle.URL,
+                            label="❗️ Subcommand Docs",
+                            url="https://docs.doobbot.com/",
+                        ),
+                        Button(
+                            style=ButtonStyle.URL,
+                            label="💸 Donate",
+                            url="https://patreon.com/doobdev/",
+                        ),
+                        Button(
+                            style=ButtonStyle.URL,
+                            label="🗳 Top.gg Link",
+                            url="https://top.gg/bot/680606346952966177/",
+                        ),
+                    ],
                 )
 
     @Cog.listener()

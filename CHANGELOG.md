@@ -1,3 +1,6 @@
+## v2.8.5
+* Added buttons to `d!help`
+
 ## v2.8.4
 * Added who made the link to short link logs ([#209](https://github.com/doobdev/Doob/issues/209))
 * Added end poll command (d!endpoll) ([#212](https://github.com/doobdev/Doob/issues/212))
