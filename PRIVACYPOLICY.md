@@ -34,8 +34,6 @@ No, we do not share data with any 3rd parties!
         - Which is public over at https://statcord.com/bot/680606346952966177
 
 4) **How can users get data removed, or how can users contact the bot owner?**
-They can contact me, `mmatt#1018` on Discord, and `mmattbtw@pm.me` via email.
+They can contact me, `mmatt#0001` on Discord, and `mmattbtw@pm.me` via email.
 
 ## Please let me know if you see something that I am missing, I don't want to be wrong.
-
-`Last Updated: 3/21/2021`
