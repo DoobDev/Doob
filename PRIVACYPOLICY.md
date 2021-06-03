@@ -36,4 +36,7 @@ No, we do not share data with any 3rd parties!
 4) **How can users get data removed, or how can users contact the bot owner?**
 They can contact me, `mmatt#0001` on Discord, and `mmattbtw@pm.me` via email.
 
+5) **Where can I find everything that is stored in your DB?**
+You can't see our DB, however you can see everything that is potetially stored here: https://github.com/DoobDev/Doob/blob/master/data/db/build.sql
+
 ## Please let me know if you see something that I am missing, I don't want to be wrong.
