@@ -7,6 +7,7 @@ from discord.ext.commands import command, has_permissions
 from discord.ext.menus import MenuPages, ListPageSource
 from lib.bot import bot  # pylint: disable=no-name-in-module, import-error
 from ..db import db  # pylint: disable=relative-beyond-top-level
+from PIL import Image, ImageDraw, ImageFont
 
 
 class Menu(ListPageSource):
