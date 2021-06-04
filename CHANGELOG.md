@@ -1,3 +1,6 @@
+## v2.8.5
+* Added "xp to next level" to `d!level` [(#221)](https://github.com/DoobDev/Doob/issues/221)
+
 ## v2.8.4
 * Added who made the link to short link logs ([#209](https://github.com/doobdev/Doob/issues/209))
 * Added end poll command (d!endpoll) ([#212](https://github.com/doobdev/Doob/issues/212))
