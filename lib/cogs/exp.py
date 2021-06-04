@@ -252,7 +252,7 @@ class Exp(Cog):
                         await context.channel.send(file=ffile)
 
         else:
-            await context.reply("You are not in the database :(\nDont worry though, you were just added! Try running the command again.", mention_author=False)
+            await ctx .reply("You are not in the database :(\nDont worry though, you were just added! Try running the command again.", mention_author=False)
 
     @command(
         name="levelmessages",
