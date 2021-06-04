@@ -1,7 +1,6 @@
 from datetime import datetime, timedelta
 from random import randint
 from typing import Optional
-import os
 from discord import Member, Embed
 from discord.ext.commands import Cog
 from discord.ext.commands import command, has_permissions
