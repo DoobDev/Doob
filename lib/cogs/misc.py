@@ -1,9 +1,12 @@
-from discord.ext.commands import Cog
+from discord.ext.commands import Cog, cog
 from discord.ext.commands import CheckFailure
 from discord.ext.commands import command, has_permissions, cooldown, BucketType
-from discord import Embed, Message, Reaction, Emoji
+from discord import Embed, Message, Reaction, Emoji, TextChannel
 
 from discord.ext import timers
+
+from discord_slash.utils.manage_commands import create_option
+from discord_slash import cog_ext, SlashContext
 
 from discord.utils import get
 
@@ -60,7 +63,7 @@ class Misc(Cog):
 
     @command(name="poll", brief="Lets the user create a poll.")
     @cooldown(1, 4, BucketType.user)
-    async def start_poll(self, ctx, *, question: str):
+    async def start_poll_command(self, ctx, *, question: str):
         """Starts a poll with the question/name the user wants!"""
         embed = Embed(
             title="Poll Started!", description=question, colour=ctx.author.colour
@@ -75,9 +78,32 @@ class Misc(Cog):
         for emoji in emojis:
             await message.add_reaction(emoji)
 
+    @cog_ext.cog_slash(
+        name="poll",
+        description="Start a poll!",
+        guild_ids=[702352937980133386],
+        options=[
+            create_option(
+                name="question",
+                description="What you want to ask the users.",
+                option_type=3,
+                required=True,
+            )
+        ],
+    )
+    async def start_poll_slash(self, ctx, question: str):
+        embed = Embed(title="Poll Started!", description=question, colour=ctx.author.colour)
+        embed.set_footer(text=f"{ctx.author} started this poll.", icon_url=ctx.author.avatar_url)
+        message = await ctx.send(embed=embed)
+
+        emojis = ["✅", "❌"]
+
+        for emoji in emojis:
+            await message.add_reaction(emoji)
+
     @command(name="endpoll", brief="Lets a user end a poll.")
     @cooldown(1, 5, BucketType.user)
-    async def end_poll(self, ctx, *, message_id: Message):
+    async def end_poll_command(self, ctx, *, message_id: Message):
         """Ends the poll and shows results."""
         channel = self.bot.get_channel(message_id.channel.id)
         message = await channel.fetch_message(message_id.id)
@@ -95,21 +121,99 @@ class Misc(Cog):
             loser_count = reaction1.count
 
         else:
-            winner="Tie!"
+            winner = "Tie!"
 
         if winner == "Tie!":
-            embed = Embed(title="Poll ended!", description="Poll ended in a tie!", colour=0xFFFF00)
+            embed = Embed(
+                title="Poll ended!", description="Poll ended in a tie!", colour=0xFFFF00
+            )
 
         else:
             if winner == "❌":
-                embed = Embed(title="Poll ended!", description=f"{winner} has won by {winner_count-loser_count} votes!", colour=0xae0700)
-            
-            elif winner == "✅":
-                embed = Embed(title="Poll ended!", description=f"{winner} has won by {winner_count-loser_count} votes!", colour=0x66ff00)
+                embed = Embed(
+                    title="Poll ended!",
+                    description=f"{winner} has won by {winner_count-loser_count} votes!",
+                    colour=0xAE0700,
+                )
 
-        embed.set_footer(text=f"Poll ended by: {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
+            elif winner == "✅":
+                embed = Embed(
+                    title="Poll ended!",
+                    description=f"{winner} has won by {winner_count-loser_count} votes!",
+                    colour=0x66FF00,
+                )
+
+        embed.set_footer(
+            text=f"Poll ended by: {ctx.author.display_name}",
+            icon_url=ctx.author.avatar_url,
+        )
 
         await message.edit(embed=embed)
+
+    @cog_ext.cog_slash(
+        name="endpoll",
+        description="End an existing poll!",
+        guild_ids=[702352937980133386],
+        options=[create_option(
+            name="message_id",
+            description="The poll's message ID you would like to end.",
+            option_type=3,
+            required=True,
+        ),
+        create_option(
+            name="channel",
+            description="Channel the poll was sent in.",
+            option_type=7,
+            required=True,
+        ),],
+    )
+    async def end_poll_slash(self, ctx, channel: TextChannel, message_id: str):
+        channel = self.bot.get_channel(channel.id)
+        message = await channel.fetch_message(message_id)
+
+        reaction1 = get(message.reactions, emoji="✅")
+        reaction2 = get(message.reactions, emoji="❌")
+
+        if reaction1.count > reaction2.count:
+            winner = "✅"
+            winner_count = reaction1.count
+            loser_count = reaction2.count
+        elif reaction2.count > reaction1.count:
+            winner = "❌"
+            winner_count = reaction2.count
+            loser_count = reaction1.count
+
+        else:
+            winner = "Tie!"
+
+        if winner == "Tie!":
+            embed = Embed(
+                title="Poll ended!", description="Poll ended in a tie!", colour=0xFFFF00
+            )
+
+        else:
+            if winner == "❌":
+                embed = Embed(
+                    title="Poll ended!",
+                    description=f"{winner} has won by {winner_count-loser_count} votes!",
+                    colour=0xAE0700,
+                )
+
+            elif winner == "✅":
+                embed = Embed(
+                    title="Poll ended!",
+                    description=f"{winner} has won by {winner_count-loser_count} votes!",
+                    colour=0x66FF00,
+                )
+
+        embed.set_footer(
+            text=f"Poll ended by: {ctx.author.display_name}",
+            icon_url=ctx.author.avatar_url,
+        )
+
+        await message.edit(embed=embed)
+
+        await ctx.send("Poll Completed!", hidden=True)
 
     @command(
         name="giveaway",

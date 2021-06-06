@@ -1,3 +1,7 @@
+## v2.8.6
+* Added /poll [(#213)](https://github.com/DoobDev/Doob/issues/213)
+* Added /endpoll [(#213)](https://github.com/DoobDev/Doob/issues/213)
+
 ## v2.8.5
 * Added "xp to next level" to `d!level` [(#221)](https://github.com/DoobDev/Doob/issues/221)
 
