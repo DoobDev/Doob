@@ -161,6 +161,7 @@ class Exp(Cog):
         target = target or ctx.author
 
         ids = db.column("SELECT UserID FROM users ORDER BY XP DESC")
+        ids_g = db.column("SELECT UserID from guildexp WHERE GuildID = (?) ORDER BY XP DESC", ctx.guild.id)
         # ids_g = db.column("SELECT UserID FROM users ORDER BY XP DESC WHERE GuildID = ?", ctx.guild.id)
         xp, lvl = db.record(
             "SELECT XP, Level FROM users WHERE UserID = ?", target.id
@@ -177,7 +178,7 @@ class Exp(Cog):
         if lvl is not None:
             to_next_level = int((lvl + 1) ** (20 / 11) * 42) - xp
             await ctx.reply(
-                f"`Global Rank:`\n{target.display_name} is level {lvl:,} with {xp:,} xp ({to_next_level:,} xp to next level) and is rank {ids.index(target.id)+1:,} of {len(ids):,} users globally.\n`Server Rank:`\n{target.display_name} is server level {lvl_g:,} with {xp_g:,} server xp."
+                f"`Global Rank:`\n{target.display_name} is level {lvl:,} with {xp:,} xp ({to_next_level:,} xp to next level) and is rank {ids.index(target.id)+1:,} of {len(ids):,} users globally.\n`Server Rank:`\n{target.display_name} is server level {lvl_g:,} with {xp_g:,} server xp and is server rank {ids_g.index(target.id)+1:,} of {len(ids_g):,}."
             )
 
         else:

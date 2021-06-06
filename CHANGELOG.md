@@ -2,7 +2,7 @@
 * Added /poll [(#213)](https://github.com/DoobDev/Doob/issues/213)
 * Added /endpoll [(#213)](https://github.com/DoobDev/Doob/issues/213)
 * Reverted the November 2020 Log Changes (from v2.1.0) [(#211)](https://github.com/DoobDev/Doob/issues/211)
-
+* Shows Server XP Rank on on `d!level` [(#244)](https://github.com/DoobDev/Doob/issues/244)
 
 ## v2.8.5
 * Added "xp to next level" to `d!level` [(#221)](https://github.com/DoobDev/Doob/issues/221)
