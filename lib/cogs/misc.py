@@ -81,7 +81,6 @@ class Misc(Cog):
     @cog_ext.cog_slash(
         name="poll",
         description="Start a poll!",
-        guild_ids=[702352937980133386],
         options=[
             create_option(
                 name="question",
@@ -153,7 +152,6 @@ class Misc(Cog):
     @cog_ext.cog_slash(
         name="endpoll",
         description="End an existing poll!",
-        guild_ids=[702352937980133386],
         options=[create_option(
             name="message_id",
             description="The poll's message ID you would like to end.",
