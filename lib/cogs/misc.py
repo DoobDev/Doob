@@ -91,8 +91,12 @@ class Misc(Cog):
         ],
     )
     async def start_poll_slash(self, ctx, question: str):
-        embed = Embed(title="Poll Started!", description=question, colour=ctx.author.colour)
-        embed.set_footer(text=f"{ctx.author} started this poll.", icon_url=ctx.author.avatar_url)
+        embed = Embed(
+            title="Poll Started!", description=question, colour=ctx.author.colour
+        )
+        embed.set_footer(
+            text=f"{ctx.author} started this poll.", icon_url=ctx.author.avatar_url
+        )
         message = await ctx.send(embed=embed)
 
         emojis = ["✅", "❌"]
@@ -152,18 +156,20 @@ class Misc(Cog):
     @cog_ext.cog_slash(
         name="endpoll",
         description="End an existing poll!",
-        options=[create_option(
-            name="message_id",
-            description="The poll's message ID you would like to end.",
-            option_type=3,
-            required=True,
-        ),
-        create_option(
-            name="channel",
-            description="Channel the poll was sent in.",
-            option_type=7,
-            required=True,
-        ),],
+        options=[
+            create_option(
+                name="message_id",
+                description="The poll's message ID you would like to end.",
+                option_type=3,
+                required=True,
+            ),
+            create_option(
+                name="channel",
+                description="Channel the poll was sent in.",
+                option_type=7,
+                required=True,
+            ),
+        ],
     )
     async def end_poll_slash(self, ctx, channel: TextChannel, message_id: str):
         channel = self.bot.get_channel(channel.id)

@@ -18,11 +18,22 @@ class Log(Cog):
     @Cog.listener()
     async def on_member_update(self, before, after):
         if before.display_name != after.display_name:
-            logchannel = await self.bot.fetch_channel(db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", after.guild.id))
-            embed = Embed(title="Member update", description=f"{before.name}'s Nickname has been changed.", colour=after.colour,  timestamp=datetime.utcnow())
+            logchannel = await self.bot.fetch_channel(
+                db.field(
+                    "SELECT LogChannel FROM guilds WHERE GuildID = ?", after.guild.id
+                )
+            )
+            embed = Embed(
+                title="Member update",
+                description=f"{before.name}'s Nickname has been changed.",
+                colour=after.colour,
+                timestamp=datetime.utcnow(),
+            )
 
-            fields = [("Before", before.display_name, False),
-                      ("After", after.display_name, False)]
+            fields = [
+                ("Before", before.display_name, False),
+                ("After", after.display_name, False),
+            ]
 
             for name, value, inline in fields:
                 embed.add_field(name=name, value=value, inline=inline)
@@ -30,11 +41,22 @@ class Log(Cog):
             await logchannel.send(embed=embed)
 
         elif before.roles != after.roles:
-            embed = Embed(title="Member update", description=f"{before.name}'s Roles has been changed.", colour=after.colour,  timestamp=datetime.utcnow())
-            logchannel = await self.bot.fetch_channel(db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", after.guild.id))
+            embed = Embed(
+                title="Member update",
+                description=f"{before.name}'s Roles has been changed.",
+                colour=after.colour,
+                timestamp=datetime.utcnow(),
+            )
+            logchannel = await self.bot.fetch_channel(
+                db.field(
+                    "SELECT LogChannel FROM guilds WHERE GuildID = ?", after.guild.id
+                )
+            )
 
-            fields = [("Before", ", ".join([r.mention for r in before.roles]), False),
-                        ("After", ", ".join([r.mention for r in after.roles]), False)]
+            fields = [
+                ("Before", ", ".join([r.mention for r in before.roles]), False),
+                ("After", ", ".join([r.mention for r in after.roles]), False),
+            ]
 
             for name, value, inline in fields:
                 embed.add_field(name=name, value=value, inline=inline)
@@ -81,12 +103,24 @@ class Log(Cog):
     async def on_message_edit(self, before, after):
         if not after.author.bot:
             if before.content != after.content:
-                logchannel = await self.bot.fetch_channel(db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", after.guild.id))
-                embed = Embed(title="Message update", description=f"Message from: {after.author.name}", colour=after.author.colour,  timestamp=datetime.utcnow())
+                logchannel = await self.bot.fetch_channel(
+                    db.field(
+                        "SELECT LogChannel FROM guilds WHERE GuildID = ?",
+                        after.guild.id,
+                    )
+                )
+                embed = Embed(
+                    title="Message update",
+                    description=f"Message from: {after.author.name}",
+                    colour=after.author.colour,
+                    timestamp=datetime.utcnow(),
+                )
 
-                fields = [("Before", before.content, False),
-                        ("After", after.content, False),
-                        ("Channel", after.channel, False)]
+                fields = [
+                    ("Before", before.content, False),
+                    ("After", after.content, False),
+                    ("Channel", after.channel, False),
+                ]
 
                 for name, value, inline in fields:
                     embed.add_field(name=name, value=value, inline=inline)
@@ -94,12 +128,20 @@ class Log(Cog):
                 embed.set_thumbnail(url=before.author.avatar_url)
                 await logchannel.send(embed=embed)
 
-
     @Cog.listener()
     async def on_message_delete(self, message):
         if not message.author.bot:
-            logchannel = await self.bot.fetch_channel(db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", message.guild.id))
-            embed = Embed(title="Message Deleted", description=f"Message from: {message.author.name}", colour=message.author.colour, timestamp = datetime.utcnow())
+            logchannel = await self.bot.fetch_channel(
+                db.field(
+                    "SELECT LogChannel FROM guilds WHERE GuildID = ?", message.guild.id
+                )
+            )
+            embed = Embed(
+                title="Message Deleted",
+                description=f"Message from: {message.author.name}",
+                colour=message.author.colour,
+                timestamp=datetime.utcnow(),
+            )
 
             embed.add_field(name="Message:", value=message.content, inline=False)
             embed.add_field(name="Channel:", value=message.channel, inline=False)
