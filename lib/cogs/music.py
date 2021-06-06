@@ -461,7 +461,7 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
         if isinstance(exc, QueueIsEmpty):
             await ctx.reply("The queue is empty, can't shuffle it.")
 
-    @commands.command(name="repeat", brief="Lets you repeat.")
+    @commands.command(name="repeat", aliases=["loop"], brief="Lets you repeat.")
     async def repeat_command(self, ctx, mode: str):
         """Lets you repeat.\n`none` = Stops repeating\n`1` = repeats the current song\n`all` = repeats the queue."""
         if mode not in ("none", "1", "all"):
