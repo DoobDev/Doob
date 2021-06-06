@@ -102,10 +102,10 @@ class Misc(Cog):
 
         else:
             if winner == "❌":
-                embed = Embed(title="Poll ended!", description=f"{winner} has by with {winner_count-loser_count} votes!", colour=0xae0700)
+                embed = Embed(title="Poll ended!", description=f"{winner} has won by {winner_count-loser_count} votes!", colour=0xae0700)
             
             elif winner == "✅":
-                embed = Embed(title="Poll ended!", description=f"{winner} has by with {winner_count-loser_count} votes!", colour=0x66ff00)
+                embed = Embed(title="Poll ended!", description=f"{winner} has won by {winner_count-loser_count} votes!", colour=0x66ff00)
 
         embed.set_footer(text=f"Poll ended by: {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
 
