@@ -161,7 +161,10 @@ class Exp(Cog):
         target = target or ctx.author
 
         ids = db.column("SELECT UserID FROM users ORDER BY XP DESC")
-        ids_g = db.column("SELECT UserID from guildexp WHERE GuildID = (?) ORDER BY XP DESC", ctx.guild.id)
+        ids_g = db.column(
+            "SELECT UserID from guildexp WHERE GuildID = (?) ORDER BY XP DESC",
+            ctx.guild.id,
+        )
         # ids_g = db.column("SELECT UserID FROM users ORDER BY XP DESC WHERE GuildID = ?", ctx.guild.id)
         xp, lvl = db.record(
             "SELECT XP, Level FROM users WHERE UserID = ?", target.id
