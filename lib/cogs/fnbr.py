@@ -1,9 +1,7 @@
-import datetime
 from discord.ext.commands import Cog, command, cooldown, BucketType
 
 from discord import Embed
 
-from ..db import db  # pylint: disable=relative-beyond-top-level
 from aiohttp import request
 
 import json
