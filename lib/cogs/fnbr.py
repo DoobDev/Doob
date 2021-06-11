@@ -74,7 +74,9 @@ class Fnbr(Cog):
                     + "\nType: "
                     + data2["readableType"]
                     + "\nRarity: "
-                    + data2["rarity"].capitalize(),
+                    + data2["rarity"].capitalize()
+                    + "\nDescription: "
+                    + data2["description"],
                     colour=color,
                 )
 
@@ -95,39 +97,47 @@ class Fnbr(Cog):
             else:
                 await ctx.send(f"The fnbr.co API sent a {response.status} status :/")
 
-    @command(
-        name="fortniteshop",
-        aliases=["fnshop", "shop"],
-        brief="Shows the current Fortnite Shop.",
-    )
-    async def fortnite_shop_command(self, ctx):
-        """Shows the current Fortnite Item Shop courtacy of https://fnbr.co\nuse code `matt` in the fortnite item shop :O #ad"""
+    # @command(
+    #     name="fortniteshop",
+    #     aliases=["fnshop", "shop"],
+    #     brief="Shows the current Fortnite Shop.",
+    # )
+    # async def fortnite_shop_command(self, ctx):
+    #     """Shows the current Fortnite Item Shop courtacy of https://fnbr.co\nuse code `matt` in the fortnite item shop :O #ad"""
 
-        URL = "https://fnbr.co/api/shop"
+    #     URL = "https://fnbr.co/api/shop"
 
-        async with request(
-            "GET",
-            URL,
-            headers={
-                "x-api-key": os.environ.get("fnbr_key"),
-                "Content-Type": "application/json",
-            },
-        ) as response:
-            if response.status == 200:
-                data = (await response.json())["data"]
-    
-                embed = Embed(
-                    title="The Current Fortnite Item Shop",
-                    colour=ctx.author.color,
-                )
+    #     async with request(
+    #         "GET",
+    #         URL,
+    #         headers={
+    #             "x-api-key": os.environ.get("fnbr_key"),
+    #             "Content-Type": "application/json",
+    #         },
+    #     ) as response:
+    #         if response.status == 200:
+    #             data = (await response.json())["data"]
 
-                for item in data["featured"]:
-                    embed.add_field(name=item["name"], value="Price: " + item["price"] + "\nType: " + item["readableType"] + "\nRarity: " + item["rarity"].capitalize())
+    #             embed = Embed(
+    #                 title="The Current Fortnite Item Shop",
+    #                 colour=ctx.author.color,
+    #             )
 
-                await ctx.send(embed=embed)
+    #             for item in data["featured"]:
+    #                 embed.add_field(
+    #                     name=item["name"],
+    #                     value="Price: "
+    #                     + item["price"]
+    #                     + "\nType: "
+    #                     + item["readableType"]
+    #                     + "\nRarity: "
+    #                     + item["rarity"].capitalize(),
+    #                 )
 
-            else:
-                await ctx.send(f"The fnbr.co API sent a {response.status} status :/")
+    #             await ctx.send(embed=embed)
+
+    #         else:
+    #             await ctx.send(f"The fnbr.co API sent a {response.status} status :/")
 
 
 def setup(bot):

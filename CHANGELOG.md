@@ -1,3 +1,6 @@
+## v2.8.7
+* Added d!fortniteskin [(#231)](https://github.com/DoobDev/Doob/issues/231)
+
 ## v2.8.6
 * Added /poll [(#213)](https://github.com/DoobDev/Doob/issues/213)
 * Added /endpoll [(#213)](https://github.com/DoobDev/Doob/issues/213)
