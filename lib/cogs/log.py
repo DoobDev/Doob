@@ -16,6 +16,52 @@ class Log(Cog):
             self.bot.cogs_ready.ready_up("log")
 
     @Cog.listener()
+    async def on_member_join(self, member):
+        logchannel = await self.bot.fetch_channel(
+            db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", member.guild.id)
+        )
+
+        creation_date = member.created_at.strftime("%m/%d/%Y %H:%M;%S")
+
+        globalwarns = db.records(f"SELECT Warns FROM warns WHERE UserID = {member.id}")[
+            0
+        ][0]
+
+        embed = Embed(
+            title="New Member!",
+            description=f"{member.display_name} has joined the server!"
+            + f"\n\n‣ ID: {member.id}"
+            + f"\n‣ Account Creation Date: {creation_date}"
+            + f"\n‣ Global Doob Warns: {globalwarns}"
+            + f"\n‣ Bot?: {member.bot}",
+            colour=0x00D138,
+            timestamp=datetime.utcnow(),
+        )
+
+        embed.set_thumbnail(url=member.avatar_url)
+
+        await logchannel.send(embed=embed)
+
+    @Cog.listener()
+    async def on_member_remove(self, member):
+        logchannel = await self.bot.fetch_channel(
+            db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", member.guild.id)
+        )
+
+        embed = Embed(
+            title="Member Removed.",
+            description=f"{member.display_name} has been removed from the server."
+            + f"\n\n‣ ID: {member.id}"
+            + f"\n‣ Bot?: {member.bot}",
+            colour=0xD10003,
+            timestamp=datetime.utcnow(),
+        )
+
+        embed.set_thumbnail(url=member.avatar_url)
+
+        await logchannel.send(embed=embed)
+
+    @Cog.listener()
     async def on_member_update(self, before, after):
         if before.display_name != after.display_name:
             logchannel = await self.bot.fetch_channel(
