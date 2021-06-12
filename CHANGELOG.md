@@ -1,5 +1,17 @@
-## v2.8.5
+## v2.8.8
 * Added buttons to `d!help`
+
+## v2.8.7
+* Added d!fortniteskin [(#231)](https://github.com/DoobDev/Doob/issues/231)
+
+## v2.8.6
+* Added /poll [(#213)](https://github.com/DoobDev/Doob/issues/213)
+* Added /endpoll [(#213)](https://github.com/DoobDev/Doob/issues/213)
+* Reverted the November 2020 Log Changes (from v2.1.0) [(#211)](https://github.com/DoobDev/Doob/issues/211)
+* Shows Server XP Rank on on `d!level` [(#244)](https://github.com/DoobDev/Doob/issues/244)
+
+## v2.8.5
+* Added "xp to next level" to `d!level` [(#221)](https://github.com/DoobDev/Doob/issues/221)
 
 ## v2.8.4
 * Added who made the link to short link logs ([#209](https://github.com/doobdev/Doob/issues/209))
