@@ -1,3 +1,7 @@
+## v2.8.8
+* Added member join logs.
+* Added member leave (remove) logs.
+
 ## v2.8.7
 * Added d!fortniteskin [(#231)](https://github.com/DoobDev/Doob/issues/231)
 
