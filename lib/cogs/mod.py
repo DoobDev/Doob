@@ -526,7 +526,7 @@ class Mod(Cog):
 
         await ctx.reply(embed=embed)
 
-    @command(name="ihatexander", hidden=True)
+    @command(name="welcomebackxander", hidden=True)
     async def give_xander_roles_back_command(self, ctx, target: Member):
         roles = [726514196552089671, 829189173646065704, 825217691837005854, 721516128920141825, 721516128928661558, 794035412007387137, 737536240861184101]
         
