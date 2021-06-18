@@ -1,17 +1,13 @@
 from discord.ext.commands import Cog, command, BucketType, cooldown
-from discord import Embed, Colour, Member
-
-from ..db import db  # pylint: disable=relative-beyond-top-level
+from discord import Embed, Member
 
 from aiohttp import request
 
 from datetime import datetime
 
-import json
 
 from typing import Optional
 
-import os
 from dotenv import load_dotenv
 
 load_dotenv()

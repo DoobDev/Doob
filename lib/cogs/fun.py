@@ -7,9 +7,6 @@ from discord import Member, Embed, Colour
 from discord.ext.commands import Cog, command, cooldown, BucketType, group
 from discord.utils import get
 
-from discord_slash.utils.manage_commands import create_option
-from discord_slash import cog_ext, SlashContext
-
 from owoify import Owoifator
 
 owoifactor = Owoifator()

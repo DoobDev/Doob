@@ -1,7 +1,5 @@
 from discord.embeds import Embed
-from discord.ext.commands import Cog, command, cooldown, BucketType, group
-
-from ..db import db  # pylint: disable=relative-beyond-top-level
+from discord.ext.commands import Cog, group
 
 import json
 
