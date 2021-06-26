@@ -1,3 +1,6 @@
+## v2.8.9
+* Added /dog [(#248)](https://github.com/DoobDev/Doob/issues/248)
+
 ## v2.8.8
 * Added member join logs.
 * Added member leave (remove) logs.
