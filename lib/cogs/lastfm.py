@@ -418,7 +418,7 @@ class LastFM(Cog):
                 "SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id
             )
             await ctx.reply(
-                f"Try these commands instead.\n`{prefix[0]}fm artist charts`"
+                f"Try these commands instead.\n`{prefix[0]}fm artist charts`\n`{prefix[0]}fm artist search"
             )
 
     @artist_group.command(name="charts")
@@ -518,8 +518,8 @@ class LastFM(Cog):
 
                     #         embed.set_thumbnail(url=data['images'][0]['url'])
 
-                    else:
-                        await ctx.reply(f"spotify sucks {response.status} error")
+                    # else:
+                    #     await ctx.reply(f"spotify sucks {response.status} error")
 
                 await ctx.reply(embed=embed)
 
