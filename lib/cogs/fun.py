@@ -366,11 +366,7 @@ class Fun(Cog):
             # If they aren't in the support server, it calls the function below.
             await self.lucky_dogs(ctx)
 
-    @cog_ext.cog_slash(
-        name="dog",
-        description="See a random picture of a dog!",
-        guild_ids=[702352937980133386],
-    )
+    @cog_ext.cog_slash(name="dog", description="See a random picture of a dog!")
     async def dog_slash_command(self, SlashContext):
         ctx = SlashContext
 
