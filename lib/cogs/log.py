@@ -195,6 +195,178 @@ class Log(Cog):
 
             await logchannel.send(embed=embed)
 
+    @Cog.listener()
+    async def on_guild_channel_create(self, channel):
+        logchannel = await self.bot.fetch_channel(
+            db.field(
+                "SELECT LogChannel FROM guilds WHERE GuildID = ?", channel.guild.id
+            )
+        )
+
+        embed = Embed(
+            title="New Channel!",
+            description=f"Name: {channel.mention}\nCategory: {channel.category}",
+            colour=0x00D138,
+            timestamp=datetime.utcnow(),
+        )
+
+        embed.set_thumbnail(url=channel.guild.icon_url)
+
+        await logchannel.send(embed=embed)
+
+    @Cog.listener()
+    async def on_guild_channel_delete(self, channel):
+        logchannel = await self.bot.fetch_channel(
+            db.field(
+                "SELECT LogChannel FROM guilds WHERE GuildID = ?", channel.guild.id
+            )
+        )
+
+        embed = Embed(
+            title="Channel Removed.",
+            description=f"Name: {channel.name}\nCategory: {channel.category}",
+            colour=0xD10003,
+            timestamp=datetime.utcnow(),
+        )
+
+        embed.set_thumbnail(url=channel.guild.icon_url)
+
+        await logchannel.send(embed=embed)
+
+    @Cog.listener()
+    async def on_guild_channel_update(self, before, after):
+        logchannel = await self.bot.fetch_channel(
+            db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", before.guild.id)
+        )
+
+        embed = Embed(
+            title="Channel Updated", colour=0xFFC31F, timestamp=datetime.utcnow()
+        )
+
+        if before.name != after.name:
+            embed.add_field(name="Before Name:", value=before.name)
+            embed.add_field(name="After Name:", value=after.name)
+
+        if before.category != after.category:
+            embed.add_field(name="Before Category:", value=before.category)
+            embed.add_field(name="After Category:", value=after.category)
+
+        else:
+            embed.add_field(
+                name="Something changed, Doob couldn't catch it.",
+                value="Check the Audit Log!",
+            )
+
+        embed.set_thumbnail(url=before.guild.icon_url)
+
+        await logchannel.send(embed=embed)
+
+    @Cog.listener()
+    async def on_guild_role_create(self, role):
+        logchannel = await self.bot.fetch_channel(
+            db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", role.guild.id)
+        )
+
+        embed = Embed(
+            title="New Role!",
+            description=f"Name: {role.mention}\nID: {role.id}\nMentionable: {role.mentionable}\nPosition: {role.position}",
+            colour=role.colour,
+            timestamp=datetime.utcnow(),
+        )
+
+        embed.set_thumbnail(url=role.guild.icon_url)
+
+        await logchannel.send(embed=embed)
+
+    @Cog.listener()
+    async def on_guild_role_delete(self, role):
+        logchannel = await self.bot.fetch_channel(
+            db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", role.guild.id)
+        )
+
+        embed = Embed(
+            title="Role Deleted.",
+            description=f"Name: {role.mention}\nID: {role.id}\nMentionable: {role.mentionable}\nPosition: {role.position}",
+            colour=role.colour,
+            timestamp=datetime.utcnow(),
+        )
+
+        embed.set_thumbnail(url=role.guild.icon_url)
+
+        await logchannel.send(embed=embed)
+
+    @Cog.listener()
+    async def on_invite_create(self, invite):
+        logchannel = await self.bot.fetch_channel(
+            db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", invite.guild.id)
+        )
+
+        embed = Embed(
+            title="New Invite!",
+            description=f"URL: {invite.url}\nInviter: {invite.inviter}\nMax Age: {invite.max_age}\nMax Uses: {invite.max_uses}",
+            colour=0x00D138,
+            timestamp=datetime.utcnow(),
+        )
+
+        embed.set_thumbnail(url=invite.guild.icon_url)
+
+        await logchannel.send(embed=embed)
+
+    @Cog.listener()
+    async def on_invite_delete(self, invite):
+        logchannel = await self.bot.fetch_channel(
+            db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", invite.guild.id)
+        )
+
+        embed = Embed(
+            title="Invite Deleted",
+            description=f"URL: {invite.url}\nInviter: {invite.inviter}\nMax Age: {invite.max_age}\nMax Uses: {invite.max_uses}",
+            colour=0xD10003,
+            timestamp=datetime.utcnow(),
+        )
+
+        embed.set_thumbnail(url=invite.guild.icon_url)
+
+        await logchannel.send(embed=embed)
+
+    @Cog.listener()
+    async def on_member_ban(self, member):
+        logchannel = await self.bot.fetch_channel(
+            db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", member.guild.id)
+        )
+
+        embed = Embed(
+            title="Member Banned.",
+            description=f"{member.display_name} has been banned from the server."
+            + f"\n\n‣ ID: {member.id}"
+            + f"\n‣ Bot?: {member.bot}",
+            colour=0xD10003,
+            timestamp=datetime.utcnow(),
+        )
+
+        embed.set_thumbnail(url=member.avatar_url)
+
+        await logchannel.send(embed=embed)
+
+    @Cog.listener()
+    async def on_member_unban(self, member):
+        logchannel = await self.bot.fetch_channel(
+            db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", member.guild.id)
+        )
+
+        embed = Embed(
+            title="Member Unbanned.",
+            description=f"{member.display_name} has been unbanned from the server."
+            + f"\n\n‣ ID: {member.id}"
+            + f"\n‣ Bot?: {member.bot}",
+            colour=0x00D138,
+            timestamp=datetime.utcnow(),
+        )
+
+        embed.set_thumbnail(url=member.avatar_url)
+
+        await logchannel.send(embed=embed)
+
 
 def setup(bot):
     bot.add_cog(Log(bot))

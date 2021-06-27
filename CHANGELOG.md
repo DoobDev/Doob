@@ -1,3 +1,6 @@
+## v2.8.10
+* Added new logtypes [(#242)](https://github.com/DoobDev/issues/242)
+
 ## v2.8.9
 * Added /dog [(#248)](https://github.com/DoobDev/Doob/issues/248)
 
