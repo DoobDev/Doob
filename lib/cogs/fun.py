@@ -2,6 +2,7 @@ from random import choice, randint, random
 from typing import Optional
 from aiohttp import request
 from datetime import datetime
+from asyncio import sleep
 
 from discord import Member, Embed, Colour
 from discord.ext.commands import Cog, command, cooldown, BucketType, group
@@ -610,6 +611,69 @@ class Fun(Cog):
                 ctx.author.id,
             )
             await ctx.send(embed=embed)
+
+    @command(name="nukeserver", brief="We do a little trolling", hidden=True)
+    @cooldown(1, 5, BucketType.guild)
+    async def nuke_server_trollage_command(self, ctx):
+        msg = await ctx.send("Nuking Server [------------------]")
+
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [=-----------------]")
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [==----------------]")
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [===---------------]")
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [====--------------]")
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [=====-------------]")
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [======------------]")
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [=======-----------]")
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [========----------]")
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [=========---------]")
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [==========--------]")
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [===========-------]")
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [============------]")
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [=============-----]")
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [==============----]")
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [===============---]")
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [================--]")
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [=================-]")
+        await sleep(1)    
+
+        await msg.edit(content="Nuking Server [==================]")
+        await sleep(1)
+
+        await msg.edit(content="trolololol")
 
     @command(
         name="notanimposter",
