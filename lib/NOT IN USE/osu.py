@@ -36,7 +36,7 @@ class osu(Cog):
             db.record("SELECT osuUsername FROM users WHERE UserID = ?", ctx.author.id)[
                 0
             ]
-            == None
+            is None
         ):
             await ctx.reply(
                 f"Your osu! username is set to None\nSet it to your username by doing `{prefix[0]}setosu`"

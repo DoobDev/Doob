@@ -32,7 +32,7 @@ class LastFM(Cog):
             db.record(
                 "SELECT LastfmUsername FROM users WHERE UserID = ?", ctx.author.id
             )[0]
-            == None
+            is None
         ):
             await ctx.reply(
                 f"Your Last.fm username is set to None\nSet it to your username by doing `{prefix[0]}setlastfm`"
@@ -135,7 +135,7 @@ class LastFM(Cog):
             db.record(
                 "SELECT LastfmUsername FROM users WHERE UserID = ?", ctx.author.id
             )[0]
-            == None
+            is None
         ):
             await ctx.reply(
                 f"Your Last.fm username is set to None\nSet it to your username by doing `{prefix[0]}setlastfm`"
@@ -189,7 +189,7 @@ class LastFM(Cog):
             db.record(
                 "SELECT LastfmUsername FROM users WHERE UserID = ?", ctx.author.id
             )[0]
-            == None
+            is None
         ):
             await ctx.reply(
                 f"Your Last.fm username is set to None\nSet it to your username by doing `{prefix[0]}setlastfm`"

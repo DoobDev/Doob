@@ -304,7 +304,7 @@ class Mod(Cog):
         )
         prefix = db.records("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
 
-        if channel == None:
+        if channel is None:
             await ctx.reply(
                 f"The current setting for the Log Channel is currently: <#{current_channel[0][0]}>\nTo change it, type `{prefix[0][0]}setlogchannel #<log channel>`"
             )
@@ -331,7 +331,7 @@ class Mod(Cog):
         )
         prefix = db.records("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
 
-        if channel == None:
+        if channel is None:
             await ctx.reply(
                 f"The current setting for the StarBoard Channel is currently: <#{current_channel[0][0]}>\nTo change it, type `{prefix[0][0]}setstarboardchannel #<starboard channel>`"
             )
@@ -434,7 +434,7 @@ class Mod(Cog):
             )
             db.commit()
 
-            if reason == None:
+            if reason is None:
                 await user.send(
                     f"🔸 You have been warned in {ctx.guild.name} for no reason."
                 )
