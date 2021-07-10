@@ -91,9 +91,7 @@ class Meta(Cog):
     )
     async def doob_invite_link(self, ctx):
         """Gives you a link to invite Doob to another server!"""
-        await ctx.send(
-            "You can invite the bot here! :link: <https://doob.link/invite>"
-        )
+        await ctx.send("You can invite the bot here! :link: <https://doob.link/invite>")
 
     @cog_ext.cog_slash(
         name="invite", description="Gives a link to invite Doob to your server."

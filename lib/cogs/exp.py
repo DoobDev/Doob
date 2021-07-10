@@ -186,12 +186,19 @@ class Exp(Cog):
             to_next_level = int((lvl + 1) ** (20 / 11) * 42) - xp
             embed = Embed(
                 title=f"{target.display_name} is level {lvl:,}",
-                description=f"XP: {xp:,}\nXP to next level {to_next_level:,}" + f"\n\nServer XP: {xp_g:,}\nServer level: {lvl_g:,}",
-                colour=ctx.author.color
+                description=f"XP: {xp:,}\nXP to next level {to_next_level:,}"
+                + f"\n\nServer XP: {xp_g:,}\nServer level: {lvl_g:,}",
+                colour=ctx.author.color,
             )
 
-            fields = [("Global Rank:", f"{ids.index(target.id)+1:,} of {len(ids):,}", False),
-                      (f"Server Rank:", f"{ids_g.index(target.id)+1:,} of {len(ids_g):,}", False)]
+            fields = [
+                ("Global Rank:", f"{ids.index(target.id)+1:,} of {len(ids):,}", False),
+                (
+                    f"Server Rank:",
+                    f"{ids_g.index(target.id)+1:,} of {len(ids_g):,}",
+                    False,
+                ),
+            ]
 
             for field in fields:
                 embed.add_field(name=field[0], value=field[1], inline=field[2])
