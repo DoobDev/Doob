@@ -23,9 +23,9 @@ class Log(Cog):
 
         creation_date = member.created_at.strftime("%m/%d/%Y %H:%M;%S")
 
-        globalwarns = db.records(f"SELECT Warns FROM warns WHERE UserID = ?", member.id)[
-            0
-        ][0]
+        globalwarns = db.records(
+            f"SELECT Warns FROM warns WHERE UserID = ?", member.id
+        )[0][0]
 
         embed = Embed(
             title="New Member!",

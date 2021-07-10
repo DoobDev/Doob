@@ -668,7 +668,7 @@ class Fun(Cog):
         await sleep(1)
 
         await msg.edit(content="Nuking Server [=================-]")
-        await sleep(1)    
+        await sleep(1)
 
         await msg.edit(content="Nuking Server [==================]")
         await sleep(1)

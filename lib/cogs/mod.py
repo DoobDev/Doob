@@ -137,7 +137,9 @@ class Mod(Cog):
                 for target in targets:
                     await target.remove_roles(TheRole)
                     db.execute(
-                        f"DELETE FROM mutes WHERE UserID = ? AND GuildID = ?", target.id, ctx.guild.id
+                        f"DELETE FROM mutes WHERE UserID = ? AND GuildID = ?",
+                        target.id,
+                        ctx.guild.id,
                     )
                     db.commit()
                     await ctx.reply("Unmuted! <:PogU:560267624966258690>")
@@ -153,14 +155,18 @@ class Mod(Cog):
             tNames.append(f"{target.display_name}")
         for target in targets:
             role_ids = db.field(
-                f"SELECT RoleIDs FROM mutes WHERE UserID = ? AND GuildID = ?", target.id, ctx.guild.id
+                f"SELECT RoleIDs FROM mutes WHERE UserID = ? AND GuildID = ?",
+                target.id,
+                ctx.guild.id,
             )
             roles = [
                 ctx.guild.get_role(int(id_)) for id_ in role_ids.split(",") if len(id_)
             ]
             await target.edit(roles=roles)
             db.execute(
-                f"DELETE FROM mutes WHERE UserID = ? AND GuildID = ?", target.id, ctx.guild.id
+                f"DELETE FROM mutes WHERE UserID = ? AND GuildID = ?",
+                target.id,
+                ctx.guild.id,
             )
             db.commit()
             target_embed += f" {target.display_name},"
@@ -407,7 +413,9 @@ class Mod(Cog):
         for target in targets:
             user = self.bot.get_user(target.id)
             warns = db.records(
-                f"SELECT Warns FROM warns WHERE UserID = ? AND GuildID = ?", target.id, ctx.guild.id
+                f"SELECT Warns FROM warns WHERE UserID = ? AND GuildID = ?",
+                target.id,
+                ctx.guild.id,
             )[0][0]
             globalwarns = db.records(
                 f"SELECT Warns FROM globalwarns WHERE UserID = ?", target.id
@@ -446,7 +454,9 @@ class Mod(Cog):
     @cooldown(1, 5, BucketType.user)
     async def show_warnings_command(self, ctx):
         warns = db.records(
-            f"SELECT Warns FROM warns WHERE UserID = ? AND GuildID = ?", ctx.author.id, ctx.guild.id
+            f"SELECT Warns FROM warns WHERE UserID = ? AND GuildID = ?",
+            ctx.author.id,
+            ctx.guild.id,
         )[0][0]
         globalwarns = db.records(
             f"SELECT Warns from globalwarns WHERE UserID = ?", ctx.author.id
