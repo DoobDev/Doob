@@ -21,7 +21,6 @@ from ..db import db  # pylint: disable=relative-beyond-top-level
 
 owner_id = 308000668181069824
 
-import os
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -36,7 +35,7 @@ class Misc(Cog):
     async def change_prefix(self, ctx, new: str):
         """Changes the prefix for the server.\n`Manage Server` permission required."""
         if len(new) > 10:
-            await ctx.reply(
+            await ctx.send(
                 "The prefix can not be more than 10 characters.", delete_after=10
             )
 
@@ -48,12 +47,12 @@ class Misc(Cog):
                 title="Prefix Changed",
                 description=f"Prefix has been changed to `{new}`",
             )
-            await ctx.reply(embed=embed)
+            await ctx.send(embed=embed)
 
     @change_prefix.error
     async def change_prefix_error(self, ctx, exc):
         if isinstance(exc, CheckFailure):
-            await ctx.reply(
+            await ctx.send(
                 "You need the Manage Server permission to change the prefix.",
                 delete_after=10,
             )
@@ -233,7 +232,7 @@ class Misc(Cog):
             text=f"{ctx.author} started this giveaway.", icon_url=ctx.author.avatar_url
         )
 
-        message = await ctx.reply(embed=embed)
+        message = await ctx.send(embed=embed)
 
         await message.add_reaction("🎁")
 
@@ -303,7 +302,7 @@ class Misc(Cog):
             await ctx.send(embed=embed, delete_after=time)
 
         else:
-            await ctx.reply(
+            await ctx.send(
                 f"Please try again with a lower time, {time} is too big.",
                 delete_after=15,
             )
@@ -311,7 +310,7 @@ class Misc(Cog):
     @command(name="vote", aliases=["upvote"], brief="Vote for Doob on Top.gg!")
     @cooldown(1, 4, BucketType.user)
     async def topgg_upvote_command(self, ctx):
-        await ctx.reply("Vote for Doob at: https://top.gg/bot/680606346952966177/vote")
+        await ctx.send("Vote for Doob at: https://top.gg/bot/680606346952966177/vote")
 
     @command(name="phone", aliases=["iphone"], brief="phone")
     @cooldown(1, 4, BucketType.user)
@@ -330,17 +329,17 @@ class Misc(Cog):
 
         if ctx.author in homeGuild.members:
             if patreonRole in member.roles:
-                await ctx.reply(
+                await ctx.send(
                     "https://cdn.discordapp.com/attachments/721514198000992350/794840218514751499/IYUimA7gyac7sxrB3uKu9Mb1ZZOJVtgAAAA.png"
                 )
 
             else:
-                await ctx.reply(
+                await ctx.send(
                     "You are not a Patron to Doob, subscribe to any of the tiers at <https://patreon.com/doobdev> to gain access to this command."
                 )
 
         else:
-            await ctx.reply(
+            await ctx.send(
                 "You are not a Patron to Doob, subscribe to any of the tiers at <https://patreon.com/doobdev> to gain access to this command."
             )
 
@@ -368,10 +367,10 @@ class Misc(Cog):
                 description=f"Prefix has been changed to `{new}`",
             )
 
-            await ctx.reply(embed=embed)
+            await ctx.send(embed=embed)
 
         else:
-            await ctx.reply(
+            await ctx.send(
                 f"This is the owner override command, only the owner of the bot can use this. If you are a server manager, use `{prefix[0][0]}prefix` command."
             )
 
@@ -434,7 +433,7 @@ class Misc(Cog):
 
         embed.set_image(url=emote.url)
 
-        await ctx.reply(embed=embed)
+        await ctx.send(embed=embed)
 
 
 def setup(bot):

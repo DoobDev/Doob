@@ -23,9 +23,9 @@ class Log(Cog):
 
         creation_date = member.created_at.strftime("%m/%d/%Y %H:%M;%S")
 
-        globalwarns = db.records(f"SELECT Warns FROM warns WHERE UserID = {member.id}")[
-            0
-        ][0]
+        globalwarns = db.records(
+            f"SELECT Warns FROM warns WHERE UserID = ?", member.id
+        )[0][0]
 
         embed = Embed(
             title="New Member!",
@@ -85,6 +85,31 @@ class Log(Cog):
                 embed.add_field(name=name, value=value, inline=inline)
             embed.set_thumbnail(url=before.avatar_url)
             await logchannel.send(embed=embed)
+
+        if before.pending != after.pending:
+            print("yo")
+            logchannel = await self.bot.fetch_channel(
+                db.field(
+                    "SELECT LogChannel FROM guilds WHERE GuildID = ?", before.guild.id
+                )
+            )
+
+            print("yo")
+
+            member_role = db.field(
+                    "SELECT MemberRole from guilds WHERE GuildID = ?", before.guild.id
+                )
+    
+            print(member_role)
+            
+            await logchannel.send(f"{before.display_name} agreed to the rules.")        # Send a message to the logchannel.
+
+            await after.add_roles(after.guild.get_role(member_role))        # Add the Member role to the user.
+
+            print("yo")
+
+
+        
 
         elif before.roles != after.roles:
             embed = Embed(

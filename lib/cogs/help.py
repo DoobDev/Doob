@@ -109,7 +109,7 @@ class Help(Cog):
                 await self.cmd_help(ctx, command)
 
             else:
-                await ctx.reply(
+                await ctx.send(
                     "That command does not exist.\nTry looking through `d!help` to see the actual command name, and not the alias.",
                     components=[
                         Button(

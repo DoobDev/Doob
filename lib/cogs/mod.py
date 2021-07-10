@@ -67,7 +67,7 @@ class Mod(Cog):
     ):
         """Kicks a member from the server.\n`Kick Members` permission required."""
         if not len(targets):
-            await ctx.reply("One or more required arguments are missing.")
+            await ctx.send("One or more required arguments are missing.")
 
         else:
             for target in targets:
@@ -77,9 +77,9 @@ class Mod(Cog):
                 ):
 
                     await target.kick(reason=reason)
-                    await ctx.reply("Member Kicked.")
+                    await ctx.send("Member Kicked.")
                 else:
-                    await ctx.reply(
+                    await ctx.send(
                         "Something went wrong.\nYou might not be able to kick that member."
                     )
 
@@ -124,7 +124,7 @@ class Mod(Cog):
     ):
         """Mutes a member from the server\nRequires the `Manage Roles` permission"""
         if not len(targets):
-            await ctx.reply("One or more required arguments are missing.")
+            await ctx.send("One or more required arguments are missing.")
 
         else:
             unmutes = await self.mute_members(ctx.message, targets, reason)
@@ -137,10 +137,12 @@ class Mod(Cog):
                 for target in targets:
                     await target.remove_roles(TheRole)
                     db.execute(
-                        f"DELETE FROM mutes WHERE UserID = {target.id} AND GuildID = {ctx.guild.id}"
+                        f"DELETE FROM mutes WHERE UserID = ? AND GuildID = ?",
+                        target.id,
+                        ctx.guild.id,
                     )
                     db.commit()
-                    await ctx.reply("Unmuted! <:PogU:560267624966258690>")
+                    await ctx.send("Unmuted! <:PogU:560267624966258690>")
 
     @command(name="unmute", aliases=["um"], brief="Unmutes a member from the server.")
     @bot_has_permissions(manage_roles=True)
@@ -153,20 +155,24 @@ class Mod(Cog):
             tNames.append(f"{target.display_name}")
         for target in targets:
             role_ids = db.field(
-                f"SELECT RoleIDs FROM mutes WHERE UserID = {target.id} AND GuildID = {ctx.guild.id}"
+                f"SELECT RoleIDs FROM mutes WHERE UserID = ? AND GuildID = ?",
+                target.id,
+                ctx.guild.id,
             )
             roles = [
                 ctx.guild.get_role(int(id_)) for id_ in role_ids.split(",") if len(id_)
             ]
             await target.edit(roles=roles)
             db.execute(
-                f"DELETE FROM mutes WHERE UserID = {target.id} AND GuildID = {ctx.guild.id}"
+                f"DELETE FROM mutes WHERE UserID = ? AND GuildID = ?",
+                target.id,
+                ctx.guild.id,
             )
             db.commit()
             target_embed += f" {target.display_name},"
 
         embed = Embed(title="Unmuted:", description=f"{comma.join(tNames)}")
-        await ctx.reply(embed=embed)
+        await ctx.send(embed=embed)
 
     @command(
         name="ban", aliases=["b", "banmember"], brief="Ban a member from the server."
@@ -182,7 +188,7 @@ class Mod(Cog):
     ):
         """Bans a member from the server\n`Ban Members` permission required."""
         if not len(targets):
-            await ctx.reply("One or more required arguments are missing.")
+            await ctx.send("One or more required arguments are missing.")
 
         else:
             for target in targets:
@@ -192,10 +198,10 @@ class Mod(Cog):
                 ):
 
                     await target.ban(reason=reason)
-                    await ctx.reply("Member banned.")
+                    await ctx.send("Member banned.")
 
                 else:
-                    await ctx.reply(
+                    await ctx.send(
                         "Something went wrong.\nYou might not be able to ban that member."
                     )
 
@@ -213,7 +219,7 @@ class Mod(Cog):
 
             if roll == 1:
                 if not len(targets):
-                    await ctx.reply("One or more required arguments are missing.")
+                    await ctx.send("One or more required arguments are missing.")
 
                 else:
                     for target in targets:
@@ -225,18 +231,18 @@ class Mod(Cog):
                             await target.ban(
                                 reason="They couldn't survive russian roulette."
                             )
-                            await ctx.reply(
+                            await ctx.send(
                                 f"{target.display_name} [`{target.id}`] will (or will not) be missed."
                             )
 
                         else:
-                            await ctx.reply(
+                            await ctx.send(
                                 "Something went wrong.\nYou might not be able to ban that member.\nYou survived this one..."
                             )
 
             else:
                 for target in targets:
-                    await ctx.reply(
+                    await ctx.send(
                         f"{target.display_name} [`{target.id}`] survived.\n(rolled a `{roll}`, needs to hit a `1` to get banned.)"
                     )
 
@@ -251,12 +257,12 @@ class Mod(Cog):
         reason: Optional[str] = "No reason provided.",
     ):
         if not len(targets):
-            await ctx.reply("One or more required arguments are missing.")
+            await ctx.send("One or more required arguments are missing.")
 
         else:
             for target in targets:
                 await ctx.guild.unban(target, reason=reason)
-                await ctx.reply("Member unbanned.")
+                await ctx.send("Member unbanned.")
 
     @command(
         name="clear", aliases=["purge"], brief="Clears amount of messages provided."
@@ -283,7 +289,7 @@ class Mod(Cog):
                 await ctx.send(f"Deleted {len(deleted):,} messages.", delete_after=10)
 
         else:
-            await ctx.reply("The limit provided is not within acceptable bounds.")
+            await ctx.send("The limit provided is not within acceptable bounds.")
 
     @command(
         name="setlogchannel",
@@ -298,8 +304,8 @@ class Mod(Cog):
         )
         prefix = db.records("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
 
-        if channel == None:
-            await ctx.reply(
+        if channel is None:
+            await ctx.send(
                 f"The current setting for the Log Channel is currently: <#{current_channel[0][0]}>\nTo change it, type `{prefix[0][0]}setlogchannel #<log channel>`"
             )
 
@@ -310,7 +316,7 @@ class Mod(Cog):
                 ctx.guild.id,
             )
             db.commit()
-            await ctx.reply(f"Log channel set to <#{channel.id}>")
+            await ctx.send(f"Log channel set to <#{channel.id}>")
 
     @command(
         name="setstarboardchannel",
@@ -325,8 +331,8 @@ class Mod(Cog):
         )
         prefix = db.records("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
 
-        if channel == None:
-            await ctx.reply(
+        if channel is None:
+            await ctx.send(
                 f"The current setting for the StarBoard Channel is currently: <#{current_channel[0][0]}>\nTo change it, type `{prefix[0][0]}setstarboardchannel #<starboard channel>`"
             )
 
@@ -337,7 +343,7 @@ class Mod(Cog):
                 ctx.guild.id,
             )
             db.commit()
-            await ctx.reply(f"StarBoard channel set to <#{channel.id}>")
+            await ctx.send(f"StarBoard channel set to <#{channel.id}>")
 
     @command(
         name="setmuterole",
@@ -347,11 +353,6 @@ class Mod(Cog):
     @has_permissions(manage_guild=True)
     async def set_mute_role(self, ctx, *, role: Optional[Role]):
         """Sets the `Muted` role for your server.\n`Manage Server` premission required."""
-        cur_role = db.records(
-            "SELECT MutedRole FROM guilds WHERE GuildID = ?", ctx.guild.id
-        )
-        prefix = db.records("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
-
         if ctx.guild.me.top_role.position > role.position:
             db.execute(
                 "UPDATE guilds SET MutedRole = ? WHERE GuildID = ?",
@@ -359,10 +360,30 @@ class Mod(Cog):
                 ctx.guild.id,
             )
             db.commit()
-            await ctx.reply(f"Mute role set to `{role}`")
+            await ctx.send(f"Mute role set to `{role}`")
 
         else:
-            await ctx.reply(
+            await ctx.send(
+                f"Please try a different role.\nYou may need to move the `Doob` role in your server settings above the `{role}` role."
+            )
+
+    @command(
+        name="setmemberrole",
+        aliases=["smbr", "memberrole", "setmember"],
+        brief="Set the server's member role.",
+    )
+    @has_permissions(manage_guild=True)
+    async def set_member_role(self, ctx, *, role: Optional[Role]):
+        if ctx.guild.me.top_role.position > role.position:
+            db.execute(
+                "UPDATE guilds SET MemberRole = ? WHERE GuildID = ?",
+                str(role.id),
+                ctx.guild.id,
+            )
+            db.commit()
+            await ctx.send(f"Member role set to `{role}`")
+        else:
+            await ctx.send(
                 f"Please try a different role.\nYou may need to move the `Doob` role in your server settings above the `{role}` role."
             )
 
@@ -407,10 +428,12 @@ class Mod(Cog):
         for target in targets:
             user = self.bot.get_user(target.id)
             warns = db.records(
-                f"SELECT Warns FROM warns WHERE UserID = {target.id} AND GuildID = {ctx.guild.id}"
+                f"SELECT Warns FROM warns WHERE UserID = ? AND GuildID = ?",
+                target.id,
+                ctx.guild.id,
             )[0][0]
             globalwarns = db.records(
-                f"SELECT Warns FROM globalwarns WHERE UserID = {target.id}"
+                f"SELECT Warns FROM globalwarns WHERE UserID = ?", target.id
             )[0][0]
 
             db.execute(
@@ -426,7 +449,7 @@ class Mod(Cog):
             )
             db.commit()
 
-            if reason == None:
+            if reason is None:
                 await user.send(
                     f"🔸 You have been warned in {ctx.guild.name} for no reason."
                 )
@@ -436,7 +459,7 @@ class Mod(Cog):
                     f"🔸 You have been warned in {ctx.guild.name} for {reason}"
                 )
 
-        await ctx.reply(f"Done!\nWarned: {comma.join(tNames)}")
+        await ctx.send(f"Done!\nWarned: {comma.join(tNames)}")
 
     @command(
         name="warnings",
@@ -446,10 +469,12 @@ class Mod(Cog):
     @cooldown(1, 5, BucketType.user)
     async def show_warnings_command(self, ctx):
         warns = db.records(
-            f"SELECT Warns FROM warns WHERE UserID = {ctx.author.id} AND GuildID = {ctx.guild.id}"
+            f"SELECT Warns FROM warns WHERE UserID = ? AND GuildID = ?",
+            ctx.author.id,
+            ctx.guild.id,
         )[0][0]
         globalwarns = db.records(
-            f"SELECT Warns from globalwarns WHERE UserID = {ctx.author.id}"
+            f"SELECT Warns from globalwarns WHERE UserID = ?", ctx.author.id
         )[0][0]
 
         embed = Embed(
@@ -470,7 +495,7 @@ class Mod(Cog):
         )
         embed.set_thumbnail(url=ctx.author.avatar_url)
 
-        await ctx.reply(embed=embed)
+        await ctx.send(embed=embed)
 
     @group(name="role", aliases=["roles"], brief="Manage or see roles in your server.")
     @has_permissions(manage_roles=True)
@@ -493,7 +518,7 @@ class Mod(Cog):
 
             embed.set_thumbnail(url=ctx.guild.icon_url)
 
-            await ctx.reply(embed=embed)
+            await ctx.send(embed=embed)
 
     @role.command(
         name="-add", aliases=["-a"], brief="Add a role to a user (or multiple)."
@@ -524,7 +549,7 @@ class Mod(Cog):
         for name, value, inline in fields:
             embed.add_field(name=name, value=value, inline=inline)
 
-        await ctx.reply(embed=embed)
+        await ctx.send(embed=embed)
 
     @command(name="welcomebackxander", hidden=True)
     async def give_xander_roles_back_command(self, ctx, target: Member):
@@ -574,7 +599,7 @@ class Mod(Cog):
         for name, value, inline in fields:
             embed.add_field(name=name, value=value, inline=inline)
 
-        await ctx.reply(embed=embed)
+        await ctx.send(embed=embed)
 
     @role.command(
         name="-create", aliases=["-c"], brief="Creates a role for the server."
@@ -604,7 +629,7 @@ class Mod(Cog):
             title="Roles deleted", description=comma.join(tNames), colour=Colour.red()
         )
 
-        await ctx.reply(embed=embed)
+        await ctx.send(embed=embed)
 
     @Cog.listener()
     async def on_ready(self):

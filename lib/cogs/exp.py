@@ -100,7 +100,9 @@ class Exp(Cog):
             "SELECT XP, Level, XPLock FROM users WHERE UserID = ?", message.author.id
         )
         xp_g, lvl_g, xplock_g = db.record(
-            f"SELECT XP, Level, XPLock FROM guildexp WHERE UserID = {message.author.id} AND GuildID = {message.guild.id}"
+            "SELECT XP, Level, XPLock FROM guildexp WHERE UserID = ? AND GuildID = ?",
+            message.author.id,
+            message.guild.id,
         )
 
         if datetime.utcnow() > datetime.fromisoformat(xplock):
@@ -141,10 +143,12 @@ class Exp(Cog):
         new_lvl = int(((xp + xp_to_add) // 42) ** 0.55)
 
         db.execute(
-            f"UPDATE guildexp SET XP = XP + ?, Level = ?, XPLock = ? WHERE UserID = {message.author.id} AND GuildID = {message.guild.id}",
+            f"UPDATE guildexp SET XP = XP + ?, Level = ?, XPLock = ? WHERE UserID = ? AND GuildID = ?",
             xp_to_add,
             new_lvl,
             (datetime.utcnow() + timedelta(seconds=50)).isoformat(),
+            message.author.id,
+            message.guild.id,
         )
         db.commit()
 
@@ -180,12 +184,31 @@ class Exp(Cog):
 
         if lvl is not None:
             to_next_level = int((lvl + 1) ** (20 / 11) * 42) - xp
-            await ctx.reply(
-                f"`Global Rank:`\n{target.display_name} is level {lvl:,} with {xp:,} xp ({to_next_level:,} xp to next level) and is rank {ids.index(target.id)+1:,} of {len(ids):,} users globally.\n`Server Rank:`\n{target.display_name} is server level {lvl_g:,} with {xp_g:,} server xp and is server rank {ids_g.index(target.id)+1:,} of {len(ids_g):,}."
+            embed = Embed(
+                title=f"{target.display_name} is level {lvl:,}",
+                description=f"XP: {xp:,}\nXP to next level {to_next_level:,}"
+                + f"\n\nServer XP: {xp_g:,}\nServer level: {lvl_g:,}",
+                colour=ctx.author.color,
             )
 
+            fields = [
+                ("Global Rank:", f"{ids.index(target.id)+1:,} of {len(ids):,}", False),
+                (
+                    f"Server Rank:",
+                    f"{ids_g.index(target.id)+1:,} of {len(ids_g):,}",
+                    False,
+                ),
+            ]
+
+            for field in fields:
+                embed.add_field(name=field[0], value=field[1], inline=field[2])
+
+            embed.set_thumbnail(url=target.avatar_url)
+
+            await ctx.send(embed=embed)
+
         else:
-            ctx.reply("That member is not in the XP Database.")
+            ctx.send("That member is not in the XP Database.")
 
     @command(
         name="levelmessages",
@@ -212,10 +235,10 @@ class Exp(Cog):
                 ctx.guild.id,
             )
             db.commit()
-            await ctx.reply(f"Level messages set to `{yes_or_no}`.")
+            await ctx.send(f"Level messages set to `{yes_or_no}`.")
 
         else:
-            await ctx.reply(
+            await ctx.send(
                 f"The current setting for Level Messages is: `{levelmessages[0][0]}`\nTo change it, type `{prefix[0][0]}levelmessages (yes or no)`"
             )
 

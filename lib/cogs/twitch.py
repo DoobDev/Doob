@@ -43,7 +43,7 @@ class Twitch(Cog):
                     },
                 ) as response2:
                     if response2.status == 200:
-                        if (await response2.json())["stream"] != None:
+                        if (await response2.json())["stream"] is not None:
                             embed = Embed(
                                 title=f"{(await response2.json())['stream']['channel']['display_name']} Stream Info",
                                 colour=Colour.dark_purple(),
@@ -114,7 +114,7 @@ class Twitch(Cog):
                                 ]
                             )
 
-                            await ctx.reply(embed=embed)
+                            await ctx.send(embed=embed)
 
                         else:
                             UserInfo_URL = (
@@ -196,14 +196,14 @@ class Twitch(Cog):
 
                                     if (await response3.json())[
                                         "profile_banner"
-                                    ] != None:
+                                    ] is not None:
                                         embed.set_image(
                                             url=(await response3.json())[
                                                 "profile_banner"
                                             ]
                                         )
 
-                                    await ctx.reply(embed=embed)
+                                    await ctx.send(embed=embed)
 
     @group(
         name="twitch",
@@ -214,7 +214,7 @@ class Twitch(Cog):
     async def twitch(self, ctx):
         """Request some information on a specific Twitch Stream/User!\n`Username` = Twitch Username"""
         if ctx.invoked_subcommand is None:
-            await ctx.reply(
+            await ctx.send(
                 "Doing `d!twitch` doesn't work anymore! Looking to search someone? Try `d!twitch -search {username}`"
             )
 
@@ -226,7 +226,7 @@ class Twitch(Cog):
     async def twitch_search_command_error(self, ctx, exc):
         if hasattr(exc, "original"):
             if isinstance(exc.original, IndexError):
-                await ctx.reply("User does not seem to exist on Twitch.tv")
+                await ctx.send("User does not seem to exist on Twitch.tv")
 
     @twitch.command(name="-title", aliases=["-t"])
     async def twitch_title_command(self, ctx, username: str):
@@ -253,7 +253,7 @@ class Twitch(Cog):
                     },
                 ) as response2:
                     if response2.status == 200:
-                        if (await response2.json())["stream"] != None:
+                        if (await response2.json())["stream"] is not None:
                             embed = Embed(
                                 title=f"{(await response2.json())['stream']['channel']['display_name']} Stream Info",
                                 colour=Colour.dark_purple(),
@@ -282,7 +282,7 @@ class Twitch(Cog):
                                 ]
                             )
 
-                            await ctx.reply(embed=embed)
+                            await ctx.send(embed=embed)
 
     @Cog.listener()
     async def on_ready(self):
