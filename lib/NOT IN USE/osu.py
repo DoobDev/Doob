@@ -110,7 +110,7 @@ class osu(Cog):
     )
     @cooldown(1, 5, BucketType.user)
     async def osu_set_command(self, ctx, username: Optional[str]):
-        if username != None:
+        if username is not None:
             api = OsuApi(os.environ.get("osu_api"))
             user = await api.get_user(user=username, mode=0, type_str="string")
 

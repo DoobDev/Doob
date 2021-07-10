@@ -76,7 +76,7 @@ class Bio(Cog):
                 embed.set_thumbnail(url=target.avatar_url)
 
                 # If they have a banner on Discord.bio, show it as the "image" in the embed.
-                if data["details"]["banner"] != None:
+                if data["details"]["banner"] is not None:
                     embed.set_image(url=data["details"]["banner"])
 
                 await ctx.reply(embed=embed)

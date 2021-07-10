@@ -43,7 +43,7 @@ class Twitch(Cog):
                     },
                 ) as response2:
                     if response2.status == 200:
-                        if (await response2.json())["stream"] != None:
+                        if (await response2.json())["stream"] is not None:
                             embed = Embed(
                                 title=f"{(await response2.json())['stream']['channel']['display_name']} Stream Info",
                                 colour=Colour.dark_purple(),
@@ -196,7 +196,7 @@ class Twitch(Cog):
 
                                     if (await response3.json())[
                                         "profile_banner"
-                                    ] != None:
+                                    ] is not None:
                                         embed.set_image(
                                             url=(await response3.json())[
                                                 "profile_banner"
@@ -253,7 +253,7 @@ class Twitch(Cog):
                     },
                 ) as response2:
                     if response2.status == 200:
-                        if (await response2.json())["stream"] != None:
+                        if (await response2.json())["stream"] is not None:
                             embed = Embed(
                                 title=f"{(await response2.json())['stream']['channel']['display_name']} Stream Info",
                                 colour=Colour.dark_purple(),
