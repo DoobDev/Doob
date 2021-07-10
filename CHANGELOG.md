@@ -1,3 +1,6 @@
+## v2.9.0
+* Added buttons to `d!help`
+
 ## v2.8.10
 * Added new logtypes [(#242)](https://github.com/DoobDev/issues/242)
 
