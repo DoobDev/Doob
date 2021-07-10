@@ -1,5 +1,5 @@
 from discord.ext.commands import Cog, command, BucketType, cooldown, group
-from discord import Embed, Colour
+from discord import Embed
 
 from ..db import db  # pylint: disable=relative-beyond-top-level
 

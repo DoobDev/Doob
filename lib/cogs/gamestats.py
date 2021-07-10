@@ -7,7 +7,6 @@ from aiohttp import request
 
 from ..db import db  # pylint: disable=relative-beyond-top-level
 
-import os
 from dotenv import load_dotenv
 
 load_dotenv()

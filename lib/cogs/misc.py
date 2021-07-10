@@ -21,7 +21,6 @@ from ..db import db  # pylint: disable=relative-beyond-top-level
 
 owner_id = 308000668181069824
 
-import os
 from dotenv import load_dotenv
 
 load_dotenv()

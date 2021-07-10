@@ -100,7 +100,7 @@ class Exp(Cog):
             "SELECT XP, Level, XPLock FROM users WHERE UserID = ?", message.author.id
         )
         xp_g, lvl_g, xplock_g = db.record(
-            f"SELECT XP, Level, XPLock FROM guildexp WHERE UserID = {message.author.id} AND GuildID = {message.guild.id}"
+            "SELECT XP, Level, XPLock FROM guildexp WHERE UserID = ? AND GuildID = ?", message.author.id, message.guild.id
         )
 
         if datetime.utcnow() > datetime.fromisoformat(xplock):
@@ -141,10 +141,11 @@ class Exp(Cog):
         new_lvl = int(((xp + xp_to_add) // 42) ** 0.55)
 
         db.execute(
-            f"UPDATE guildexp SET XP = XP + ?, Level = ?, XPLock = ? WHERE UserID = {message.author.id} AND GuildID = {message.guild.id}",
+            f"UPDATE guildexp SET XP = XP + ?, Level = ?, XPLock = ? WHERE UserID = ? AND GuildID = ?",
             xp_to_add,
             new_lvl,
             (datetime.utcnow() + timedelta(seconds=50)).isoformat(),
+            message.author.id, message.guild.id,
         )
         db.commit()
 
