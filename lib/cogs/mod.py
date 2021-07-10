@@ -353,11 +353,6 @@ class Mod(Cog):
     @has_permissions(manage_guild=True)
     async def set_mute_role(self, ctx, *, role: Optional[Role]):
         """Sets the `Muted` role for your server.\n`Manage Server` premission required."""
-        cur_role = db.records(
-            "SELECT MutedRole FROM guilds WHERE GuildID = ?", ctx.guild.id
-        )
-        prefix = db.records("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
-
         if ctx.guild.me.top_role.position > role.position:
             db.execute(
                 "UPDATE guilds SET MutedRole = ? WHERE GuildID = ?",
@@ -367,6 +362,26 @@ class Mod(Cog):
             db.commit()
             await ctx.send(f"Mute role set to `{role}`")
 
+        else:
+            await ctx.send(
+                f"Please try a different role.\nYou may need to move the `Doob` role in your server settings above the `{role}` role."
+            )
+
+    @command(
+        name="setmemberrole",
+        aliases=["smbr", "memberrole", "setmember"],
+        brief="Set the server's member role.",
+    )
+    @has_permissions(manage_guild=True)
+    async def set_member_role(self, ctx, *, role: Optional[Role]):
+        if ctx.guild.me.top_role.position > role.position:
+            db.execute(
+                "UPDATE guilds SET MemberRole = ? WHERE GuildID = ?",
+                str(role.id),
+                ctx.guild.id,
+            )
+            db.commit()
+            await ctx.send(f"Member role set to `{role}`")
         else:
             await ctx.send(
                 f"Please try a different role.\nYou may need to move the `Doob` role in your server settings above the `{role}` role."

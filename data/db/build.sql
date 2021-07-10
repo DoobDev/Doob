@@ -6,7 +6,8 @@ CREATE TABLE IF NOT EXISTS guilds(
     LogChannel text,
     MutedRole text,
     StarBoardChannel text,
-    LevelMessages text DEFAULT "no"
+    LevelMessages text DEFAULT "no",
+    MemberRole text
 );
 
 CREATE TABLE IF NOT EXISTS users(
