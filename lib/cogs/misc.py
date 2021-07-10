@@ -1,17 +1,14 @@
-from discord.ext.commands import Cog, cog
+from discord.ext.commands import Cog
 from discord.ext.commands import CheckFailure
 from discord.ext.commands import command, has_permissions, cooldown, BucketType
-from discord import Embed, Message, Reaction, Emoji, TextChannel
-
-from discord.ext import timers
+from discord import Embed, Message, Emoji, TextChannel
 
 from discord_slash.utils.manage_commands import create_option
-from discord_slash import cog_ext, SlashContext
+from discord_slash import cog_ext
 
 from discord.utils import get
 
 from datetime import datetime
-
 
 import json
 

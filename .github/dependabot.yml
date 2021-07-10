@@ -8,3 +8,5 @@ updates:
       - "dependencies"
     assignees:
       - "mmattbtw"
+    commit-message:
+      prefix: "🔼"

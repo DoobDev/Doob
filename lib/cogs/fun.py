@@ -2,13 +2,12 @@ from random import choice, randint, random
 from typing import Optional
 from aiohttp import request
 from datetime import datetime
+from asyncio import sleep
 
 from discord import Member, Embed, Colour
 from discord.ext.commands import Cog, command, cooldown, BucketType, group
 from discord.utils import get
-
-from discord_slash.utils.manage_commands import create_option
-from discord_slash import cog_ext, SlashContext
+from discord_slash import cog_ext
 
 from owoify import Owoifator
 
@@ -368,6 +367,136 @@ class Fun(Cog):
             # If they aren't in the support server, it calls the function below.
             await self.lucky_dogs(ctx)
 
+    @cog_ext.cog_slash(name="dog", description="See a random picture of a dog!")
+    async def dog_slash_command(self, SlashContext):
+        ctx = SlashContext
+
+        LuckyDogs = db.records(
+            "SELECT LuckyDogs FROM luckydogs WHERE UserID = ?", ctx.author.id
+        )
+
+        homeGuild = self.bot.get_guild(config["homeGuild_id"])  # Support Server ID.
+        patreonRole = get(
+            homeGuild.roles, id=config["patreonRole_id"]
+        )  # Patreon role ID.
+
+        member = []
+
+        # URL for the API
+        URL = "https://dog.ceo/api/breeds/image/random"
+
+        # Checks if user is a Patron
+        for pledger in homeGuild.members:
+            if pledger == ctx.author:
+                member = pledger
+
+        # If the user is, give them a higher chance in the Lucky Dog Rolls
+        if ctx.author in homeGuild.members:
+            if patreonRole in member.roles:
+
+                # Rolls a random number between 1 and 53 for Patrons, to give them a higher chance of getting a "Lucky Dog"
+                random = randint(1, 53)
+
+                # If the user doesn't get a lucky dog roll, then contact the API and get a picture!
+                if random != 50 and random != 51 and random != 52 and random != 53:
+                    async with request("GET", URL, headers={}) as response:
+                        if response.status == 200:
+                            data = await response.json()
+                            embed = Embed(
+                                title="Dog Picture!", colour=ctx.author.colour
+                            )
+                            # embed.set_footer(text=f"DEBUG: L_DOG: {random}")
+                            embed.set_image(url=data["message"])
+                            await ctx.send(embed=embed)
+
+                # This is the Lucky Dog stuff, if the user rolls one of these numbers, they get a "Lucky Dog", that gives them the special dog
+                # and gives them 1 "Lucky Dog" into the DB
+                elif random == 50:
+                    embed = Embed(
+                        title="Lucky Dog Picture!",
+                        description="This is [Liquid Mendo](https://twitter.com/Mendo)'s dog Koda!",
+                        colour=Colour.gold(),
+                    )
+                    embed.set_footer(
+                        text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 50 chance of getting this picture!",
+                        icon_url=ctx.author.avatar_url,
+                    )
+                    embed.set_image(
+                        url="https://pbs.twimg.com/media/EgXfe_XUcAABT41?format=jpg&name=360x360"
+                    )
+                    db.execute(
+                        "UPDATE luckydogs SET (LuckyDogs, LastUpdated) = (?, ?) WHERE UserID = ?",
+                        LuckyDogs[0][0] + 1,
+                        datetime.utcnow(),
+                        ctx.author.id,
+                    )
+                    await ctx.send(embed=embed)
+
+                elif random == 51:
+                    embed = Embed(
+                        title="Lucky Dog Picture!",
+                        description="There is a 1 in 50 chance of getting this picture!",
+                        colour=Colour.gold(),
+                    )
+                    embed.set_footer(
+                        text=f"{ctx.author} got this lucky dog picture!",
+                        icon_url=ctx.author.avatar_url,
+                    )
+                    embed.set_image(url="https://i.imgur.com/pzqRLdi.jpg")
+                    db.execute(
+                        "UPDATE luckydogs SET (LuckyDogs, LastUpdated) = (?, ?) WHERE UserID = ?",
+                        LuckyDogs[0][0] + 1,
+                        datetime.utcnow(),
+                        ctx.author.id,
+                    )
+                    await ctx.send(embed=embed)
+
+                elif random == 52:
+                    embed = Embed(
+                        title="Lucky Dog Picture!",
+                        description="This is [Weest](https://twitter.com/weesterner)'s dog Kevin!",
+                        colour=Colour.gold(),
+                    )
+                    embed.set_footer(
+                        text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 50 chance of getting this picture!",
+                        icon_url=ctx.author.avatar_url,
+                    )
+                    embed.set_image(url="https://i.imgur.com/guF2Y3z.png")
+                    db.execute(
+                        "UPDATE luckydogs SET (LuckyDogs, LastUpdated) = (?, ?) WHERE UserID = ?",
+                        LuckyDogs[0][0] + 1,
+                        datetime.utcnow(),
+                        ctx.author.id,
+                    )
+                    await ctx.send(embed=embed)
+
+                elif random == 53:
+                    embed = Embed(
+                        title="Lucky Dog Picture!",
+                        description="This is [@KittyKay000](https://twitter.com/kittykay000)'s concept drawing of Doob!",
+                        colour=Colour.gold(),
+                    )
+                    embed.set_footer(
+                        text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 50 chance of getting this picture!",
+                        icon_url=ctx.author.avatar_url,
+                    )
+                    embed.set_image(url="https://i.imgur.com/KFOR8YJ.jpeg")
+                    db.execute(
+                        "UPDATE luckydogs SET (LuckyDogs, LastUpdated) = (?, ?) WHERE UserID = ?",
+                        LuckyDogs[0][0] + 1,
+                        datetime.utcnow(),
+                        ctx.author.id,
+                    )
+                    await ctx.send(embed=embed)
+
+            else:
+                # If they aren't a Patron, it calls the function below.
+                await self.lucky_dogs(ctx)
+
+        else:
+            # If they aren't in the support server, it calls the function below.
+            await self.lucky_dogs(ctx)
+
     async def lucky_dogs(self, ctx):
         # Rolls a number for the Lucky Dogs
         random = randint(1, 503)
@@ -390,7 +519,7 @@ class Fun(Cog):
                         data = await response.json()
                         embed = Embed(title="Dog Picture!", colour=ctx.author.colour)
                         embed.set_image(url=data["message"])
-                        await ctx.reply(embed=embed)
+                        await ctx.send(embed=embed)
             elif patreon_ad == 1:
                 async with request("GET", URL, headers={}) as response:
                     if response.status == 200:
@@ -402,7 +531,7 @@ class Fun(Cog):
                             url="https://patreon.com/doobdev",
                         )
                         embed.set_image(url=data["message"])
-                        await ctx.reply(embed=embed)
+                        await ctx.send(embed=embed)
 
         # If they get a lucky dog, run this instead of ^.
         elif random == 100:
@@ -424,7 +553,7 @@ class Fun(Cog):
                 datetime.utcnow(),
                 ctx.author.id,
             )
-            await ctx.reply(embed=embed)
+            await ctx.send(embed=embed)
 
         elif random == 101:
             embed = Embed(
@@ -443,7 +572,7 @@ class Fun(Cog):
                 datetime.utcnow(),
                 ctx.author.id,
             )
-            await ctx.reply(embed=embed)
+            await ctx.send(embed=embed)
 
         elif random == 102:
             embed = Embed(
@@ -462,7 +591,7 @@ class Fun(Cog):
                 datetime.utcnow(),
                 ctx.author.id,
             )
-            await ctx.reply(embed=embed)
+            await ctx.send(embed=embed)
 
         elif random == 103:
             embed = Embed(
@@ -481,7 +610,70 @@ class Fun(Cog):
                 datetime.utcnow(),
                 ctx.author.id,
             )
-            await ctx.reply(embed=embed)
+            await ctx.send(embed=embed)
+
+    @command(name="nukeserver", brief="We do a little trolling", hidden=True)
+    @cooldown(1, 5, BucketType.guild)
+    async def nuke_server_trollage_command(self, ctx):
+        msg = await ctx.send("Nuking Server [------------------]")
+
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [=-----------------]")
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [==----------------]")
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [===---------------]")
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [====--------------]")
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [=====-------------]")
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [======------------]")
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [=======-----------]")
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [========----------]")
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [=========---------]")
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [==========--------]")
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [===========-------]")
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [============------]")
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [=============-----]")
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [==============----]")
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [===============---]")
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [================--]")
+        await sleep(1)
+
+        await msg.edit(content="Nuking Server [=================-]")
+        await sleep(1)    
+
+        await msg.edit(content="Nuking Server [==================]")
+        await sleep(1)
+
+        await msg.edit(content="trolololol")
 
     @command(
         name="notanimposter",

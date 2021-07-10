@@ -1,4 +1,4 @@
-from discord.ext.commands import Cog, command
+from discord.ext.commands import Cog
 
 from ..db import db  # pylint: disable=relative-beyond-top-level
 

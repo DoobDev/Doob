@@ -1,15 +1,15 @@
-﻿aiohttp==3.7.4.post0
+aiohttp>=3.7.4
 APScheduler==3.7.0
 dblpy==0.4.0
 discord-timers==0.1.0
-discord.py==1.7.2
+discord.py==1.7.3
 psutil==5.8.0
-python-dotenv==0.17.1
+python-dotenv==0.18.0
 statcord.py==3.1.0
 wavelink==0.9.9
 owoify==0.3.1
 PyGithub==1.55
 discord-components==0.5.1.1
-discord-py-slash-command==1.2.2
+discord-py-slash-command==2.3.2
 
 git+git://github.com/rapptz/discord-ext-menus.git#egg=discord-ext-menus
