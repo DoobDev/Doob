@@ -121,10 +121,10 @@ class gamestats(Cog):
                     text="Sourced from ow-api.com", icon_url=ctx.author.avatar_url
                 )
                 embed.set_thumbnail(url=(await response.json())["icon"])
-                await ctx.reply(embed=embed)
+                await ctx.send(embed=embed)
 
             else:  # If the API status is not 200, then send out this.
-                await ctx.reply(
+                await ctx.send(
                     f"Overwatch stats [ow-api.com] API sent a {response.status} status."
                 )
 
@@ -171,7 +171,7 @@ class gamestats(Cog):
             )
             db.commit()
 
-            await ctx.reply(embed=embed)
+            await ctx.send(embed=embed)
 
         # Same here, but with PC
         elif platform == "pc":
@@ -201,7 +201,7 @@ class gamestats(Cog):
             )
             db.commit()
 
-            await ctx.reply(embed=embed)
+            await ctx.send(embed=embed)
 
         # Same here, but with Xbox Live
         elif platform == "xbl":
@@ -231,7 +231,7 @@ class gamestats(Cog):
             )
             db.commit()
 
-            await ctx.reply(embed=embed)
+            await ctx.send(embed=embed)
 
         # If they didn't want to set anything, show them what they currently have in the database.
         else:
@@ -251,7 +251,7 @@ class gamestats(Cog):
             embed.add_field(name="Overwatch Region", value=region[0])
             embed.set_thumbnail(url=ctx.author.avatar_url)
 
-            await ctx.reply(embed=embed)
+            await ctx.send(embed=embed)
 
     @Cog.listener()
     async def on_ready(self):

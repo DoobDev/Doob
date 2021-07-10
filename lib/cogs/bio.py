@@ -79,10 +79,10 @@ class Bio(Cog):
                 if data["details"]["banner"] is not None:
                     embed.set_image(url=data["details"]["banner"])
 
-                await ctx.reply(embed=embed)
+                await ctx.send(embed=embed)
 
             else:  # If the API status is something other then a 200, it sends you a message telling you which status it sent
-                await ctx.reply(f"Discord.bio API returned a {response.status} status.")
+                await ctx.send(f"Discord.bio API returned a {response.status} status.")
 
     @Cog.listener()
     async def on_ready(self):
