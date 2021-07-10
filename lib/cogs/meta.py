@@ -244,7 +244,7 @@ class Meta(Cog):
             icon_url=ctx.author.avatar_url,
         )
 
-        if patreon_status == True:
+        if patreon_status is True:
             embed.add_field(
                 name="Patreon",
                 value=f"Thanks for [Donating](https://patreon.com/doobdev) {ctx.author.display_name}! :white_check_mark:",

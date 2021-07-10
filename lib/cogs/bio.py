@@ -42,7 +42,7 @@ class Bio(Cog):
                 desc = f"https://dsc.bio/{data['details']['slug']}"  # Sets the description for the embed
 
                 if (
-                    data["details"]["premium"] == True
+                    data["details"]["premium"] is True
                 ):  # If they are a premium subscriber to Discord.bio
                     title = f"{target.display_name}'s discord.bio profile 💎"  # Give them this title/description
                     desc = f"💎 https://dsc.bio/{data['details']['slug']} 💎"

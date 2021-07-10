@@ -212,7 +212,7 @@ class Info(Cog):
     @cooldown(1, 10, BucketType.user)
     async def server_info_command(self, ctx):
         """Gives you info about the server the command is executed in."""
-        if ctx.guild.me.guild_permissions.administrator == True:
+        if ctx.guild.me.guild_permissions.administrator is True:
             await self.server_info(ctx, banned_members=True)
 
         else:
