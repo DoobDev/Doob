@@ -27,13 +27,11 @@ class Info(Cog):
             "SELECT XP, Level FROM users WHERE UserID = ?", target.id
         ) or (None, None)
         warnings = db.records(
-            f"SELECT Warns FROM warns WHERE UserID = ? AND GuildID = ?",
-            target.id,
-            ctx.guild.id,
+            f"SELECT Warns FROM warns WHERE UserID = {target.id} AND GuildID = {ctx.guild.id}"
         )[0][0]
-        globalwarns = db.records(
-            f"SELECT Warns FROM warns WHERE UserID = ?", target.id
-        )[0][0]
+        globalwarns = db.records(f"SELECT Warns FROM warns WHERE UserID = {target.id}")[
+            0
+        ][0]
 
         embed = Embed(
             title=f"{target.name}'s info",
@@ -41,7 +39,7 @@ class Info(Cog):
             timestamp=datetime.utcnow(),
         )
 
-        if patreon_status:
+        if patreon_status == True:
             patreon = "Yes"
         else:
             patreon = "No"
@@ -195,7 +193,7 @@ class Info(Cog):
         for name, value, inline in fields:
             embed.add_field(name=name, value=value, inline=inline)
 
-        if banned_members:
+        if banned_members == True:
             embed.add_field(
                 name="Banned members", value=len(await ctx.guild.bans()), inline=True
             )
@@ -212,7 +210,7 @@ class Info(Cog):
     @cooldown(1, 10, BucketType.user)
     async def server_info_command(self, ctx):
         """Gives you info about the server the command is executed in."""
-        if ctx.guild.me.guild_permissions.administrator is True:
+        if ctx.guild.me.guild_permissions.administrator == True:
             await self.server_info(ctx, banned_members=True)
 
         else:
@@ -223,7 +221,7 @@ class Info(Cog):
         description="Gives you info about your server.",
     )
     async def server_info_slash_command(self, ctx):
-        if ctx.guild.me.guild_permissions.administrator:
+        if ctx.guild.me.guild_permissions.administrator == True:
             await self.server_info(ctx, banned_members=True)
 
         else:
