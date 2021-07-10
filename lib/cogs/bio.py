@@ -42,7 +42,7 @@ class Bio(Cog):
                 desc = f"https://dsc.bio/{data['details']['slug']}"  # Sets the description for the embed
 
                 if (
-                    data["details"]["premium"] is True
+                    data["details"]["premium"] == True
                 ):  # If they are a premium subscriber to Discord.bio
                     title = f"{target.display_name}'s discord.bio profile 💎"  # Give them this title/description
                     desc = f"💎 https://dsc.bio/{data['details']['slug']} 💎"
@@ -76,13 +76,13 @@ class Bio(Cog):
                 embed.set_thumbnail(url=target.avatar_url)
 
                 # If they have a banner on Discord.bio, show it as the "image" in the embed.
-                if data["details"]["banner"] is not None:
+                if data["details"]["banner"] != None:
                     embed.set_image(url=data["details"]["banner"])
 
-                await ctx.send(embed=embed)
+                await ctx.reply(embed=embed)
 
             else:  # If the API status is something other then a 200, it sends you a message telling you which status it sent
-                await ctx.send(f"Discord.bio API returned a {response.status} status.")
+                await ctx.reply(f"Discord.bio API returned a {response.status} status.")
 
     @Cog.listener()
     async def on_ready(self):

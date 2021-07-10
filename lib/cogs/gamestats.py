@@ -7,6 +7,7 @@ from aiohttp import request
 
 from ..db import db  # pylint: disable=relative-beyond-top-level
 
+import os
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -121,10 +122,10 @@ class gamestats(Cog):
                     text="Sourced from ow-api.com", icon_url=ctx.author.avatar_url
                 )
                 embed.set_thumbnail(url=(await response.json())["icon"])
-                await ctx.send(embed=embed)
+                await ctx.reply(embed=embed)
 
             else:  # If the API status is not 200, then send out this.
-                await ctx.send(
+                await ctx.reply(
                     f"Overwatch stats [ow-api.com] API sent a {response.status} status."
                 )
 
@@ -171,7 +172,7 @@ class gamestats(Cog):
             )
             db.commit()
 
-            await ctx.send(embed=embed)
+            await ctx.reply(embed=embed)
 
         # Same here, but with PC
         elif platform == "pc":
@@ -201,7 +202,7 @@ class gamestats(Cog):
             )
             db.commit()
 
-            await ctx.send(embed=embed)
+            await ctx.reply(embed=embed)
 
         # Same here, but with Xbox Live
         elif platform == "xbl":
@@ -231,7 +232,7 @@ class gamestats(Cog):
             )
             db.commit()
 
-            await ctx.send(embed=embed)
+            await ctx.reply(embed=embed)
 
         # If they didn't want to set anything, show them what they currently have in the database.
         else:
@@ -251,7 +252,7 @@ class gamestats(Cog):
             embed.add_field(name="Overwatch Region", value=region[0])
             embed.set_thumbnail(url=ctx.author.avatar_url)
 
-            await ctx.send(embed=embed)
+            await ctx.reply(embed=embed)
 
     @Cog.listener()
     async def on_ready(self):
