@@ -180,6 +180,8 @@ class Exp(Cog):
 
         if lvl is not None:
             to_next_level = int((lvl + 1) ** (20 / 11) * 42) - xp
+            embed=Embed(title=f"{target.display_name} is level {lvl:,}",
+                        description=f"XP: {xp:,}\nXP to next level {to_next_level:,}")
             await ctx.reply(
                 f"`Global Rank:`\n{target.display_name} is level {lvl:,} with {xp:,} xp ({to_next_level:,} xp to next level) and is rank {ids.index(target.id)+1:,} of {len(ids):,} users globally.\n`Server Rank:`\n{target.display_name} is server level {lvl_g:,} with {xp_g:,} server xp and is server rank {ids_g.index(target.id)+1:,} of {len(ids_g):,}."
             )
