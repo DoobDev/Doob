@@ -528,7 +528,7 @@ class LastFM(Cog):
     async def set_lastfm_username(self, ctx, username: Optional[str]):
         """Sets your Last.fm username for `d!lastfm`"""
 
-        if username != None:
+        if username is not None:
             embed = Embed(
                 title="Setting Last.fm username:",
                 description=username,

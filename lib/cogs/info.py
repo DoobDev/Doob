@@ -41,7 +41,7 @@ class Info(Cog):
             timestamp=datetime.utcnow(),
         )
 
-        if patreon_status == True:
+        if patreon_status:
             patreon = "Yes"
         else:
             patreon = "No"
@@ -195,7 +195,7 @@ class Info(Cog):
         for name, value, inline in fields:
             embed.add_field(name=name, value=value, inline=inline)
 
-        if banned_members == True:
+        if banned_members:
             embed.add_field(
                 name="Banned members", value=len(await ctx.guild.bans()), inline=True
             )
@@ -223,7 +223,7 @@ class Info(Cog):
         description="Gives you info about your server.",
     )
     async def server_info_slash_command(self, ctx):
-        if ctx.guild.me.guild_permissions.administrator == True:
+        if ctx.guild.me.guild_permissions.administrator:
             await self.server_info(ctx, banned_members=True)
 
         else:
