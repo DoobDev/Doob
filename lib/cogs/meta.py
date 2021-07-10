@@ -65,9 +65,9 @@ class Meta(Cog):
         if ctx.author.id == owner_id:
             self.message = text
             await self.set()
-            await ctx.reply(f"Bot Status has been updated to {text}")
+            await ctx.send(f"Bot Status has been updated to {text}")
         else:
-            await ctx.reply("You don't have permission to do that.")
+            await ctx.send("You don't have permission to do that.")
 
     @command(
         name="support",
@@ -76,7 +76,7 @@ class Meta(Cog):
     )
     async def support_server_link(self, ctx):
         """Gives a link to the Doob Support Server where you can get help from the developer!"""
-        await ctx.reply("Join the support server at: :link: https://discord.gg/hgQTTU7")
+        await ctx.send("Join the support server at: :link: https://discord.gg/hgQTTU7")
 
     @cog_ext.cog_slash(
         name="support", description="Get a link to the Doob support server."
@@ -91,9 +91,7 @@ class Meta(Cog):
     )
     async def doob_invite_link(self, ctx):
         """Gives you a link to invite Doob to another server!"""
-        await ctx.reply(
-            "You can invite the bot here! :link: <https://doob.link/invite>"
-        )
+        await ctx.send("You can invite the bot here! :link: <https://doob.link/invite>")
 
     @cog_ext.cog_slash(
         name="invite", description="Gives a link to invite Doob to your server."
@@ -106,7 +104,7 @@ class Meta(Cog):
     async def ping(self, ctx):
         """Ping Pong!~\nShows the bot latency and response time."""
         start = time()
-        message = await ctx.reply("Loading... <a:loadingdoob:755141175840866364>")
+        message = await ctx.send("Loading... <a:loadingdoob:755141175840866364>")
         end = time()
         await message.edit(
             content=f"Pong! :ping_pong: Latency: {self.bot.latency*1000:,.0f} ms. Response time: {(end-start)*1000:,.0f} ms."
@@ -118,19 +116,19 @@ class Meta(Cog):
     async def shutdown(self, ctx):
         """Command to shutdown the bot and save it's database.\n`Owner` permission required"""
         if ctx.author.id == owner_id:
-            await ctx.reply("Shutting down")
+            await ctx.send("Shutting down")
 
             db.commit()
             self.bot.scheduler.shutdown()
             await self.bot.logout()
         else:
-            await ctx.reply("You don't have permission to shutdown the bot.")
+            await ctx.send("You don't have permission to shutdown the bot.")
 
     @command(name="restart", brief="Owner Only Command to restart the bot.")
     async def restart(self, ctx):
         """Command to restart, and update the bot to its latest version.\n`Owner` permission required"""
         if ctx.author.id == owner_id:
-            await ctx.reply("Restarting...")
+            await ctx.send("Restarting...")
 
             db.commit()
             self.bot.scheduler.shutdown()
@@ -144,7 +142,7 @@ class Meta(Cog):
             os.system("python3.8 launcher.py")
 
         else:
-            await ctx.reply("You don't have permission to shutdown the bot.")
+            await ctx.send("You don't have permission to shutdown the bot.")
 
     @command(
         name="update", brief="Owner Only Command to give a pretty embed for updates."
@@ -244,13 +242,13 @@ class Meta(Cog):
             icon_url=ctx.author.avatar_url,
         )
 
-        if patreon_status == True:
+        if patreon_status is True:
             embed.add_field(
                 name="Patreon",
                 value=f"Thanks for [Donating](https://patreon.com/doobdev) {ctx.author.display_name}! :white_check_mark:",
                 inline=False,
             )
-            await ctx.reply(embed=embed)
+            await ctx.send(embed=embed)
 
         if patreon_status == False:
             embed.add_field(
@@ -258,7 +256,7 @@ class Meta(Cog):
                 value="[Click Here for Patreon](https://patreon.com/doobdev)",
                 inline=False,
             )
-            await ctx.reply(embed=embed)
+            await ctx.send(embed=embed)
 
     @command(name="info", aliases=["botinfo"], brief="Gives basic info about Doob.")
     async def show_bot_info_command(self, ctx):
@@ -305,17 +303,17 @@ class Meta(Cog):
 
         if ctx.author in homeGuild.members:
             if patreonRole in member.roles:
-                await ctx.reply(
+                await ctx.send(
                     f"Thanks for supporting {ctx.author.mention}!\n<https://patreon.com/doobdev>"
                 )
 
             else:
-                await ctx.reply(
+                await ctx.send(
                     "You can support Doob Dev by subscribing at <https://patreon.com/doobdev>!"
                 )
 
         else:
-            await ctx.reply(
+            await ctx.send(
                 "You can support Doob Dev by subscribing at <https://patreon.com/doobdev>!"
             )
 

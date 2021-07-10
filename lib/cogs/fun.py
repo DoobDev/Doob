@@ -29,7 +29,7 @@ class Fun(Cog):
     async def say_hello(self, ctx):
         """Say Hi to Doob!"""
         # Chooses Hello, Hi, or Hey at random, to say Hi to the user.
-        await ctx.reply(f"{choice(('Hello', 'Hi', 'Hey'))} {ctx.author.mention}!")
+        await ctx.send(f"{choice(('Hello', 'Hi', 'Hey'))} {ctx.author.mention}!")
 
     @command(name="dice", aliases=["roll", "rolldice"], brief="Roll some dice!")
     @cooldown(1, 10, BucketType.user)
@@ -41,12 +41,12 @@ class Fun(Cog):
         if dice <= 40:
             rolls = [randint(1, value) for i in range(dice)]
 
-            await ctx.reply(" + ".join([str(r) for r in rolls]) + f" = {sum(rolls)}")
+            await ctx.send(" + ".join([str(r) for r in rolls]) + f" = {sum(rolls)}")
 
         # If the dice number is too high, we don't run the command
         # This is because higher then 40 dice can lead to errors regarding message length.
         else:
-            await ctx.reply("Please roll a lower number of dice.", delete_after=10)
+            await ctx.send("Please roll a lower number of dice.", delete_after=10)
 
     @command(name="echo", aliases=["say"], brief="Make Doob say something!")
     async def echo_message(self, ctx, *, message):
@@ -72,13 +72,13 @@ class Fun(Cog):
 
             # This else is for if they are in the server, but not a Patron
             else:
-                await ctx.reply(
+                await ctx.send(
                     "You are not a Patron to Doob, subscribe to any of the tiers at <https://patreon.com/doobdev> to gain access to this command."
                 )
 
         # This else is for if they aren't in the server, and are not a Patreon (you can only get Patron benefits by joining the Support Server)
         else:
-            await ctx.reply(
+            await ctx.send(
                 "You are not a Patron to Doob, subscribe to any of the tiers at <https://patreon.com/doobdev> to gain access to this command."
             )
 
@@ -108,10 +108,10 @@ class Fun(Cog):
                     text=f"{ctx.author} requested this fact!",
                     icon_url=ctx.author.avatar_url,
                 )
-                await ctx.reply(embed=embed)
+                await ctx.send(embed=embed)
             else:
                 # if the API responds with a status not being "200" (200=Working just fine), sends out an error message to the user with the status number.
-                await ctx.reply(f"Dog fact API sent a {response.status} status.")
+                await ctx.send(f"Dog fact API sent a {response.status} status.")
 
     @command(name="luckydog", aliases=["ldog"], brief="Get an instant Lucky Dog!")
     @cooldown(2, 5, BucketType.user)
@@ -145,7 +145,7 @@ class Fun(Cog):
                     embed.set_image(
                         url="https://pbs.twimg.com/media/EgXfe_XUcAABT41?format=jpg&name=360x360"
                     )
-                    await ctx.reply(embed=embed)
+                    await ctx.send(embed=embed)
 
                 elif dog == "2":
                     embed = Embed(
@@ -158,7 +158,7 @@ class Fun(Cog):
                         icon_url=ctx.author.avatar_url,
                     )
                     embed.set_image(url="https://i.imgur.com/pzqRLdi.jpg")
-                    await ctx.reply(embed=embed)
+                    await ctx.send(embed=embed)
 
                 elif dog == "3":
                     embed = Embed(
@@ -171,7 +171,7 @@ class Fun(Cog):
                         icon_url=ctx.author.avatar_url,
                     )
                     embed.set_image(url="https://i.imgur.com/guF2Y3z.png")
-                    await ctx.reply(embed=embed)
+                    await ctx.send(embed=embed)
 
                 elif dog == "4":
                     embed = Embed(
@@ -184,7 +184,7 @@ class Fun(Cog):
                         icon_url=ctx.author.avatar_url,
                     )
                     embed.set_image(url="https://i.imgur.com/KFOR8YJ.jpeg")
-                    await ctx.reply(embed=embed)
+                    await ctx.send(embed=embed)
 
                 else:
                     embed = Embed(
@@ -196,16 +196,16 @@ class Fun(Cog):
                         text=f"Thanks for supporting Doob, {ctx.author.name}!",
                         icon_url=ctx.author.avatar_url,
                     )
-                    await ctx.reply(embed=embed)
+                    await ctx.send(embed=embed)
 
             # Refer to line 59 and 63 for reasoning on the bottom 2 elses.
             else:
-                await ctx.reply(
+                await ctx.send(
                     "This is a Patreon (<https://patreon.com/doobdev>) only command."
                 )
 
         else:
-            await ctx.reply(
+            await ctx.send(
                 "This is a Patreon (<https://patreon.com/doobdev>) only command."
             )
 
@@ -235,7 +235,7 @@ class Fun(Cog):
             icon_url=ctx.author.avatar_url,
         )
         embed.set_thumbnail(url=target.avatar_url)
-        await ctx.reply(embed=embed)
+        await ctx.send(embed=embed)
 
     @command(name="dog", aliases=["dogimage"], brief="See a random picture of a dog!")
     @cooldown(2, 5, BucketType.user)
@@ -277,7 +277,7 @@ class Fun(Cog):
                             )
                             # embed.set_footer(text=f"DEBUG: L_DOG: {random}")
                             embed.set_image(url=data["message"])
-                            await ctx.reply(embed=embed)
+                            await ctx.send(embed=embed)
 
                 # This is the Lucky Dog stuff, if the user rolls one of these numbers, they get a "Lucky Dog", that gives them the special dog
                 # and gives them 1 "Lucky Dog" into the DB
@@ -300,7 +300,7 @@ class Fun(Cog):
                         datetime.utcnow(),
                         ctx.author.id,
                     )
-                    await ctx.reply(embed=embed)
+                    await ctx.send(embed=embed)
 
                 elif random == 51:
                     embed = Embed(
@@ -319,7 +319,7 @@ class Fun(Cog):
                         datetime.utcnow(),
                         ctx.author.id,
                     )
-                    await ctx.reply(embed=embed)
+                    await ctx.send(embed=embed)
 
                 elif random == 52:
                     embed = Embed(
@@ -338,7 +338,7 @@ class Fun(Cog):
                         datetime.utcnow(),
                         ctx.author.id,
                     )
-                    await ctx.reply(embed=embed)
+                    await ctx.send(embed=embed)
 
                 elif random == 53:
                     embed = Embed(
@@ -357,7 +357,7 @@ class Fun(Cog):
                         datetime.utcnow(),
                         ctx.author.id,
                     )
-                    await ctx.reply(embed=embed)
+                    await ctx.send(embed=embed)
 
             else:
                 # If they aren't a Patron, it calls the function below.
@@ -687,10 +687,10 @@ class Fun(Cog):
 
         # Checks if the target is an "@everyone" or "@here" ping, so Doob doesn't ping the entire server.
         if target == "@everyone" or target == "@here":
-            await ctx.reply("nope, no ping pong here.")
+            await ctx.send("nope, no ping pong here.")
 
         else:
-            await ctx.reply(
+            await ctx.send(
                 f". 　　　。　　　　•　 　ﾟ　　。 　　.\n　　　.　　　 　　.　　　　　。　　 。　. 　\n\n.　　 。　　　　　 ඞ 。 . 　　 • 　　　　•\n\n　　ﾟ　　 {target} was not An Impostor.　 。　.\n\n　　'　　　 1 Impostor remain 　 　　。\n\n　　ﾟ　　　.　　　. ,　　　　.　 ."
             )
 
@@ -705,10 +705,10 @@ class Fun(Cog):
         target = target or ctx.author
 
         if target == "@everyone" or target == "@here":
-            await ctx.reply("nope, no ping pong here.")
+            await ctx.send("nope, no ping pong here.")
 
         else:
-            await ctx.reply(
+            await ctx.send(
                 f". 　　　。　　　　•　 　ﾟ　　。 　　.\n　　　.　　　 　　.　　　　　。　　 。　. 　\n\n.　　 。　　　　　 ඞ 。 . 　　 • 　　　　•\n\n　　ﾟ　　 {target} was An Impostor.　 。　.\n\n　　'　　　 0 Impostors remain 　 　　。\n\n　　ﾟ　　　.　　　. ,　　　　.　 ."
             )
 
@@ -814,7 +814,7 @@ class Fun(Cog):
                 url="https://static.wikia.nocookie.net/valorant/images/8/8a/Astra_artwork.png/revision/latest/scale-to-width-down/326?cb=20210302170140"
             )
 
-        await ctx.reply(embed=embed)
+        await ctx.send(embed=embed)
 
     @group(name="valroll", brief="Roll a random VALORANT character.")
     @cooldown(1, 2, BucketType.user)
@@ -866,7 +866,7 @@ class Fun(Cog):
                 url="https://static.wikia.nocookie.net/valorant/images/a/a1/Yoru2.png/revision/latest/scale-to-width-down/587?cb=20210112180407"
             )
 
-        await ctx.reply(embed=embed)
+        await ctx.send(embed=embed)
 
     @valroll.command(name="-sentinels", aliases=["-sen", "-sentinel"])
     async def valroll_sentinels_command(self, ctx):
@@ -899,7 +899,7 @@ class Fun(Cog):
                 url="https://static.wikia.nocookie.net/valorant/images/8/8c/Killjoy.png/revision/latest/scale-to-width-down/587?cb=20200729134445"
             )
 
-        await ctx.reply(embed=embed)
+        await ctx.send(embed=embed)
 
     @valroll.command(name="-initiators", aliases=["-init", "-initiator"])
     async def valroll_initiators_command(self, ctx):
@@ -932,7 +932,7 @@ class Fun(Cog):
                 url="https://static.wikia.nocookie.net/valorant/images/b/b9/Skye_Keyart_final.png/revision/latest/scale-to-width-down/587?cb=20201013182515"
             )
 
-        await ctx.reply(embed=embed)
+        await ctx.send(embed=embed)
 
     @valroll.command(name="-controllers", aliases=["-ctrl", "-controller"])
     async def valroll_controllers_command(self, ctx):
@@ -971,14 +971,14 @@ class Fun(Cog):
                 url="https://static.wikia.nocookie.net/valorant/images/8/8a/Astra_artwork.png/revision/latest/scale-to-width-down/326?cb=20210302170140"
             )
 
-        await ctx.reply(embed=embed)
+        await ctx.send(embed=embed)
 
     @command(name="owoify", aliases=["owo"], brief="'Owoify' your text.")
     async def owoify_command(self, ctx, *, text: str):
         """<:4Weird:799869851190558751> 🤚🛑 STOP IT WEEBS"""
         owo_text = owoifactor.owoify(text)
 
-        await ctx.reply(f"{owo_text}")
+        await ctx.send(f"{owo_text}")
 
     @command(
         name="owroll",
@@ -1191,14 +1191,14 @@ class Fun(Cog):
                 url="https://static.wikia.nocookie.net/overwatch/images/f/f5/Zenyatta_portrait.png/revision/latest/scale-to-width-down/846?cb=20160429042336"
             )
 
-        await ctx.reply(embed=embed)
+        await ctx.send(embed=embed)
 
     @command(name="coinflip", aliases=["cf"], brief="Flip a coin")
     async def coin_flip_command(self, ctx):
         if random() > 0.001:
-            await ctx.reply(choice(("Heads!", "Tails!")))
+            await ctx.send(choice(("Heads!", "Tails!")))
         else:
-            await ctx.reply("The coin landed on its side...")
+            await ctx.send("The coin landed on its side...")
 
     @command(name="coinfliptimes", aliases=["cft"], brief="Flip a coin multiple times")
     async def coin_flip_times_command(self, ctx, num: int):
@@ -1244,7 +1244,7 @@ class Fun(Cog):
                 icon_url=ctx.author.avatar_url,
             )
 
-        await ctx.reply(embed=embed)
+        await ctx.send(embed=embed)
 
     @Cog.listener()
     async def on_ready(self):
