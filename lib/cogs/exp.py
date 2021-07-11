@@ -10,87 +10,6 @@ from lib.bot import bot  # pylint: disable=no-name-in-module, import-error
 from ..db import db  # pylint: disable=relative-beyond-top-level
 
 
-class Menu(ListPageSource):
-    def __init__(self, ctx, data):
-        self.ctx = ctx
-        self.bot = bot
-
-        super().__init__(data, per_page=10)
-
-    async def write_page(self, menu, offset, fields=[]):
-        offset = (menu.current_page * self.per_page) + 1
-        len_data = len(self.entries)
-
-        embed = Embed(
-            title="Global XP Leaderboard",
-            description="See who is on top!",
-            colour=self.ctx.author.colour,
-        )
-        embed.set_author(
-            name="Warning ⚠: Global XP leaderboard is super slow at the moment."
-        )
-        embed.set_thumbnail(url=self.ctx.guild.me.avatar_url)
-        embed.set_footer(
-            text=f"{offset:,} - {min(len_data, offset+self.per_page-1):,} of {len_data:,} members."
-        )
-
-        for name, value in fields:
-            embed.add_field(name=name, value=value, inline=False)
-
-        return embed
-
-    async def format_page(self, menu, entries):
-        offset = (menu.current_page * self.per_page) + 1
-        fields = []
-        table = "\n".join(
-            f"{idx+offset}. {bot.get_user(entry[0]).name} (XP: {entry[1]} | Level: {entry[2]})"
-            for idx, entry in enumerate(entries)
-        )
-
-        fields.append(("Ranks", table))
-
-        return await self.write_page(menu, offset, fields)
-
-
-class ServerMenu(ListPageSource):
-    def __init__(self, ctx, data):
-        self.ctx = ctx
-        self.bot = bot
-
-        super().__init__(data, per_page=10)
-
-    async def write_page(self, menu, offset, fields=[]):
-        offset = (menu.current_page * self.per_page) + 1
-        len_data = len(self.entries)
-
-        embed = Embed(
-            title="Server XP Leaderboard",
-            description="See who is on top!",
-            colour=self.ctx.author.colour,
-        )
-        embed.set_thumbnail(url=self.ctx.guild.icon_url)
-        embed.set_footer(
-            text=f"{offset:,} - {min(len_data, offset+self.per_page-1):,} of {len_data:,} members."
-        )
-
-        for name, value in fields:
-            embed.add_field(name=name, value=value, inline=False)
-
-        return embed
-
-    async def format_page(self, menu, entries):
-        offset = (menu.current_page * self.per_page) + 1
-        fields = []
-        table = "\n".join(
-            f"{idx+offset}. {bot.get_user(entry[0]).display_name} (XP: {entry[1]} | Level: {entry[2]})"
-            for idx, entry in enumerate(entries)
-        )
-
-        fields.append(("Ranks", table))
-
-        return await self.write_page(menu, offset, fields)
-
-
 class Exp(Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -234,37 +153,6 @@ class Exp(Cog):
             await ctx.send(
                 f"The current setting for Level Messages is: `{levelmessages[0][0]}`\nTo change it, type `{prefix[0][0]}levelmessages (yes or no)`"
             )
-
-    @command(
-        name="leaderboard",
-        aliases=["lb", "xplb"],
-        brief="Show who's on top of the Doob GlobalXP Leaderboard!",
-    )
-    async def display_leaderboard(self, ctx):
-        """Displays the Global XP Leaderboard for Doob."""
-        records = db.records("SELECT UserID, XP, Level FROM users ORDER BY XP DESC")
-
-        menu = MenuPages(
-            source=Menu(ctx, records), clear_reactions_after=True, timeout=100.0
-        )
-        await menu.start(ctx)
-
-    @command(
-        name="serverleaderboard",
-        aliases=["serverlb", "serverxplb", "svxp", "svxplb"],
-        brief="Show who's on top of the Doob ServerXP Leaderboard!",
-    )
-    async def display_serverxp_leaderboard(self, ctx):
-        """Displays the Server XP Leaderboard for Doob."""
-        records = db.records(
-            "SELECT UserID, XP, Level FROM guildexp WHERE GuildID = ? ORDER BY XP DESC",
-            ctx.guild.id,
-        )
-
-        menu = MenuPages(
-            source=ServerMenu(ctx, records), clear_reactions_after=True, timeout=100.0
-        )
-        await menu.start(ctx)
 
     @Cog.listener()
     async def on_ready(self):
