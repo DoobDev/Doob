@@ -41,10 +41,8 @@ class Fun(Cog):
         if dice <= 40:
             rolls = [randint(1, value) for i in range(dice)]
 
-            await ctx.reply(" + ".join([str(r) for r in rolls]) + f" = {sum(rolls)}")
+            await ctx.reply(" + ".join(str(r) for r in rolls) + f" = {sum(rolls)}")
 
-        # If the dice number is too high, we don't run the command
-        # This is because higher then 40 dice can lead to errors regarding message length.
         else:
             await ctx.reply("Please roll a lower number of dice.", delete_after=10)
 
@@ -63,20 +61,12 @@ class Fun(Cog):
             if pledger == ctx.author:
                 member = pledger
 
-        if ctx.author in homeGuild.members:
-            if patreonRole in member.roles:
-                # If they are, run the command.
-                await ctx.message.delete()
-                await ctx.send(message)
-                print(f"{ctx.author.name} used the Echo command and said {message}")
+        if ctx.author in homeGuild.members and patreonRole in member.roles:
+            # If they are, run the command.
+            await ctx.message.delete()
+            await ctx.send(message)
+            print(f"{ctx.author.name} used the Echo command and said {message}")
 
-            # This else is for if they are in the server, but not a Patron
-            else:
-                await ctx.reply(
-                    "You are not a Patron to Doob, subscribe to any of the tiers at <https://patreon.com/doobdev> to gain access to this command."
-                )
-
-        # This else is for if they aren't in the server, and are not a Patreon (you can only get Patron benefits by joining the Support Server)
         else:
             await ctx.reply(
                 "You are not a Patron to Doob, subscribe to any of the tiers at <https://patreon.com/doobdev> to gain access to this command."
@@ -130,79 +120,64 @@ class Fun(Cog):
                 member = pledger
 
         # If they are, let them run the command
-        if ctx.author in homeGuild.members:
-            if patreonRole in member.roles:
-                if dog == "1":
-                    embed = Embed(
-                        title="Lucky Dog Picture!",
-                        description="This is [Liquid Mendo](https://twitter.com/Mendo)'s dog Koda!",
-                        colour=Colour.gold(),
-                    )
-                    embed.set_footer(
-                        text=f"{ctx.author} got this lucky dog picture!",
-                        icon_url=ctx.author.avatar_url,
-                    )
-                    embed.set_image(
-                        url="https://pbs.twimg.com/media/EgXfe_XUcAABT41?format=jpg&name=360x360"
-                    )
-                    await ctx.reply(embed=embed)
-
-                elif dog == "2":
-                    embed = Embed(
-                        title="Lucky Dog Picture!",
-                        description="You selected the old `GAMING` server PFP!",
-                        colour=Colour.gold(),
-                    )
-                    embed.set_footer(
-                        text=f"Thanks for supporting Doob, {ctx.author.name}!",
-                        icon_url=ctx.author.avatar_url,
-                    )
-                    embed.set_image(url="https://i.imgur.com/pzqRLdi.jpg")
-                    await ctx.reply(embed=embed)
-
-                elif dog == "3":
-                    embed = Embed(
-                        title="Lucky Dog Picture!",
-                        description="This is [Weest](https://twitter.com/weesterner)'s dog Kevin!",
-                        colour=Colour.gold(),
-                    )
-                    embed.set_footer(
-                        text=f"Thanks for supporting Doob, {ctx.author.name}!",
-                        icon_url=ctx.author.avatar_url,
-                    )
-                    embed.set_image(url="https://i.imgur.com/guF2Y3z.png")
-                    await ctx.reply(embed=embed)
-
-                elif dog == "4":
-                    embed = Embed(
-                        title="Lucky Dog Picture!",
-                        description="This is [@KittyKay000](https://twitter.com/kittykay000)'s concept drawing of Doob!",
-                        colour=Colour.gold(),
-                    )
-                    embed.set_footer(
-                        text=f"Thanks for supporting Doob, {ctx.author.name}!",
-                        icon_url=ctx.author.avatar_url,
-                    )
-                    embed.set_image(url="https://i.imgur.com/KFOR8YJ.jpeg")
-                    await ctx.reply(embed=embed)
-
-                else:
-                    embed = Embed(
-                        title="Lucky Dogs Possible:",
-                        description="1 = [Liquid Mendo](https://twitter.com/mendo)'s dog Koda\n2 = Old `GAMING` server PFP\n3 = [Weest](https://twitter.com/weesterner)'s dog Kevin\n4 = [@KittyKay000](https://twitter.com/kittykay000)'s concept drawing for Doob!",
-                        colour=ctx.author.colour,
-                    )
-                    embed.set_footer(
-                        text=f"Thanks for supporting Doob, {ctx.author.name}!",
-                        icon_url=ctx.author.avatar_url,
-                    )
-                    await ctx.reply(embed=embed)
-
-            # Refer to line 59 and 63 for reasoning on the bottom 2 elses.
-            else:
-                await ctx.reply(
-                    "This is a Patreon (<https://patreon.com/doobdev>) only command."
+        if ctx.author in homeGuild.members and patreonRole in member.roles:
+            if dog == "1":
+                embed = Embed(
+                    title="Lucky Dog Picture!",
+                    description="This is [Liquid Mendo](https://twitter.com/Mendo)'s dog Koda!",
+                    colour=Colour.gold(),
                 )
+                embed.set_footer(
+                    text=f"{ctx.author} got this lucky dog picture!",
+                    icon_url=ctx.author.avatar_url,
+                )
+                embed.set_image(
+                    url="https://pbs.twimg.com/media/EgXfe_XUcAABT41?format=jpg&name=360x360"
+                )
+            elif dog == "2":
+                embed = Embed(
+                    title="Lucky Dog Picture!",
+                    description="You selected the old `GAMING` server PFP!",
+                    colour=Colour.gold(),
+                )
+                embed.set_footer(
+                    text=f"Thanks for supporting Doob, {ctx.author.name}!",
+                    icon_url=ctx.author.avatar_url,
+                )
+                embed.set_image(url="https://i.imgur.com/pzqRLdi.jpg")
+            elif dog == "3":
+                embed = Embed(
+                    title="Lucky Dog Picture!",
+                    description="This is [Weest](https://twitter.com/weesterner)'s dog Kevin!",
+                    colour=Colour.gold(),
+                )
+                embed.set_footer(
+                    text=f"Thanks for supporting Doob, {ctx.author.name}!",
+                    icon_url=ctx.author.avatar_url,
+                )
+                embed.set_image(url="https://i.imgur.com/guF2Y3z.png")
+            elif dog == "4":
+                embed = Embed(
+                    title="Lucky Dog Picture!",
+                    description="This is [@KittyKay000](https://twitter.com/kittykay000)'s concept drawing of Doob!",
+                    colour=Colour.gold(),
+                )
+                embed.set_footer(
+                    text=f"Thanks for supporting Doob, {ctx.author.name}!",
+                    icon_url=ctx.author.avatar_url,
+                )
+                embed.set_image(url="https://i.imgur.com/KFOR8YJ.jpeg")
+            else:
+                embed = Embed(
+                    title="Lucky Dogs Possible:",
+                    description="1 = [Liquid Mendo](https://twitter.com/mendo)'s dog Koda\n2 = Old `GAMING` server PFP\n3 = [Weest](https://twitter.com/weesterner)'s dog Kevin\n4 = [@KittyKay000](https://twitter.com/kittykay000)'s concept drawing for Doob!",
+                    colour=ctx.author.colour,
+                )
+                embed.set_footer(
+                    text=f"Thanks for supporting Doob, {ctx.author.name}!",
+                    icon_url=ctx.author.avatar_url,
+                )
+            await ctx.reply(embed=embed)
 
         else:
             await ctx.reply(
@@ -252,119 +227,112 @@ class Fun(Cog):
 
         member = []
 
-        # URL for the API
-        URL = "https://dog.ceo/api/breeds/image/random"
-
         # Checks if user is a Patron
         for pledger in homeGuild.members:
             if pledger == ctx.author:
                 member = pledger
 
         # If the user is, give them a higher chance in the Lucky Dog Rolls
-        if ctx.author in homeGuild.members:
-            if patreonRole in member.roles:
+        if ctx.author in homeGuild.members and patreonRole in member.roles:
 
-                # Rolls a random number between 1 and 53 for Patrons, to give them a higher chance of getting a "Lucky Dog"
-                random = randint(1, 53)
+            # Rolls a random number between 1 and 53 for Patrons, to give them a higher chance of getting a "Lucky Dog"
+            random = randint(1, 53)
 
                 # If the user doesn't get a lucky dog roll, then contact the API and get a picture!
-                if random != 50 and random != 51 and random != 52 and random != 53:
-                    async with request("GET", URL, headers={}) as response:
-                        if response.status == 200:
-                            data = await response.json()
-                            embed = Embed(
-                                title="Dog Picture!", colour=ctx.author.colour
-                            )
-                            # embed.set_footer(text=f"DEBUG: L_DOG: {random}")
-                            embed.set_image(url=data["message"])
-                            await ctx.reply(embed=embed)
+            if random not in [50, 51, 52, 53]:
+                # URL for the API
+                URL = "https://dog.ceo/api/breeds/image/random"
 
-                # This is the Lucky Dog stuff, if the user rolls one of these numbers, they get a "Lucky Dog", that gives them the special dog
-                # and gives them 1 "Lucky Dog" into the DB
-                elif random == 50:
-                    embed = Embed(
-                        title="Lucky Dog Picture!",
-                        description="This is [Liquid Mendo](https://twitter.com/Mendo)'s dog Koda!",
-                        colour=Colour.gold(),
-                    )
-                    embed.set_footer(
-                        text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 50 chance of getting this picture!",
-                        icon_url=ctx.author.avatar_url,
-                    )
-                    embed.set_image(
-                        url="https://pbs.twimg.com/media/EgXfe_XUcAABT41?format=jpg&name=360x360"
-                    )
-                    db.execute(
-                        "UPDATE luckydogs SET (LuckyDogs, LastUpdated) = (?, ?) WHERE UserID = ?",
-                        LuckyDogs[0][0] + 1,
-                        datetime.utcnow(),
-                        ctx.author.id,
-                    )
-                    await ctx.reply(embed=embed)
+                async with request("GET", URL, headers={}) as response:
+                    if response.status == 200:
+                        data = await response.json()
+                        embed = Embed(
+                            title="Dog Picture!", colour=ctx.author.colour
+                        )
+                        # embed.set_footer(text=f"DEBUG: L_DOG: {random}")
+                        embed.set_image(url=data["message"])
+                        await ctx.reply(embed=embed)
 
-                elif random == 51:
-                    embed = Embed(
-                        title="Lucky Dog Picture!",
-                        description="There is a 1 in 50 chance of getting this picture!",
-                        colour=Colour.gold(),
-                    )
-                    embed.set_footer(
-                        text=f"{ctx.author} got this lucky dog picture!",
-                        icon_url=ctx.author.avatar_url,
-                    )
-                    embed.set_image(url="https://i.imgur.com/pzqRLdi.jpg")
-                    db.execute(
-                        "UPDATE luckydogs SET (LuckyDogs, LastUpdated) = (?, ?) WHERE UserID = ?",
-                        LuckyDogs[0][0] + 1,
-                        datetime.utcnow(),
-                        ctx.author.id,
-                    )
-                    await ctx.reply(embed=embed)
+            elif random == 50:
+                embed = Embed(
+                    title="Lucky Dog Picture!",
+                    description="This is [Liquid Mendo](https://twitter.com/Mendo)'s dog Koda!",
+                    colour=Colour.gold(),
+                )
+                embed.set_footer(
+                    text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 50 chance of getting this picture!",
+                    icon_url=ctx.author.avatar_url,
+                )
+                embed.set_image(
+                    url="https://pbs.twimg.com/media/EgXfe_XUcAABT41?format=jpg&name=360x360"
+                )
+                db.execute(
+                    "UPDATE luckydogs SET (LuckyDogs, LastUpdated) = (?, ?) WHERE UserID = ?",
+                    LuckyDogs[0][0] + 1,
+                    datetime.utcnow(),
+                    ctx.author.id,
+                )
+                await ctx.reply(embed=embed)
 
-                elif random == 52:
-                    embed = Embed(
-                        title="Lucky Dog Picture!",
-                        description="This is [Weest](https://twitter.com/weesterner)'s dog Kevin!",
-                        colour=Colour.gold(),
-                    )
-                    embed.set_footer(
-                        text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 50 chance of getting this picture!",
-                        icon_url=ctx.author.avatar_url,
-                    )
-                    embed.set_image(url="https://i.imgur.com/guF2Y3z.png")
-                    db.execute(
-                        "UPDATE luckydogs SET (LuckyDogs, LastUpdated) = (?, ?) WHERE UserID = ?",
-                        LuckyDogs[0][0] + 1,
-                        datetime.utcnow(),
-                        ctx.author.id,
-                    )
-                    await ctx.reply(embed=embed)
+            elif random == 51:
+                embed = Embed(
+                    title="Lucky Dog Picture!",
+                    description="There is a 1 in 50 chance of getting this picture!",
+                    colour=Colour.gold(),
+                )
+                embed.set_footer(
+                    text=f"{ctx.author} got this lucky dog picture!",
+                    icon_url=ctx.author.avatar_url,
+                )
+                embed.set_image(url="https://i.imgur.com/pzqRLdi.jpg")
+                db.execute(
+                    "UPDATE luckydogs SET (LuckyDogs, LastUpdated) = (?, ?) WHERE UserID = ?",
+                    LuckyDogs[0][0] + 1,
+                    datetime.utcnow(),
+                    ctx.author.id,
+                )
+                await ctx.reply(embed=embed)
 
-                elif random == 53:
-                    embed = Embed(
-                        title="Lucky Dog Picture!",
-                        description="This is [@KittyKay000](https://twitter.com/kittykay000)'s concept drawing of Doob!",
-                        colour=Colour.gold(),
-                    )
-                    embed.set_footer(
-                        text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 50 chance of getting this picture!",
-                        icon_url=ctx.author.avatar_url,
-                    )
-                    embed.set_image(url="https://i.imgur.com/KFOR8YJ.jpeg")
-                    db.execute(
-                        "UPDATE luckydogs SET (LuckyDogs, LastUpdated) = (?, ?) WHERE UserID = ?",
-                        LuckyDogs[0][0] + 1,
-                        datetime.utcnow(),
-                        ctx.author.id,
-                    )
-                    await ctx.reply(embed=embed)
+            elif random == 52:
+                embed = Embed(
+                    title="Lucky Dog Picture!",
+                    description="This is [Weest](https://twitter.com/weesterner)'s dog Kevin!",
+                    colour=Colour.gold(),
+                )
+                embed.set_footer(
+                    text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 50 chance of getting this picture!",
+                    icon_url=ctx.author.avatar_url,
+                )
+                embed.set_image(url="https://i.imgur.com/guF2Y3z.png")
+                db.execute(
+                    "UPDATE luckydogs SET (LuckyDogs, LastUpdated) = (?, ?) WHERE UserID = ?",
+                    LuckyDogs[0][0] + 1,
+                    datetime.utcnow(),
+                    ctx.author.id,
+                )
+                await ctx.reply(embed=embed)
 
             else:
-                # If they aren't a Patron, it calls the function below.
-                await self.lucky_dogs(ctx)
+                embed = Embed(
+                    title="Lucky Dog Picture!",
+                    description="This is [@KittyKay000](https://twitter.com/kittykay000)'s concept drawing of Doob!",
+                    colour=Colour.gold(),
+                )
+                embed.set_footer(
+                    text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 50 chance of getting this picture!",
+                    icon_url=ctx.author.avatar_url,
+                )
+                embed.set_image(url="https://i.imgur.com/KFOR8YJ.jpeg")
+                db.execute(
+                    "UPDATE luckydogs SET (LuckyDogs, LastUpdated) = (?, ?) WHERE UserID = ?",
+                    LuckyDogs[0][0] + 1,
+                    datetime.utcnow(),
+                    ctx.author.id,
+                )
+                await ctx.reply(embed=embed)
 
         else:
-            # If they aren't in the support server, it calls the function below.
+            # If they aren't a Patron, it calls the function below.
             await self.lucky_dogs(ctx)
 
     @cog_ext.cog_slash(name="dog", description="See a random picture of a dog!")
@@ -382,119 +350,112 @@ class Fun(Cog):
 
         member = []
 
-        # URL for the API
-        URL = "https://dog.ceo/api/breeds/image/random"
-
         # Checks if user is a Patron
         for pledger in homeGuild.members:
             if pledger == ctx.author:
                 member = pledger
 
         # If the user is, give them a higher chance in the Lucky Dog Rolls
-        if ctx.author in homeGuild.members:
-            if patreonRole in member.roles:
+        if ctx.author in homeGuild.members and patreonRole in member.roles:
 
-                # Rolls a random number between 1 and 53 for Patrons, to give them a higher chance of getting a "Lucky Dog"
-                random = randint(1, 53)
+            # Rolls a random number between 1 and 53 for Patrons, to give them a higher chance of getting a "Lucky Dog"
+            random = randint(1, 53)
 
                 # If the user doesn't get a lucky dog roll, then contact the API and get a picture!
-                if random != 50 and random != 51 and random != 52 and random != 53:
-                    async with request("GET", URL, headers={}) as response:
-                        if response.status == 200:
-                            data = await response.json()
-                            embed = Embed(
-                                title="Dog Picture!", colour=ctx.author.colour
-                            )
-                            # embed.set_footer(text=f"DEBUG: L_DOG: {random}")
-                            embed.set_image(url=data["message"])
-                            await ctx.send(embed=embed)
+            if random not in [50, 51, 52, 53]:
+                # URL for the API
+                URL = "https://dog.ceo/api/breeds/image/random"
 
-                # This is the Lucky Dog stuff, if the user rolls one of these numbers, they get a "Lucky Dog", that gives them the special dog
-                # and gives them 1 "Lucky Dog" into the DB
-                elif random == 50:
-                    embed = Embed(
-                        title="Lucky Dog Picture!",
-                        description="This is [Liquid Mendo](https://twitter.com/Mendo)'s dog Koda!",
-                        colour=Colour.gold(),
-                    )
-                    embed.set_footer(
-                        text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 50 chance of getting this picture!",
-                        icon_url=ctx.author.avatar_url,
-                    )
-                    embed.set_image(
-                        url="https://pbs.twimg.com/media/EgXfe_XUcAABT41?format=jpg&name=360x360"
-                    )
-                    db.execute(
-                        "UPDATE luckydogs SET (LuckyDogs, LastUpdated) = (?, ?) WHERE UserID = ?",
-                        LuckyDogs[0][0] + 1,
-                        datetime.utcnow(),
-                        ctx.author.id,
-                    )
-                    await ctx.send(embed=embed)
+                async with request("GET", URL, headers={}) as response:
+                    if response.status == 200:
+                        data = await response.json()
+                        embed = Embed(
+                            title="Dog Picture!", colour=ctx.author.colour
+                        )
+                        # embed.set_footer(text=f"DEBUG: L_DOG: {random}")
+                        embed.set_image(url=data["message"])
+                        await ctx.send(embed=embed)
 
-                elif random == 51:
-                    embed = Embed(
-                        title="Lucky Dog Picture!",
-                        description="There is a 1 in 50 chance of getting this picture!",
-                        colour=Colour.gold(),
-                    )
-                    embed.set_footer(
-                        text=f"{ctx.author} got this lucky dog picture!",
-                        icon_url=ctx.author.avatar_url,
-                    )
-                    embed.set_image(url="https://i.imgur.com/pzqRLdi.jpg")
-                    db.execute(
-                        "UPDATE luckydogs SET (LuckyDogs, LastUpdated) = (?, ?) WHERE UserID = ?",
-                        LuckyDogs[0][0] + 1,
-                        datetime.utcnow(),
-                        ctx.author.id,
-                    )
-                    await ctx.send(embed=embed)
+            elif random == 50:
+                embed = Embed(
+                    title="Lucky Dog Picture!",
+                    description="This is [Liquid Mendo](https://twitter.com/Mendo)'s dog Koda!",
+                    colour=Colour.gold(),
+                )
+                embed.set_footer(
+                    text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 50 chance of getting this picture!",
+                    icon_url=ctx.author.avatar_url,
+                )
+                embed.set_image(
+                    url="https://pbs.twimg.com/media/EgXfe_XUcAABT41?format=jpg&name=360x360"
+                )
+                db.execute(
+                    "UPDATE luckydogs SET (LuckyDogs, LastUpdated) = (?, ?) WHERE UserID = ?",
+                    LuckyDogs[0][0] + 1,
+                    datetime.utcnow(),
+                    ctx.author.id,
+                )
+                await ctx.send(embed=embed)
 
-                elif random == 52:
-                    embed = Embed(
-                        title="Lucky Dog Picture!",
-                        description="This is [Weest](https://twitter.com/weesterner)'s dog Kevin!",
-                        colour=Colour.gold(),
-                    )
-                    embed.set_footer(
-                        text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 50 chance of getting this picture!",
-                        icon_url=ctx.author.avatar_url,
-                    )
-                    embed.set_image(url="https://i.imgur.com/guF2Y3z.png")
-                    db.execute(
-                        "UPDATE luckydogs SET (LuckyDogs, LastUpdated) = (?, ?) WHERE UserID = ?",
-                        LuckyDogs[0][0] + 1,
-                        datetime.utcnow(),
-                        ctx.author.id,
-                    )
-                    await ctx.send(embed=embed)
+            elif random == 51:
+                embed = Embed(
+                    title="Lucky Dog Picture!",
+                    description="There is a 1 in 50 chance of getting this picture!",
+                    colour=Colour.gold(),
+                )
+                embed.set_footer(
+                    text=f"{ctx.author} got this lucky dog picture!",
+                    icon_url=ctx.author.avatar_url,
+                )
+                embed.set_image(url="https://i.imgur.com/pzqRLdi.jpg")
+                db.execute(
+                    "UPDATE luckydogs SET (LuckyDogs, LastUpdated) = (?, ?) WHERE UserID = ?",
+                    LuckyDogs[0][0] + 1,
+                    datetime.utcnow(),
+                    ctx.author.id,
+                )
+                await ctx.send(embed=embed)
 
-                elif random == 53:
-                    embed = Embed(
-                        title="Lucky Dog Picture!",
-                        description="This is [@KittyKay000](https://twitter.com/kittykay000)'s concept drawing of Doob!",
-                        colour=Colour.gold(),
-                    )
-                    embed.set_footer(
-                        text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 50 chance of getting this picture!",
-                        icon_url=ctx.author.avatar_url,
-                    )
-                    embed.set_image(url="https://i.imgur.com/KFOR8YJ.jpeg")
-                    db.execute(
-                        "UPDATE luckydogs SET (LuckyDogs, LastUpdated) = (?, ?) WHERE UserID = ?",
-                        LuckyDogs[0][0] + 1,
-                        datetime.utcnow(),
-                        ctx.author.id,
-                    )
-                    await ctx.send(embed=embed)
+            elif random == 52:
+                embed = Embed(
+                    title="Lucky Dog Picture!",
+                    description="This is [Weest](https://twitter.com/weesterner)'s dog Kevin!",
+                    colour=Colour.gold(),
+                )
+                embed.set_footer(
+                    text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 50 chance of getting this picture!",
+                    icon_url=ctx.author.avatar_url,
+                )
+                embed.set_image(url="https://i.imgur.com/guF2Y3z.png")
+                db.execute(
+                    "UPDATE luckydogs SET (LuckyDogs, LastUpdated) = (?, ?) WHERE UserID = ?",
+                    LuckyDogs[0][0] + 1,
+                    datetime.utcnow(),
+                    ctx.author.id,
+                )
+                await ctx.send(embed=embed)
 
             else:
-                # If they aren't a Patron, it calls the function below.
-                await self.lucky_dogs(ctx)
+                embed = Embed(
+                    title="Lucky Dog Picture!",
+                    description="This is [@KittyKay000](https://twitter.com/kittykay000)'s concept drawing of Doob!",
+                    colour=Colour.gold(),
+                )
+                embed.set_footer(
+                    text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 50 chance of getting this picture!",
+                    icon_url=ctx.author.avatar_url,
+                )
+                embed.set_image(url="https://i.imgur.com/KFOR8YJ.jpeg")
+                db.execute(
+                    "UPDATE luckydogs SET (LuckyDogs, LastUpdated) = (?, ?) WHERE UserID = ?",
+                    LuckyDogs[0][0] + 1,
+                    datetime.utcnow(),
+                    ctx.author.id,
+                )
+                await ctx.send(embed=embed)
 
         else:
-            # If they aren't in the support server, it calls the function below.
+            # If they aren't a Patron, it calls the function below.
             await self.lucky_dogs(ctx)
 
     async def lucky_dogs(self, ctx):
@@ -508,10 +469,10 @@ class Fun(Cog):
             "SELECT LuckyDogs FROM luckydogs WHERE UserID = ?", ctx.author.id
         )
 
-        # URL for the API
-        URL = "https://dog.ceo/api/breeds/image/random"
+        if random not in [100, 101, 102]:
+            # URL for the API
+            URL = "https://dog.ceo/api/breeds/image/random"
 
-        if random != 100 and random != 101 and random != 102:
             # This is for the "Patreon Ad" at the top of d!dog you get times.
             if patreon_ad != 1:
                 async with request("GET", URL, headers={}) as response:
@@ -520,7 +481,7 @@ class Fun(Cog):
                         embed = Embed(title="Dog Picture!", colour=ctx.author.colour)
                         embed.set_image(url=data["message"])
                         await ctx.send(embed=embed)
-            elif patreon_ad == 1:
+            else:
                 async with request("GET", URL, headers={}) as response:
                     if response.status == 200:
                         data = await response.json()
@@ -533,7 +494,6 @@ class Fun(Cog):
                         embed.set_image(url=data["message"])
                         await ctx.send(embed=embed)
 
-        # If they get a lucky dog, run this instead of ^.
         elif random == 100:
             embed = Embed(
                 title="Lucky Dog Picture!",
@@ -574,7 +534,7 @@ class Fun(Cog):
             )
             await ctx.send(embed=embed)
 
-        elif random == 102:
+        else:
             embed = Embed(
                 title="Lucky Dog Picture!",
                 description="This is [Weest](https://twitter.com/weesterner)'s dog Kevin!",
@@ -585,25 +545,6 @@ class Fun(Cog):
                 icon_url=ctx.author.avatar_url,
             )
             embed.set_image(url="https://i.imgur.com/guF2Y3z.png")
-            db.execute(
-                "UPDATE luckydogs SET (LuckyDogs, LastUpdated) = (?, ?) WHERE UserID = ?",
-                LuckyDogs[0][0] + 1,
-                datetime.utcnow(),
-                ctx.author.id,
-            )
-            await ctx.send(embed=embed)
-
-        elif random == 103:
-            embed = Embed(
-                title="Lucky Dog Picture!",
-                description="This is [@KittyKay000](https://twitter.com/kittykay000)'s concept drawing of Doob!",
-                colour=Colour.gold(),
-            )
-            embed.set_footer(
-                text=f"{ctx.author} got this lucky dog picture! | There is a 1 in 1000 chance of getting this picture!",
-                icon_url=ctx.author.avatar_url,
-            )
-            embed.set_image(url="https://i.imgur.com/KFOR8YJ.jpeg")
             db.execute(
                 "UPDATE luckydogs SET (LuckyDogs, LastUpdated) = (?, ?) WHERE UserID = ?",
                 LuckyDogs[0][0] + 1,
@@ -686,7 +627,7 @@ class Fun(Cog):
         target = target or ctx.author
 
         # Checks if the target is an "@everyone" or "@here" ping, so Doob doesn't ping the entire server.
-        if target == "@everyone" or target == "@here":
+        if target in ["@everyone", "@here"]:
             await ctx.reply("nope, no ping pong here.")
 
         else:
@@ -704,7 +645,7 @@ class Fun(Cog):
         """Among Us Command - Shows a user as `the imposter`\nI SWEAR I SAW HIM VENT! He was an imposter. I knew it!!!"""
         target = target or ctx.author
 
-        if target == "@everyone" or target == "@here":
+        if target in ["@everyone", "@here"]:
             await ctx.reply("nope, no ping pong here.")
 
         else:

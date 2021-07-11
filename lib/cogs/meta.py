@@ -1,9 +1,16 @@
+import io
 from time import time
 from datetime import datetime, timedelta
 from typing import Optional
+import discord
+import textwrap
+from discord.ext import commands
+from traceback import format_exception
 from psutil import Process, virtual_memory
 from platform import python_version
 from apscheduler.triggers.cron import CronTrigger
+from discord.ext.buttons import Paginator
+import contextlib
 from asyncio import sleep
 
 from discord import Activity, ActivityType, Embed, Member
@@ -308,6 +315,64 @@ class Meta(Cog):
             await ctx.reply(
                 "You can support Doob Dev by subscribing at <https://patreon.com/doobdev>!"
             )
+
+
+    class Pag(Paginator):
+        async def teardown(self):
+            try:
+                await self.page.clear_reactions()
+            except discord.HTTPException:
+                pass
+
+
+
+    @command(name="eval", hidden=True)
+    async def _eval(self, ctx, *, code: str):
+
+        def clean_code(content):
+            if content.startswith("```") and content.endswith("```"):
+                return "\n".join(content.split("\n")[1:])[:-3]
+            else:
+                return content
+
+        if ctx.author.id == owner_id:
+            code = clean_code(code)
+
+            local_variables = {
+                "discord": discord,
+                "commands": commands,
+                "bot": self.bot,
+                "ctx": ctx,
+                "channel": ctx.channel,
+                "author": ctx.author,
+                "guild": ctx.guild,
+                "message": ctx.message,
+                "self": self,
+            }
+            
+            stdout = io.StringIO()
+
+            try:
+                with contextlib.redirect_stdout(stdout):
+                    exec(
+                        f"async def func():\n{textwrap.indent(code, '    ')}", local_variables
+                    )
+
+                    obj = await local_variables["func"]()
+                    result = f"{stdout.getvalue()}\n-- {obj}\n"
+            
+            except Exception as e:
+                result = "".join(format_exception(e, e, e.__traceback__))
+
+            pager = self.Pag(timeout=100,entries=[result[i : i + 2000] for i in range(0, len(result), 2000)], length=1,
+            prefix="```py\n", suffix="```")
+
+            await pager.start(ctx)
+
+        else:
+            await ctx.send("You can't execute this command, you are not an owner!")
+
+
 
     @Cog.listener()
     async def on_ready(self):
