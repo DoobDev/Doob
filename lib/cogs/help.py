@@ -1,131 +1,111 @@
-from typing import Optional
+import discord
+from discord.ext.commands import Cog, command, cooldown, BucketType
+
 from discord import Embed
+from discord.ext.buttons import Paginator
 
-from discord.utils import get
+import re
+import math
+import random
 
-from discord.ext.menus import MenuPages, ListPageSource
+from ..db import db  # pylint: disable=relative-beyond-top-level
 
-from discord.ext.commands import Cog
-from discord.ext.commands import command, cooldown, BucketType
+import json
 
-from discord_components import Button, ButtonStyle, InteractionType
+with open("config.json") as config_file:
+    config = json.load(config_file)
 
-
-def syntax(command):
-    cmd_and_aliases = "|".join([str(command), *command.aliases])
-    params = [
-        f"[{key}]" if "NoneType" in str(value) else f"<{key}>"
-        for key, value in command.params.items()
-        if key not in ("self", "ctx")
-    ]
-
-    params = " ".join(params)
-
-    return f"```{cmd_and_aliases} {params}```"
-
-
-class HelpMenu(ListPageSource):
-    def __init__(self, ctx, data):
-        self.ctx = ctx
-
-        super().__init__(data, per_page=5)
-
-    async def write_page(self, menu, fields=[]):
-        offset = (menu.current_page * self.per_page) + 1
-        len_data = len(self.entries)
-
-        embed = Embed(
-            title="Help",
-            description="[Subcommands Docs](https://docs.doobbot.com/) | [Donate](https://patreon.com/doobdev) | [Top.gg Link](https://top.gg/bot/680606346952966177/)",
-            colour=self.ctx.author.colour,
-        )
-        embed.set_thumbnail(url=self.ctx.guild.me.avatar_url)
-        embed.set_footer(
-            text=f"{offset:,} - {min(len_data, offset+self.per_page-1):,} of {len_data:,} commands."
-        )
-
-        for name, value in fields:
-            embed.add_field(name=name, value=value, inline=False)
-
-        return embed
-
-    async def format_page(self, menu, entries):
-        fields = [(entry.brief or "No description", syntax(entry)) for entry in entries]
-
-        return await self.write_page(menu, fields)
-
-
+class Pag(Paginator):
+    async def teardown(self):
+        try:
+            await self.page.clear_reactions()
+        except discord.HTTPexception:
+            pass
+        
 class Help(Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.bot.remove_command("help")
 
-    async def cmd_help(self, ctx, command):
-        embed = Embed(
-            title=f"Help with `{command}`",
-            description=syntax(command),
-            colour=ctx.author.colour,
-        )
+    @command(name="help", aliases=["commands"], brief="Shows this help message")
+    async def help_command(self, ctx, cog="1"):
+        helpEmbed = Embed(title="Help", color=ctx.author.color)
+        helpEmbed.set_thumbnail(url=ctx.guild.me.avatar_url)
 
-        embed.add_field(name="Command description", value=command.help)
-        await ctx.send(
-            embed=embed,
-            components=[
-                Button(
-                    style=ButtonStyle.URL,
-                    label="❗️ Subcommand Docs",
-                    url="https://docs.doobbot.com/",
-                ),
-                Button(
-                    style=ButtonStyle.URL,
-                    label="💸 Donate",
-                    url="https://patreon.com/doobdev/",
-                ),
-                Button(
-                    style=ButtonStyle.URL,
-                    label="🗳 Top.gg Link",
-                    url="https://top.gg/bot/680606346952966177/",
-                ),
-            ],
-        )
 
-    @command(name="help", aliases=["commands"], brief="Shows this message!")
-    @cooldown(1, 5, BucketType.user)
-    async def show_help(self, ctx, cmd: Optional[str]):
-        """Gives you some help on the Doob commands!"""
-        if cmd is None:
-            menu = MenuPages(
-                source=HelpMenu(ctx, list(self.bot.commands)),
-                clear_reactions_after=True,
-                timeout=100.0,
-            )
-            await menu.start(ctx)
 
-        else:
-            if command := get(self.bot.commands, name=cmd):
-                await self.cmd_help(ctx, command)
+        cogs = [c for c in self.bot.cogs.keys()]
+        # cogs.remove('servercount')
+        cogs.remove('Welcome')
+        cogs.remove('Reactions')
+        # cogs.remove('stat')
 
-            else:
-                await ctx.reply(
-                    "That command does not exist.\nTry looking through `d!help` to see the actual command name, and not the alias.",
-                    components=[
-                        Button(
-                            style=ButtonStyle.URL,
-                            label="❗️ Subcommand Docs",
-                            url="https://docs.doobbot.com/",
-                        ),
-                        Button(
-                            style=ButtonStyle.URL,
-                            label="💸 Donate",
-                            url="https://patreon.com/doobdev/",
-                        ),
-                        Button(
-                            style=ButtonStyle.URL,
-                            label="🗳 Top.gg Link",
-                            url="https://top.gg/bot/680606346952966177/",
-                        ),
-                    ],
+        totalPages = math.ceil(len(cogs) / 3 )
+
+        if re.search(f"\d", str(cog)): 
+            cog = int(cog)
+            if cog > totalPages or cog < 1:
+                await ctx.send(f"Invalid argument: `{cog}`\nPlease pick from {totalPages} pages.\nAlternatively, simply run `help` to see page one or type `help [category]` to see that categories help command!")
+                return
+
+            helpEmbed.set_footer(text=f"<> - Required, [] - Optional | Page {cog} of {totalPages}")
+
+            neededCogs = []
+            for i in range(4):
+                x = i + (int(cog) - 1) * 3
+                try:
+                    neededCogs.append(cogs[x])
+                except IndexError:
+                    pass
+
+            for cog in neededCogs:
+                commandList = "".join(
+                    f"`{command.name}` - {command.brief}\n"
+                    for command in self.bot.get_cog(cog).walk_commands()
+                    if not command.hidden
                 )
+
+                commandList += "\n"
+
+                helpEmbed.add_field(name=cog, value=commandList, inline=False)
+
+        elif re.search(r"[a-zA-Z]", str(cog)):
+            lowerCogs = [c.lower() for c in cogs]
+            if cog.lower() not in lowerCogs:
+                await ctx.send(f"Invalid argument: `{cog}`\nPlease pick from {totalPages} pages.\nAlternatively, simply run `help` to see page one or type `help [category]` to see that categories help command!")
+                return
+            
+            helpEmbed.set_footer(text=f"<> - Required, [] - Optional | Cog {(lowerCogs.index(cog.lower())+1)} of {len(lowerCogs)}")
+
+            helpText = ""
+
+            for command in self.bot.get_cog(cogs[lowerCogs.index(cog.lower())]).walk_commands():
+                if command.hidden:
+                    continue
+
+                params = [
+                    f"[{key}]" if "NoneType" in str(value) else f"<{key}>"
+                    for key, value in command.params.items()
+                    if key not in ("self", "ctx")
+                ]
+
+                params = " ".join(params)
+                helpText += f"`{command.name}`\n**{command.brief}**\n\n"
+
+                if len(command.aliases) > 0:
+                    helpText += f"Aliases: `{', '.join(command.aliases)}`"
+                
+                helpText += '\n'
+
+                prefix = "d!"
+
+                helpText += f'Format: `{prefix}{command.name} {params}`\n\n'
+
+            helpEmbed.description = helpText
+        else:
+            await ctx.send(f"Invalid argument: `{cog}`\nPlease pick from {totalPages} pages.\nAlternatively, simply run `help` to see page one or type `help [category]` to see that categories help command!")
+
+        await ctx.send(embed=helpEmbed)
+
 
     @Cog.listener()
     async def on_ready(self):
