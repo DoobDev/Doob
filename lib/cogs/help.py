@@ -37,6 +37,7 @@ class Help(Cog):
         # cogs.remove('servercount')
         cogs.remove('Welcome')
         cogs.remove('Reactions')
+        cogs.remove('Log')
         # cogs.remove('stat')
 
         totalPages = math.ceil(len(cogs) / 3 )
@@ -89,16 +90,19 @@ class Help(Cog):
                 ]
 
                 params = " ".join(params)
-                helpText += f"`{command.name}`\n**{command.brief}**\n\n"
+                helpText += f"`{command.name}`\n*{command.brief}*\n"
 
                 if len(command.aliases) > 0:
-                    helpText += f"Aliases: `{', '.join(command.aliases)}`"
+                    helpText += f"⠀⠀‣ Aliases: `{', '.join(command.aliases)}`"
                 
-                helpText += '\n'
+                    helpText += '\n'
 
                 prefix = "d!"
-
-                helpText += f'Format: `{prefix}{command.name} {params}`\n\n'
+                
+                if command.parent is not None:
+                    helpText += f'⠀⠀‣ Format: `{prefix}{command.parent.name} {command.name} {params}`\n\n'
+                else:
+                    helpText += f'⠀⠀‣ Format: `{prefix}{command.name} {params}`\n\n'
 
             helpEmbed.description = helpText
         else:

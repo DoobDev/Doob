@@ -238,7 +238,7 @@ class Fun(Cog):
             # Rolls a random number between 1 and 53 for Patrons, to give them a higher chance of getting a "Lucky Dog"
             random = randint(1, 53)
 
-                # If the user doesn't get a lucky dog roll, then contact the API and get a picture!
+            # If the user doesn't get a lucky dog roll, then contact the API and get a picture!
             if random not in [50, 51, 52, 53]:
                 # URL for the API
                 URL = "https://dog.ceo/api/breeds/image/random"
@@ -246,9 +246,7 @@ class Fun(Cog):
                 async with request("GET", URL, headers={}) as response:
                     if response.status == 200:
                         data = await response.json()
-                        embed = Embed(
-                            title="Dog Picture!", colour=ctx.author.colour
-                        )
+                        embed = Embed(title="Dog Picture!", colour=ctx.author.colour)
                         # embed.set_footer(text=f"DEBUG: L_DOG: {random}")
                         embed.set_image(url=data["message"])
                         await ctx.reply(embed=embed)
@@ -361,7 +359,7 @@ class Fun(Cog):
             # Rolls a random number between 1 and 53 for Patrons, to give them a higher chance of getting a "Lucky Dog"
             random = randint(1, 53)
 
-                # If the user doesn't get a lucky dog roll, then contact the API and get a picture!
+            # If the user doesn't get a lucky dog roll, then contact the API and get a picture!
             if random not in [50, 51, 52, 53]:
                 # URL for the API
                 URL = "https://dog.ceo/api/breeds/image/random"
@@ -369,9 +367,7 @@ class Fun(Cog):
                 async with request("GET", URL, headers={}) as response:
                     if response.status == 200:
                         data = await response.json()
-                        embed = Embed(
-                            title="Dog Picture!", colour=ctx.author.colour
-                        )
+                        embed = Embed(title="Dog Picture!", colour=ctx.author.colour)
                         # embed.set_footer(text=f"DEBUG: L_DOG: {random}")
                         embed.set_image(url=data["message"])
                         await ctx.send(embed=embed)
