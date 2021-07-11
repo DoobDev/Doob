@@ -30,10 +30,7 @@ class GitHub(Cog):
 
         open_issues = repo.get_issues(state="open")
 
-        llist = list()
-
-        for i in open_issues:
-            llist.append(f"[‣ #{i.number} - {i.title}]({i.html_url})")
+        llist = [f"[‣ #{i.number} - {i.title}]({i.html_url})" for i in open_issues]
 
         if llist:
             embed = Embed(
@@ -41,10 +38,10 @@ class GitHub(Cog):
                 description="\n".join(llist),
                 colour=ctx.author.colour,
             )
-            await ctx.send(embed=embed)
+            await ctx.reply(embed=embed)
 
         else:
-            await ctx.send("⚠ No Opened Issues found in `DoobDev/Doob`")
+            await ctx.reply("⚠ No Opened Issues found in `DoobDev/Doob`")
 
     @group(name="issue", aliases=["issues"])
     async def issue(self, ctx):
@@ -74,9 +71,9 @@ class GitHub(Cog):
 
             issue.add_to_labels(gh_priority_label)
 
-            await ctx.send(f"Issue Created. {issue.html_url}")
+            await ctx.reply(f"Issue Created. {issue.html_url}")
         else:
-            await ctx.send(
+            await ctx.reply(
                 "This command is Owner Only, only Doob's owner can use this command."
             )
 
@@ -96,10 +93,10 @@ class GitHub(Cog):
             issue.edit(state="closed")
             issue.create_comment(f"{reason}\n\n`Issue Closed via Doob for Discord`")
 
-            await ctx.send(f"Issue closed. {issue.html_url}")
+            await ctx.reply(f"Issue closed. {issue.html_url}")
 
         else:
-            await ctx.send(
+            await ctx.reply(
                 "This command is Owner Only, only Doob's owner can use this command."
             )
 

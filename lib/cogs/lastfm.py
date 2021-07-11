@@ -1,5 +1,5 @@
 from discord.ext.commands import Cog, command, BucketType, cooldown, group
-from discord import Embed
+from discord import Embed, Colour
 
 from ..db import db  # pylint: disable=relative-beyond-top-level
 
@@ -32,9 +32,9 @@ class LastFM(Cog):
             db.record(
                 "SELECT LastfmUsername FROM users WHERE UserID = ?", ctx.author.id
             )[0]
-            is None
+            == None
         ):
-            await ctx.send(
+            await ctx.reply(
                 f"Your Last.fm username is set to None\nSet it to your username by doing `{prefix[0]}setlastfm`"
             )
             return
@@ -104,10 +104,10 @@ class LastFM(Cog):
                 if data["image"][3]["#text"] != "":
                     embed.set_thumbnail(url=data["image"][3]["#text"])
 
-                await ctx.send(embed=embed)
+                await ctx.reply(embed=embed)
 
             else:
-                await ctx.send(f"The Last.fm API returned a {response.status} status.")
+                await ctx.reply(f"The Last.fm API returned a {response.status} status.")
 
     @group(name="lastfm", aliases=["fm"], brief="Get your Last.fm information.")
     # @cooldown(1, 5, BucketType.user)
@@ -135,9 +135,9 @@ class LastFM(Cog):
             db.record(
                 "SELECT LastfmUsername FROM users WHERE UserID = ?", ctx.author.id
             )[0]
-            is None
+            == None
         ):
-            await ctx.send(
+            await ctx.reply(
                 f"Your Last.fm username is set to None\nSet it to your username by doing `{prefix[0]}setlastfm`"
             )
             return
@@ -159,7 +159,7 @@ class LastFM(Cog):
                     colour=ctx.author.colour,
                 )
 
-                await ctx.send(embed=embed)
+                await ctx.reply(embed=embed)
 
             else:
                 embed = Embed(
@@ -167,7 +167,7 @@ class LastFM(Cog):
                     colour=ctx.author.colour,
                 )
 
-                message = await ctx.send(embed=embed)
+                message = await ctx.reply(embed=embed)
 
                 await message.add_reaction("⚠️")
 
@@ -189,9 +189,9 @@ class LastFM(Cog):
             db.record(
                 "SELECT LastfmUsername FROM users WHERE UserID = ?", ctx.author.id
             )[0]
-            is None
+            == None
         ):
-            await ctx.send(
+            await ctx.reply(
                 f"Your Last.fm username is set to None\nSet it to your username by doing `{prefix[0]}setlastfm`"
             )
             return
@@ -213,7 +213,7 @@ class LastFM(Cog):
                     colour=ctx.author.colour,
                 )
 
-                await ctx.send(embed=embed)
+                await ctx.reply(embed=embed)
 
             else:
                 embed = Embed(
@@ -221,7 +221,7 @@ class LastFM(Cog):
                     colour=ctx.author.colour,
                 )
 
-                message = await ctx.send(embed=embed)
+                message = await ctx.reply(embed=embed)
 
                 await message.add_reaction("⚠️")
 
@@ -236,7 +236,7 @@ class LastFM(Cog):
             prefix = db.record(
                 "SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id
             )
-            await ctx.send(
+            await ctx.reply(
                 f"Try these commands instead.\n`{prefix[0]}fm top albums`\n`{prefix[0]}fm top tracks`\n`{prefix[0]}fm top artists`"
             )
 
@@ -280,7 +280,7 @@ class LastFM(Cog):
                             icon_url=icon_url["image"][3]["#text"],
                         )
 
-                await ctx.send(embed=embed)
+                await ctx.reply(embed=embed)
 
             else:
                 embed = Embed(
@@ -288,7 +288,7 @@ class LastFM(Cog):
                     colour=ctx.author.colour,
                 )
 
-                message = await ctx.send(embed=embed)
+                message = await ctx.reply(embed=embed)
 
                 await message.add_reaction("⚠️")
 
@@ -332,7 +332,7 @@ class LastFM(Cog):
                             icon_url=icon_url["image"][3]["#text"],
                         )
 
-                await ctx.send(embed=embed)
+                await ctx.reply(embed=embed)
 
             else:
                 embed = Embed(
@@ -340,7 +340,7 @@ class LastFM(Cog):
                     colour=ctx.author.colour,
                 )
 
-                message = await ctx.send(embed=embed)
+                message = await ctx.reply(embed=embed)
 
                 await message.add_reaction("⚠️")
 
@@ -384,7 +384,7 @@ class LastFM(Cog):
                             icon_url=icon_url["image"][3]["#text"],
                         )
 
-                await ctx.send(embed=embed)
+                await ctx.reply(embed=embed)
 
             else:
                 embed = Embed(
@@ -392,7 +392,7 @@ class LastFM(Cog):
                     colour=ctx.author.colour,
                 )
 
-                message = await ctx.send(embed=embed)
+                message = await ctx.reply(embed=embed)
 
                 await message.add_reaction("⚠️")
 
@@ -417,7 +417,7 @@ class LastFM(Cog):
             prefix = db.record(
                 "SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id
             )
-            await ctx.send(
+            await ctx.reply(
                 f"Try these commands instead.\n`{prefix[0]}fm artist charts`\n`{prefix[0]}fm artist search"
             )
 
@@ -440,7 +440,7 @@ class LastFM(Cog):
                     colour=ctx.author.colour,
                 )
 
-                await ctx.send(embed=embed)
+                await ctx.reply(embed=embed)
 
     @artist_group.command(name="search")
     async def artist_search_command(self, ctx, *, artist: str):
@@ -519,16 +519,16 @@ class LastFM(Cog):
                     #         embed.set_thumbnail(url=data['images'][0]['url'])
 
                     # else:
-                    #     await ctx.send(f"spotify sucks {response.status} error")
+                    #     await ctx.reply(f"spotify sucks {response.status} error")
 
-                await ctx.send(embed=embed)
+                await ctx.reply(embed=embed)
 
     @command(name="setlastfm", aliases=["setfm"], brief="Sets your Last.fm username.")
     @cooldown(1, 5, BucketType.user)
     async def set_lastfm_username(self, ctx, username: Optional[str]):
         """Sets your Last.fm username for `d!lastfm`"""
 
-        if username is not None:
+        if username != None:
             embed = Embed(
                 title="Setting Last.fm username:",
                 description=username,
@@ -544,7 +544,7 @@ class LastFM(Cog):
             )
             db.commit()
 
-            await ctx.send(embed=embed)
+            await ctx.reply(embed=embed)
 
         else:
             username = db.record(
@@ -558,7 +558,7 @@ class LastFM(Cog):
 
             embed.set_thumbnail(url=ctx.author.avatar_url)
 
-            await ctx.send(embed=embed)
+            await ctx.reply(embed=embed)
 
     @Cog.listener()
     async def on_ready(self):

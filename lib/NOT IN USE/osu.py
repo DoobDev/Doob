@@ -36,9 +36,9 @@ class osu(Cog):
             db.record("SELECT osuUsername FROM users WHERE UserID = ?", ctx.author.id)[
                 0
             ]
-            is None
+            == None
         ):
-            await ctx.send(
+            await ctx.reply(
                 f"Your osu! username is set to None\nSet it to your username by doing `{prefix[0]}setosu`"
             )
             return
@@ -101,7 +101,7 @@ class osu(Cog):
 
         embed.set_thumbnail(url=f"https://a.ppy.sh/{user.user_id}")
 
-        await ctx.send(embed=embed)
+        await ctx.reply(embed=embed)
 
     @command(
         name="setosu",
@@ -110,7 +110,7 @@ class osu(Cog):
     )
     @cooldown(1, 5, BucketType.user)
     async def osu_set_command(self, ctx, username: Optional[str]):
-        if username is not None:
+        if username != None:
             api = OsuApi(os.environ.get("osu_api"))
             user = await api.get_user(user=username, mode=0, type_str="string")
 
@@ -129,7 +129,7 @@ class osu(Cog):
             )
             db.commit()
 
-            await ctx.send(embed=embed)
+            await ctx.reply(embed=embed)
 
         else:
             username = db.record(
@@ -146,7 +146,7 @@ class osu(Cog):
 
             embed.set_thumbnail(url=f"https://a.ppy.sh/{user.user_id}")
 
-            await ctx.send(embed=embed)
+            await ctx.reply(embed=embed)
 
     @Cog.listener()
     async def on_ready(self):

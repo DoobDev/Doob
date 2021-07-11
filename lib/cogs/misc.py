@@ -21,6 +21,7 @@ from ..db import db  # pylint: disable=relative-beyond-top-level
 
 owner_id = 308000668181069824
 
+import os
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -35,7 +36,7 @@ class Misc(Cog):
     async def change_prefix(self, ctx, new: str):
         """Changes the prefix for the server.\n`Manage Server` permission required."""
         if len(new) > 10:
-            await ctx.send(
+            await ctx.reply(
                 "The prefix can not be more than 10 characters.", delete_after=10
             )
 
@@ -47,12 +48,12 @@ class Misc(Cog):
                 title="Prefix Changed",
                 description=f"Prefix has been changed to `{new}`",
             )
-            await ctx.send(embed=embed)
+            await ctx.reply(embed=embed)
 
     @change_prefix.error
     async def change_prefix_error(self, ctx, exc):
         if isinstance(exc, CheckFailure):
-            await ctx.send(
+            await ctx.reply(
                 "You need the Manage Server permission to change the prefix.",
                 delete_after=10,
             )
@@ -127,20 +128,19 @@ class Misc(Cog):
                 title="Poll ended!", description="Poll ended in a tie!", colour=0xFFFF00
             )
 
-        else:
-            if winner == "❌":
-                embed = Embed(
-                    title="Poll ended!",
-                    description=f"{winner} has won by {winner_count-loser_count} votes!",
-                    colour=0xAE0700,
-                )
+        elif winner == "❌":
+            embed = Embed(
+                title="Poll ended!",
+                description=f"{winner} has won by {winner_count-loser_count} votes!",
+                colour=0xAE0700,
+            )
 
-            elif winner == "✅":
-                embed = Embed(
-                    title="Poll ended!",
-                    description=f"{winner} has won by {winner_count-loser_count} votes!",
-                    colour=0x66FF00,
-                )
+        elif winner == "✅":
+            embed = Embed(
+                title="Poll ended!",
+                description=f"{winner} has won by {winner_count-loser_count} votes!",
+                colour=0x66FF00,
+            )
 
         embed.set_footer(
             text=f"Poll ended by: {ctx.author.display_name}",
@@ -191,20 +191,19 @@ class Misc(Cog):
                 title="Poll ended!", description="Poll ended in a tie!", colour=0xFFFF00
             )
 
-        else:
-            if winner == "❌":
-                embed = Embed(
-                    title="Poll ended!",
-                    description=f"{winner} has won by {winner_count-loser_count} votes!",
-                    colour=0xAE0700,
-                )
+        elif winner == "❌":
+            embed = Embed(
+                title="Poll ended!",
+                description=f"{winner} has won by {winner_count-loser_count} votes!",
+                colour=0xAE0700,
+            )
 
-            elif winner == "✅":
-                embed = Embed(
-                    title="Poll ended!",
-                    description=f"{winner} has won by {winner_count-loser_count} votes!",
-                    colour=0x66FF00,
-                )
+        elif winner == "✅":
+            embed = Embed(
+                title="Poll ended!",
+                description=f"{winner} has won by {winner_count-loser_count} votes!",
+                colour=0x66FF00,
+            )
 
         embed.set_footer(
             text=f"Poll ended by: {ctx.author.display_name}",
@@ -232,7 +231,7 @@ class Misc(Cog):
             text=f"{ctx.author} started this giveaway.", icon_url=ctx.author.avatar_url
         )
 
-        message = await ctx.send(embed=embed)
+        message = await ctx.reply(embed=embed)
 
         await message.add_reaction("🎁")
 
@@ -256,7 +255,7 @@ class Misc(Cog):
                 if not user.bot:
                     users.add(user)
 
-        entries = list()
+        entries = []
 
         for user in users:
             if not user.bot:
@@ -302,7 +301,7 @@ class Misc(Cog):
             await ctx.send(embed=embed, delete_after=time)
 
         else:
-            await ctx.send(
+            await ctx.reply(
                 f"Please try again with a lower time, {time} is too big.",
                 delete_after=15,
             )
@@ -310,7 +309,7 @@ class Misc(Cog):
     @command(name="vote", aliases=["upvote"], brief="Vote for Doob on Top.gg!")
     @cooldown(1, 4, BucketType.user)
     async def topgg_upvote_command(self, ctx):
-        await ctx.send("Vote for Doob at: https://top.gg/bot/680606346952966177/vote")
+        await ctx.reply("Vote for Doob at: https://top.gg/bot/680606346952966177/vote")
 
     @command(name="phone", aliases=["iphone"], brief="phone")
     @cooldown(1, 4, BucketType.user)
@@ -327,19 +326,13 @@ class Misc(Cog):
             if pledger == ctx.author:
                 member = pledger
 
-        if ctx.author in homeGuild.members:
-            if patreonRole in member.roles:
-                await ctx.send(
-                    "https://cdn.discordapp.com/attachments/721514198000992350/794840218514751499/IYUimA7gyac7sxrB3uKu9Mb1ZZOJVtgAAAA.png"
-                )
-
-            else:
-                await ctx.send(
-                    "You are not a Patron to Doob, subscribe to any of the tiers at <https://patreon.com/doobdev> to gain access to this command."
-                )
+        if ctx.author in homeGuild.members and patreonRole in member.roles:
+            await ctx.reply(
+                "https://cdn.discordapp.com/attachments/721514198000992350/794840218514751499/IYUimA7gyac7sxrB3uKu9Mb1ZZOJVtgAAAA.png"
+            )
 
         else:
-            await ctx.send(
+            await ctx.reply(
                 "You are not a Patron to Doob, subscribe to any of the tiers at <https://patreon.com/doobdev> to gain access to this command."
             )
 
@@ -367,10 +360,10 @@ class Misc(Cog):
                 description=f"Prefix has been changed to `{new}`",
             )
 
-            await ctx.send(embed=embed)
+            await ctx.reply(embed=embed)
 
         else:
-            await ctx.send(
+            await ctx.reply(
                 f"This is the owner override command, only the owner of the bot can use this. If you are a server manager, use `{prefix[0][0]}prefix` command."
             )
 
@@ -400,13 +393,12 @@ class Misc(Cog):
 
     @streamkit_overlay_command.error
     async def streamkit_overlay_command_error(self, ctx, exc):
-        if hasattr(exc, "original"):
-            if isinstance(exc.original, AttributeError):
-                await ctx.message.delete()
-                await ctx.send(
-                    "Please join a voice channel before running the `overlay` command.",
-                    delete_after=15,
-                )
+        if hasattr(exc, "original") and isinstance(exc.original, AttributeError):
+            await ctx.message.delete()
+            await ctx.send(
+                "Please join a voice channel before running the `overlay` command.",
+                delete_after=15,
+            )
 
     @command(name="emote", aliases=["emoji"], brief="Gets Emote info.")
     async def get_emote_command(self, ctx, emote: Emoji):
@@ -433,7 +425,7 @@ class Misc(Cog):
 
         embed.set_image(url=emote.url)
 
-        await ctx.send(embed=embed)
+        await ctx.reply(embed=embed)
 
 
 def setup(bot):

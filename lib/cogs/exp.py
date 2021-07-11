@@ -127,12 +127,11 @@ class Exp(Cog):
             message.author.id,
         )
 
-        if new_lvl > lvl:
-            if level_up_messages == "('yes',)" or level_up_messages == "('Yes',)":
-                await message.channel.send(
-                    f"{message.author.mention} leveled up to {new_lvl:,}!",
-                    delete_after=10,
-                )
+        if new_lvl > lvl and level_up_messages in ["('yes',)", "('Yes',)"]:
+            await message.channel.send(
+                f"{message.author.mention} leveled up to {new_lvl:,}!",
+                delete_after=10,
+            )
 
     async def add_gxp(self, message, xp, lvl):
         xp_to_add = randint(10, 20)
@@ -152,12 +151,11 @@ class Exp(Cog):
         )
         db.commit()
 
-        if new_lvl > lvl:
-            if level_up_messages == "('yes',)" or level_up_messages == "('Yes',)":
-                await message.channel.send(
-                    f"{message.author.mention} leveled up to server level {new_lvl:,}!",
-                    delete_after=10,
-                )
+        if new_lvl > lvl and level_up_messages in ["('yes',)", "('Yes',)"]:
+            await message.channel.send(
+                f"{message.author.mention} leveled up to server level {new_lvl:,}!",
+                delete_after=10,
+            )
 
     @command(name="level", aliases=["rank", "lvl"], brief="Shows your level, and rank.")
     async def display_level(self, ctx, target: Optional[Member]):
@@ -223,12 +221,7 @@ class Exp(Cog):
         ) or (None)
         prefix = db.records("SELECT Prefix FROM guilds WHERE GuildID = ?", ctx.guild.id)
 
-        if (
-            yes_or_no == "Yes"
-            or yes_or_no == "yes"
-            or yes_or_no == "no"
-            or yes_or_no == "No"
-        ):
+        if yes_or_no in ["Yes", "yes", "no", "No"]:
             db.execute(
                 "UPDATE guilds SET LevelMessages = ? WHERE GuildID = ?",
                 yes_or_no,
