@@ -1,5 +1,15 @@
 from typing import Optional
 from discord import Embed
+import asyncio
+import discord
+from discord.ext.commands import Cog, command
+
+from discord import Embed
+from discord.ext.buttons import Paginator
+from discord_components import Button, ButtonStyle, InteractionType
+
+import re
+import math
 
 from discord.utils import get
 
