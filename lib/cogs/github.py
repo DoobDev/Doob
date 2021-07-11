@@ -30,10 +30,7 @@ class GitHub(Cog):
 
         open_issues = repo.get_issues(state="open")
 
-        llist = list()
-
-        for i in open_issues:
-            llist.append(f"[‣ #{i.number} - {i.title}]({i.html_url})")
+        llist = [f"[‣ #{i.number} - {i.title}]({i.html_url})" for i in open_issues]
 
         if llist:
             embed = Embed(

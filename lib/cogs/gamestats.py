@@ -172,9 +172,6 @@ class gamestats(Cog):
             )
             db.commit()
 
-            await ctx.reply(embed=embed)
-
-        # Same here, but with PC
         elif platform == "pc":
             embed = Embed(
                 title="Setting Overwatch Profile:",
@@ -202,9 +199,6 @@ class gamestats(Cog):
             )
             db.commit()
 
-            await ctx.reply(embed=embed)
-
-        # Same here, but with Xbox Live
         elif platform == "xbl":
             embed = Embed(
                 title="Setting Overwatch Profile:",
@@ -232,9 +226,6 @@ class gamestats(Cog):
             )
             db.commit()
 
-            await ctx.reply(embed=embed)
-
-        # If they didn't want to set anything, show them what they currently have in the database.
         else:
             platform = db.record(
                 "SELECT OverwatchPlatform FROM users WHERE UserID = ?", ctx.author.id
@@ -252,7 +243,7 @@ class gamestats(Cog):
             embed.add_field(name="Overwatch Region", value=region[0])
             embed.set_thumbnail(url=ctx.author.avatar_url)
 
-            await ctx.reply(embed=embed)
+        await ctx.reply(embed=embed)
 
     @Cog.listener()
     async def on_ready(self):

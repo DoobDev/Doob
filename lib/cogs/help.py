@@ -13,11 +13,11 @@ from discord_components import Button, ButtonStyle, InteractionType
 
 def syntax(command):
     cmd_and_aliases = "|".join([str(command), *command.aliases])
-    params = []
-
-    for key, value in command.params.items():
-        if key not in ("self", "ctx"):
-            params.append(f"[{key}]" if "NoneType" in str(value) else f"<{key}>")
+    params = [
+        f"[{key}]" if "NoneType" in str(value) else f"<{key}>"
+        for key, value in command.params.items()
+        if key not in ("self", "ctx")
+    ]
 
     params = " ".join(params)
 
@@ -50,10 +50,7 @@ class HelpMenu(ListPageSource):
         return embed
 
     async def format_page(self, menu, entries):
-        fields = []
-
-        for entry in entries:
-            fields.append((entry.brief or "No description", syntax(entry)))
+        fields = [(entry.brief or "No description", syntax(entry)) for entry in entries]
 
         return await self.write_page(menu, fields)
 

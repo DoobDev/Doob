@@ -45,13 +45,10 @@ class Fight(Cog):
                 "message",
                 check=lambda m: m.channel == ctx.channel
                 and m.author == p1.member
-                and (
-                    m.content == "attack"
-                    or m.content == "defend"
-                    or m.content == "escape"
-                ),
+                and m.content in ["attack", "defend", "escape"],
                 timeout=30,
             )
+
             if choice.content.lower() == "defend":
                 healAmount, defenseMaxed = await self.defend(p1)
                 if defenseMaxed:

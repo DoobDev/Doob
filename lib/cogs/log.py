@@ -100,8 +100,8 @@ class Log(Cog):
             )
 
             fields = [
-                ("Before", ", ".join([r.mention for r in before.roles]), False),
-                ("After", ", ".join([r.mention for r in after.roles]), False),
+                ("Before", ", ".join(r.mention for r in before.roles), False),
+                ("After", ", ".join(r.mention for r in after.roles), False),
             ]
 
             for name, value, inline in fields:
@@ -147,32 +147,31 @@ class Log(Cog):
 
     @Cog.listener()
     async def on_message_edit(self, before, after):
-        if not after.author.bot:
-            if before.content != after.content:
-                logchannel = await self.bot.fetch_channel(
-                    db.field(
-                        "SELECT LogChannel FROM guilds WHERE GuildID = ?",
-                        after.guild.id,
-                    )
+        if not after.author.bot and before.content != after.content:
+            logchannel = await self.bot.fetch_channel(
+                db.field(
+                    "SELECT LogChannel FROM guilds WHERE GuildID = ?",
+                    after.guild.id,
                 )
-                embed = Embed(
-                    title="Message update",
-                    description=f"Message from: {after.author.name}",
-                    colour=after.author.colour,
-                    timestamp=datetime.utcnow(),
-                )
+            )
+            embed = Embed(
+                title="Message update",
+                description=f"Message from: {after.author.name}",
+                colour=after.author.colour,
+                timestamp=datetime.utcnow(),
+            )
 
-                fields = [
-                    ("Before", before.content, False),
-                    ("After", after.content, False),
-                    ("Channel", after.channel, False),
-                ]
+            fields = [
+                ("Before", before.content, False),
+                ("After", after.content, False),
+                ("Channel", after.channel, False),
+            ]
 
-                for name, value, inline in fields:
-                    embed.add_field(name=name, value=value, inline=inline)
+            for name, value, inline in fields:
+                embed.add_field(name=name, value=value, inline=inline)
 
-                embed.set_thumbnail(url=before.author.avatar_url)
-                await logchannel.send(embed=embed)
+            embed.set_thumbnail(url=before.author.avatar_url)
+            await logchannel.send(embed=embed)
 
     @Cog.listener()
     async def on_message_delete(self, message):

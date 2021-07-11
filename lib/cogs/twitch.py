@@ -43,80 +43,7 @@ class Twitch(Cog):
                     },
                 ) as response2:
                     if response2.status == 200:
-                        if (await response2.json())["stream"] != None:
-                            embed = Embed(
-                                title=f"{(await response2.json())['stream']['channel']['display_name']} Stream Info",
-                                colour=Colour.dark_purple(),
-                                timestamp=datetime.utcnow(),
-                            )
-
-                            fields = [
-                                (
-                                    "Name",
-                                    f"{(await response2.json())['stream']['channel']['display_name']}",
-                                    False,
-                                ),
-                                (
-                                    "Title",
-                                    f"{(await response2.json())['stream']['channel']['status']}",
-                                    True,
-                                ),
-                                (
-                                    "Game",
-                                    f"{(await response2.json())['stream']['channel']['game']}",
-                                    True,
-                                ),
-                                (
-                                    "Viewers",
-                                    f"{(await response2.json())['stream']['viewers']}",
-                                    True,
-                                ),
-                                (
-                                    "Lagnuage",
-                                    f"{(await response2.json())['stream']['channel']['broadcaster_language']}",
-                                    True,
-                                ),
-                                (
-                                    "Followers",
-                                    f"{(await response2.json())['stream']['channel']['followers']}",
-                                    True,
-                                ),
-                                (
-                                    "Patner Status",
-                                    f"{(await response2.json())['stream']['channel']['partner']}",
-                                    True,
-                                ),
-                                (
-                                    "Went live at:",
-                                    f"{(await response2.json())['stream']['created_at']}",
-                                    True,
-                                ),
-                                (
-                                    "URL",
-                                    (await response2.json())["stream"]["channel"][
-                                        "url"
-                                    ],
-                                    False,
-                                ),
-                            ]
-
-                            for name, value, inline in fields:
-                                embed.add_field(name=name, value=value, inline=inline)
-
-                            embed.set_image(
-                                url=(await response2.json())["stream"]["preview"][
-                                    "large"
-                                ]
-                            )
-                            embed.set_thumbnail(
-                                url=(await response2.json())["stream"]["channel"][
-                                    "logo"
-                                ]
-                            )
-
-                            await ctx.reply(embed=embed)
-
-                        else:
+                        if (await response2.json())["stream"] is None:
                             UserInfo_URL = (
                                 f"https://api.twitch.tv/kraken/channels/{User_ID}"
                             )
@@ -205,6 +132,79 @@ class Twitch(Cog):
 
                                     await ctx.reply(embed=embed)
 
+                        else:
+                            embed = Embed(
+                                title=f"{(await response2.json())['stream']['channel']['display_name']} Stream Info",
+                                colour=Colour.dark_purple(),
+                                timestamp=datetime.utcnow(),
+                            )
+
+                            fields = [
+                                (
+                                    "Name",
+                                    f"{(await response2.json())['stream']['channel']['display_name']}",
+                                    False,
+                                ),
+                                (
+                                    "Title",
+                                    f"{(await response2.json())['stream']['channel']['status']}",
+                                    True,
+                                ),
+                                (
+                                    "Game",
+                                    f"{(await response2.json())['stream']['channel']['game']}",
+                                    True,
+                                ),
+                                (
+                                    "Viewers",
+                                    f"{(await response2.json())['stream']['viewers']}",
+                                    True,
+                                ),
+                                (
+                                    "Lagnuage",
+                                    f"{(await response2.json())['stream']['channel']['broadcaster_language']}",
+                                    True,
+                                ),
+                                (
+                                    "Followers",
+                                    f"{(await response2.json())['stream']['channel']['followers']}",
+                                    True,
+                                ),
+                                (
+                                    "Patner Status",
+                                    f"{(await response2.json())['stream']['channel']['partner']}",
+                                    True,
+                                ),
+                                (
+                                    "Went live at:",
+                                    f"{(await response2.json())['stream']['created_at']}",
+                                    True,
+                                ),
+                                (
+                                    "URL",
+                                    (await response2.json())["stream"]["channel"][
+                                        "url"
+                                    ],
+                                    False,
+                                ),
+                            ]
+
+                            for name, value, inline in fields:
+                                embed.add_field(name=name, value=value, inline=inline)
+
+                            embed.set_image(
+                                url=(await response2.json())["stream"]["preview"][
+                                    "large"
+                                ]
+                            )
+                            embed.set_thumbnail(
+                                url=(await response2.json())["stream"]["channel"][
+                                    "logo"
+                                ]
+                            )
+
+                            await ctx.reply(embed=embed)
+
     @group(
         name="twitch",
         aliases=["lookup", "streamlookup", "twitchsearch", "twitchlookup", "stream"],
@@ -224,9 +224,8 @@ class Twitch(Cog):
 
     @twitch_search_command.error
     async def twitch_search_command_error(self, ctx, exc):
-        if hasattr(exc, "original"):
-            if isinstance(exc.original, IndexError):
-                await ctx.reply("User does not seem to exist on Twitch.tv")
+        if hasattr(exc, "original") and isinstance(exc.original, IndexError):
+            await ctx.reply("User does not seem to exist on Twitch.tv")
 
     @twitch.command(name="-title", aliases=["-t"])
     async def twitch_title_command(self, ctx, username: str):
@@ -252,37 +251,37 @@ class Twitch(Cog):
                         "Accept": "application/vnd.twitchtv.v5+json",
                     },
                 ) as response2:
-                    if response2.status == 200:
-                        if (await response2.json())["stream"] != None:
-                            embed = Embed(
-                                title=f"{(await response2.json())['stream']['channel']['display_name']} Stream Info",
-                                colour=Colour.dark_purple(),
-                                timestamp=datetime.utcnow(),
-                            )
+                    if (
+                        response2.status == 200
+                        and (await response2.json())["stream"] != None
+                    ):
+                        embed = Embed(
+                            title=f"{(await response2.json())['stream']['channel']['display_name']} Stream Info",
+                            colour=Colour.dark_purple(),
+                            timestamp=datetime.utcnow(),
+                        )
 
-                            fields = [
-                                (
-                                    "Title",
-                                    f"{(await response2.json())['stream']['channel']['status']}",
-                                    True,
-                                ),
-                                (
-                                    "Game",
-                                    f"{(await response2.json())['stream']['channel']['game']}",
-                                    True,
-                                ),
-                            ]
+                        fields = [
+                            (
+                                "Title",
+                                f"{(await response2.json())['stream']['channel']['status']}",
+                                True,
+                            ),
+                            (
+                                "Game",
+                                f"{(await response2.json())['stream']['channel']['game']}",
+                                True,
+                            ),
+                        ]
 
-                            for name, value, inline in fields:
-                                embed.add_field(name=name, value=value, inline=inline)
+                        for name, value, inline in fields:
+                            embed.add_field(name=name, value=value, inline=inline)
 
-                            embed.set_thumbnail(
-                                url=(await response2.json())["stream"]["channel"][
-                                    "logo"
-                                ]
-                            )
+                        embed.set_thumbnail(
+                            url=(await response2.json())["stream"]["channel"]["logo"]
+                        )
 
-                            await ctx.reply(embed=embed)
+                        await ctx.reply(embed=embed)
 
     @Cog.listener()
     async def on_ready(self):

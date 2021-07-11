@@ -53,7 +53,7 @@ class Ready(object):
         print(f"{cog} cog ready")
 
     def all_ready(self):
-        return all([getattr(self, cog) for cog in COGS])
+        return all(getattr(self, cog) for cog in COGS)
 
 
 class Bot(BotBase):

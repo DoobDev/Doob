@@ -257,9 +257,12 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
 
     @commands.Cog.listener()
     async def on_voice_state_update(self, member, before, after):
-        if not member.bot and after.channel is None:
-            if not [m for m in before.channel.members if not m.bot]:
-                await self.get_player(member.guild).teardown()
+        if (
+            not member.bot
+            and after.channel is None
+            and not [m for m in before.channel.members if not m.bot]
+        ):
+            await self.get_player(member.guild).teardown()
 
     @wavelink.WavelinkMixin.listener()
     async def on_node_ready(self, node):

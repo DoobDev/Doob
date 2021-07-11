@@ -169,7 +169,7 @@ class Meta(Cog):
                     icon_url=ctx.author.avatar_url,
                 )
                 await ctx.send(embed=embed)
-        elif ctx.author.id != owner_id:
+        else:
             await ctx.send(
                 f"You don't have permissions to give updates about Doob\nType `{prefix[0][0]}help update` for more info."
             )
@@ -275,12 +275,8 @@ class Meta(Cog):
             if pledger == ctx.author:
                 member = pledger
 
-        if ctx.author in homeGuild.members:
-            if patreonRole in member.roles:
-                await self.show_bot_info(ctx, patreon_status=True)
-
-            else:
-                await self.show_bot_info(ctx, patreon_status=False)
+        if ctx.author in homeGuild.members and patreonRole in member.roles:
+            await self.show_bot_info(ctx, patreon_status=True)
 
         else:
             await self.show_bot_info(ctx, patreon_status=False)
@@ -303,16 +299,10 @@ class Meta(Cog):
             if pledger == ctx.author:
                 member = pledger
 
-        if ctx.author in homeGuild.members:
-            if patreonRole in member.roles:
-                await ctx.reply(
-                    f"Thanks for supporting {ctx.author.mention}!\n<https://patreon.com/doobdev>"
-                )
-
-            else:
-                await ctx.reply(
-                    "You can support Doob Dev by subscribing at <https://patreon.com/doobdev>!"
-                )
+        if ctx.author in homeGuild.members and patreonRole in member.roles:
+            await ctx.reply(
+                f"Thanks for supporting {ctx.author.mention}!\n<https://patreon.com/doobdev>"
+            )
 
         else:
             await ctx.reply(

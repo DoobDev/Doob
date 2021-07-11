@@ -84,18 +84,15 @@ class Mod(Cog):
                     )
 
     async def mute_members(self, message, targets, reason):
-        unmutes = []
         mute_role = db.field(
             "SELECT MutedRole FROM guilds WHERE GuildID = ?", message.guild.id
         )
         comma = ", "
-        tNames = []
-        for target in targets:
-            tNames.append(f"{target.display_name}")
+        tNames = [f"{target.display_name}" for target in targets]
         for target in targets:
             mutedrole = message.guild.get_role(int(mute_role))
-            if not mutedrole in target.roles:
-                role_ids = ",".join([str(r.id) for r in target.roles])
+            if mutedrole not in target.roles:
+                role_ids = ",".join(str(r.id) for r in target.roles)
                 await target.edit(roles=[mutedrole])
                 db.execute(
                     "INSERT INTO mutes VALUES (?, ?, ?)",
@@ -108,7 +105,7 @@ class Mod(Cog):
         embed = Embed(title="Muted:", description=f"{comma.join(tNames)}")
         await message.channel.send(embed=embed)
 
-        return unmutes
+        return []
 
     @command(
         name="mute", aliases=["m", "silence"], brief="Mutes a member from the server."
@@ -148,9 +145,7 @@ class Mod(Cog):
     async def delmute_command(self, ctx, targets: Greedy[Member]):
         """Unmutes a member from the server\nRequires the `Manage Roles` permission"""
         comma = ", "
-        tNames = []
-        for target in targets:
-            tNames.append(f"{target.display_name}")
+        tNames = [f"{target.display_name}" for target in targets]
         for target in targets:
             role_ids = db.field(
                 f"SELECT RoleIDs FROM mutes WHERE UserID = {target.id} AND GuildID = {ctx.guild.id}"
@@ -163,6 +158,7 @@ class Mod(Cog):
                 f"DELETE FROM mutes WHERE UserID = {target.id} AND GuildID = {ctx.guild.id}"
             )
             db.commit()
+            target_embed = ""
             target_embed += f" {target.display_name},"
 
         embed = Embed(title="Unmuted:", description=f"{comma.join(tNames)}")
@@ -298,7 +294,7 @@ class Mod(Cog):
         )
         prefix = db.records("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
 
-        if channel == None:
+        if channel is None:
             await ctx.reply(
                 f"The current setting for the Log Channel is currently: <#{current_channel[0][0]}>\nTo change it, type `{prefix[0][0]}setlogchannel #<log channel>`"
             )
@@ -325,7 +321,7 @@ class Mod(Cog):
         )
         prefix = db.records("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
 
-        if channel == None:
+        if channel is None:
             await ctx.reply(
                 f"The current setting for the StarBoard Channel is currently: <#{current_channel[0][0]}>\nTo change it, type `{prefix[0][0]}setstarboardchannel #<starboard channel>`"
             )
@@ -400,10 +396,7 @@ class Mod(Cog):
         self, ctx, targets: Greedy[Member], *, reason: Optional[str]
     ):
         comma = ", "
-        tNames = []
-        for target in targets:
-            tNames.append(f"{target.display_name}")
-
+        tNames = [f"{target.display_name}" for target in targets]
         for target in targets:
             user = self.bot.get_user(target.id)
             warns = db.records(
@@ -426,7 +419,7 @@ class Mod(Cog):
             )
             db.commit()
 
-            if reason == None:
+            if reason is None:
                 await user.send(
                     f"🔸 You have been warned in {ctx.guild.name} for no reason."
                 )
@@ -475,25 +468,27 @@ class Mod(Cog):
     @group(name="role", aliases=["roles"], brief="Manage or see roles in your server.")
     @has_permissions(manage_roles=True)
     async def role(self, ctx):
-        if ctx.invoked_subcommand is None:
-            comma = ",\n"
-            tNames = []
+        if ctx.invoked_subcommand is not None:
+            return
 
-            for roles in ctx.guild.roles:
-                if roles.name == "@everyone":
-                    tNames.append("@everyone")
-                else:
-                    tNames.append(f"{roles.mention}")
+        comma = ",\n"
+        tNames = []
 
-            embed = Embed(
-                title=f"Roles in {ctx.guild.name}",
-                description=comma.join(tNames),
-                colour=ctx.author.colour,
-            )
+        for roles in ctx.guild.roles:
+            if roles.name == "@everyone":
+                tNames.append("@everyone")
+            else:
+                tNames.append(f"{roles.mention}")
 
-            embed.set_thumbnail(url=ctx.guild.icon_url)
+        embed = Embed(
+            title=f"Roles in {ctx.guild.name}",
+            description=comma.join(tNames),
+            colour=ctx.author.colour,
+        )
 
-            await ctx.reply(embed=embed)
+        embed.set_thumbnail(url=ctx.guild.icon_url)
+
+        await ctx.reply(embed=embed)
 
     @role.command(
         name="-add", aliases=["-a"], brief="Add a role to a user (or multiple)."
@@ -501,18 +496,12 @@ class Mod(Cog):
     @has_permissions(manage_roles=True)
     async def add_role_command(self, ctx, targets: Greedy[Member], roles: Greedy[Role]):
         comma = ", "
-        tNames = []
-        tNames2 = []
-
         for target in targets:
             for role in roles:
                 await target.add_roles(role)
 
-        for target in targets:
-            tNames.append(f"{target.mention}")
-
-        for role in roles:
-            tNames2.append(f"{role.mention}")
+        tNames = [f"{target.mention}" for target in targets]
+        tNames2 = [f"{role.mention}" for role in roles]
 
         embed = Embed(title="Added roles", colour=Colour.green())
 
@@ -551,18 +540,12 @@ class Mod(Cog):
         self, ctx, targets: Greedy[Member], roles: Greedy[Role]
     ):
         comma = ", "
-        tNames = []
-        tNames2 = []
-
         for target in targets:
             for role in roles:
                 await target.remove_roles(role)
 
-        for target in targets:
-            tNames.append(f"{target.mention}")
-
-        for role in roles:
-            tNames2.append(f"{role.mention}")
+        tNames = [f"{target.mention}" for target in targets]
+        tNames2 = [f"{role.mention}" for role in roles]
 
         embed = Embed(title="Removed roles", colour=Colour.red())
 
@@ -596,10 +579,7 @@ class Mod(Cog):
             await role.delete()
 
         comma = ", "
-        tNames = []
-        for role in roles:
-            tNames.append(f"{role.name}")
-
+        tNames = [f"{role.name}" for role in roles]
         embed = Embed(
             title="Roles deleted", description=comma.join(tNames), colour=Colour.red()
         )

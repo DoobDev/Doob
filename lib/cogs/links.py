@@ -50,20 +50,17 @@ class Links(Cog):
             if patreonRole in member.roles:
                 if ctx.author.id in config["owner_ids"]:
                     await self.after_check_shorten_link_func(ctx, url, vanity)
+                elif ShortLinkAmount[0][0] >= 12:
+                    await ctx.send("You have too many short links! (12)")
                 else:
-                    if ShortLinkAmount[0][0] >= 12:
-                        await ctx.send("You have too many short links! (12)")
-                    else:
-                        await self.after_check_shorten_link_func(ctx, url, vanity)
-            else:
-                if ShortLinkAmount[0][0] >= 6:
-                    await ctx.send("You have too many short links! (6)")
-
-        else:
-            if ShortLinkAmount[0][0] >= 6:
+                    await self.after_check_shorten_link_func(ctx, url, vanity)
+            elif ShortLinkAmount[0][0] >= 6:
                 await ctx.send("You have too many short links! (6)")
-            else:
-                await self.after_check_shorten_link_func(ctx, url, vanity)
+
+        elif ShortLinkAmount[0][0] >= 6:
+            await ctx.send("You have too many short links! (6)")
+        else:
+            await self.after_check_shorten_link_func(ctx, url, vanity)
 
     async def after_check_shorten_link_func(self, ctx, url: str, vanity: Optional[str]):
         ShortLinkAmount = db.records(
@@ -86,25 +83,17 @@ class Links(Cog):
                     member = pledger
 
             # If patron, give them access to vanity
-            if ctx.author in homeGuild.members:
-                if patreonRole in member.roles:
-                    linkRequest = {
-                        "destination": url,
-                        "domain": {"fullName": "doob.link"},
-                        "slashtag": vanity,
-                    }
-                else:
-                    linkRequest = {
-                        "destination": url,
-                        "domain": {"fullName": "doob.link"},
-                    }
-            # If not, don't.
+            if ctx.author in homeGuild.members and patreonRole in member.roles:
+                linkRequest = {
+                    "destination": url,
+                    "domain": {"fullName": "doob.link"},
+                    "slashtag": vanity,
+                }
             else:
                 linkRequest = {
                     "destination": url,
                     "domain": {"fullName": "doob.link"},
                 }
-
             requestHeaders = {
                 "Content-type": "application/json",
                 "apikey": os.environ.get("rebrandly"),

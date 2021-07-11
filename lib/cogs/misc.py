@@ -128,20 +128,19 @@ class Misc(Cog):
                 title="Poll ended!", description="Poll ended in a tie!", colour=0xFFFF00
             )
 
-        else:
-            if winner == "❌":
-                embed = Embed(
-                    title="Poll ended!",
-                    description=f"{winner} has won by {winner_count-loser_count} votes!",
-                    colour=0xAE0700,
-                )
+        elif winner == "❌":
+            embed = Embed(
+                title="Poll ended!",
+                description=f"{winner} has won by {winner_count-loser_count} votes!",
+                colour=0xAE0700,
+            )
 
-            elif winner == "✅":
-                embed = Embed(
-                    title="Poll ended!",
-                    description=f"{winner} has won by {winner_count-loser_count} votes!",
-                    colour=0x66FF00,
-                )
+        elif winner == "✅":
+            embed = Embed(
+                title="Poll ended!",
+                description=f"{winner} has won by {winner_count-loser_count} votes!",
+                colour=0x66FF00,
+            )
 
         embed.set_footer(
             text=f"Poll ended by: {ctx.author.display_name}",
@@ -192,20 +191,19 @@ class Misc(Cog):
                 title="Poll ended!", description="Poll ended in a tie!", colour=0xFFFF00
             )
 
-        else:
-            if winner == "❌":
-                embed = Embed(
-                    title="Poll ended!",
-                    description=f"{winner} has won by {winner_count-loser_count} votes!",
-                    colour=0xAE0700,
-                )
+        elif winner == "❌":
+            embed = Embed(
+                title="Poll ended!",
+                description=f"{winner} has won by {winner_count-loser_count} votes!",
+                colour=0xAE0700,
+            )
 
-            elif winner == "✅":
-                embed = Embed(
-                    title="Poll ended!",
-                    description=f"{winner} has won by {winner_count-loser_count} votes!",
-                    colour=0x66FF00,
-                )
+        elif winner == "✅":
+            embed = Embed(
+                title="Poll ended!",
+                description=f"{winner} has won by {winner_count-loser_count} votes!",
+                colour=0x66FF00,
+            )
 
         embed.set_footer(
             text=f"Poll ended by: {ctx.author.display_name}",
@@ -257,7 +255,7 @@ class Misc(Cog):
                 if not user.bot:
                     users.add(user)
 
-        entries = list()
+        entries = []
 
         for user in users:
             if not user.bot:
@@ -328,16 +326,10 @@ class Misc(Cog):
             if pledger == ctx.author:
                 member = pledger
 
-        if ctx.author in homeGuild.members:
-            if patreonRole in member.roles:
-                await ctx.reply(
-                    "https://cdn.discordapp.com/attachments/721514198000992350/794840218514751499/IYUimA7gyac7sxrB3uKu9Mb1ZZOJVtgAAAA.png"
-                )
-
-            else:
-                await ctx.reply(
-                    "You are not a Patron to Doob, subscribe to any of the tiers at <https://patreon.com/doobdev> to gain access to this command."
-                )
+        if ctx.author in homeGuild.members and patreonRole in member.roles:
+            await ctx.reply(
+                "https://cdn.discordapp.com/attachments/721514198000992350/794840218514751499/IYUimA7gyac7sxrB3uKu9Mb1ZZOJVtgAAAA.png"
+            )
 
         else:
             await ctx.reply(
@@ -401,13 +393,12 @@ class Misc(Cog):
 
     @streamkit_overlay_command.error
     async def streamkit_overlay_command_error(self, ctx, exc):
-        if hasattr(exc, "original"):
-            if isinstance(exc.original, AttributeError):
-                await ctx.message.delete()
-                await ctx.send(
-                    "Please join a voice channel before running the `overlay` command.",
-                    delete_after=15,
-                )
+        if hasattr(exc, "original") and isinstance(exc.original, AttributeError):
+            await ctx.message.delete()
+            await ctx.send(
+                "Please join a voice channel before running the `overlay` command.",
+                delete_after=15,
+            )
 
     @command(name="emote", aliases=["emoji"], brief="Gets Emote info.")
     async def get_emote_command(self, ctx, emote: Emoji):

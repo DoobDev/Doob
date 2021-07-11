@@ -39,11 +39,7 @@ class Info(Cog):
             timestamp=datetime.utcnow(),
         )
 
-        if patreon_status == True:
-            patreon = "Yes"
-        else:
-            patreon = "No"
-
+        patreon = "Yes" if patreon_status == True else "No"
         fields = [
             ("Username", target.mention, True),
             ("ID", target.id, True),
@@ -105,13 +101,9 @@ class Info(Cog):
             if pledger == ctx.author:
                 member = pledger
 
-        if ctx.author in homeGuild.members:
-            if patreonRole in member.roles:
-                patreon_status = True
-                await self.user_info(ctx, target, patreon_status)
-
-            else:
-                await self.user_info(ctx, target, patreon_status=False)
+        if ctx.author in homeGuild.members and patreonRole in member.roles:
+            patreon_status = True
+            await self.user_info(ctx, target, patreon_status)
 
         else:
             await self.user_info(ctx, target, patreon_status=False)
@@ -140,13 +132,9 @@ class Info(Cog):
             if pledger == ctx.author:
                 member = pledger
 
-        if ctx.author in homeGuild.members:
-            if patreonRole in member.roles:
-                patreon_status = True
-                await self.user_info(ctx, target, patreon_status)
-
-            else:
-                await self.user_info(ctx, target, patreon_status=False)
+        if ctx.author in homeGuild.members and patreonRole in member.roles:
+            patreon_status = True
+            await self.user_info(ctx, target, patreon_status)
 
         else:
             await self.user_info(ctx, target, patreon_status=False)
@@ -197,10 +185,7 @@ class Info(Cog):
             embed.add_field(
                 name="Banned members", value=len(await ctx.guild.bans()), inline=True
             )
-            await ctx.send(embed=embed)
-
-        else:
-            await ctx.send(embed=embed)
+        await ctx.send(embed=embed)
 
     @command(
         name="serverinfo",
