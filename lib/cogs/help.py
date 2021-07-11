@@ -31,7 +31,7 @@ class Help(Cog):
         cogs.remove("Log")
         cogs.remove('stat')
 
-        totalPages = math.ceil(len(cogs) / 3)
+        totalPages = math.ceil(len(cogs) / 4)
 
         if re.search(f"\d", str(cog)):
             while True:
@@ -43,12 +43,12 @@ class Help(Cog):
                     return
 
                 helpEmbed.set_footer(
-                    text=f"<> - Required, [] - Optional | Page {cog} of {totalPages}"
+                    text=f"<> - Required, [] - Optional | Page {cog} of {totalPages} | use `d!help {page number}` to flip pages."
                 )
 
                 neededCogs = []
                 for i in range(4):
-                    x = i + (int(cog) - 1) * 3
+                    x = i + (int(cog) - 1) * 4
                     try:
                         neededCogs.append(cogs[x])
                     except IndexError:
@@ -65,60 +65,9 @@ class Help(Cog):
 
                     helpEmbed.add_field(name=cog2, value=commandList, inline=False)
 
-                mainmsg = await ctx.send(
-                    embed=helpEmbed,
-                    components=[
-                        Button(style=ButtonStyle.blue, label="-->", id="fwd"),
-                        # Button(style=ButtonStyle.blue, label="<--", id="back"),
-                    ],
+                await ctx.send(
+                    embed=helpEmbed
                 )
-                try:
-                    interaction = await self.bot.wait_for(
-                        "button_click",
-                        check=lambda i: i.component.id in ["fwd"],
-                        timeout=60.0,
-                    )
-
-                    if interaction.component.id == "fwd":
-                        cog += 1
-
-                    # elif interaction.component.id == "back":
-                    #     cog -= 1
-
-                    # #If its out of index, go back to start / end
-                    # if cog == cog:
-                    #     cog = 0
-                    # elif cog < 0:
-                    #     cog = cog - 1
-
-                    await interaction.respond(
-                        type=InteractionType.UpdateMessage,
-                        embed=helpEmbed,
-                        components=[
-                            Button(style=ButtonStyle.blue, label="-->", id="fwd"),
-                            # Button(style=ButtonStyle.blue, label="<--", id="back"),
-                        ],
-                    )
-                    continue
-                except asyncio.TimeoutError:
-                    await mainmsg.edit(
-                        embed=helpEmbed,
-                        components=[
-                            Button(
-                                style=ButtonStyle.blue,
-                                label="-->",
-                                id="fwd",
-                                disabled=True,
-                            ),
-                            # Button(
-                            #     style=ButtonStyle.blue,
-                            #     label="<--",
-                            #     id="back",
-                            #     disabled=True,
-                            # ),
-                        ],
-                    )
-                    break
 
         elif re.search(r"[a-zA-Z]", str(cog)):
             lowerCogs = [c.lower() for c in cogs]
