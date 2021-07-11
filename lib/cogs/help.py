@@ -43,7 +43,7 @@ class Help(Cog):
                     return
 
                 helpEmbed.set_footer(
-                    text=f"<> - Required, [] - Optional | Page {cog} of {totalPages} | use `d!help {page number}` to flip pages."
+                    text=f"<> - Required, [] - Optional | Page {cog} of {totalPages} | use `d!help (page number)` to flip pages."
                 )
 
                 neededCogs = []
