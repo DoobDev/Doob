@@ -1,3 +1,6 @@
+## v2.9.2
+* Added `d!volume mute`
+
 ## v2.9.1
 * Added volume commands
     * `d!volume up`

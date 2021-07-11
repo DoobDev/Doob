@@ -587,13 +587,27 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
         
         await player.set_volume(value := max(0, player.volume - 10))
         await ctx.send(f"Volume set to {value}%")
+
+    @volume_group.command(name="mute", brief="Mutes the music.")
+    async def volume_mute_command(self, ctx):
+        player = self.get_player(ctx)
+
+        if player.volume == 0:
+            raise MinVolume
+        
+        await player.set_volume(0)
+        await ctx.send(f"Volume set to 0%")
+
+    @volume_mute_command.error
+    async def volume_mute_command_error(self, ctx, exc):
+        if isinstance(exc, MinVolume):
+            await ctx.send("The volume is already at minimum")
     
     @volume_down_command.error
     async def volume_down_command_error(self, ctx, exc): 
         if isinstance(exc, MinVolume):       
             await ctx.send("The volume is already at minimum")
 
-    # TODO: @volume_group.command(name="mute", brief="Mutes the music.")
 
     @commands.command(name="lyrics")
     async def lyrics_command(self, ctx, name: typing.Optional[str]):
