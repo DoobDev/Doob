@@ -34,7 +34,7 @@ class Exp(Cog):
         xp_to_add = randint(10, 20)
         level_up_messages = db.record(
             "SELECT LevelMessages FROM guilds WHERE GuildID = ?", message.guild.id
-        )
+        )[0]
 
         new_lvl = int(((xp + xp_to_add) // 42) ** 0.55)
 
@@ -46,7 +46,7 @@ class Exp(Cog):
             message.author.id,
         )
 
-        if new_lvl > lvl and level_up_messages in ["('yes',)", "('Yes',)"]:
+        if new_lvl > lvl and level_up_messages in ["yes", "Yes"]:
             await message.channel.send(
                 f"{message.author.mention} leveled up to {new_lvl:,}!",
                 delete_after=10,
@@ -56,7 +56,7 @@ class Exp(Cog):
         xp_to_add = randint(10, 20)
         level_up_messages = db.record(
             "SELECT LevelMessages FROM guilds WHERE GuildID = ?", message.guild.id
-        )
+        )[0]
 
         new_lvl = int(((xp + xp_to_add) // 42) ** 0.55)
 
@@ -70,7 +70,7 @@ class Exp(Cog):
         )
         db.commit()
 
-        if new_lvl > lvl and level_up_messages in ["('yes',)", "('Yes',)"]:
+        if new_lvl > lvl and level_up_messages in ["yes", "Yes"]:
             await message.channel.send(
                 f"{message.author.mention} leveled up to server level {new_lvl:,}!",
                 delete_after=10,
