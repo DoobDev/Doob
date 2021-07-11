@@ -28,11 +28,16 @@ from ..db import db  # pylint: disable=relative-beyond-top-level
 
 from dotenv import load_dotenv
 
+import json
+
+with open("config.json") as config_file:
+    config = json.load(config_file)
+
 # Loads the .env file from ./.env
 load_dotenv()
 
 # Put Owner's Discord IDs into the list below
-OWNER_IDS = [308000668181069824]
+OWNER_IDS = config["owner_ids"]
 # Loads the cogs from the path
 COGS = [path.split(os.sep)[-1][:-3] for path in glob("./lib/cogs/*.py")]
 IGNORE_EXCEPTIONS = (CommandNotFound, BadArgument)

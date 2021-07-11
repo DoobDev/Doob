@@ -15,7 +15,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-owner_id = 308000668181069824
+owner_id = config["owner_ids"][0]
 
 token = os.environ.get("github")
 

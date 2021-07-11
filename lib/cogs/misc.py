@@ -19,7 +19,7 @@ import random
 
 from ..db import db  # pylint: disable=relative-beyond-top-level
 
-owner_id = 308000668181069824
+owner_id = config["owner_ids"][0]
 
 import os
 from dotenv import load_dotenv

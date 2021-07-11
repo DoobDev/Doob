@@ -27,12 +27,13 @@ from ..db import db  # pylint: disable=relative-beyond-top-level
 
 import os
 
-owner_id = 308000668181069824
 
 import json
 
 with open("config.json") as config_file:
     config = json.load(config_file)
+
+owner_id = config["owner_ids"][0]
 
 
 class Meta(Cog):
