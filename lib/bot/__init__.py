@@ -83,6 +83,7 @@ class Bot(BotBase):
             chunk_guilds_at_startup=True,
             intents=intents,
             case_insensitive=True,
+            help_command=None,
         )
 
     def setup(self):
