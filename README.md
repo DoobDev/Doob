@@ -10,6 +10,8 @@
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
 <img alt="Discord" src="https://img.shields.io/discord/702352937980133386?color=blue&logo=Discord">
 <span class="badge-patreon"><a href="https://www.patreon.com/doobdev" title="Donate to this project using Patreon"><img src="https://img.shields.io/badge/patreon-donate-yellow.svg" alt="Patreon donate button" /></a></span>
+<a href="https://www.codacy.com/gh/DoobDev/Doob/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=DoobDev/Doob&amp;utm_campaign=Badge_Grade"><img src="https://app.codacy.com/project/badge/Grade/e9347e40184841d080f379dd9352e0c2"/></a>
+<a href="https://www.codefactor.io/repository/github/doobdev/doob"><img src="https://www.codefactor.io/repository/github/doobdev/doob/badge" alt="CodeFactor" /></a>
 </p>
 
 <p align="center">
