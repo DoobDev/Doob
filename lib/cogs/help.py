@@ -1,39 +1,18 @@
-import asyncio
-import discord
-from discord.ext.commands import Cog, command, cooldown, BucketType
-
 from discord import Embed
 import asyncio
-import discord
 from discord.ext.commands import Cog, command
-
-from discord import Embed
-from discord.ext.buttons import Paginator
+import re
+import math
 from discord_components import Button, ButtonStyle, InteractionType
 
 import re
 import math
-from discord.ext.buttons import Paginator
-from discord_components import DiscordComponents, Button, ButtonStyle, InteractionType
-
-import re
-import math
-import random
-
-from ..db import db  # pylint: disable=relative-beyond-top-level
 
 import json
 
 with open("config.json") as config_file:
     config = json.load(config_file)
 
-
-class Pag(Paginator):
-    async def teardown(self):
-        try:
-            await self.page.clear_reactions()
-        except discord.HTTPexception:
-            pass
 
 
 class Help(Cog):
@@ -46,11 +25,11 @@ class Help(Cog):
         helpEmbed.set_thumbnail(url=ctx.guild.me.avatar_url)
 
         cogs = [c for c in self.bot.cogs.keys()]
-        # cogs.remove('servercount')
+        cogs.remove('servercount')
         cogs.remove("Welcome")
         cogs.remove("Reactions")
         cogs.remove("Log")
-        # cogs.remove('stat')
+        cogs.remove('stat')
 
         totalPages = math.ceil(len(cogs) / 3)
 
