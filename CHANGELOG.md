@@ -1,3 +1,13 @@
+## v2.9.1
+* Added volume commands
+    * `d!volume up`
+    * `d!volume down`
+    * `d!volume {percent}`
+* Added d!lryics
+* Added EQ commands
+    * `d!eq`
+    * `d!adveq`
+
 ## v2.9.0
 * Added buttons to `d!help`
 
