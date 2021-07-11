@@ -80,7 +80,7 @@ class Help(Cog):
                     embed=helpEmbed,
                     components=[
                         Button(style=ButtonStyle.blue, label="-->", id="fwd"),
-                        #Button(style=ButtonStyle.blue, label="<--", id="back"),
+                        # Button(style=ButtonStyle.blue, label="<--", id="back"),
                     ],
                 )
                 try:
@@ -112,7 +112,8 @@ class Help(Cog):
                     )
                     continue
                 except asyncio.TimeoutError:
-                    await mainmsg.edit(embed=helpEmbed,
+                    await mainmsg.edit(
+                        embed=helpEmbed,
                         components=[
                             Button(
                                 style=ButtonStyle.blue,
@@ -126,7 +127,7 @@ class Help(Cog):
                             #     id="back",
                             #     disabled=True,
                             # ),
-                        ]
+                        ],
                     )
                     break
 
