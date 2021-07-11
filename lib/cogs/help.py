@@ -34,40 +34,39 @@ class Help(Cog):
         totalPages = math.ceil(len(cogs) / 4)
 
         if re.search(f"\d", str(cog)):
-            while True:
-                cog = int(cog)
-                if cog > totalPages or cog < 1:
-                    await ctx.send(
-                        f"Invalid argument: `{cog}`\nPlease pick from {totalPages} pages.\nAlternatively, simply run `help` to see page one or type `help [category]` to see that categories help command!"
-                    )
-                    return
-
-                helpEmbed.set_footer(
-                    text=f"<> - Required, [] - Optional | Page {cog} of {totalPages} | use `d!help (page number)` to flip pages."
-                )
-
-                neededCogs = []
-                for i in range(4):
-                    x = i + (int(cog) - 1) * 4
-                    try:
-                        neededCogs.append(cogs[x])
-                    except IndexError:
-                        pass
-
-                for cog2 in neededCogs:
-                    commandList = "".join(
-                        f"`{command.name}` - {command.brief}\n"
-                        for command in self.bot.get_cog(cog2).walk_commands()
-                        if not command.hidden
-                    )
-
-                    commandList += "\n"
-
-                    helpEmbed.add_field(name=cog2, value=commandList, inline=False)
-
+            cog = int(cog)
+            if cog > totalPages or cog < 1:
                 await ctx.send(
-                    embed=helpEmbed
+                    f"Invalid argument: `{cog}`\nPlease pick from {totalPages} pages.\nAlternatively, simply run `help` to see page one or type `help [category]` to see that categories help command!"
                 )
+                return
+
+            helpEmbed.set_footer(
+                text=f"<> - Required, [] - Optional | Page {cog} of {totalPages} | use `d!help (page number)` to flip pages."
+            )
+
+            neededCogs = []
+            for i in range(4):
+                x = i + (int(cog) - 1) * 4
+                try:
+                    neededCogs.append(cogs[x])
+                except IndexError:
+                    pass
+
+            for cog2 in neededCogs:
+                commandList = "".join(
+                    f"`{command.name}` - {command.brief}\n"
+                    for command in self.bot.get_cog(cog2).walk_commands()
+                    if not command.hidden
+                )
+
+                commandList += "\n"
+
+                helpEmbed.add_field(name=cog2, value=commandList, inline=False)
+
+            await ctx.send(
+                embed=helpEmbed
+            )
 
         elif re.search(r"[a-zA-Z]", str(cog)):
             lowerCogs = [c.lower() for c in cogs]
