@@ -1,3 +1,7 @@
+## v2.9.3
+* New Help Menu! [(#140)](https://github.com/DoobDev/issues/140)
+    - Fun Fact! The issue referencing this was from Feburary!
+
 ## v2.9.2
 * Added `d!volume mute`
 
