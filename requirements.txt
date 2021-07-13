@@ -6,7 +6,7 @@ discord.py==1.7.3
 psutil==5.8.0
 python-dotenv==0.18.0
 statcord.py==3.1.0
-wavelink==0.9.9
+wavelink==0.9.10
 owoify==0.3.1
 PyGithub==1.55
 discord-components==1.1.4
