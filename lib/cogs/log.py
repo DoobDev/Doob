@@ -250,12 +250,6 @@ class Log(Cog):
             embed.add_field(name="Before Category:", value=before.category)
             embed.add_field(name="After Category:", value=after.category)
 
-        else:
-            embed.add_field(
-                name="Something changed, Doob couldn't catch it.",
-                value="Check the Audit Log!",
-            )
-
         embed.set_thumbnail(url=before.guild.icon_url)
 
         await logchannel.send(embed=embed)
@@ -285,7 +279,7 @@ class Log(Cog):
 
         embed = Embed(
             title="Role Deleted.",
-            description=f"Name: {role.mention}\nID: {role.id}\nMentionable: {role.mentionable}\nPosition: {role.position}",
+            description=f"Name: {role.name}\nID: {role.id}\nMentionable: {role.mentionable}\nPosition: {role.position}",
             colour=role.colour,
             timestamp=datetime.utcnow(),
         )
