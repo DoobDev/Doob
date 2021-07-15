@@ -242,17 +242,17 @@ class Log(Cog):
             title="Channel Updated", colour=0xFFC31F, timestamp=datetime.utcnow()
         )
 
+        embed.set_thumbnail(url=before.guild.icon_url)
+
         if before.name != after.name:
             embed.add_field(name="Before Name:", value=before.name)
             embed.add_field(name="After Name:", value=after.name)
+            await logchannel.send(embed=embed)
 
         if before.category != after.category:
             embed.add_field(name="Before Category:", value=before.category)
             embed.add_field(name="After Category:", value=after.category)
-
-        embed.set_thumbnail(url=before.guild.icon_url)
-
-        await logchannel.send(embed=embed)
+            await logchannel.send(embed=embed)
 
     @Cog.listener()
     async def on_guild_role_create(self, role):
