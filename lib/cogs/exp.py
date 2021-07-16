@@ -10,12 +10,15 @@ from lib.bot import bot  # pylint: disable=no-name-in-module, import-error
 from ..db import db  # pylint: disable=relative-beyond-top-level
 import json
 
+
 def read_json(filename):
-            with open(f"./lib/cogs/{filename}.json", "r") as file:
-                data = json.load(file)
-            return data
+    with open(f"./lib/cogs/{filename}.json", "r") as file:
+        data = json.load(file)
+    return data
+
 
 BLACKLISTED_USERS = read_json("blacklisted_users")
+
 
 class Exp(Cog):
     def __init__(self, bot):
