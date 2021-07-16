@@ -26,5 +26,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           auto_fix: true
           git_name: 'Doob Linting BOT'
-          git_email: 'matt@mmatt.conetm'
+          git_email: 'matt@mmatt.net'
           commit_message: 'A ${linter} issue was resolved automatically'
