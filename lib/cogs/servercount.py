@@ -20,7 +20,7 @@ class servercount(commands.Cog):
         self.dblpy = dbl.DBLClient(
             self.bot, os.environ.get("topgg"), autopost=True
         )  # Autopost will post your guild count every 30 minutes
-        print("\nTop.gg updated")
+        print("\nTop.gg updated\n")
 
     @commands.Cog.listener()
     async def on_ready(self):
