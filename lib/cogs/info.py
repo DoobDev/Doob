@@ -33,6 +33,7 @@ def read_json(filename):
 
 BLACKLISTED_USERS = read_json("blacklisted_users")
 
+
 class Info(Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -94,9 +95,17 @@ class Info(Cog):
             embed.add_field(name=name, value=value, inline=inline)
 
         if blacklisted is True:
-            embed.add_field(name="Blacklisted?", value="✅ This user has been blacklisted from using Doob.", inline=False)
+            embed.add_field(
+                name="Blacklisted?",
+                value="✅ This user has been blacklisted from using Doob.",
+                inline=False,
+            )
         else:
-            embed.add_field(name="Blacklisted?", value="❌ This user is not blacklisted from using Doob.", inline=False)
+            embed.add_field(
+                name="Blacklisted?",
+                value="❌ This user is not blacklisted from using Doob.",
+                inline=False,
+            )
 
         embed.set_thumbnail(url=target.avatar_url)
         await ctx.send(embed=embed)
