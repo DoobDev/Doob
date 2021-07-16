@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest an idea for this project | Have an idea? But not an EXACT feature request, check out https://github.com/DoobDev/Doob/discussions!
+about: Suggest an idea for this project
 title: ''
 labels: feature_request
 assignees: mmattbtw
