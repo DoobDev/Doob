@@ -127,7 +127,7 @@ class Info(Cog):
             blacklisted = target.id in BLACKLISTED_USERS["blacklist"]
             await self.user_info(ctx, target, patreon_status, blacklisted)
 
-        elif target.id in BLACKLISTED_USERS["blacklist"]:
+        elif target.id in BLACKLISTED_USERS["blacklist"] and target not in homeGuild.members and patreonRole in member.roles:
             blacklisted = True
             await self.user_info(ctx, target, False, blacklisted)
 
@@ -155,15 +155,20 @@ class Info(Cog):
         member = []
 
         for pledger in homeGuild.members:
-            if pledger == ctx.author:
+            if pledger == target:
                 member = pledger
 
-        if ctx.author in homeGuild.members and patreonRole in member.roles:
+        if target in homeGuild.members and patreonRole in member.roles:
             patreon_status = True
-            await self.user_info(ctx, target, patreon_status)
+            blacklisted = target.id in BLACKLISTED_USERS["blacklist"]
+            await self.user_info(ctx, target, patreon_status, blacklisted)
+
+        elif target.id in BLACKLISTED_USERS["blacklist"]:
+            blacklisted = True
+            await self.user_info(ctx, target, False, blacklisted)
 
         else:
-            await self.user_info(ctx, target, patreon_status=False)
+            await self.user_info(ctx, target, patreon_status=False, blacklisted=False)
 
     async def server_info(self, ctx, banned_members):
         embed = Embed(
