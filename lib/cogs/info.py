@@ -19,6 +19,7 @@ with open("config.json") as config_file:
 
 absolute_path = os.path.dirname(os.path.abspath(__file__))
 
+
 def get_path(filename):
     return absolute_path + f"/{filename}.json"
 
@@ -135,7 +136,9 @@ class Info(Cog):
             await self.user_info(ctx, target, patreon_status, blacklisted)
 
         else:
-            await self.user_info(ctx, target, patreon_status=False, blacklisted=blacklisted)
+            await self.user_info(
+                ctx, target, patreon_status=False, blacklisted=blacklisted
+            )
 
     @cog_ext.cog_slash(
         name="userinfo",
@@ -167,7 +170,9 @@ class Info(Cog):
             await self.user_info(ctx, target, patreon_status, blacklisted)
 
         else:
-            await self.user_info(ctx, target, patreon_status=False, blacklisted=blacklisted)
+            await self.user_info(
+                ctx, target, patreon_status=False, blacklisted=blacklisted
+            )
 
     async def server_info(self, ctx, banned_members):
         embed = Embed(
