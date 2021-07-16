@@ -18,8 +18,6 @@ with open("config.json") as config_file:
     config = json.load(config_file)
 
 absolute_path = os.path.dirname(os.path.abspath(__file__))
-# Or: file_path = os.path.join(absolute_path, 'folder', 'my_file.py')
-
 
 def get_path(filename):
     return absolute_path + f"/{filename}.json"
@@ -131,20 +129,13 @@ class Info(Cog):
             if pledger == target:
                 member = pledger
 
+        blacklisted = target.id in BLACKLISTED_USERS["blacklist"]
         if target in homeGuild.members and patreonRole in member.roles:
             patreon_status = True
-            blacklisted = target.id in BLACKLISTED_USERS["blacklist"]
             await self.user_info(ctx, target, patreon_status, blacklisted)
 
-        elif (
-            target.id in BLACKLISTED_USERS["blacklist"]
-            and target not in homeGuild.members
-        ):
-            blacklisted = True
-            await self.user_info(ctx, target, False, blacklisted)
-
         else:
-            await self.user_info(ctx, target, patreon_status=False, blacklisted=False)
+            await self.user_info(ctx, target, patreon_status=False, blacklisted=blacklisted)
 
     @cog_ext.cog_slash(
         name="userinfo",
@@ -170,20 +161,13 @@ class Info(Cog):
             if pledger == target:
                 member = pledger
 
+        blacklisted = target.id in BLACKLISTED_USERS["blacklist"]
         if target in homeGuild.members and patreonRole in member.roles:
             patreon_status = True
-            blacklisted = target.id in BLACKLISTED_USERS["blacklist"]
             await self.user_info(ctx, target, patreon_status, blacklisted)
 
-        elif (
-            target.id in BLACKLISTED_USERS["blacklist"]
-            and target not in homeGuild.members
-        ):
-            blacklisted = True
-            await self.user_info(ctx, target, False, blacklisted)
-
         else:
-            await self.user_info(ctx, target, patreon_status=False, blacklisted=False)
+            await self.user_info(ctx, target, patreon_status=False, blacklisted=blacklisted)
 
     async def server_info(self, ctx, banned_members):
         embed = Embed(
