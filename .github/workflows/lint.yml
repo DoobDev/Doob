@@ -27,4 +27,4 @@ jobs:
           auto_fix: true
           git_name: 'Doob Linting BOT'
           git_email: 'matt@mmatt.net'
-          commit_message: 'A ${linter} issue was resolved automatically [LINT BOT]'
+          commit_message: '✨ [auto lint]'
