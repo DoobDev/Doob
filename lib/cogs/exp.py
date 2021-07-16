@@ -12,7 +12,7 @@ import json
 
 
 def read_json(filename):
-    with open(f"./lib/cogs/{filename}.json", "r") as file:
+    with open(f"lib/cogs/{filename}.json", "r") as file:
         data = json.load(file)
     return data
 
