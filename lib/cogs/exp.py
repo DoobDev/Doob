@@ -12,7 +12,7 @@ import json
 import os
 from glob import glob
 
-with open("~/doob/lib/cogs/blacklisted_users.json") as blacklisted_users_file:
+with open("blacklisted_users.json") as blacklisted_users_file:
     BLACKLISTED_USERS = json.load(blacklisted_users_file)
 
 
