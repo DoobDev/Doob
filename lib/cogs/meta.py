@@ -381,21 +381,29 @@ class Meta(Cog):
 
     @command(name="blacklist", brief="Adds a user to the Doob blacklist.")
     @commands.is_owner()
-    async def blacklist_user(self, ctx, users: Greedy[Member], *, reason: Optional[str]):
+    async def blacklist_user(
+        self, ctx, users: Greedy[Member], *, reason: Optional[str]
+    ):
         data = self.read_json("blacklisted_users")
 
         for user in users:
             if user.id not in data["blacklist"]:
-                db.execute("INSERT OR IGNORE INTO blacklist (UserID, Reason) VALUES (?, ?)", user.id, reason)
+                db.execute(
+                    "INSERT OR IGNORE INTO blacklist (UserID, Reason) VALUES (?, ?)",
+                    user.id,
+                    reason,
+                )
                 db.commit()
 
                 data["blacklist"].append(user.id)
                 self.write_json(data, "blacklisted_users")
                 await ctx.send(f"{user.name} has been blacklisted for {reason}.")
-                await user.send(f"❌You have been blacklisted from using Doob for {reason}")
+                await user.send(
+                    f"❌You have been blacklisted from using Doob for {reason}"
+                )
             else:
                 await ctx.send(f"{user.name} is already blacklisted.")
-            
+
     @command(name="unblacklist", brief="Removes a user from the Doob blacklist.")
     @commands.is_owner()
     async def unblacklist_user(self, ctx, users: Greedy[Member]):
@@ -421,7 +429,7 @@ class Meta(Cog):
 
     def write_json(self, data, filename):
         with open(f"{cwd}/{filename}.json", "w") as file:
-            json.dump(data, file, indent=4)        
+            json.dump(data, file, indent=4)
 
     @Cog.listener()
     async def on_ready(self):

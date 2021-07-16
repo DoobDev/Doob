@@ -239,12 +239,12 @@ class Bot(BotBase):
             with open(f"./lib/cogs/{filename}.json", "r") as file:
                 data = json.load(file)
             return data
-    
+
         blacklisted_users = read_json("blacklisted_users")
 
         if (
             not message.author.bot
-            and message.author.id not in blacklisted_users['blacklist']
+            and message.author.id not in blacklisted_users["blacklist"]
         ):
             await self.process_commands(message)
             # If someone types a message, then they get inserted into the guildexp and luckydogs DB
@@ -270,13 +270,13 @@ class Bot(BotBase):
             db.commit()
 
         if message.author.id in blacklisted_users[
-            'blacklist'
-        ] and message.content.startswith(db.field(
-            "SELECT Prefix FROM guilds WHERE GuildID = ?", message.guild.id
-        )):
-                await message.channel.send(
-                    "You are blacklisted from using Doob commands.", delete_after=10
-                )
+            "blacklist"
+        ] and message.content.startswith(
+            db.field("SELECT Prefix FROM guilds WHERE GuildID = ?", message.guild.id)
+        ):
+            await message.channel.send(
+                "You are blacklisted from using Doob commands.", delete_after=10
+            )
 
 
 bot = Bot()
