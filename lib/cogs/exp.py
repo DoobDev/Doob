@@ -16,7 +16,7 @@ absolute_path = os.path.dirname(os.path.abspath(__file__))
 # Or: file_path = os.path.join(absolute_path, 'folder', 'my_file.py')
 
 def get_path(filename):
-    return absolute_path + f'lib/cogs/{filename}.json'
+    return absolute_path + f'{filename}.json'
 
 
 def read_json(filename):
