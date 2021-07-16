@@ -51,6 +51,8 @@ Submit an [Issue](https://github.com/doobdev/doob/issues) or a [Pull request](ht
 * Doob Avatar: [@KittyKay000](https://twitter.com/KittyKay000)
 * Doob Name: Me and my friend William in Biology.
 * Doob extensive help: [@X Daniel](https://github.com/x-daniel-17)
-* Moral Support: Mason      
+* Moral Support: Mason
+
+### Contributors
 
 ###### built with ♥, youtube tutorials, yelling at daniel in discord, stack overflow and twitch chat
