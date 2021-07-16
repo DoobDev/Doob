@@ -14,7 +14,6 @@ with open("config.json") as config_file:
     config = json.load(config_file)
 
 
-
 class Help(Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -25,11 +24,11 @@ class Help(Cog):
         helpEmbed.set_thumbnail(url=ctx.guild.me.avatar_url)
 
         cogs = [c for c in self.bot.cogs.keys()]
-        cogs.remove('servercount')
+        cogs.remove("servercount")
         cogs.remove("Welcome")
         cogs.remove("Reactions")
         cogs.remove("Log")
-        cogs.remove('stat')
+        cogs.remove("stat")
 
         totalPages = math.ceil(len(cogs) / 4)
 
@@ -64,9 +63,7 @@ class Help(Cog):
 
                 helpEmbed.add_field(name=cog2, value=commandList, inline=False)
 
-            await ctx.send(
-                embed=helpEmbed
-            )
+            await ctx.send(embed=helpEmbed)
 
         elif re.search(r"[a-zA-Z]", str(cog)):
             lowerCogs = [c.lower() for c in cogs]

@@ -255,7 +255,10 @@ class Bot(BotBase):
 
             db.commit()
 
-print("I'm printing something really long so that the black code formatter will ermmm uhhhhhhhhhhh format or something like thaaaaaat WEEEWOOOOOOOOOOOOOo is this long enough????? idk probably right NOW it will be log enough :)")
+
+print(
+    "I'm printing something really long so that the black code formatter will ermmm uhhhhhhhhhhh format or something like thaaaaaat WEEEWOOOOOOOOOOOOOo is this long enough????? idk probably right NOW it will be log enough :)"
+)
 
 bot = Bot()
 slash = SlashCommand(bot, sync_commands=True, sync_on_cog_reload=True)
