@@ -1,4 +1,5 @@
 name: Lint
+auto_fix: true
 
 on:
   # Trigger the workflow on push or pull request,
