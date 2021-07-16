@@ -136,7 +136,11 @@ class Info(Cog):
             blacklisted = target.id in BLACKLISTED_USERS["blacklist"]
             await self.user_info(ctx, target, patreon_status, blacklisted)
 
-        elif target.id in BLACKLISTED_USERS["blacklist"] and target not in homeGuild.members and patreonRole in member.roles:
+        elif (
+            target.id in BLACKLISTED_USERS["blacklist"]
+            and target not in homeGuild.members
+            and patreonRole in member.roles
+        ):
             blacklisted = True
             await self.user_info(ctx, target, False, blacklisted)
 
