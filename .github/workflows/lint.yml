@@ -1,12 +1,6 @@
 name: Lint
 
-on:
-  # Trigger the workflow on push or pull request,
-  # but only for the main branch
-  push:
-    branches:
-      - master
-  pull_request:
+on: [push, pull_request]
 
 jobs:
   run-linters:
@@ -29,3 +23,8 @@ jobs:
         uses: wearerequired/lint-action@v1
         with:
           black: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          auto_fix: true
+          git_name: 'Doob Linting BOT'
+          git_email: 'matt@mmatt.conetm'
+          commit_message: 'A ${linter} issue was resolved automatically'
