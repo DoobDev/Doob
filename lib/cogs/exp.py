@@ -9,8 +9,10 @@ from discord.ext.menus import MenuPages, ListPageSource
 from lib.bot import bot  # pylint: disable=no-name-in-module, import-error
 from ..db import db  # pylint: disable=relative-beyond-top-level
 import json
+import os
+from glob import glob
 
-with open("./lib/cogs/blacklisted_users.json") as blacklisted_users_file:
+with open(path.split(os.sep)[-1][:-3] for path in glob("./lib/cogs/blacklisted_users.json")) as blacklisted_users_file:
     BLACKLISTED_USERS = json.load(blacklisted_users_file)
 
 class Exp(Cog):
