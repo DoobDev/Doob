@@ -13,6 +13,7 @@ import json
 with open("./lib/cogs/blacklisted_users.json") as blacklisted_users_file:
     BLACKLISTED_USERS = json.load(blacklisted_users_file)
 
+
 class Exp(Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -20,7 +21,8 @@ class Exp(Cog):
     async def process_xp(self, message):
         if message.author.id not in BLACKLISTED_USERS["blacklist"]:
             xp, lvl, xplock = db.record(
-                "SELECT XP, Level, XPLock FROM users WHERE UserID = ?", message.author.id
+                "SELECT XP, Level, XPLock FROM users WHERE UserID = ?",
+                message.author.id,
             )
             xp_g, lvl_g, xplock_g = db.record(
                 "SELECT XP, Level, XPLock FROM guildexp WHERE UserID = ? AND GuildID = ?",
