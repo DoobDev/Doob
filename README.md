@@ -55,4 +55,74 @@ Submit an [Issue](https://github.com/doobdev/doob/issues) or a [Pull request](ht
 
 ### Contributors
 
+<table>
+<tr>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/mmattbtw>
+            <img src=https://avatars.githubusercontent.com/u/30363562?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=matt/>
+            <br />
+            <sub style="font-size:14px"><b>matt</b></sub>
+        </a>
+    </td>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/mmattisinschool>
+            <img src=https://avatars.githubusercontent.com/u/70411798?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=mmattisinschool/>
+            <br />
+            <sub style="font-size:14px"><b>mmattisinschool</b></sub>
+        </a>
+    </td>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/x-daniel-17>
+            <img src=https://avatars.githubusercontent.com/u/29514093?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=Daniel/>
+            <br />
+            <sub style="font-size:14px"><b>Daniel</b></sub>
+        </a>
+    </td>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/AndyThePie>
+            <img src=https://avatars.githubusercontent.com/u/25379179?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=Andy Chan/>
+            <br />
+            <sub style="font-size:14px"><b>Andy Chan</b></sub>
+        </a>
+    </td>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/renovate-bot>
+            <img src=https://avatars.githubusercontent.com/u/25180681?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=WhiteSource Renovate/>
+            <br />
+            <sub style="font-size:14px"><b>WhiteSource Renovate</b></sub>
+        </a>
+    </td>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/VoidyCD>
+            <img src=https://avatars.githubusercontent.com/u/77110462?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=Voidy Devleoper/>
+            <br />
+            <sub style="font-size:14px"><b>Voidy Devleoper</b></sub>
+        </a>
+    </td>
+</tr>
+<tr>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/cybrpop>
+            <img src=https://avatars.githubusercontent.com/u/80264293?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=CyberPop/>
+            <br />
+            <sub style="font-size:14px"><b>CyberPop</b></sub>
+        </a>
+    </td>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/codacy-badger>
+            <img src=https://avatars.githubusercontent.com/u/23704769?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=Codacy Badger/>
+            <br />
+            <sub style="font-size:14px"><b>Codacy Badger</b></sub>
+        </a>
+    </td>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/ALazyMeme>
+            <img src=https://avatars.githubusercontent.com/u/12804673?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=ALazyMeme/>
+            <br />
+            <sub style="font-size:14px"><b>ALazyMeme</b></sub>
+        </a>
+    </td>
+</tr>
+</table>
+
 ###### built with ♥, youtube tutorials, yelling at daniel in discord, stack overflow and twitch chat
