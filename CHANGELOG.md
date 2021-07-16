@@ -1,3 +1,6 @@
+## v2.9.5
+* Added a blacklisted field to `d!userinfo`
+
 ## v2.9.4
 * Added blacklisting
 

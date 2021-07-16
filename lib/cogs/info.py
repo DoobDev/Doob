@@ -12,16 +12,32 @@ from discord_slash import cog_ext
 from ..db import db  # pylint: disable=relative-beyond-top-level
 
 import json
+import os
 
 with open("config.json") as config_file:
     config = json.load(config_file)
 
+absolute_path = os.path.dirname(os.path.abspath(__file__))
+# Or: file_path = os.path.join(absolute_path, 'folder', 'my_file.py')
+
+
+def get_path(filename):
+    return absolute_path + f"/{filename}.json"
+
+
+def read_json(filename):
+    with open(get_path(filename), "r") as file:
+        data = json.load(file)
+    return data
+
+
+BLACKLISTED_USERS = read_json("blacklisted_users")
 
 class Info(Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    async def user_info(self, ctx, target, patreon_status):
+    async def user_info(self, ctx, target, patreon_status, blacklisted):
         ids = db.column("SELECT UserID FROM users ORDER BY XP DESC")
         xp, lvl = db.record(
             "SELECT XP, Level FROM users WHERE UserID = ?", target.id
@@ -77,6 +93,11 @@ class Info(Cog):
         for name, value, inline in fields:
             embed.add_field(name=name, value=value, inline=inline)
 
+        if blacklisted is True:
+            embed.add_field(name="Blacklisted?", value="✅ This user has been blacklisted from using Doob.", inline=False)
+        else:
+            embed.add_field(name="Blacklisted?", value="❌ This user is not blacklisted from using Doob.", inline=False)
+
         embed.set_thumbnail(url=target.avatar_url)
         await ctx.send(embed=embed)
 
@@ -98,15 +119,20 @@ class Info(Cog):
         member = []
 
         for pledger in homeGuild.members:
-            if pledger == ctx.author:
+            if pledger == target:
                 member = pledger
 
-        if ctx.author in homeGuild.members and patreonRole in member.roles:
+        if target in homeGuild.members and patreonRole in member.roles:
             patreon_status = True
-            await self.user_info(ctx, target, patreon_status)
+            blacklisted = target.id in BLACKLISTED_USERS["blacklist"]
+            await self.user_info(ctx, target, patreon_status, blacklisted)
+
+        elif target.id in BLACKLISTED_USERS["blacklist"]:
+            blacklisted = True
+            await self.user_info(ctx, target, False, blacklisted)
 
         else:
-            await self.user_info(ctx, target, patreon_status=False)
+            await self.user_info(ctx, target, patreon_status=False, blacklisted=False)
 
     @cog_ext.cog_slash(
         name="userinfo",
