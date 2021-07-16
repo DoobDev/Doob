@@ -19,6 +19,7 @@ from discord.ext.commands import (
     CommandOnCooldown,
     MissingPermissions,
     EmojiNotFound,
+    NotOwner,
 )
 
 import os
@@ -165,6 +166,12 @@ class Bot(BotBase):
         elif isinstance(exc, EmojiNotFound):
             await ctx.reply(
                 "This emote could not be found. This is likely because Doob isn't in the same server as this emote.",
+                delete_after=10,
+            )
+        
+        elif isinstance(exc, NotOwner):
+                        await ctx.reply(
+                "This command is only available to the bot owner.",
                 delete_after=10,
             )
 
