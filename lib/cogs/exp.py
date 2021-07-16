@@ -17,7 +17,7 @@ absolute_path = os.path.dirname(os.path.abspath(__file__))
 
 
 def get_path(filename):
-    return absolute_path + f'{filename}.json'
+    return absolute_path + f'/{filename}.json'
 
 
 def read_json(filename):
