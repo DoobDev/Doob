@@ -70,4 +70,10 @@ CREATE TABLE IF NOT EXISTS globalwarns(
     UserID integer,
     Warns integer DEFAULT 0,
     PRIMARY KEY("UserID")
+);
+
+CREATE TABLE IF NOT EXISTS blacklist(
+    UserID integer,
+    Reason text DEFAULT "Unknown",
+    PRIMARY KEY("UserID")
 )

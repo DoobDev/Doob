@@ -13,3 +13,4 @@ lib/bot/trackergg api.txt
 pyproject.toml
 poetry.lock
 .DS_store
+blacklisted_users.json

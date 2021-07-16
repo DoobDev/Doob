@@ -1,3 +1,6 @@
+## v2.9.4
+* Added blacklisting
+
 ## v2.9.3
 * New Help Menu! [(#140)](https://github.com/DoobDev/issues/140)
     - Fun Fact! The issue referencing this was from Feburary!

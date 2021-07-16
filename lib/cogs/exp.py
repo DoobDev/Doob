@@ -8,73 +8,79 @@ from discord.ext.commands import command, has_permissions
 from discord.ext.menus import MenuPages, ListPageSource
 from lib.bot import bot  # pylint: disable=no-name-in-module, import-error
 from ..db import db  # pylint: disable=relative-beyond-top-level
+import json
 
+with open("./lib/cogs/blacklisted_users.json") as blacklisted_users_file:
+    BLACKLISTED_USERS = json.load(blacklisted_users_file)
 
 class Exp(Cog):
     def __init__(self, bot):
         self.bot = bot
 
     async def process_xp(self, message):
-        xp, lvl, xplock = db.record(
-            "SELECT XP, Level, XPLock FROM users WHERE UserID = ?", message.author.id
-        )
-        xp_g, lvl_g, xplock_g = db.record(
-            "SELECT XP, Level, XPLock FROM guildexp WHERE UserID = ? AND GuildID = ?",
-            message.author.id,
-            message.guild.id,
-        )
+        if message.author.id not in BLACKLISTED_USERS["blacklist"]:
+            xp, lvl, xplock = db.record(
+                "SELECT XP, Level, XPLock FROM users WHERE UserID = ?", message.author.id
+            )
+            xp_g, lvl_g, xplock_g = db.record(
+                "SELECT XP, Level, XPLock FROM guildexp WHERE UserID = ? AND GuildID = ?",
+                message.author.id,
+                message.guild.id,
+            )
 
-        if datetime.utcnow() > datetime.fromisoformat(xplock):
-            await self.add_xp(message, xp, lvl)
+            if datetime.utcnow() > datetime.fromisoformat(xplock):
+                await self.add_xp(message, xp, lvl)
 
-        if datetime.utcnow() > datetime.fromisoformat(xplock_g):
-            await self.add_gxp(message, xp_g, lvl_g)
+            if datetime.utcnow() > datetime.fromisoformat(xplock_g):
+                await self.add_gxp(message, xp_g, lvl_g)
 
     async def add_xp(self, message, xp, lvl):
-        xp_to_add = randint(10, 20)
-        level_up_messages = db.record(
-            "SELECT LevelMessages FROM guilds WHERE GuildID = ?", message.guild.id
-        )[0]
+        if message.author.id not in BLACKLISTED_USERS["blacklist"]:
+            xp_to_add = randint(10, 20)
+            level_up_messages = db.record(
+                "SELECT LevelMessages FROM guilds WHERE GuildID = ?", message.guild.id
+            )[0]
 
-        new_lvl = int(((xp + xp_to_add) // 42) ** 0.55)
+            new_lvl = int(((xp + xp_to_add) // 42) ** 0.55)
 
-        db.execute(
-            "UPDATE users SET XP = XP + ?, Level = ?, XPLock = ? WHERE UserID = ?",
-            xp_to_add,
-            new_lvl,
-            (datetime.utcnow() + timedelta(seconds=50)).isoformat(),
-            message.author.id,
-        )
-
-        if new_lvl > lvl and level_up_messages in ["yes", "Yes"]:
-            await message.channel.send(
-                f"{message.author.mention} leveled up to {new_lvl:,}!",
-                delete_after=10,
+            db.execute(
+                "UPDATE users SET XP = XP + ?, Level = ?, XPLock = ? WHERE UserID = ?",
+                xp_to_add,
+                new_lvl,
+                (datetime.utcnow() + timedelta(seconds=50)).isoformat(),
+                message.author.id,
             )
+
+            if new_lvl > lvl and level_up_messages in ["yes", "Yes"]:
+                await message.channel.send(
+                    f"{message.author.mention} leveled up to {new_lvl:,}!",
+                    delete_after=10,
+                )
 
     async def add_gxp(self, message, xp, lvl):
-        xp_to_add = randint(10, 20)
-        level_up_messages = db.record(
-            "SELECT LevelMessages FROM guilds WHERE GuildID = ?", message.guild.id
-        )[0]
+        if message.author.id not in BLACKLISTED_USERS["blacklist"]:
+            xp_to_add = randint(10, 20)
+            level_up_messages = db.record(
+                "SELECT LevelMessages FROM guilds WHERE GuildID = ?", message.guild.id
+            )[0]
 
-        new_lvl = int(((xp + xp_to_add) // 42) ** 0.55)
+            new_lvl = int(((xp + xp_to_add) // 42) ** 0.55)
 
-        db.execute(
-            f"UPDATE guildexp SET XP = XP + ?, Level = ?, XPLock = ? WHERE UserID = ? AND GuildID = ?",
-            xp_to_add,
-            new_lvl,
-            (datetime.utcnow() + timedelta(seconds=50)).isoformat(),
-            message.author.id,
-            message.guild.id,
-        )
-        db.commit()
-
-        if new_lvl > lvl and level_up_messages in ["yes", "Yes"]:
-            await message.channel.send(
-                f"{message.author.mention} leveled up to server level {new_lvl:,}!",
-                delete_after=10,
+            db.execute(
+                f"UPDATE guildexp SET XP = XP + ?, Level = ?, XPLock = ? WHERE UserID = ? AND GuildID = ?",
+                xp_to_add,
+                new_lvl,
+                (datetime.utcnow() + timedelta(seconds=50)).isoformat(),
+                message.author.id,
+                message.guild.id,
             )
+            db.commit()
+
+            if new_lvl > lvl and level_up_messages in ["yes", "Yes"]:
+                await message.channel.send(
+                    f"{message.author.mention} leveled up to server level {new_lvl:,}!",
+                    delete_after=10,
+                )
 
     @command(name="level", aliases=["rank", "lvl"], brief="Shows your level, and rank.")
     async def display_level(self, ctx, target: Optional[Member]):
