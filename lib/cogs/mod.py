@@ -375,14 +375,20 @@ class Mod(Cog):
 
         await ctx.send(f"Your Text Channel has been created.\n<#{channel.id}>")
 
-    @command(name="deletetextchannel", aliases=["dtc", "deletetc"], brief="Delete a text channel.")
+    @command(
+        name="deletetextchannel",
+        aliases=["dtc", "deletetc"],
+        brief="Delete a text channel.",
+    )
     @has_permissions(manage_channels=True)
     async def delete_text_channel_command(self, ctx, channel: TextChannel):
         channel = self.bot.get_channel(channel.id)
 
         await channel.delete()
 
-        await ctx.send(f"Your Text Channel ({channel.name}: `{channel.id}`) has been deleted.")
+        await ctx.send(
+            f"Your Text Channel ({channel.name}: `{channel.id}`) has been deleted."
+        )
 
     @command(
         name="createvoicechannel",
@@ -400,14 +406,20 @@ class Mod(Cog):
 
         await ctx.send(f"Your Voice Channel has been created.\n{invite}")
 
-    @command(name="deletevoicechannel", aliases=["dvc", "deletevoice", "deletevc"], brief="Delete a voice channel.")
+    @command(
+        name="deletevoicechannel",
+        aliases=["dvc", "deletevoice", "deletevc"],
+        brief="Delete a voice channel.",
+    )
     @has_permissions(manage_channels=True)
     async def delete_voice_channel_command(self, ctx, channel: VoiceChannel):
         channel = self.bot.get_channel(channel.id)
 
         await channel.delete()
 
-        await ctx.send(f"The voice channel ({channel.name}: `{channel.id}`) has been deleted.")
+        await ctx.send(
+            f"The voice channel ({channel.name}: `{channel.id}`) has been deleted."
+        )
 
     @command(name="warn", aliases=["w"], brief="Warn a user.")
     @has_permissions(manage_guild=True)
