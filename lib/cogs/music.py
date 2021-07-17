@@ -615,7 +615,7 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
     async def lyrics_command(self, ctx, name: typing.Optional[str]):
         """Searches for a song's lyrics."""
         player = self.get_player(ctx)
-        
+        name = name or player.queue.current_track.title
 
         async with ctx.typing():
             async with aiohttp.request("GET", LYRICS_URL + name, headers={}) as r:
