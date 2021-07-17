@@ -76,15 +76,6 @@ class MinVolume(commands.CommandError):
 class NoLyricsFound(commands.CommandError):
     pass
 
-class InvalidEQPreset(commands.CommandError):
-    pass
-
-class NonExistandEQBand(commands.CommandError):
-    pass
-
-class EQGainOutOfBounds(commands.CommandError):
-    pass
-
 
 
 class RepeatMode(Enum):
@@ -181,7 +172,6 @@ class Player(wavelink.Player):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.queue = Queue()
-        self.eq_levels = [0.0] * 15
 
     async def connect(self, ctx, channel=None):
         if self.is_connected:
@@ -636,51 +626,6 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
     async def lyrics_command_error(self, ctx, exc):
         if isinstance(exc, NoLyricsFound):
             await ctx.send("No lyrics found.")
-
-    @commands.command(name="eq", brief="Adjust the EQ of the music playing.")
-    async def eq_command(self, ctx, preset: str):
-        player = self.get_player(ctx)
-
-        eq = getattr(wavelink.eqs.Equalizer, preset, None)
-        if not eq:
-            raise InvalidEQPreset
-
-        await player.set_eq(eq())
-        await ctx.send(f"EQ set to {preset}")
-
-    @eq_command.error
-    async def eq_command_error(self, ctx, exc):
-        if isinstance(exc, InvalidEQPreset):       
-            await ctx.send("Invalid EQ preset.\nPresets are: `flat`, `boost`, `metal`, and `piano`.")
-
-
-    @commands.command(name="adveq", aliases=["aeq"], brief="Adjust the EQ bands individually.")
-    async def adveq_command(self, ctx, band: int, gain: float):
-        player = self.get_player(ctx)
-        
-        if not 1 <= band <= 15 and band not in HZ_BANDS:       
-            raise NonExistandEQBand
-        
-        if band > 15:
-            band = HZ_BANDS.index(band) + 1
-
-        if abs(gain) > 10:
-            raise EQGainOutOfBounds
-
-        player.eq_levels[band - 1] = gain / 10
-        eq = wavelink.eqs.Equalizer(levels=[(i, gain) for i, gain in enumerate(player.eq_levels)])
-        await player.set_eq(eq)
-        await ctx.send("EQ adjusted")
-
-    @adveq_command.error
-    async def adveq_command_error(self, ctx, exc):       
-        if isinstance(exc, NonExistandEQBand):       
-            await ctx.send(
-                "This is a 15 band equaliser -- the band number should be between 1 and 15, or one of the following "
-                "frequencies: " + ", ".join(str(b) for b in HZ_BANDS)
-            ) 
-        elif isinstance(exc, EQGainOutOfBounds):       
-            await ctx.send("EQ gain must be between -10db and 10db.")
 
     @commands.Cog.listener()
     async def on_ready(self):
