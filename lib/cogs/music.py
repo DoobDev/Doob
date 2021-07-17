@@ -639,7 +639,7 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
 
                 await ctx.send(embed=embed)
 
-    @lyrics_command.error
+    @lyrics_lookup_command.error
     async def lyrics_command_error(self, ctx, exc):
         if isinstance(exc, NoLyricsFound):
             await ctx.send("No lyrics found.")
