@@ -53,7 +53,7 @@ Submit an [Issue](https://github.com/doobdev/doob/issues) or a [Pull request](ht
 * Doob extensive help: [@X Daniel](https://github.com/x-daniel-17)
 * Moral Support: Mason
 
-### Contributors
+### `🙌` Code Contributors
 
 <table>
 <tr>
