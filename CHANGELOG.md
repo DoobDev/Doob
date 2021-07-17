@@ -1,3 +1,6 @@
+## v2.9.7
+* Removed `d!adveq`
+
 ## v2.9.6
 * Added `d!deletetextchannel`
 * Added `d!deletevoicechannel`
