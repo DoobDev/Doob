@@ -1,3 +1,7 @@
+## v2.9.6
+* Added `d!deletetextchannel`
+* Added `d!deletevoicechannel`
+
 ## v2.9.5
 * Added a blacklisted field to `d!userinfo`
 

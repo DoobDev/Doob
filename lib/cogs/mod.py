@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 from typing import Optional
 from random import randint
+from discord.channel import VoiceChannel
 
 from discord.utils import find
 from discord import (
@@ -367,19 +368,28 @@ class Mod(Cog):
         aliases=["ctc", "textchannel"],
         brief="Create a text channel.",
     )
-    @has_permissions(manage_guild=True)
+    @has_permissions(manage_channels=True)
     async def create_text_channel_command(self, ctx, name: str):
         """Create a text channel in the guild the command was executed in.\n`Manage Server` permission required."""
         channel = await ctx.guild.create_text_channel(name)
 
         await ctx.send(f"Your Text Channel has been created.\n<#{channel.id}>")
 
+    @command(name="deletetextchannel", aliases=["dtc", "deletetc"], brief="Delete a text channel.")
+    @has_permissions(manage_channels=True)
+    async def delete_text_channel_command(self, ctx, channel: TextChannel):
+        channel = self.bot.get_channel(channel.id)
+
+        await channel.delete()
+
+        await ctx.send(f"Your Text Channel ({channel.name}: `{channel.id}`) has been deleted.")
+
     @command(
         name="createvoicechannel",
         aliases=["cvc", "voicechannel"],
         brief="Create a voice channel.",
     )
-    @has_permissions(manage_guild=True)
+    @has_permissions(manage_channels=True)
     async def create_voice_channel_command(self, ctx, name: str):
         """Create a voice channel in the guild the command was executed in.\n`Manage Server` permission required."""
         channel = await ctx.guild.create_voice_channel(name)
@@ -389,6 +399,15 @@ class Mod(Cog):
         )
 
         await ctx.send(f"Your Voice Channel has been created.\n{invite}")
+
+    @command(name="deletevoicechannel", aliases=["dvc", "deletevoice", "deletevc"], brief="Delete a voice channel.")
+    @has_permissions(manage_channels=True)
+    async def delete_voice_channel_command(self, ctx, channel: VoiceChannel):
+        channel = self.bot.get_channel(channel.id)
+
+        await channel.delete()
+
+        await ctx.send(f"The voice channel ({channel.name}: `{channel.id}`) has been deleted.")
 
     @command(name="warn", aliases=["w"], brief="Warn a user.")
     @has_permissions(manage_guild=True)
