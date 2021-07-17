@@ -79,6 +79,13 @@ Submit an [Issue](https://github.com/doobdev/doob/issues) or a [Pull request](ht
         </a>
     </td>
     <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/renovate-bot>
+            <img src=https://avatars.githubusercontent.com/u/25180681?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=WhiteSource Renovate/>
+            <br />
+            <sub style="font-size:14px"><b>WhiteSource Renovate</b></sub>
+        </a>
+    </td>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
         <a href=https://github.com/VoidyCD>
             <img src=https://avatars.githubusercontent.com/u/77110462?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=Voidy Devleoper/>
             <br />
@@ -90,6 +97,15 @@ Submit an [Issue](https://github.com/doobdev/doob/issues) or a [Pull request](ht
             <img src=https://avatars.githubusercontent.com/u/80264293?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=CyberPop/>
             <br />
             <sub style="font-size:14px"><b>CyberPop</b></sub>
+        </a>
+    </td>
+</tr>
+<tr>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/codacy-badger>
+            <img src=https://avatars.githubusercontent.com/u/23704769?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=Codacy Badger/>
+            <br />
+            <sub style="font-size:14px"><b>Codacy Badger</b></sub>
         </a>
     </td>
     <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
