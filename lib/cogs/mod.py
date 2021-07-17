@@ -391,6 +391,21 @@ class Mod(Cog):
         )
 
     @command(
+        name="deletetextchannel",
+        aliases=["dtc", "deletetc"],
+        brief="Delete a text channel.",
+    )
+    @has_permissions(manage_channels=True)
+    async def delete_text_channel_command(self, ctx, channel: TextChannel):
+        channel = self.bot.get_channel(channel.id)
+
+        await channel.delete()
+
+        await ctx.send(
+            f"Your Text Channel ({channel.name}: `{channel.id}`) has been deleted."
+        )
+
+    @command(
         name="createvoicechannel",
         aliases=["cvc", "voicechannel"],
         brief="Create a voice channel.",
