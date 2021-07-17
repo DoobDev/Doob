@@ -612,7 +612,7 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
             await ctx.send("The volume is already at minimum")
 
     @commands.command(name="lyrics")
-    async def lyrics_command(self, ctx, name: typing.Optional[str]):
+    async def lyrics_lookup_command(self, ctx, name: typing.Optional[str]):
         """Searches for a song's lyrics."""
         player = self.get_player(ctx)
         name = name or player.queue.current_track.title
