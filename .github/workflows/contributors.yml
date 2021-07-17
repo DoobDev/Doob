@@ -17,4 +17,4 @@ jobs:
         PATH: '/README.md'
         COMMIT_MESSAGE: '🔼Update contributors'
         AVATAR_SHAPE: 'round'
-        IGNORED_CONTRIBUTORS: 'codacy-badger, mmattisinschool, renovate-bot'
+        IGNORED_CONTRIBUTORS: 'Codacy Badger, mmattisinschool, WhiteSource Renovate'
