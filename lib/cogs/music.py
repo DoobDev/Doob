@@ -279,7 +279,7 @@ class Player(wavelink.Player):
 class Music(commands.Cog, wavelink.WavelinkMixin):
     def __init__(self, bot):
         self.bot = bot
-        self.wavelink = wavelink.Client(self.bot)
+        self.wavelink = wavelink.Client(bot=self.bot)
         self.bot.loop.create_task(self.start_nodes())
 
     @commands.Cog.listener()
