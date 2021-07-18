@@ -3,7 +3,6 @@ import asyncio
 from discord.ext.commands import Cog, command
 import re
 import math
-from discord_components import Button, ButtonStyle, InteractionType
 
 import re
 import math
