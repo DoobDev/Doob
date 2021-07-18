@@ -6,7 +6,6 @@ import discord
 from discord import Embed, Colour, Client, Intents
 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from discord_components import DiscordComponents
 from discord.errors import Forbidden
 from pathlib import Path
 
@@ -288,4 +287,4 @@ class Bot(BotBase):
 
 bot = Bot()
 slash = SlashCommand(bot, sync_commands=True, sync_on_cog_reload=True)
-components = DiscordComponents(bot)
+
