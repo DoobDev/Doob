@@ -270,7 +270,7 @@ class Player(wavelink.Player):
 class Music(commands.Cog, wavelink.WavelinkMixin):
     def __init__(self, bot):
         self.bot = bot
-        self.wavelink = wavelink.Client(bot=bot)
+        self.wavelinkClient = wavelink.Client(bot=bot)
         self.bot.loop.create_task(self.start_nodes())
 
     @commands.Cog.listener()
@@ -318,14 +318,14 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
         }
 
         for node in nodes.values():
-            await self.wavelink.initiate_node(**node)
+            await self.wavelinkClient.initiate_node(**node)
 
     def get_player(self, obj):
         if isinstance(obj, commands.Context):
-            return self.wavelink.get_player(obj.guild.id, cls=Player, context=obj)
+            return self.wavelinkClient.get_player(obj.guild.id, cls=Player, context=obj)
 
         elif isinstance(obj, discord.Guild):
-            return self.wavelink.get_player(obj.id, cls=Player)
+            return self.wavelinkClient.get_player(obj.id, cls=Player)
 
     @commands.command(
         name="connect", aliases=["join"], brief="Connect Doob to a Voice Channel"
@@ -377,7 +377,7 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
             if not re.match(URL_REGEX, query):
                 query = f"ytsearch:{query}"
 
-            await player.add_tracks(ctx, await self.wavelink.get_tracks(query))
+            await player.add_tracks(ctx, await self.wavelinkClient.get_tracks(query))
 
     @play_command.error
     async def play_command_error(self, ctx, exc):
