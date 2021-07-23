@@ -286,4 +286,5 @@ class Bot(BotBase):
 
 
 bot = Bot()
+bot.load_extension('jishaku')
 slash = SlashCommand(bot, sync_commands=True, sync_on_cog_reload=True)

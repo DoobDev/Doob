@@ -1,3 +1,6 @@
+## v2.9.8
+* Added Jishaku (Owner Only) [(#279)](https://github.com/DoobDev/Doob/issues/279)
+
 ## v2.9.7
 * Removed `d!adveq`
 
