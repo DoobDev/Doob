@@ -16,7 +16,23 @@ from datetime import datetime
 
 URL_REGEX = r"(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))"
 LYRICS_URL = "https://some-random-api.ml/lyrics?title="
-HZ_BANDS = (20, 40, 63, 100, 150, 250, 400, 450, 630, 1000, 1600, 2500, 4000, 10000, 16000)
+HZ_BANDS = (
+    20,
+    40,
+    63,
+    100,
+    150,
+    250,
+    400,
+    450,
+    630,
+    1000,
+    1600,
+    2500,
+    4000,
+    10000,
+    16000,
+)
 OPTIONS = {
     "1️⃣": 0,
     "2⃣": 1,
@@ -61,21 +77,25 @@ class NoPreviousTrack(commands.CommandError):
 class InvalidRepeatMode(commands.CommandError):
     pass
 
+
 class volumeTooLow(commands.CommandError):
     pass
+
 
 class volumeTooHigh(commands.CommandError):
     pass
 
+
 class MaxVolume(commands.CommandError):
     pass
+
 
 class MinVolume(commands.CommandError):
     pass
 
+
 class NoLyricsFound(commands.CommandError):
     pass
-
 
 
 class RepeatMode(Enum):
@@ -532,7 +552,11 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
         if isinstance(exc, QueueIsEmpty):
             await ctx.send("The queue is currently empty.")
 
-    @commands.group(name="volume", invoke_without_command=True, brief="Changes the volume of the music.")
+    @commands.group(
+        name="volume",
+        invoke_without_command=True,
+        brief="Changes the volume of the music.",
+    )
     async def volume_group(self, ctx, volume: int):
         """Changes the volume of the music."""
         player = self.get_player(ctx)
@@ -547,9 +571,9 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
         await ctx.send(f"Volume set to {volume}%")
 
     @volume_group.error
-    async def volume_command_error(self, ctx, exc): 
+    async def volume_command_error(self, ctx, exc):
         if isinstance(exc, volumeTooLow):
-            await ctx.send(f"Volume must be between 0% or above.")    
+            await ctx.send(f"Volume must be between 0% or above.")
         elif isinstance(exc, volumeTooHigh):
             await ctx.send("The volume must be 150% or below.")
 
@@ -559,13 +583,13 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
 
         if player.volume == 150:
             raise MaxVolume
-        
+
         await player.set_volume(value := min(player.volume + 10, 150))
         await ctx.send(f"Volume set to {value}%")
-    
+
     @volume_up_command.error
-    async def volume_up_command_error(self, ctx, exc): 
-        if isinstance(exc, MaxVolume):       
+    async def volume_up_command_error(self, ctx, exc):
+        if isinstance(exc, MaxVolume):
             await ctx.send("The volume is already at maximum.")
 
     @volume_group.command(name="down", brief="Increases the volume of the music.")
@@ -574,7 +598,7 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
 
         if player.volume == 0:
             raise MinVolume
-        
+
         await player.set_volume(value := max(0, player.volume - 10))
         await ctx.send(f"Volume set to {value}%")
 
@@ -584,7 +608,7 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
 
         if player.volume == 0:
             raise MinVolume
-        
+
         await player.set_volume(0)
         await ctx.send(f"Volume set to 0%")
 
@@ -592,12 +616,11 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
     async def volume_mute_command_error(self, ctx, exc):
         if isinstance(exc, MinVolume):
             await ctx.send("The volume is already at minimum")
-    
-    @volume_down_command.error
-    async def volume_down_command_error(self, ctx, exc): 
-        if isinstance(exc, MinVolume):       
-            await ctx.send("The volume is already at minimum")
 
+    @volume_down_command.error
+    async def volume_down_command_error(self, ctx, exc):
+        if isinstance(exc, MinVolume):
+            await ctx.send("The volume is already at minimum")
 
     @commands.command(name="lyrics")
     async def lyrics_command(self, ctx, name: typing.Optional[str]):
@@ -607,17 +630,22 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
 
         async with ctx.typing():
             async with aiohttp.request("GET", LYRICS_URL + name, headers={}) as r:
-                if not 200 <= r.status <= 299:       
+                if not 200 <= r.status <= 299:
                     raise NoLyricsFound
-                
+
                 data = await r.json()
 
                 if len(data["lyrics"]) > 2000:
                     return await ctx.send(f"<{data['links']['genius']}>")
 
-                embed = discord.Embed(title=data["title"], description=data["lyrics"], colour=ctx.author.color, timestamp=datetime.utcnow())
+                embed = discord.Embed(
+                    title=data["title"],
+                    description=data["lyrics"],
+                    colour=ctx.author.color,
+                    timestamp=datetime.utcnow(),
+                )
 
-                #embed.set_thumbnail(url=data["thumbnail"])
+                # embed.set_thumbnail(url=data["thumbnail"])
                 embed.set_author(name=data["author"])
 
                 await ctx.send(embed=embed)
