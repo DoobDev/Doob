@@ -1,3 +1,7 @@
+## v2.9.9
+* Changed most occurances of `d!` has been changed to the prefix set in the command.
+* Added config command [(#281)](https://github.com/DoobDev/Doob/issues/281)
+
 ## v2.9.8
 * Added Jishaku (Owner Only) [(#279)](https://github.com/DoobDev/Doob/issues/279)
 
