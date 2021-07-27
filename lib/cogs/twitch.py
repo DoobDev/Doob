@@ -213,9 +213,10 @@ class Twitch(Cog):
     @cooldown(1, 5, BucketType.user)
     async def twitch(self, ctx):
         """Request some information on a specific Twitch Stream/User!\n`Username` = Twitch Username"""
+        prefix = db.field("SELECT Prefix FROM guilds WHERE GuildID = ?", ctx.guild.id)
         if ctx.invoked_subcommand is None:
             await ctx.reply(
-                "Doing `d!twitch` doesn't work anymore! Looking to search someone? Try `d!twitch -search {username}`"
+                f"Doing `{prefix}twitch` doesn't work anymore! Looking to search someone? Try `{prefix}twitch -search {username}`"
             )
 
     @twitch.command(name="-search", aliases=["-s"])
