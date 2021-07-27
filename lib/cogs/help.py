@@ -14,6 +14,7 @@ with open("config.json") as config_file:
 
 from ..db import db
 
+
 class Help(Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -28,7 +29,7 @@ class Help(Cog):
 
         cogs.remove("Welcome")
         cogs.remove("Reactions")
-        cogs.remove("Log") 
+        cogs.remove("Log")
 
         if ctx.author.id not in self.bot.owner_ids:
             cogs.remove("Jishaku")

@@ -35,10 +35,17 @@ from ..db import db  # pylint: disable=relative-beyond-top-level
 
 from discord_slash import cog_ext, ComponentContext
 from discord_slash.model import ButtonStyle
-from discord_slash.utils.manage_components import create_button, create_select, create_actionrow, create_select_option, wait_for_component
+from discord_slash.utils.manage_components import (
+    create_button,
+    create_select,
+    create_actionrow,
+    create_select_option,
+    wait_for_component,
+)
 
 with open("config.json") as config_file:
     config = json.load(config_file)
+
 
 class BannedUser(Converter):
     async def convert(self, ctx, arg):
@@ -650,35 +657,64 @@ class Mod(Cog):
                 colour=ctx.author.colour,
             )
 
-            buttons = [create_button(style=ButtonStyle.blurple, label="Server Settings", custom_id='server_settings'),
-                        create_button(style=ButtonStyle.blurple, label="Profile Settings", custom_id='profile_settings_cmd')]
+            buttons = [
+                create_button(
+                    style=ButtonStyle.blurple,
+                    label="Server Settings",
+                    custom_id="server_settings",
+                ),
+                create_button(
+                    style=ButtonStyle.blurple,
+                    label="Profile Settings",
+                    custom_id="profile_settings_cmd",
+                ),
+            ]
 
             action_row = create_actionrow(*buttons)
 
             await ctx.send(embed=embed, components=[action_row])
-        
+
         else:
             await self.profile_settings(ctx, component=False)
 
     @cog_ext.cog_component()
     async def server_settings(self, ctx: ComponentContext):
-        prefix, log_channel, muted_role, starboard_channel, level_messages = db.record("SELECT Prefix, LogChannel, MutedRole, StarBoardChannel, LevelMessages FROM guilds WHERE GuildID = ?", ctx.guild.id)
+        prefix, log_channel, muted_role, starboard_channel, level_messages = db.record(
+            "SELECT Prefix, LogChannel, MutedRole, StarBoardChannel, LevelMessages FROM guilds WHERE GuildID = ?",
+            ctx.guild.id,
+        )
 
         embed = Embed(title="Server Settings", colour=ctx.author.colour)
 
         level_messages = "Enabled" if level_messages == "yes" else "Disabled"
 
-        fields = [("Prefix:", f"`{prefix}` | {prefix}prefix", False),
-                  ("Log Channel:", f"<#{log_channel}> | {prefix}setlogchannel", False),
-                  ("Muted Role:", f"<@{muted_role}> | {prefix}setmuterole", False),
-                  ("Starboard Channel:", f"<#{starboard_channel}> | {prefix}setstarboardchannel", False),
-                  ("Level Messages:", f"`{level_messages}` | {prefix}levelmessages", False)]
+        fields = [
+            ("Prefix:", f"`{prefix}` | {prefix}prefix", False),
+            ("Log Channel:", f"<#{log_channel}> | {prefix}setlogchannel", False),
+            ("Muted Role:", f"<@{muted_role}> | {prefix}setmuterole", False),
+            (
+                "Starboard Channel:",
+                f"<#{starboard_channel}> | {prefix}setstarboardchannel",
+                False,
+            ),
+            ("Level Messages:", f"`{level_messages}` | {prefix}levelmessages", False),
+        ]
 
         for name, value, inline in fields:
             embed.add_field(name=name, value=value, inline=inline)
-    
-        buttons = [create_button(style=ButtonStyle.blurple, label="Server Settings", custom_id='server_settings'),
-                    create_button(style=ButtonStyle.blurple, label="Profile Settings", custom_id='profile_settings_cmd')]
+
+        buttons = [
+            create_button(
+                style=ButtonStyle.blurple,
+                label="Server Settings",
+                custom_id="server_settings",
+            ),
+            create_button(
+                style=ButtonStyle.blurple,
+                label="Profile Settings",
+                custom_id="profile_settings_cmd",
+            ),
+        ]
 
         action_row = create_actionrow(*buttons)
 
@@ -689,7 +725,17 @@ class Mod(Cog):
         await self.profile_settings(ctx, component=True)
 
     async def profile_settings(self, ctx, component: bool):
-        OWUsername, OWPlatform, OWRegion, LastfmUsername, osuUsername, ShortLinkAmount = db.record("SELECT OverwatchUsername, OverwatchPlatform, OverwatchRegion, LastfmUsername, osuUsername, ShortLinkAmount FROM users WHERE UserID = ?", ctx.author.id)
+        (
+            OWUsername,
+            OWPlatform,
+            OWRegion,
+            LastfmUsername,
+            osuUsername,
+            ShortLinkAmount,
+        ) = db.record(
+            "SELECT OverwatchUsername, OverwatchPlatform, OverwatchRegion, LastfmUsername, osuUsername, ShortLinkAmount FROM users WHERE UserID = ?",
+            ctx.author.id,
+        )
 
         prefix = db.field("SELECT Prefix FROM guilds WHERE GuildID = ?", ctx.guild.id)
 
@@ -717,14 +763,29 @@ class Mod(Cog):
             ("Overwatch Platform:", f"`{OWPlatform}` | {prefix}setowusername", False),
             ("Overwatch Region:", f"`{OWRegion}` | {prefix}setowusername", False),
             ("Last.fm Username:", f"`{LastfmUsername}` | {prefix}setlastfm", False),
-            ("Short Link (doob.link) Amount:", f"`{ShortLinkAmount}/{ShortLinkTotal}` | {prefix}help links", False)]
+            (
+                "Short Link (doob.link) Amount:",
+                f"`{ShortLinkAmount}/{ShortLinkTotal}` | {prefix}help links",
+                False,
+            ),
+        ]
 
         for name, value, inline in fields:
             embed.add_field(name=name, value=value, inline=inline)
 
         if component:
-            buttons = [create_button(style=ButtonStyle.blurple, label="Server Settings", custom_id='server_settings'),
-                        create_button(style=ButtonStyle.blurple, label="Profile Settings", custom_id='profile_settings_cmd')]
+            buttons = [
+                create_button(
+                    style=ButtonStyle.blurple,
+                    label="Server Settings",
+                    custom_id="server_settings",
+                ),
+                create_button(
+                    style=ButtonStyle.blurple,
+                    label="Profile Settings",
+                    custom_id="profile_settings_cmd",
+                ),
+            ]
 
             action_row = create_actionrow(*buttons)
 
@@ -732,7 +793,6 @@ class Mod(Cog):
 
         else:
             await ctx.send(embed=embed)
-
 
     @Cog.listener()
     async def on_ready(self):
