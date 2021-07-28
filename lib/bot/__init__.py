@@ -64,6 +64,19 @@ log = logging.getLogger()
 
 logging.basicConfig(level=log_level, format='%(name)s - %(message)s', datefmt="%X", handlers=[RichHandler()])
 
+class NoRunningFilter(logging.Filter):
+    def filter(self, record):
+        return not record.msg.startswith('Running job')
+
+class NoRunningFilter2(logging.Filter):
+    def filter(self, record):
+        return not record.msg.startswith('Job')
+
+running_job_filter = NoRunningFilter()
+job_filter = NoRunningFilter2()
+logging.getLogger("apscheduler.executors.default").addFilter(running_job_filter)
+logging.getLogger("apscheduler.executors.default").addFilter(job_filter)
+
 class Ready(object):
     def __init__(self):
         for cog in COGS:
