@@ -84,7 +84,9 @@ class Mod(Cog):
     ):
         """Kicks a member from the server.\n`Kick Members` permission required."""
         if not len(targets):
-            await ctx.reply("<:Dexclaimneg:869815364828160070> One or more required arguments are missing.")
+            await ctx.reply(
+                "<:Dexclaimneg:869815364828160070> One or more required arguments are missing."
+            )
 
         else:
             target_list = []
@@ -96,16 +98,20 @@ class Mod(Cog):
 
                     await target.kick(reason=reason)
                     target_list.append(target.display_name)
-            
+
                 else:
                     await ctx.reply(
                         "<:DAccessDenied:869815358758985779> Something went wrong.\nYou might not be able to kick that member."
                     )
-            target_list_real = "\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> ".join(target_list)
-            await ctx.send(embed=Embed(
-                description=f"<:Dcheckpos:869815364278702080> **Kicked:**\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> {target_list_real}", 
-                colour=ctx.author.colour
-            ))
+            target_list_real = "\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> ".join(
+                target_list
+            )
+            await ctx.send(
+                embed=Embed(
+                    description=f"<:Dcheckpos:869815364278702080> **Kicked:**\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> {target_list_real}",
+                    colour=ctx.author.colour,
+                )
+            )
 
     async def mute_members(self, message, targets, reason):
         mute_role = db.field(
@@ -126,7 +132,10 @@ class Mod(Cog):
                 )
                 db.commit()
 
-        embed = Embed(description=f"<:Dcheckpos:869815364278702080> **Muted:**\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> {comma.join(tNames)}", colour=message.author.colour)
+        embed = Embed(
+            description=f"<:Dcheckpos:869815364278702080> **Muted:**\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> {comma.join(tNames)}",
+            colour=message.author.colour,
+        )
         await message.channel.send(embed=embed)
 
         return []
@@ -145,7 +154,9 @@ class Mod(Cog):
     ):
         """Mutes a member from the server\nRequires the `Manage Roles` permission"""
         if not len(targets):
-            await ctx.reply("<:Dexclaimneg:869815364828160070> One or more required arguments are missing.")
+            await ctx.reply(
+                "<:Dexclaimneg:869815364828160070> One or more required arguments are missing."
+            )
 
         else:
             unmutes = await self.mute_members(ctx.message, targets, reason)
@@ -165,11 +176,15 @@ class Mod(Cog):
 
                     target_list.append(target.display_name)
 
-                target_list_real = "\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> ".join(target_list)
-                await ctx.send(embed=Embed(
-                    description=f"<:Dcheckpos:869815364278702080> **Unmuted:**\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> {target_list_real}", 
-                    colour=ctx.author.colour
-                ))
+                target_list_real = "\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> ".join(
+                    target_list
+                )
+                await ctx.send(
+                    embed=Embed(
+                        description=f"<:Dcheckpos:869815364278702080> **Unmuted:**\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> {target_list_real}",
+                        colour=ctx.author.colour,
+                    )
+                )
 
     @command(name="unmute", aliases=["um"], brief="Unmutes a member from the server.")
     @bot_has_permissions(manage_roles=True)
@@ -191,11 +206,17 @@ class Mod(Cog):
             db.commit()
             target_list.append(target.display_name)
 
-        target_list_real = "\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> ".join(target_list)
-        await ctx.send(embed=Embed(
-            description=f"<:Dcheckpos:869815364278702080> **Unmuted:**\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> {target_list_real}", 
-            colour=ctx.author.colour
-        ))
+        target_list_real = (
+            "\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> ".join(
+                target_list
+            )
+        )
+        await ctx.send(
+            embed=Embed(
+                description=f"<:Dcheckpos:869815364278702080> **Unmuted:**\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> {target_list_real}",
+                colour=ctx.author.colour,
+            )
+        )
 
     @command(
         name="ban", aliases=["b", "banmember"], brief="Ban a member from the server."
@@ -230,12 +251,16 @@ class Mod(Cog):
                         "<:DAccessDenied:869815358758985779> Something went wrong.\n<:Dcrossneg:869815364383572059> You might not be able to ban that member."
                     )
 
-            target_list_real = "\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> ".join(target_list)
-            
-            await ctx.send(embed=Embed(
-                description=f"<:Dcheckpos:869815364278702080> **Banned:**\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> {target_list_real}", 
-                colour=ctx.author.colour
-            ))
+            target_list_real = "\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> ".join(
+                target_list
+            )
+
+            await ctx.send(
+                embed=Embed(
+                    description=f"<:Dcheckpos:869815364278702080> **Banned:**\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> {target_list_real}",
+                    colour=ctx.author.colour,
+                )
+            )
 
     @command(
         name="russianroulette",
@@ -296,13 +321,16 @@ class Mod(Cog):
             for target in targets:
                 await ctx.guild.unban(target, reason=reason)
                 target_list.append(target.display_name)
-            
-            target_list_real = "\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> ".join(target_list)
-            await ctx.send(embed=Embed(
-                description=f"<:Dcheckpos:869815364278702080> **Unbanned:**\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> {target_list_real}",
-                colour=ctx.author.colour
-            ))
 
+            target_list_real = "\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> ".join(
+                target_list
+            )
+            await ctx.send(
+                embed=Embed(
+                    description=f"<:Dcheckpos:869815364278702080> **Unbanned:**\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> {target_list_real}",
+                    colour=ctx.author.colour,
+                )
+            )
 
     @command(
         name="clear", aliases=["purge"], brief="Clears amount of messages provided."
@@ -326,10 +354,15 @@ class Mod(Cog):
                     check=_check,
                 )
 
-                await ctx.send(f"<:Dtrashcan:869815365323079733> Deleted {len(deleted):,} messages.", delete_after=10)
+                await ctx.send(
+                    f"<:Dtrashcan:869815365323079733> Deleted {len(deleted):,} messages.",
+                    delete_after=10,
+                )
 
         else:
-            await ctx.reply("<:Dexclaimneg:869815364828160070> The limit provided is not within acceptable bounds.")
+            await ctx.reply(
+                "<:Dexclaimneg:869815364828160070> The limit provided is not within acceptable bounds."
+            )
 
     @command(
         name="setlogchannel",
@@ -356,7 +389,9 @@ class Mod(Cog):
                 ctx.guild.id,
             )
             db.commit()
-            await ctx.reply(f"<:Dwrenchpink:869830850605375489> Log channel set to <#{channel.id}>")
+            await ctx.reply(
+                f"<:Dwrenchpink:869830850605375489> Log channel set to <#{channel.id}>"
+            )
 
     @command(
         name="setstarboardchannel",
@@ -383,7 +418,9 @@ class Mod(Cog):
                 ctx.guild.id,
             )
             db.commit()
-            await ctx.reply(f"<:Dwrenchpink:869830850605375489> Starboard channel set to <#{channel.id}>")
+            await ctx.reply(
+                f"<:Dwrenchpink:869830850605375489> Starboard channel set to <#{channel.id}>"
+            )
 
     @command(
         name="setmuterole",
@@ -405,7 +442,9 @@ class Mod(Cog):
                 ctx.guild.id,
             )
             db.commit()
-            await ctx.reply(f"<:Dwrenchpink:869830850605375489> Mute role set to `{role}`")
+            await ctx.reply(
+                f"<:Dwrenchpink:869830850605375489> Mute role set to `{role}`"
+            )
 
         else:
             await ctx.reply(
@@ -422,7 +461,9 @@ class Mod(Cog):
         """Create a text channel in the guild the command was executed in.\n`Manage Server` permission required."""
         channel = await ctx.guild.create_text_channel(name)
 
-        await ctx.send(f"<:Dcheckpos:869815364278702080> Your Text Channel has been created.\n<#{channel.id}>")
+        await ctx.send(
+            f"<:Dcheckpos:869815364278702080> Your Text Channel has been created.\n<#{channel.id}>"
+        )
 
     @command(
         name="deletetextchannel",
@@ -453,7 +494,9 @@ class Mod(Cog):
             reason="Made using the create voice channel command."
         )
 
-        await ctx.send(f"<:Dcheckpos:869815364278702080> Your Voice Channel has been created.\n{invite}")
+        await ctx.send(
+            f"<:Dcheckpos:869815364278702080> Your Voice Channel has been created.\n{invite}"
+        )
 
     @command(
         name="deletevoicechannel",
@@ -510,11 +553,17 @@ class Mod(Cog):
 
             target_list.append(target.display_name)
 
-        target_list_real = "\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> ".join(target_list)
-        await ctx.send(embed=Embed(
-            description=f"<:Dwarningpos:869815366715584513> **Warned:**\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> {target_list_real}",
-            colour=ctx.author.colour
-        ))
+        target_list_real = (
+            "\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> ".join(
+                target_list
+            )
+        )
+        await ctx.send(
+            embed=Embed(
+                description=f"<:Dwarningpos:869815366715584513> **Warned:**\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> {target_list_real}",
+                colour=ctx.author.colour,
+            )
+        )
 
     @command(
         name="warnings",
@@ -531,7 +580,8 @@ class Mod(Cog):
         )[0][0]
 
         embed = Embed(
-            title=f"<:Dwarning:869830849061879859> Warnings for {ctx.author.display_name}", colour=ctx.author.colour
+            title=f"<:Dwarning:869830849061879859> Warnings for {ctx.author.display_name}",
+            colour=ctx.author.colour,
         )
 
         fields = [

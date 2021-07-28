@@ -142,7 +142,9 @@ class Exp(Cog):
             await ctx.send(embed=embed)
 
         else:
-            ctx.send("<:DAccessDenied:869815358758985779> That member is not in the XP Database.")
+            ctx.send(
+                "<:DAccessDenied:869815358758985779> That member is not in the XP Database."
+            )
 
     @command(
         name="levelmessages",
@@ -164,7 +166,9 @@ class Exp(Cog):
                 ctx.guild.id,
             )
             db.commit()
-            await ctx.send(f"<:Dwrenchpink:869830850605375489> Level messages set to `{yes_or_no}`.")
+            await ctx.send(
+                f"<:Dwrenchpink:869830850605375489> Level messages set to `{yes_or_no}`."
+            )
 
         else:
             await ctx.send(
