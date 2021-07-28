@@ -134,7 +134,7 @@ class Exp(Cog):
 
             embed = Embed(
                 description=desc,
-                colour=ctx.author.color,           
+                colour=ctx.author.color,
             )
 
             embed.set_thumbnail(url=target.avatar_url)
