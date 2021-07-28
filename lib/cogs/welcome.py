@@ -4,6 +4,8 @@ from discord.ext.commands import Cog
 from ..db import db  # pylint: disable=relative-beyond-top-level
 
 log = logging.getLogger()
+
+
 class Welcome(Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -22,9 +24,13 @@ class Welcome(Cog):
             member.id,
             member.guild.id,
         )
-        log.info(f"{member.username} (member/user) have been added into the server exp DB")
+        log.info(
+            f"{member.username} (member/user) have been added into the server exp DB"
+        )
         db.execute("INSERT INTO luckydogs (UserID) VALUES (?)", member.id)
-        log.info(f"{member.username} (member/user) has been added into the LuckyDogs DB")
+        log.info(
+            f"{member.username} (member/user) has been added into the LuckyDogs DB"
+        )
         db.execute(
             f"INSERT OR IGNORE INTO warns (UserID, GuildID) VALUES (?, ?)",
             member.id,

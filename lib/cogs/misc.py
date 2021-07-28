@@ -29,6 +29,7 @@ from dotenv import load_dotenv
 load_dotenv()
 log = logging.getLogger()
 
+
 class Misc(Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -352,9 +353,7 @@ class Misc(Cog):
 
         prefix = db.records("SELECT Prefix FROM guilds WHERE GuildID = ?", ctx.guild.id)
 
-        db.execute(
-            "UPDATE guilds SET Prefix = ? WHERE GuildID = ?", new, ctx.guild.id
-        )
+        db.execute("UPDATE guilds SET Prefix = ? WHERE GuildID = ?", new, ctx.guild.id)
         embed = Embed(
             title="Prefix Changed",
             description=f"Prefix has been changed to `{new}`",
