@@ -24,13 +24,7 @@ def get_path(filename):
     return absolute_path + f"/{filename}.json"
 
 
-def read_json(filename):
-    with open(get_path(filename), "r") as file:
-        data = json.load(file)
-    return data
 
-
-BLACKLISTED_USERS = read_json("blacklisted_users")
 
 
 class Info(Cog):
@@ -49,64 +43,75 @@ class Info(Cog):
             0
         ][0]
 
-        embed = Embed(
-            title=f"{target.name}'s info",
-            colour=target.colour,
-            timestamp=datetime.utcnow(),
-        )
+        def get_warning_emote():
+            if warnings > 3:
+                return "<:Dwarningneg:869815366803668992>"
+
+            elif warnings > 0:
+                return "<:Dwarning:869830849061879859>"
+
+            else:
+                return "<:Dwarningpos:869815366715584513>"
+
+        def get_global_warn_emote():
+            if globalwarns > 3:
+                return "<:Dwarningneg:869815366803668992>"
+
+            elif globalwarns > 0:
+                return "<:Dwarning:869830849061879859>"
+
+            else:
+                return "<:Dwarningpos:869815366715584513>"
+
+        def get_bot_emote():
+            if target.bot:
+                return "<:Dbot:869815359652397076>"
+            else:
+                return "<:Dbotpink:869815365071413258>"
+
+        def get_blacklisted_emote():
+            if blacklisted is True:
+                return "<:Dcrossneg:869815364383572059>"
+            else:
+                return "<:Dcrosspos:869815366002556928>"
+        
+        roles = []
+
+        for role in target.roles:
+            if role.name == "@everyone":
+                role.name = " "
+                roles.append(role.name)
+            else:
+                roles.append(f"{role.mention}")
+
+        roles_list = "\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> ".join(roles)
 
         patreon = "Yes" if patreon_status == True else "No"
-        fields = [
-            ("Username", target.mention, True),
-            ("ID", target.id, True),
-            ("Doob Global XP", xp, False),
-            ("Doob Global Level", lvl, True),
-            (
-                "Doob Global Rank",
-                f"{ids.index(target.id)+1} of {len(ids):,} users globally.",
-                True,
-            ),
-            ("Warnings (Server)", warnings, False),
-            ("Warnings (Global)", globalwarns, True),
-            ("Bot", target.bot, False),
-            ("Top role", target.top_role.mention, True),
-            ("Status", str(target.status).title(), True),
-            (
-                "Activity",
-                f"{str(target.activity.type).split('.')[-1].title() if target.activity else 'N/A'} - {target.activity.name if target.activity else ''}",
-                True,
-            ),
-            (
-                "Account creation date",
-                target.created_at.strftime("%m/%d/%Y %H:%M;%S"),
-                True,
-            ),
-            (
-                "Joined the server at",
-                target.joined_at.strftime("%m/%d/%Y %H:%M;%S"),
-                True,
-            ),
-            ("Boosted this server", bool(target.premium_since), True),
-            ("Patron of Doob?", patreon, True),
-        ]
 
-        for name, value, inline in fields:
-            embed.add_field(name=name, value=value, inline=inline)
+        desc = f"""<:Dusernuetral:869830849380646922> **Username:** {target.mention}
+        <:Dspace:869830848743092247> <:DRightTrans:869842970415890432> **ID:** {target.id}
+        <:Dclockpink:869815366816239666> **Created:** <t:{int(datetime.replace(target.created_at).timestamp())}:R>
+        <:Dspace:869830848743092247> <:DRightTrans:869842970415890432> **Joined:** <t:{int(datetime.replace(target.joined_at).timestamp())}:R>
+        \n{get_warning_emote()} **Warnings (Server):** {warnings}
+        <:Dspace:869830848743092247> {get_global_warn_emote()} ** Warnings (Global):** {globalwarns}
+        \n{get_bot_emote()} **Bot**: {target.bot}
+        <:Dstarpink:869815366539419648> **Booster:** {bool(target.premium_since)}
+        \n<:Dstarpink:869815366539419648> **XP:** {xp}
+        <:Dspace:869830848743092247> <:DRightTrans:869842970415890432> **Level:** {lvl}
+        \n<:Dheart:869815366132576286> **Doob+ Member?** {patreon}
+        \n{get_blacklisted_emote()} **Blacklisted?** {bool(blacklisted)}
+        \n<:Dmisc:869815363276243006> **Roles:** {roles_list}"""
 
-        if blacklisted is True:
-            embed.add_field(
-                name="Blacklisted?",
-                value="✅ This user has been blacklisted from using Doob.",
-                inline=False,
-            )
-        else:
-            embed.add_field(
-                name="Blacklisted?",
-                value="❌ This user is not blacklisted from using Doob.",
-                inline=False,
-            )
+        embed = Embed(
+            colour=target.colour,
+            timestamp=datetime.utcnow(),
+            description=desc
+        )
 
         embed.set_thumbnail(url=target.avatar_url)
+
+        embed.set_footer(text=f"{target.display_name}'s information.", icon_url=target.avatar_url)
+
         await ctx.send(embed=embed)
 
     @command(
@@ -117,6 +122,15 @@ class Info(Cog):
     @cooldown(1, 10, BucketType.user)
     async def user_info_command(self, ctx, target: Optional[Member]):
         """Gives you info about a user."""
+
+        def read_json(filename):
+            with open(get_path(filename), "r") as file:
+                data = json.load(file)
+            return data
+
+
+        BLACKLISTED_USERS = read_json("blacklisted_users")
+
         target = target or ctx.author
 
         homeGuild = self.bot.get_guild(config["homeGuild_id"])  # Support Server ID.
@@ -153,6 +167,15 @@ class Info(Cog):
         ],
     )
     async def user_info_slash(self, ctx, target: Optional[Member]):
+
+        def read_json(filename):
+            with open(get_path(filename), "r") as file:
+                data = json.load(file)
+            return data
+
+
+        BLACKLISTED_USERS = read_json("blacklisted_users")
+
         homeGuild = self.bot.get_guild(config["homeGuild_id"])  # Support Server ID.
         patreonRole = get(
             homeGuild.roles, id=config["patreonRole_id"]
@@ -175,51 +198,40 @@ class Info(Cog):
             )
 
     async def server_info(self, ctx, banned_members):
+        prefix = db.field("SELECT Prefix FROM guilds WHERE GuildID = ?", ctx.guild.id)
+
+        desc = f"""<:Dusernuetral:869830849380646922> **Name:** {ctx.guild.name}
+        <:Dspace:869830848743092247> <:DRightTrans:869842970415890432> **ID:** {ctx.guild.id}
+        \n<:Dusernuetral:869830849380646922> **Owner:** {ctx.guild.owner}
+        <:Dspace:869830848743092247> <:DRightTrans:869842970415890432> **Owner's ID:** {ctx.guild.owner.id}
+        \n<:Dmappink:869815364731678762> **Region:** {ctx.guild.region}
+        \n<:Dclockpink:869815366816239666> **Created:** <t:{int(datetime.replace(ctx.guild.created_at).timestamp())}:R>
+        \n<:Dusernuetral:869830849380646922> **Members:** {len(ctx.guild.members)}
+        <:Dspace:869830848743092247> <:DRightTrans:869842970415890432> **Humans:** {len(list(filter(lambda m: not m.bot, ctx.guild.members)))}
+        <:Dspace:869830848743092247> <:DRightTrans:869842970415890432> **Bots:** {len(list(filter(lambda m: m.bot, ctx.guild.members)))}
+        \n <:Dmisc:869815363276243006> **Channels:** {len(ctx.guild.channels)}
+        <:Dspace:869830848743092247> <:DRightTrans:869842970415890432> **Text channels:** {len(ctx.guild.text_channels)}
+        <:Dspace:869830848743092247> <:DRightTrans:869842970415890432> **Voice channels** {len(ctx.guild.voice_channels)}
+        <:Dspace:869830848743092247> <:DRightTrans:869842970415890432> **Categories** {len(ctx.guild.categories)}
+        \n<:Dmisc:869815363276243006> **Roles:** {len(ctx.guild.roles)}
+        <:Dspace:869830848743092247> <:DRightTrans:869842970415890432> **View all of them by doing {prefix}roles**"""
+     
+        if banned_members:
+            desc += f"\n\n<:DAccessDenied:869815358758985779> **Banned Members:** {len(await ctx.guild.bans())}" 
+
         embed = Embed(
-            title="Server's info",
             colour=ctx.guild.owner.colour,
             timestamp=datetime.utcnow(),
+            description=desc
         )
-
-        # statuses = [
-        #    len(list(filter(lambda m: str(m.status) == "online", ctx.guild.members))),
-        #    len(list(filter(lambda m: str(m.status) == "idle", ctx.guild.members))),
-        #    len(list(filter(lambda m: str(m.status) == "dnd", ctx.guild.members))),
-        #    len(list(filter(lambda m: str(m.status) == "offline", ctx.guild.members))),
-        # ]
-
-        fields = [
-            ("ID", ctx.guild.id, True),
-            ("Owner", ctx.guild.owner, True),
-            ("Region", ctx.guild.region, True),
-            ("Created at", ctx.guild.created_at.strftime("%d/%m/%Y %H:%M:%S"), True),
-            ("Members", len(ctx.guild.members), True),
-            ("Humans", len(list(filter(lambda m: not m.bot, ctx.guild.members))), True),
-            ("Bots", len(list(filter(lambda m: m.bot, ctx.guild.members))), True),
-            # (
-            #    "Statuses",
-            #    f"🟢 {statuses[0]} 🟠 {statuses[1]} 🔴 {statuses[2]} ⚪ {statuses[3]}",
-            #    True,
-            # ),
-            ("Text channels", len(ctx.guild.text_channels), True),
-            ("Voice channels", len(ctx.guild.voice_channels), True),
-            ("Categories", len(ctx.guild.categories), True),
-            ("Roles", len(ctx.guild.roles), True),
-            ("\u200b", "\u200b", True),
-        ]
 
         embed.set_thumbnail(url=ctx.guild.icon_url)
 
         if ctx.guild.banner:
             embed.set_image(url=ctx.guild.banner_url)
 
-        for name, value, inline in fields:
-            embed.add_field(name=name, value=value, inline=inline)
+        embed.set_footer(text=f"{ctx.guild.name}'s information", icon_url=ctx.guild.icon_url)
 
-        if banned_members == True:
-            embed.add_field(
-                name="Banned members", value=len(await ctx.guild.bans()), inline=True
-            )
         await ctx.send(embed=embed)
 
     @command(

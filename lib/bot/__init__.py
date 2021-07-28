@@ -56,11 +56,7 @@ def get_prefix(bot, message):
     prefix = db.field("SELECT Prefix FROM guilds WHERE GuildID = ?", message.guild.id)
     return when_mentioned_or(prefix)(bot, message)
 
-if config["dev_mode"]:
-    log_level = logging.DEBUG 
-else:
-    log_level = logging.INFO
-
+log_level = logging.DEBUG if config["dev_mode"] else logging.INFO
 log = logging.getLogger()
 
 logging.basicConfig(level=log_level, format='%(name)s - %(message)s', datefmt="%X", handlers=[RichHandler()])
@@ -154,7 +150,7 @@ class AutoShardedBot(AutoShardedBot):
 
             else:
                 await ctx.reply(
-                    "Please wait, Doob hasn't fully started up yet <a:loadingdoob:755141175840866364>",
+                    "<a:loadingdoob:755141175840866364> Please wait, Doob hasn't fully started up yet",
                     delete_after=10,
                 )
 
@@ -177,33 +173,33 @@ class AutoShardedBot(AutoShardedBot):
         #     )
 
         if isinstance(exc, MissingRequiredArgument):
-            await ctx.reply("Required arguments missing.", delete_after=10)
+            await ctx.reply("<:DAccessDenied:869815358758985779> Required arguments missing.", delete_after=10)
 
         elif isinstance(exc, CommandOnCooldown):
             await ctx.reply(
-                f'That command is on a {str(exc.cooldown.type).split(".")[-1]} cooldown! Try again in {exc.retry_after:,.2f} seconds.',
+                f'<:Dclockpink:869815366816239666> That command is on a {str(exc.cooldown.type).split(".")[-1]} cooldown! Try again in {exc.retry_after:,.2f} seconds.',
                 delete_after=exc.retry_after,
             )
 
         elif isinstance(exc, MissingPermissions):
-            await ctx.reply("You don't have permissions for that.", delete_after=10)
+            await ctx.reply("<:DAccessDenied:869815358758985779> You don't have permissions for that.", delete_after=10)
 
         elif isinstance(exc, EmojiNotFound):
             await ctx.reply(
-                "This emote could not be found. This is likely because Doob isn't in the same server as this emote.",
+                "<:Dcrossneg:869815364383572059> This emote could not be found. This is likely because Doob isn't in the same server as this emote.",
                 delete_after=10,
             )
 
         elif isinstance(exc, NotOwner):
             await ctx.reply(
-                "This command is only available to the bot owner.",
+                "<:DAccessDenied:869815358758985779> This command is only available to the bot owner.",
                 delete_after=10,
             )
 
         elif hasattr(exc, "original"):
             if isinstance(exc.original, Forbidden):
                 await ctx.reply(
-                    "Doob doesn't have permissions to do that.", delete_after=10
+                    "<:DAccessDenied:869815358758985779> Doob doesn't have permissions to do that.", delete_after=10
                 )
 
             else:

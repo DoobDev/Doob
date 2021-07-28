@@ -203,15 +203,12 @@ class Fun(Cog):
 
         # Gives how many lucky dogs a user has.
         embed = Embed(
-            title=f"{target.name} has gotten:",
-            description=f"{str(LuckyDogs[0][0])} Lucky Dog(s) this month.",
+            description=f"<:DRightTrans:869842970415890432> {ctx.author.display_name} has {str(LuckyDogs[0][0])} Lucky Dog(s)",
             colour=target.colour,
         )
-        embed.set_footer(
-            text=f"{ctx.author.name} requested this. | Doob",
-            icon_url=ctx.author.avatar_url,
-        )
-        embed.set_thumbnail(url=target.avatar_url)
+
+        embed.set_footer(text="󠀀 ", icon_url=ctx.author.avatar_url)
+
         await ctx.reply(embed=embed)
 
     @command(name="dog", aliases=["dogimage"], brief="See a random picture of a dog!")
@@ -675,7 +672,7 @@ class Fun(Cog):
         log.info(char)
 
         embed = Embed(
-            title=f"Play: {char}", description="Enjoy!", colour=ctx.author.colour
+            title=f"Play: {char}", colour=ctx.author.colour
         )
 
         if char == "Brimstone":
@@ -777,7 +774,7 @@ class Fun(Cog):
         log.info(char)
 
         embed = Embed(
-            title=f"Play: {char}", description="Enjoy!", colour=ctx.author.colour
+            title=f"Play: {char}", colour=ctx.author.colour
         )
 
         if char == "Phoenix":
@@ -820,7 +817,7 @@ class Fun(Cog):
         log.info(char)
 
         embed = Embed(
-            title=f"Play: {char}", description="Enjoy!", colour=ctx.author.colour
+            title=f"Play: {char}", colour=ctx.author.colour
         )
 
         if char == "Sage":
@@ -853,7 +850,7 @@ class Fun(Cog):
         log.info(char)
 
         embed = Embed(
-            title=f"Play: {char}", description="Enjoy!", colour=ctx.author.colour
+            title=f"Play: {char}", colour=ctx.author.colour
         )
 
         if char == "Breach":
@@ -887,7 +884,7 @@ class Fun(Cog):
         log.info(char)
 
         embed = Embed(
-            title=f"Play: {char}", description="Enjoy!", colour=ctx.author.colour
+            title=f"Play: {char}", colour=ctx.author.colour
         )
 
         if char == "Omen":
@@ -967,7 +964,7 @@ class Fun(Cog):
         log.info(char)
 
         embed = Embed(
-            title=f"Play: {char}", description="Enjoy!", colour=ctx.author.colour
+            title=f"Play: {char}", colour=ctx.author.colour
         )
 
         if char == "D.va":
