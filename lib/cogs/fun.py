@@ -23,6 +23,7 @@ with open("config.json") as config_file:
 
 log = logging.getLogger()
 
+
 class Fun(Cog):
     def __init__(self, bot):
         self.bot = bot
