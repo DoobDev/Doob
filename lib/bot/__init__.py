@@ -23,6 +23,7 @@ from discord.ext.commands import (
     MissingPermissions,
     EmojiNotFound,
     NotOwner,
+    AutoShardedBot
 )
 
 import os
@@ -90,7 +91,7 @@ class Ready(object):
         return all(getattr(self, cog) for cog in COGS)
 
 
-class Bot(BotBase):
+class AutoShardedBot(AutoShardedBot):
     def __init__(self):
         self.ready = False
         self.cogs_ready = Ready()
@@ -310,6 +311,6 @@ class Bot(BotBase):
             )
 
 
-bot = Bot()
+bot = AutoShardedBot()
 bot.load_extension("jishaku")
 slash = SlashCommand(bot, sync_commands=True, sync_on_cog_reload=True)
