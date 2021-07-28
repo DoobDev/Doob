@@ -74,14 +74,12 @@ class Meta(Cog):
         )
 
     @command(name="setactivity", brief="Owner Only Command - Set the bot's activity")
+    @commands.is_owner()
     async def set_activity_message(self, ctx, *, text: str):
         """Set the bot's `playing` or `watching`, etc status.\n`Owner` permission required."""
-        if ctx.author.id == owner_id:
-            self.message = text
-            await self.set()
-            await ctx.reply(f"Bot Status has been updated to {text}")
-        else:
-            await ctx.reply("You don't have permission to do that.")
+        self.message = text
+        await self.set()
+        await ctx.reply(f"Bot Status has been updated to {text}")
 
     @command(
         name="support",
@@ -129,64 +127,55 @@ class Meta(Cog):
     @command(
         name="shutdown", brief="Owner Only Command to shutdown the bot and save the DB."
     )
+    @commands.is_owner()
     async def shutdown(self, ctx):
         """Command to shutdown the bot and save it's database.\n`Owner` permission required"""
-        if ctx.author.id == owner_id:
-            await ctx.reply("Shutting down")
+        await ctx.reply("Shutting down")
 
-            db.commit()
-            self.bot.scheduler.shutdown()
-            await self.bot.logout()
-        else:
-            await ctx.reply("You don't have permission to shutdown the bot.")
+        db.commit()
+        self.bot.scheduler.shutdown()
+        await self.bot.logout()
 
     @command(name="restart", brief="Owner Only Command to restart the bot.")
+    @commands.is_owner()
     async def restart(self, ctx):
         """Command to restart, and update the bot to its latest version.\n`Owner` permission required"""
-        if ctx.author.id == owner_id:
-            await ctx.reply("Restarting...")
+        await ctx.reply("Restarting...")
 
-            db.commit()
-            self.bot.scheduler.shutdown()
-            await self.bot.logout()
+        db.commit()
+        self.bot.scheduler.shutdown()
+        await self.bot.logout()
 
-            log.info("Fetching latest version from doobdev/doob@master")
-            os.system("git pull origin master")
-            log.info("Installing requirements.txt")
-            os.system("python3.9 -m pip install -r requirements.txt  --force-reinstall")
-            log.info("Starting bot.")
-            os.system("python3.9 launcher.py")
-
-        else:
-            await ctx.reply("You don't have permission to shutdown the bot.")
+        log.info("Fetching latest version from doobdev/doob@master")
+        os.system("git pull origin master")
+        log.info("Installing requirements.txt")
+        os.system("python3.9 -m pip install -r requirements.txt  --force-reinstall")
+        log.info("Starting bot.")
+        os.system("python3.9 launcher.py")
 
     @command(
         name="update", brief="Owner Only Command to give a pretty embed for updates."
     )
+    @commands.is_owner()
     async def update_command(self, ctx, *, update: str):
         """Command to give people updates on why bot was going down / brief patch notes\n`Owner` permission required"""
 
         prefix = db.records("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
 
-        if ctx.author.id == owner_id:
-            with ctx.channel.typing():
-                await ctx.message.delete()
-                embed = Embed(
-                    title="Update:", description=update, colour=ctx.author.colour
-                )
-                embed.set_author(
-                    name=f"All the patch notes for {self.bot.VERSION} available here.",
-                    url=f"https://github.com/doobdev/doob/blob/master/CHANGELOG.md#v{self.bot.VERSION.replace('.', '')}",
-                )
-                embed.set_footer(
-                    text=f"Authored by: {ctx.author.display_name}",
-                    icon_url=ctx.author.avatar_url,
-                )
-                await ctx.send(embed=embed)
-        else:
-            await ctx.send(
-                f"You don't have permissions to give updates about Doob\nType `{prefix[0][0]}help update` for more info."
+        with ctx.channel.typing():
+            await ctx.message.delete()
+            embed = Embed(
+                title="Update:", description=update, colour=ctx.author.colour
             )
+            embed.set_author(
+                name=f"All the patch notes for {self.bot.VERSION} available here.",
+                url=f"https://github.com/doobdev/doob/blob/master/CHANGELOG.md#v{self.bot.VERSION.replace('.', '')}",
+            )
+            embed.set_footer(
+                text=f"Authored by: {ctx.author.display_name}",
+                icon_url=ctx.author.avatar_url,
+            )
+            await ctx.send(embed=embed)
 
     async def show_bot_info(self, ctx, patreon_status):
         embed = Embed(
@@ -331,6 +320,7 @@ class Meta(Cog):
                 pass
 
     @command(name="eval", hidden=True)
+    @commands.is_owner()
     async def _eval(self, ctx, *, code: str):
         def clean_code(content):
             if content.startswith("```") and content.endswith("```"):
@@ -338,48 +328,44 @@ class Meta(Cog):
             else:
                 return content
 
-        if ctx.author.id == owner_id:
-            code = clean_code(code)
+        code = clean_code(code)
 
-            local_variables = {
-                "discord": discord,
-                "commands": commands,
-                "bot": self.bot,
-                "ctx": ctx,
-                "channel": ctx.channel,
-                "author": ctx.author,
-                "guild": ctx.guild,
-                "message": ctx.message,
-                "self": self,
-            }
+        local_variables = {
+            "discord": discord,
+            "commands": commands,
+            "bot": self.bot,
+            "ctx": ctx,
+            "channel": ctx.channel,
+            "author": ctx.author,
+            "guild": ctx.guild,
+            "message": ctx.message,
+            "self": self,
+        }
 
-            stdout = io.StringIO()
+        stdout = io.StringIO()
 
-            try:
-                with contextlib.redirect_stdout(stdout):
-                    exec(
-                        f"async def func():\n{textwrap.indent(code, '    ')}",
-                        local_variables,
-                    )
+        try:
+            with contextlib.redirect_stdout(stdout):
+                exec(
+                    f"async def func():\n{textwrap.indent(code, '    ')}",
+                    local_variables,
+                )
 
-                    obj = await local_variables["func"]()
-                    result = f"{stdout.getvalue()}\n-- {obj}\n"
+                obj = await local_variables["func"]()
+                result = f"{stdout.getvalue()}\n-- {obj}\n"
 
-            except Exception as e:
-                result = "".join(format_exception(e, e, e.__traceback__))
+        except Exception as e:
+            result = "".join(format_exception(e, e, e.__traceback__))
 
-            pager = self.Pag(
-                timeout=100,
-                entries=[result[i : i + 2000] for i in range(0, len(result), 2000)],
-                length=1,
-                prefix="```py\n",
-                suffix="```",
-            )
+        pager = self.Pag(
+            timeout=100,
+            entries=[result[i : i + 2000] for i in range(0, len(result), 2000)],
+            length=1,
+            prefix="```py\n",
+            suffix="```",
+        )
 
-            await pager.start(ctx)
-
-        else:
-            await ctx.send("You can't execute this command, you are not an owner!")
+        await pager.start(ctx)
 
     @command(name="blacklist", brief="Adds a user to the Doob blacklist.")
     @commands.is_owner()
