@@ -1,4 +1,5 @@
 import io
+import logging
 from time import time
 from datetime import datetime, timedelta
 from typing import Optional
@@ -28,6 +29,7 @@ from ..db import db  # pylint: disable=relative-beyond-top-level
 
 import os
 
+log = logging.getLogger()
 
 cwd = Path(__file__).parents[0]
 cwd = str(cwd)
@@ -148,12 +150,12 @@ class Meta(Cog):
             self.bot.scheduler.shutdown()
             await self.bot.logout()
 
-            print("Fetching latest version from doobdev/doob@master")
+            log.info("Fetching latest version from doobdev/doob@master")
             os.system("git pull origin master")
-            print("Installing requirements.txt")
-            os.system("python3.8 -m pip install -r requirements.txt  --force-reinstall")
-            print("Starting bot.")
-            os.system("python3.8 launcher.py")
+            log.info("Installing requirements.txt")
+            os.system("python3.9 -m pip install -r requirements.txt  --force-reinstall")
+            log.info("Starting bot.")
+            os.system("python3.9 launcher.py")
 
         else:
             await ctx.reply("You don't have permission to shutdown the bot.")

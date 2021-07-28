@@ -6,7 +6,7 @@
       "        for ${1:name} in ${2:list}:",
       "            tNames.append(f\"{${1:name}.name}\")",
       "",
-      "        print(f\"{comma.join(tNames)}\")"
+      "        log.info(f\"{comma.join(tNames)}\")"
     ],
     "description": "Join a list into a string."
   }}

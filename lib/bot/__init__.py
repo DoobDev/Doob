@@ -1,9 +1,13 @@
 from asyncio import sleep
+import datetime
+from rich.logging import RichHandler
 
 from glob import glob
 
 import discord
 from discord import Embed, Colour, Client, Intents
+
+import logging
 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from discord.errors import Forbidden
@@ -51,6 +55,14 @@ def get_prefix(bot, message):
     prefix = db.field("SELECT Prefix FROM guilds WHERE GuildID = ?", message.guild.id)
     return when_mentioned_or(prefix)(bot, message)
 
+if config["dev_mode"]:
+    log_level = logging.DEBUG 
+else:
+    log_level = logging.INFO
+
+log = logging.getLogger()
+
+logging.basicConfig(level=log_level, format='%(name)s - %(message)s', datefmt="%X", handlers=[RichHandler()])
 
 class Ready(object):
     def __init__(self):
@@ -59,7 +71,7 @@ class Ready(object):
 
     def ready_up(self, cog):
         setattr(self, cog, True)
-        print(f"{cog} cog ready")
+        log.info(f"{cog} cog ready")
 
     def all_ready(self):
         return all(getattr(self, cog) for cog in COGS)
@@ -93,9 +105,9 @@ class Bot(BotBase):
     def setup(self):
         for cog in COGS:
             self.load_extension(f"lib.cogs.{cog}")
-            print(f"[COGS] {cog} cog loaded!")
+            log.info(f"[COGS] {cog} cog loaded!")
 
-        print("Setup done!")
+        log.info("Setup done!")
 
     def update_db(self):
         db.multiexec(
@@ -107,10 +119,10 @@ class Bot(BotBase):
     def run(self, version):
         self.VERSION = version
 
-        print("Running setup!")
+        log.info("Running setup!")
         self.setup()
-        print("Authenticated...")
-        print("Starting up")
+        log.info("Authenticated...")
+        log.info("Starting up")
         # Gets the token from the .env to authenticate the bot.
 
         # The following "fmt" comments are so that black, Doob's code style of choice, doesn't touch this line, if black touches it, then some Ubuntu machines can't run the bot.
@@ -134,10 +146,10 @@ class Bot(BotBase):
 
     async def on_connect(self):
         self.update_db()
-        print("Doob Connected")
+        log.info("Doob Connected")
 
     async def on_disconnect(self):
-        print("Doob Disconnected")
+        log.info("Doob Disconnected")
 
     async def on_error(self, err, *args, **kwargs):
         if err == "on_command_error":
@@ -202,7 +214,7 @@ class Bot(BotBase):
                     if not member.bot
                 ),
             )
-            print("Updated users table.")
+            log.info("Updated users table.")
 
             # db.multiexec(f"INSERT OR IGNORE INTO globalwarns (UserID) VALUES (?)", member.id)
             db.multiexec(
@@ -214,7 +226,7 @@ class Bot(BotBase):
                     if not member.bot
                 ),
             )
-            print("Updated global warns table.")
+            log.info("Updated global warns table.")
 
             # Puts all users in the votes DB
             db.multiexec(
@@ -226,19 +238,19 @@ class Bot(BotBase):
                     if not member.bot
                 ),
             )
-            print("Updated votes table.")
+            log.info("Updated votes table.")
 
             self.ready = True
             self.update_db
 
-            print("Updated DB")
-            print("Doob Ready")
+            log.info("Updated DB")
+            log.info("Doob Ready")
 
             meta = self.get_cog("Meta")
             await meta.set()
 
         else:
-            print("Doob Reconnected")
+            log.info("Doob Reconnected")
 
     async def on_message(self, message):
         def read_json(filename):

@@ -12,5 +12,6 @@ PyGithub==1.55
 discord-py-slash-command==2.3.2
 buttons==0.1.9
 jishaku==2.2.0
+rich==10.6.0
 
 git+git://github.com/rapptz/discord-ext-menus.git#egg=discord-ext-menus

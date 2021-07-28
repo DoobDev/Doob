@@ -1,3 +1,4 @@
+import logging
 from discord.ext.commands import Cog
 from discord.ext.commands import CheckFailure
 from discord.ext.commands import command, has_permissions, cooldown, BucketType
@@ -25,7 +26,7 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-
+log = logging.getLogger()
 
 class Misc(Cog):
     def __init__(self, bot):
@@ -260,12 +261,10 @@ class Misc(Cog):
         for user in users:
             if not user.bot:
                 entries.append(user.id)
-            else:
-                print("lol")
 
         winner = random.choice(entries)
 
-        print(entries)
+        log.info(entries)
 
         await channel.send(f"<@{winner}> won the giveaway!")
         await channel.send(

@@ -2,6 +2,7 @@
 DONT MOVE IF YOU HAVE SET UP DOOB MUSIC
 """
 import asyncio
+import logging
 import typing
 import re
 import random
@@ -13,6 +14,8 @@ import wavelink
 from discord.ext import commands
 
 from datetime import datetime
+
+log = logging.getLogger()
 
 URL_REGEX = r"(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))"
 LYRICS_URL = "https://some-random-api.ml/lyrics?title="
@@ -304,7 +307,7 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
 
     @wavelink.WavelinkMixin.listener()
     async def on_node_ready(self, node):
-        print(f"Wavelink node {node.identifier} ready.")
+        log.info(f"Wavelink node {node.identifier} ready.")
 
     @wavelink.WavelinkMixin.listener("on_track_stuck")
     @wavelink.WavelinkMixin.listener("on_track_end")
