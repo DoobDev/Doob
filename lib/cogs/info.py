@@ -200,7 +200,7 @@ class Info(Cog):
 
         desc = f"""<:Dusernuetral:869830849380646922> **Name:** {ctx.guild.name}
         <:Dspace:869830848743092247> <:DRightTrans:869842970415890432> **ID:** {ctx.guild.id}
-        \n<:Dusernuetral:869830849380646922> **Owner:** {ctx.guild.owner}
+        \n<:Dusernuetral:869830849380646922> **Owner:** {ctx.guild.owner.mention}
         <:Dspace:869830848743092247> <:DRightTrans:869842970415890432> **Owner's ID:** {ctx.guild.owner.id}
         \n<:Dmappink:869815364731678762> **Region:** {ctx.guild.region}
         \n<:Dclockpink:869815366816239666> **Created:** <t:{int(datetime.replace(ctx.guild.created_at).timestamp())}:R>

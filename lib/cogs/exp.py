@@ -124,24 +124,18 @@ class Exp(Cog):
 
         if lvl is not None:
             to_next_level = int((lvl + 1) ** (20 / 11) * 42) - xp
+
+            desc = f"""<:Dusernuetral:869830849380646922> **User:** {target.mention}
+            \n<:Dstarpink:869815366539419648> **Level:** {lvl:,}
+            <:Dspace:869830848743092247> <:DRightTrans:869842970415890432> **XP:** {xp:,}
+            <:Dspace:869830848743092247> <:DRightTrans:869842970415890432> **XP until next level:** {to_next_level:,}
+            \n<:Dstarpink:869815366539419648> **Server Level:** {lvl_g:,}
+            <:Dspace:869830848743092247> <:DRightTrans:869842970415890432> **Server XP:** {xp_g:,}"""
+
             embed = Embed(
-                title=f"{target.display_name} is level {lvl:,}",
-                description=f"XP: {xp:,}\nXP to next level {to_next_level:,}"
-                + f"\n\nServer XP: {xp_g:,}\nServer level: {lvl_g:,}",
-                colour=ctx.author.color,
+                description=desc,
+                colour=ctx.author.color,           
             )
-
-            fields = [
-                ("Global Rank:", f"{ids.index(target.id)+1:,} of {len(ids):,}", False),
-                (
-                    f"Server Rank:",
-                    f"{ids_g.index(target.id)+1:,} of {len(ids_g):,}",
-                    False,
-                ),
-            ]
-
-            for field in fields:
-                embed.add_field(name=field[0], value=field[1], inline=field[2])
 
             embed.set_thumbnail(url=target.avatar_url)
 
