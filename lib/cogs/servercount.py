@@ -12,6 +12,7 @@ from dotenv import load_dotenv
 load_dotenv()
 log = logging.getLogger()
 
+
 class servercount(commands.Cog):
     """Handles interactions with the top.gg API"""
 

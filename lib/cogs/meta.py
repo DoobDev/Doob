@@ -164,9 +164,7 @@ class Meta(Cog):
 
         with ctx.channel.typing():
             await ctx.message.delete()
-            embed = Embed(
-                title="Update:", description=update, colour=ctx.author.colour
-            )
+            embed = Embed(title="Update:", description=update, colour=ctx.author.colour)
             embed.set_author(
                 name=f"All the patch notes for {self.bot.VERSION} available here.",
                 url=f"https://github.com/doobdev/doob/blob/master/CHANGELOG.md#v{self.bot.VERSION.replace('.', '')}",
