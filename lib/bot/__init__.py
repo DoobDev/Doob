@@ -184,7 +184,7 @@ class AutoShardedBot(AutoShardedBot):
 
         if isinstance(exc, MissingRequiredArgument):
             await ctx.reply(
-                "<:DAccessDenied:869815358758985779> Required arguments missing.",
+                "<:Dexclaimneg:869815364828160070> Required arguments missing.",
                 delete_after=10,
             )
 

@@ -84,9 +84,10 @@ class Mod(Cog):
     ):
         """Kicks a member from the server.\n`Kick Members` permission required."""
         if not len(targets):
-            await ctx.reply("One or more required arguments are missing.")
+            await ctx.reply("<:Dexclaimneg:869815364828160070> One or more required arguments are missing.")
 
         else:
+            target_list = []
             for target in targets:
                 if (
                     ctx.guild.me.top_role.position != target.top_role.position
@@ -94,17 +95,23 @@ class Mod(Cog):
                 ):
 
                     await target.kick(reason=reason)
-                    await ctx.reply("Member Kicked.")
+                    target_list.append(target.display_name)
+            
                 else:
                     await ctx.reply(
-                        "Something went wrong.\nYou might not be able to kick that member."
+                        "<:DAccessDenied:869815358758985779> Something went wrong.\nYou might not be able to kick that member."
                     )
+            target_list_real = "\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> ".join(target_list)
+            await ctx.send(embed=Embed(
+                description=f"<:Dcheckpos:869815364278702080> **Kicked:**\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> {target_list_real}", 
+                colour=ctx.author.colour
+            ))
 
     async def mute_members(self, message, targets, reason):
         mute_role = db.field(
             "SELECT MutedRole FROM guilds WHERE GuildID = ?", message.guild.id
         )
-        comma = ", "
+        comma = "\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> "
         tNames = [f"{target.display_name}" for target in targets]
         for target in targets:
             mutedrole = message.guild.get_role(int(mute_role))
@@ -119,7 +126,7 @@ class Mod(Cog):
                 )
                 db.commit()
 
-        embed = Embed(title="Muted:", description=f"{comma.join(tNames)}")
+        embed = Embed(description=f"<:Dcheckpos:869815364278702080> **Muted:**\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> {comma.join(tNames)}", colour=message.author.colour)
         await message.channel.send(embed=embed)
 
         return []
@@ -138,7 +145,7 @@ class Mod(Cog):
     ):
         """Mutes a member from the server\nRequires the `Manage Roles` permission"""
         if not len(targets):
-            await ctx.reply("One or more required arguments are missing.")
+            await ctx.reply("<:Dexclaimneg:869815364828160070> One or more required arguments are missing.")
 
         else:
             unmutes = await self.mute_members(ctx.message, targets, reason)
@@ -148,21 +155,28 @@ class Mod(Cog):
                     "SELECT MutedRole FROM guilds WHERE GuildID = ?", ctx.guild.id
                 )
                 TheRole = ctx.guild.get_role(int(mute_role))
+                target_list = []
                 for target in targets:
                     await target.remove_roles(TheRole)
                     db.execute(
                         f"DELETE FROM mutes WHERE UserID = {target.id} AND GuildID = {ctx.guild.id}"
                     )
                     db.commit()
-                    await ctx.reply("Unmuted!")
+
+                    target_list.append(target.display_name)
+
+                target_list_real = "\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> ".join(target_list)
+                await ctx.send(embed=Embed(
+                    description=f"<:Dcheckpos:869815364278702080> **Unmuted:**\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> {target_list_real}", 
+                    colour=ctx.author.colour
+                ))
 
     @command(name="unmute", aliases=["um"], brief="Unmutes a member from the server.")
     @bot_has_permissions(manage_roles=True)
     @has_permissions(manage_roles=True)
     async def delmute_command(self, ctx, targets: Greedy[Member]):
         """Unmutes a member from the server\nRequires the `Manage Roles` permission"""
-        comma = ", "
-        tNames = [f"{target.display_name}" for target in targets]
+        target_list = []
         for target in targets:
             role_ids = db.field(
                 f"SELECT RoleIDs FROM mutes WHERE UserID = {target.id} AND GuildID = {ctx.guild.id}"
@@ -175,11 +189,13 @@ class Mod(Cog):
                 f"DELETE FROM mutes WHERE UserID = {target.id} AND GuildID = {ctx.guild.id}"
             )
             db.commit()
-            target_embed = ""
-            target_embed += f" {target.display_name},"
+            target_list.append(target.display_name)
 
-        embed = Embed(title="Unmuted:", description=f"{comma.join(tNames)}")
-        await ctx.reply(embed=embed)
+        target_list_real = "\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> ".join(target_list)
+        await ctx.send(embed=Embed(
+            description=f"<:Dcheckpos:869815364278702080> **Unmuted:**\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> {target_list_real}", 
+            colour=ctx.author.colour
+        ))
 
     @command(
         name="ban", aliases=["b", "banmember"], brief="Ban a member from the server."
@@ -200,6 +216,7 @@ class Mod(Cog):
             )
 
         else:
+            target_list = []
             for target in targets:
                 if (
                     ctx.guild.me.top_role.position != target.top_role.position
@@ -207,14 +224,18 @@ class Mod(Cog):
                 ):
 
                     await target.ban(reason=reason)
-                    await ctx.reply(
-                        "<:DAccessDenied:869815358758985779> Member banned."
-                    )
-
+                    target_list.append(target.display_name)
                 else:
                     await ctx.reply(
                         "<:DAccessDenied:869815358758985779> Something went wrong.\n<:Dcrossneg:869815364383572059> You might not be able to ban that member."
                     )
+
+            target_list_real = "\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> ".join(target_list)
+            
+            await ctx.send(embed=Embed(
+                description=f"<:Dcheckpos:869815364278702080> **Banned:**\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> {target_list_real}", 
+                colour=ctx.author.colour
+            ))
 
     @command(
         name="russianroulette",
@@ -248,7 +269,7 @@ class Mod(Cog):
 
                         else:
                             await ctx.reply(
-                                "Something went wrong.\nYou might not be able to ban that member.\nYou survived this one..."
+                                "<:DAccessDenied:869815358758985779> Something went wrong.\nYou might not be able to ban that member.\nYou survived this one..."
                             )
 
             else:
@@ -271,9 +292,17 @@ class Mod(Cog):
             await ctx.reply("One or more required arguments are missing.")
 
         else:
+            target_list = []
             for target in targets:
                 await ctx.guild.unban(target, reason=reason)
-                await ctx.reply("Member unbanned.")
+                target_list.append(target.display_name)
+            
+            target_list_real = "\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> ".join(target_list)
+            await ctx.send(embed=Embed(
+                description=f"<:Dcheckpos:869815364278702080> **Unbanned:**\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> {target_list_real}",
+                colour=ctx.author.colour
+            ))
+
 
     @command(
         name="clear", aliases=["purge"], brief="Clears amount of messages provided."
@@ -297,10 +326,10 @@ class Mod(Cog):
                     check=_check,
                 )
 
-                await ctx.send(f"Deleted {len(deleted):,} messages.", delete_after=10)
+                await ctx.send(f"<:Dtrashcan:869815365323079733> Deleted {len(deleted):,} messages.", delete_after=10)
 
         else:
-            await ctx.reply("The limit provided is not within acceptable bounds.")
+            await ctx.reply("<:Dexclaimneg:869815364828160070> The limit provided is not within acceptable bounds.")
 
     @command(
         name="setlogchannel",
@@ -327,7 +356,7 @@ class Mod(Cog):
                 ctx.guild.id,
             )
             db.commit()
-            await ctx.reply(f"Log channel set to <#{channel.id}>")
+            await ctx.reply(f"<:Dwrenchpink:869830850605375489> Log channel set to <#{channel.id}>")
 
     @command(
         name="setstarboardchannel",
@@ -354,7 +383,7 @@ class Mod(Cog):
                 ctx.guild.id,
             )
             db.commit()
-            await ctx.reply(f"StarBoard channel set to <#{channel.id}>")
+            await ctx.reply(f"<:Dwrenchpink:869830850605375489> Starboard channel set to <#{channel.id}>")
 
     @command(
         name="setmuterole",
@@ -376,11 +405,11 @@ class Mod(Cog):
                 ctx.guild.id,
             )
             db.commit()
-            await ctx.reply(f"Mute role set to `{role}`")
+            await ctx.reply(f"<:Dwrenchpink:869830850605375489> Mute role set to `{role}`")
 
         else:
             await ctx.reply(
-                f"Please try a different role.\nYou may need to move the `Doob` role in your server settings above the `{role}` role."
+                f"<:DAccessDenied:869815358758985779> Please try a different role.\nYou may need to move the `Doob` role in your server settings above the `{role}` role."
             )
 
     @command(
@@ -393,7 +422,7 @@ class Mod(Cog):
         """Create a text channel in the guild the command was executed in.\n`Manage Server` permission required."""
         channel = await ctx.guild.create_text_channel(name)
 
-        await ctx.send(f"Your Text Channel has been created.\n<#{channel.id}>")
+        await ctx.send(f"<:Dcheckpos:869815364278702080> Your Text Channel has been created.\n<#{channel.id}>")
 
     @command(
         name="deletetextchannel",
@@ -407,22 +436,7 @@ class Mod(Cog):
         await channel.delete()
 
         await ctx.send(
-            f"Your Text Channel ({channel.name}: `{channel.id}`) has been deleted."
-        )
-
-    @command(
-        name="deletetextchannel",
-        aliases=["dtc", "deletetc"],
-        brief="Delete a text channel.",
-    )
-    @has_permissions(manage_channels=True)
-    async def delete_text_channel_command(self, ctx, channel: TextChannel):
-        channel = self.bot.get_channel(channel.id)
-
-        await channel.delete()
-
-        await ctx.send(
-            f"Your Text Channel ({channel.name}: `{channel.id}`) has been deleted."
+            f"<:Dtrashcan:869815365323079733> Your Text Channel ({channel.name}: `{channel.id}`) has been deleted."
         )
 
     @command(
@@ -439,7 +453,7 @@ class Mod(Cog):
             reason="Made using the create voice channel command."
         )
 
-        await ctx.send(f"Your Voice Channel has been created.\n{invite}")
+        await ctx.send(f"<:Dcheckpos:869815364278702080> Your Voice Channel has been created.\n{invite}")
 
     @command(
         name="deletevoicechannel",
@@ -453,7 +467,7 @@ class Mod(Cog):
         await channel.delete()
 
         await ctx.send(
-            f"The voice channel ({channel.name}: `{channel.id}`) has been deleted."
+            f"<:Dtrashcan:869815365323079733> The voice channel ({channel.name}: `{channel.id}`) has been deleted."
         )
 
     @command(name="warn", aliases=["w"], brief="Warn a user.")
@@ -461,8 +475,7 @@ class Mod(Cog):
     async def warn_command(
         self, ctx, targets: Greedy[Member], *, reason: Optional[str]
     ):
-        comma = ", "
-        tNames = [f"{target.display_name}" for target in targets]
+        target_list = []
         for target in targets:
             user = self.bot.get_user(target.id)
             warns = db.records(
@@ -487,15 +500,21 @@ class Mod(Cog):
 
             if reason is None:
                 await user.send(
-                    f"🔸 You have been warned in {ctx.guild.name} for no reason."
+                    f"<:Dwarning:869830849061879859> You have been warned in {ctx.guild.name} for no reason."
                 )
 
             else:
                 await user.send(
-                    f"🔸 You have been warned in {ctx.guild.name} for {reason}"
+                    f"<:Dwarning:869830849061879859> You have been warned in {ctx.guild.name} for {reason}"
                 )
 
-        await ctx.reply(f"Done!\nWarned: {comma.join(tNames)}")
+            target_list.append(target.display_name)
+
+        target_list_real = "\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> ".join(target_list)
+        await ctx.send(embed=Embed(
+            description=f"<:Dwarningpos:869815366715584513> **Warned:**\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> {target_list_real}",
+            colour=ctx.author.colour
+        ))
 
     @command(
         name="warnings",
@@ -512,7 +531,7 @@ class Mod(Cog):
         )[0][0]
 
         embed = Embed(
-            title=f"Warnings for {ctx.author.display_name}", colour=ctx.author.colour
+            title=f"<:Dwarning:869830849061879859> Warnings for {ctx.author.display_name}", colour=ctx.author.colour
         )
 
         fields = [
