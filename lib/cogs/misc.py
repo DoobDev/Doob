@@ -1,3 +1,5 @@
+import logging
+from discord.ext import commands
 from discord.ext.commands import Cog
 from discord.ext.commands import CheckFailure
 from discord.ext.commands import command, has_permissions, cooldown, BucketType
@@ -25,7 +27,7 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-
+log = logging.getLogger()
 
 class Misc(Cog):
     def __init__(self, bot):
@@ -260,12 +262,10 @@ class Misc(Cog):
         for user in users:
             if not user.bot:
                 entries.append(user.id)
-            else:
-                print("lol")
 
         winner = random.choice(entries)
 
-        print(entries)
+        log.info(entries)
 
         await channel.send(f"<@{winner}> won the giveaway!")
         await channel.send(
@@ -346,26 +346,21 @@ class Misc(Cog):
         aliases=["opo"],
         brief="Changes the prefix. | Bot Owner Override.",
     )
+    @commands.is_owner()
     async def override_change_prefix(self, ctx, new: str):
         """Changes the prefix for the server.\nOnly the bot owner can use the override command."""
 
         prefix = db.records("SELECT Prefix FROM guilds WHERE GuildID = ?", ctx.guild.id)
 
-        if ctx.author.id == owner_id:
-            db.execute(
-                "UPDATE guilds SET Prefix = ? WHERE GuildID = ?", new, ctx.guild.id
-            )
-            embed = Embed(
-                title="Prefix Changed",
-                description=f"Prefix has been changed to `{new}`",
-            )
+        db.execute(
+            "UPDATE guilds SET Prefix = ? WHERE GuildID = ?", new, ctx.guild.id
+        )
+        embed = Embed(
+            title="Prefix Changed",
+            description=f"Prefix has been changed to `{new}`",
+        )
 
-            await ctx.reply(embed=embed)
-
-        else:
-            await ctx.reply(
-                f"This is the owner override command, only the owner of the bot can use this. If you are a server manager, use `{prefix[0][0]}prefix` command."
-            )
+        await ctx.reply(embed=embed)
 
     @command(
         name="overlay", aliases=["streamkit"], brief="Gives Discord Streamkit Overlay."

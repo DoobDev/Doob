@@ -50,9 +50,6 @@ Submit an [Issue](https://github.com/doobdev/doob/issues) or a [Pull request](ht
 ## `🙌` Credits
 * Doob's Emojis: Use both [Font Awesome](https://fontawesome.com/) and [Material Design](https://materialdesignicons.com/) icons.
 * Doob Avatar: [@KittyKay000](https://twitter.com/KittyKay000)
-* Doob Name: Me and my friend William in Biology.
-* Doob extensive help: [@X Daniel](https://github.com/x-daniel-17)
-* Moral Support: Mason
 
 ### `🙌` Code Contributors
 

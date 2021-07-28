@@ -3,7 +3,6 @@ import asyncio
 from discord.ext.commands import Cog, command
 import re
 import math
-from discord_components import Button, ButtonStyle, InteractionType
 
 import re
 import math
@@ -13,22 +12,31 @@ import json
 with open("config.json") as config_file:
     config = json.load(config_file)
 
+from ..db import db
+
 
 class Help(Cog):
     def __init__(self, bot):
         self.bot = bot
 
     @command(name="help", aliases=["commands"], brief="Shows this help message")
-    async def help_command(self, ctx, cog="1"):
+    async def help_command(self, ctx, cog="1"):  # sourcery no-metrics
         helpEmbed = Embed(title="Help", color=ctx.author.color)
         helpEmbed.set_thumbnail(url=ctx.guild.me.avatar_url)
+        prefix = db.field("SELECT Prefix FROM guilds WHERE GuildID = ?", ctx.guild.id)
 
         cogs = [c for c in self.bot.cogs.keys()]
-        cogs.remove("servercount")
+
         cogs.remove("Welcome")
         cogs.remove("Reactions")
         cogs.remove("Log")
-        cogs.remove("stat")
+
+        if ctx.author.id not in self.bot.owner_ids:
+            cogs.remove("Jishaku")
+
+        if not config["dev_mode"]:
+            cogs.remove("servercount")
+            cogs.remove("stat")
 
         totalPages = math.ceil(len(cogs) / 4)
 
@@ -41,7 +49,7 @@ class Help(Cog):
                 return
 
             helpEmbed.set_footer(
-                text=f"<> - Required, [] - Optional | Page {cog} of {totalPages} | use `d!help (page number)` to flip pages."
+                text=f"<> - Required, [] - Optional | Page {cog} of {totalPages} | use `{prefix}help (page number)` to flip pages."
             )
 
             neededCogs = []
@@ -98,8 +106,6 @@ class Help(Cog):
                     helpText += f"⠀‣ Aliases: `{', '.join(command.aliases)}`"
 
                     helpText += "\n"
-
-                prefix = "d!"
 
                 if command.parent is not None:
                     helpText += f"⠀‣ Format: `{prefix}{command.parent.name} {command.name} {params}`\n\n"

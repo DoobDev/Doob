@@ -2,6 +2,7 @@
 DONT MOVE IF YOU HAVE SET UP DOOB MUSIC
 """
 import asyncio
+import logging
 import typing
 import re
 import random
@@ -13,6 +14,8 @@ import wavelink
 from discord.ext import commands
 
 from datetime import datetime
+
+log = logging.getLogger()
 
 URL_REGEX = r"(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))"
 LYRICS_URL = "https://some-random-api.ml/lyrics?title="
@@ -290,7 +293,7 @@ class Player(wavelink.Player):
 class Music(commands.Cog, wavelink.WavelinkMixin):
     def __init__(self, bot):
         self.bot = bot
-        self.wavelink = wavelink.Client(bot=bot)
+        self.wavelinkClient = wavelink.Client(bot=bot)
         self.bot.loop.create_task(self.start_nodes())
 
     @commands.Cog.listener()
@@ -304,7 +307,7 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
 
     @wavelink.WavelinkMixin.listener()
     async def on_node_ready(self, node):
-        print(f"Wavelink node {node.identifier} ready.")
+        log.info(f"Wavelink node {node.identifier} ready.")
 
     @wavelink.WavelinkMixin.listener("on_track_stuck")
     @wavelink.WavelinkMixin.listener("on_track_end")
@@ -338,14 +341,14 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
         }
 
         for node in nodes.values():
-            await self.wavelink.initiate_node(**node)
+            await self.wavelinkClient.initiate_node(**node)
 
     def get_player(self, obj):
         if isinstance(obj, commands.Context):
-            return self.wavelink.get_player(obj.guild.id, cls=Player, context=obj)
+            return self.wavelinkClient.get_player(obj.guild.id, cls=Player, context=obj)
 
         elif isinstance(obj, discord.Guild):
-            return self.wavelink.get_player(obj.id, cls=Player)
+            return self.wavelinkClient.get_player(obj.id, cls=Player)
 
     @commands.command(
         name="connect", aliases=["join"], brief="Connect Doob to a Voice Channel"
@@ -397,7 +400,7 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
             if not re.match(URL_REGEX, query):
                 query = f"ytsearch:{query}"
 
-            await player.add_tracks(ctx, await self.wavelink.get_tracks(query))
+            await player.add_tracks(ctx, await self.wavelinkClient.get_tracks(query))
 
     @play_command.error
     async def play_command_error(self, ctx, exc):

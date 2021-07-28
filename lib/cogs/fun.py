@@ -1,3 +1,4 @@
+import logging
 from random import choice, randint, random
 from typing import Optional
 from aiohttp import request
@@ -20,6 +21,7 @@ import json
 with open("config.json") as config_file:
     config = json.load(config_file)
 
+log = logging.getLogger()
 
 class Fun(Cog):
     def __init__(self, bot):
@@ -65,7 +67,7 @@ class Fun(Cog):
             # If they are, run the command.
             await ctx.message.delete()
             await ctx.send(message)
-            print(f"{ctx.author.name} used the Echo command and said {message}")
+            log.info(f"{ctx.author.name} used the Echo command and said {message}")
 
         else:
             await ctx.reply(
@@ -670,7 +672,7 @@ class Fun(Cog):
 
         char = choice((characters))
 
-        print(char)
+        log.info(char)
 
         embed = Embed(
             title=f"Play: {char}", description="Enjoy!", colour=ctx.author.colour
@@ -772,7 +774,7 @@ class Fun(Cog):
 
         char = choice((characters))
 
-        print(char)
+        log.info(char)
 
         embed = Embed(
             title=f"Play: {char}", description="Enjoy!", colour=ctx.author.colour
@@ -815,7 +817,7 @@ class Fun(Cog):
 
         char = choice((characters))
 
-        print(char)
+        log.info(char)
 
         embed = Embed(
             title=f"Play: {char}", description="Enjoy!", colour=ctx.author.colour
@@ -848,7 +850,7 @@ class Fun(Cog):
 
         char = choice((characters))
 
-        print(char)
+        log.info(char)
 
         embed = Embed(
             title=f"Play: {char}", description="Enjoy!", colour=ctx.author.colour
@@ -882,7 +884,7 @@ class Fun(Cog):
 
         char = choice((characters))
 
-        print(char)
+        log.info(char)
 
         embed = Embed(
             title=f"Play: {char}", description="Enjoy!", colour=ctx.author.colour
@@ -962,7 +964,7 @@ class Fun(Cog):
 
         char = choice((characters))
 
-        print(char)
+        log.info(char)
 
         embed = Embed(
             title=f"Play: {char}", description="Enjoy!", colour=ctx.author.colour

@@ -14,3 +14,4 @@ pyproject.toml
 poetry.lock
 .DS_store
 blacklisted_users.json
+logs/
