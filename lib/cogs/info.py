@@ -24,9 +24,6 @@ def get_path(filename):
     return absolute_path + f"/{filename}.json"
 
 
-
-
-
 class Info(Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -74,7 +71,7 @@ class Info(Cog):
                 return "<:Dcrossneg:869815364383572059>"
             else:
                 return "<:Dcrosspos:869815366002556928>"
-        
+
         roles = []
 
         for role in target.roles:
@@ -84,7 +81,11 @@ class Info(Cog):
             else:
                 roles.append(f"{role.mention}")
 
-        roles_list = "\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> ".join(roles)
+        roles_list = (
+            "\n<:Dspace:869830848743092247> <:DRightTrans:869842970415890432> ".join(
+                roles
+            )
+        )
 
         patreon = "Yes" if patreon_status == True else "No"
 
@@ -103,14 +104,14 @@ class Info(Cog):
         \n<:Dmisc:869815363276243006> **Roles:** {roles_list}"""
 
         embed = Embed(
-            colour=target.colour,
-            timestamp=datetime.utcnow(),
-            description=desc
+            colour=target.colour, timestamp=datetime.utcnow(), description=desc
         )
 
         embed.set_thumbnail(url=target.avatar_url)
 
-        embed.set_footer(text=f"{target.display_name}'s information.", icon_url=target.avatar_url)
+        embed.set_footer(
+            text=f"{target.display_name}'s information.", icon_url=target.avatar_url
+        )
 
         await ctx.send(embed=embed)
 
@@ -127,7 +128,6 @@ class Info(Cog):
             with open(get_path(filename), "r") as file:
                 data = json.load(file)
             return data
-
 
         BLACKLISTED_USERS = read_json("blacklisted_users")
 
@@ -167,12 +167,10 @@ class Info(Cog):
         ],
     )
     async def user_info_slash(self, ctx, target: Optional[Member]):
-
         def read_json(filename):
             with open(get_path(filename), "r") as file:
                 data = json.load(file)
             return data
-
 
         BLACKLISTED_USERS = read_json("blacklisted_users")
 
@@ -215,14 +213,12 @@ class Info(Cog):
         <:Dspace:869830848743092247> <:DRightTrans:869842970415890432> **Categories** {len(ctx.guild.categories)}
         \n<:Dmisc:869815363276243006> **Roles:** {len(ctx.guild.roles)}
         <:Dspace:869830848743092247> <:DRightTrans:869842970415890432> **View all of them by doing {prefix}roles**"""
-     
+
         if banned_members:
-            desc += f"\n\n<:DAccessDenied:869815358758985779> **Banned Members:** {len(await ctx.guild.bans())}" 
+            desc += f"\n\n<:DAccessDenied:869815358758985779> **Banned Members:** {len(await ctx.guild.bans())}"
 
         embed = Embed(
-            colour=ctx.guild.owner.colour,
-            timestamp=datetime.utcnow(),
-            description=desc
+            colour=ctx.guild.owner.colour, timestamp=datetime.utcnow(), description=desc
         )
 
         embed.set_thumbnail(url=ctx.guild.icon_url)
@@ -230,7 +226,9 @@ class Info(Cog):
         if ctx.guild.banner:
             embed.set_image(url=ctx.guild.banner_url)
 
-        embed.set_footer(text=f"{ctx.guild.name}'s information", icon_url=ctx.guild.icon_url)
+        embed.set_footer(
+            text=f"{ctx.guild.name}'s information", icon_url=ctx.guild.icon_url
+        )
 
         await ctx.send(embed=embed)
 

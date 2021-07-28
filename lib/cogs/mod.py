@@ -195,7 +195,9 @@ class Mod(Cog):
     ):
         """Bans a member from the server\n`Ban Members` permission required."""
         if not len(targets):
-            await ctx.reply("<:DAccessDenied:869815358758985779> One or more required arguments are missing.")
+            await ctx.reply(
+                "<:DAccessDenied:869815358758985779> One or more required arguments are missing."
+            )
 
         else:
             for target in targets:
@@ -205,7 +207,9 @@ class Mod(Cog):
                 ):
 
                     await target.ban(reason=reason)
-                    await ctx.reply("<:DAccessDenied:869815358758985779> Member banned.")
+                    await ctx.reply(
+                        "<:DAccessDenied:869815358758985779> Member banned."
+                    )
 
                 else:
                     await ctx.reply(

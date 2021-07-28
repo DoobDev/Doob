@@ -672,9 +672,7 @@ class Fun(Cog):
 
         log.info(char)
 
-        embed = Embed(
-            title=f"Play: {char}", colour=ctx.author.colour
-        )
+        embed = Embed(title=f"Play: {char}", colour=ctx.author.colour)
 
         if char == "Brimstone":
             embed.set_image(
@@ -774,9 +772,7 @@ class Fun(Cog):
 
         log.info(char)
 
-        embed = Embed(
-            title=f"Play: {char}", colour=ctx.author.colour
-        )
+        embed = Embed(title=f"Play: {char}", colour=ctx.author.colour)
 
         if char == "Phoenix":
             embed.set_image(
@@ -817,9 +813,7 @@ class Fun(Cog):
 
         log.info(char)
 
-        embed = Embed(
-            title=f"Play: {char}", colour=ctx.author.colour
-        )
+        embed = Embed(title=f"Play: {char}", colour=ctx.author.colour)
 
         if char == "Sage":
             embed.set_image(
@@ -850,9 +844,7 @@ class Fun(Cog):
 
         log.info(char)
 
-        embed = Embed(
-            title=f"Play: {char}", colour=ctx.author.colour
-        )
+        embed = Embed(title=f"Play: {char}", colour=ctx.author.colour)
 
         if char == "Breach":
             embed.set_image(
@@ -884,9 +876,7 @@ class Fun(Cog):
 
         log.info(char)
 
-        embed = Embed(
-            title=f"Play: {char}", colour=ctx.author.colour
-        )
+        embed = Embed(title=f"Play: {char}", colour=ctx.author.colour)
 
         if char == "Omen":
             embed.set_image(
@@ -964,9 +954,7 @@ class Fun(Cog):
 
         log.info(char)
 
-        embed = Embed(
-            title=f"Play: {char}", colour=ctx.author.colour
-        )
+        embed = Embed(title=f"Play: {char}", colour=ctx.author.colour)
 
         if char == "D.va":
             embed.set_image(

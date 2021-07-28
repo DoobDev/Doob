@@ -56,6 +56,7 @@ def get_prefix(bot, message):
     prefix = db.field("SELECT Prefix FROM guilds WHERE GuildID = ?", message.guild.id)
     return when_mentioned_or(prefix)(bot, message)
 
+
 log_level = logging.DEBUG if config["dev_mode"] else logging.INFO
 log = logging.getLogger()
 
@@ -182,7 +183,10 @@ class AutoShardedBot(AutoShardedBot):
         #     )
 
         if isinstance(exc, MissingRequiredArgument):
-            await ctx.reply("<:DAccessDenied:869815358758985779> Required arguments missing.", delete_after=10)
+            await ctx.reply(
+                "<:DAccessDenied:869815358758985779> Required arguments missing.",
+                delete_after=10,
+            )
 
         elif isinstance(exc, CommandOnCooldown):
             await ctx.reply(
@@ -191,7 +195,10 @@ class AutoShardedBot(AutoShardedBot):
             )
 
         elif isinstance(exc, MissingPermissions):
-            await ctx.reply("<:DAccessDenied:869815358758985779> You don't have permissions for that.", delete_after=10)
+            await ctx.reply(
+                "<:DAccessDenied:869815358758985779> You don't have permissions for that.",
+                delete_after=10,
+            )
 
         elif isinstance(exc, EmojiNotFound):
             await ctx.reply(
@@ -208,7 +215,8 @@ class AutoShardedBot(AutoShardedBot):
         elif hasattr(exc, "original"):
             if isinstance(exc.original, Forbidden):
                 await ctx.reply(
-                    "<:DAccessDenied:869815358758985779> Doob doesn't have permissions to do that.", delete_after=10
+                    "<:DAccessDenied:869815358758985779> Doob doesn't have permissions to do that.",
+                    delete_after=10,
                 )
 
             else:
