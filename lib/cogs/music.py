@@ -403,10 +403,14 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
                 query = f"ytsearch:{query}"
 
             try:
-                await player.add_tracks(ctx, await self.wavelinkClient.get_tracks(query))
+                await player.add_tracks(
+                    ctx, await self.wavelinkClient.get_tracks(query)
+                )
 
             except ZeroConnectedNodes as e:
-                await ctx.send("Doob Music is currenly down, please join the support server [/support] for more info/updates")
+                await ctx.send(
+                    "Doob Music is currenly down, please join the support server [/support] for more info/updates"
+                )
 
     @play_command.error
     async def play_command_error(self, ctx, exc):
