@@ -56,11 +56,7 @@ def get_prefix(bot, message):
     prefix = db.field("SELECT Prefix FROM guilds WHERE GuildID = ?", message.guild.id)
     return when_mentioned_or(prefix)(bot, message)
 
-if config["dev_mode"]:
-    log_level = logging.DEBUG 
-else:
-    log_level = logging.INFO
-
+log_level = logging.DEBUG if config["dev_mode"] else logging.INFO
 log = logging.getLogger()
 
 logging.basicConfig(level=log_level, format='%(name)s - %(message)s', datefmt="%X", handlers=[RichHandler()])
@@ -309,6 +305,13 @@ class AutoShardedBot(AutoShardedBot):
             await message.channel.send(
                 "You are blacklisted from using Doob commands.", delete_after=10
             )
+
+        if db.field("SELECT YesNoReaction FROM guilds WHERE GuildID = ?", message.guild.id) == "yes":
+            if "y/n" in message.content.lower():
+                emojis = ["✅", "❌"]
+
+                for emoji in emojis:
+                    await message.add_reaction(emoji)
 
 
 bot = AutoShardedBot()

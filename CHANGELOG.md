@@ -1,3 +1,6 @@
+## v2.9.10
+* Added y/n reaction messages [(#280)](https://github.com/DoobDev/doob/issues/280)
+
 ## v2.9.9
 * Changed most occurances of `d!` has been changed to the prefix set in the command.
 * Added config command [(#281)](https://github.com/DoobDev/Doob/issues/281)
