@@ -286,7 +286,7 @@ class AutoShardedBot(AutoShardedBot):
             return data
 
         blacklisted_users = read_json("blacklisted_users")
-        afk = read_json("afk")
+        # afk = read_json("afk")
 
         if (
             not message.author.bot
@@ -336,10 +336,10 @@ class AutoShardedBot(AutoShardedBot):
                 for emoji in emojis:
                     await message.add_reaction(emoji)
 
-        if message.author.id in afk["afk"]:
-            afk["afk"].remove(message.author.id)
-            self.write_json(afk, "afk")
-            await message.channel.send(f"{message.author.display_name} is back.")
+        # if message.author.id in afk["afk"]:
+        #     afk["afk"].remove(message.author.id)
+        #     self.write_json(afk, "afk")
+        #     await message.channel.send(f"{message.author.display_name} is back.")
 
 
 

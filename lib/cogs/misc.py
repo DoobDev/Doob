@@ -47,16 +47,16 @@ class Misc(Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @command(name="afk", aliases=['brb'])
-    @cooldown(1, 10, BucketType.user)
-    async def afk_command(self, ctx, *, message: str):
-        afk = read_json("afk")
+    # @command(name="afk", aliases=['brb'])
+    # @cooldown(1, 10, BucketType.user)
+    # async def afk_command(self, ctx, *, message: str):
+    #     afk = read_json("afk")
         
-        afk["afk"].append({ctx.author.id: message})
+    #     afk["afk"].append({ctx.author.id: message})
 
-        write_json(afk, "afk")
+    #     write_json(afk, "afk")
 
-        await ctx.send(f"{ctx.author.display_name} will be right back!\n{message}")
+    #     await ctx.send(f"{ctx.author.display_name} will be right back!\n{message}")
 
     @command(name="prefix", aliases=["ChangePrefix"], brief="Changes the prefix.")
     @has_permissions(manage_guild=True)
