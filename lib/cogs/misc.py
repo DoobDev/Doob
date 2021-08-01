@@ -1,4 +1,6 @@
 import logging
+from pathlib import Path
+from typing import Optional
 from discord.ext import commands
 from discord.ext.commands import Cog
 from discord.ext.commands import CheckFailure
@@ -25,13 +27,43 @@ owner_id = config["owner_ids"][0]
 
 import os
 from dotenv import load_dotenv
+import time as t
 
 load_dotenv()
 log = logging.getLogger()
 
+cwd = Path(__file__).parents[0]
+cwd = str(cwd)
+
+
+def read_json(filename):
+    with open(f"./lib/cogs/{filename}.json", "r") as file:
+        data = json.load(file)
+    return data
+
+
+def write_json(data, filename):
+    with open(f"{cwd}/{filename}.json", "w") as file:
+        json.dump(data, file, indent=4)
+
+
 class Misc(Cog):
     def __init__(self, bot):
         self.bot = bot
+
+    @command(name="afk", aliases=["away", "brb"])
+    @cooldown(1, 10, BucketType.user)
+    async def afk_command(self, ctx, *, message: Optional[str] = "brb"):
+        afk = read_json("afk")
+
+        time = datetime.now()
+        time_real = t.mktime(time.timetuple()) + time.microsecond / 1e6
+
+        afk[str(ctx.author.id)] = {"message": message, "time": str(time_real)}
+
+        write_json(afk, "afk")
+
+        await ctx.send(f"{ctx.author.mention} is now AFK: {message}")
 
     @command(name="prefix", aliases=["ChangePrefix"], brief="Changes the prefix.")
     @has_permissions(manage_guild=True)
@@ -352,9 +384,7 @@ class Misc(Cog):
 
         prefix = db.records("SELECT Prefix FROM guilds WHERE GuildID = ?", ctx.guild.id)
 
-        db.execute(
-            "UPDATE guilds SET Prefix = ? WHERE GuildID = ?", new, ctx.guild.id
-        )
+        db.execute("UPDATE guilds SET Prefix = ? WHERE GuildID = ?", new, ctx.guild.id)
         embed = Embed(
             title="Prefix Changed",
             description=f"Prefix has been changed to `{new}`",
