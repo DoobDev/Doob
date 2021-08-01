@@ -341,11 +341,10 @@ class AutoShardedBot(AutoShardedBot):
         #     self.write_json(afk, "afk")
         #     await message.channel.send(f"{message.author.display_name} is back.")
 
-
-
     def write_json(self, data, filename):
         with open(f"{cwd}/{filename}.json", "w") as file:
             json.dump(data, file, indent=4)
+
 
 bot = AutoShardedBot()
 bot.load_extension("jishaku")

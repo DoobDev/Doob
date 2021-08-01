@@ -33,10 +33,12 @@ log = logging.getLogger()
 cwd = Path(__file__).parents[0]
 cwd = str(cwd)
 
+
 def read_json(filename):
     with open(f"./lib/cogs/{filename}.json", "r") as file:
         data = json.load(file)
     return data
+
 
 def write_json(self, data, filename):
     with open(f"{cwd}/{filename}.json", "w") as file:
