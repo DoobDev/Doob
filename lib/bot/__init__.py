@@ -26,6 +26,8 @@ from discord.ext.commands import (
     AutoShardedBot,
 )
 
+import time as t
+
 import os
 
 from discord_slash import SlashCommand
@@ -55,7 +57,6 @@ IGNORE_EXCEPTIONS = (CommandNotFound, BadArgument)
 def get_prefix(bot, message):
     prefix = db.field("SELECT Prefix FROM guilds WHERE GuildID = ?", message.guild.id)
     return when_mentioned_or(prefix)(bot, message)
-
 
 log_level = logging.DEBUG if config["dev_mode"] else logging.INFO
 log = logging.getLogger()
@@ -278,6 +279,11 @@ class AutoShardedBot(AutoShardedBot):
                 data = json.load(file)
             return data
 
+        def write_json(data, filename):
+            with open (f"./lib/cogs/{filename}.json", "w") as file:
+                data = json.dump(data, file)
+            return data
+
         blacklisted_users = read_json("blacklisted_users")
         afk = read_json("afk")
 
@@ -316,6 +322,7 @@ class AutoShardedBot(AutoShardedBot):
             await message.channel.send(
                 "You are blacklisted from using Doob commands.", delete_after=10
             )
+            
 
         if (
             db.field(
@@ -329,14 +336,11 @@ class AutoShardedBot(AutoShardedBot):
                 for emoji in emojis:
                     await message.add_reaction(emoji)
 
-        if message.author.id in afk["afk"]:
-            afk["afk"].remove(message.author.id)
-            self.write_json(afk, "afk")
-            await message.channel.send(f"{message.author.mention} is no longer AFK")
+        if str(message.author.id) in afk:
+            message_afk = afk.pop(str(message.author.id))
 
-    def write_json(self, data, filename):
-        with open(f"{cwd}/{filename}.json", "w") as file:
-            json.dump(data, file, indent=4)
+            write_json(afk, "afk")
+            await message.channel.send(f"{message.author.mention} is no longer AFK\nMessage: {message_afk['message']}")
 
 
 bot = AutoShardedBot()

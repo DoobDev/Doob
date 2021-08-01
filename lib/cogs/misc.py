@@ -1,5 +1,6 @@
 import logging
 from pathlib import Path
+from typing import Optional
 from discord.ext import commands
 from discord.ext.commands import Cog
 from discord.ext.commands import CheckFailure
@@ -26,6 +27,7 @@ owner_id = config["owner_ids"][0]
 
 import os
 from dotenv import load_dotenv
+import time as t
 
 load_dotenv()
 log = logging.getLogger()
@@ -40,7 +42,7 @@ def read_json(filename):
     return data
 
 
-def write_json(self, data, filename):
+def write_json(data, filename):
     with open(f"{cwd}/{filename}.json", "w") as file:
         json.dump(data, file, indent=4)
 
@@ -51,10 +53,13 @@ class Misc(Cog):
 
     @command(name="afk", aliases=["away", "brb"])
     @cooldown(1, 10, BucketType.user)
-    async def afk_command(self, ctx, *, message: str):
+    async def afk_command(self, ctx, *, message: Optional[str] = "brb"):
         afk = read_json("afk")
 
-        afk["afk"].append({ctx.author.id: message})
+        time = datetime.now()
+        time_real = t.mktime(time.timetuple()) + time.microsecond/1e6
+
+        afk[str(ctx.author.id)] = {"message": message, "time": str(time_real)}
 
         write_json(afk, "afk")
 
