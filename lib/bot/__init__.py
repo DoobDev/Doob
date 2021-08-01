@@ -58,6 +58,7 @@ def get_prefix(bot, message):
     prefix = db.field("SELECT Prefix FROM guilds WHERE GuildID = ?", message.guild.id)
     return when_mentioned_or(prefix)(bot, message)
 
+
 log_level = logging.DEBUG if config["dev_mode"] else logging.INFO
 log = logging.getLogger()
 
@@ -280,7 +281,7 @@ class AutoShardedBot(AutoShardedBot):
             return data
 
         def write_json(data, filename):
-            with open (f"./lib/cogs/{filename}.json", "w") as file:
+            with open(f"./lib/cogs/{filename}.json", "w") as file:
                 data = json.dump(data, file)
             return data
 
@@ -322,7 +323,6 @@ class AutoShardedBot(AutoShardedBot):
             await message.channel.send(
                 "You are blacklisted from using Doob commands.", delete_after=10
             )
-            
 
         if (
             db.field(
@@ -340,7 +340,9 @@ class AutoShardedBot(AutoShardedBot):
             message_afk = afk.pop(str(message.author.id))
 
             write_json(afk, "afk")
-            await message.channel.send(f"{message.author.mention} is no longer AFK\nMessage: {message_afk['message']}")
+            await message.channel.send(
+                f"{message.author.mention} is no longer AFK\nMessage: {message_afk['message']}"
+            )
 
 
 bot = AutoShardedBot()

@@ -57,7 +57,7 @@ class Misc(Cog):
         afk = read_json("afk")
 
         time = datetime.now()
-        time_real = t.mktime(time.timetuple()) + time.microsecond/1e6
+        time_real = t.mktime(time.timetuple()) + time.microsecond / 1e6
 
         afk[str(ctx.author.id)] = {"message": message, "time": str(time_real)}
 
