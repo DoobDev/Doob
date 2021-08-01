@@ -13,6 +13,7 @@ lib/bot/trackergg api.txt
 pyproject.toml
 poetry.lock
 .DS_store
-blacklisted_users.json
 logs/
 test-venv/
+lib/cogs/afk.json
+lib/cogs/blacklisted_users.json
