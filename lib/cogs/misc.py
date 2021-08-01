@@ -53,7 +53,7 @@ class Misc(Cog):
     # @cooldown(1, 10, BucketType.user)
     # async def afk_command(self, ctx, *, message: str):
     #     afk = read_json("afk")
-        
+
     #     afk["afk"].append({ctx.author.id: message})
 
     #     write_json(afk, "afk")
