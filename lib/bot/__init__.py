@@ -269,6 +269,7 @@ class AutoShardedBot(AutoShardedBot):
             return data
 
         blacklisted_users = read_json("blacklisted_users")
+        afk = read_json("afk")
 
         if (
             not message.author.bot
@@ -313,6 +314,16 @@ class AutoShardedBot(AutoShardedBot):
                 for emoji in emojis:
                     await message.add_reaction(emoji)
 
+
+        if message.author.id in afk["afk"]:
+            afk["afk"].remove(message.author.id)
+            self.write_json(afk, "afk")
+            await message.channel.send(
+                f"{message.author.mention} is no longer AFK")
+
+    def write_json(self, data, filename):
+        with open(f"{cwd}/{filename}.json", "w") as file:
+            json.dump(data, file, indent=4)
 
 bot = AutoShardedBot()
 bot.load_extension("jishaku")

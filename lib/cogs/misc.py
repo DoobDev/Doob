@@ -1,4 +1,5 @@
 import logging
+from pathlib import Path
 from discord.ext import commands
 from discord.ext.commands import Cog
 from discord.ext.commands import CheckFailure
@@ -29,9 +30,32 @@ from dotenv import load_dotenv
 load_dotenv()
 log = logging.getLogger()
 
+cwd = Path(__file__).parents[0]
+cwd = str(cwd)
+
+def read_json(filename):
+    with open(f"./lib/cogs/{filename}.json", "r") as file:
+        data = json.load(file)
+    return data
+
+def write_json(self, data, filename):
+    with open(f"{cwd}/{filename}.json", "w") as file:
+        json.dump(data, file, indent=4)
+        
 class Misc(Cog):
     def __init__(self, bot):
         self.bot = bot
+
+    @command(name="afk", aliases=["away", "brb"])
+    @cooldown(1, 10, BucketType.user)
+    async def afk_command(self, ctx, *, message: str):
+        afk = read_json("afk")
+
+        afk["afk"].append({ctx.author.id: message})
+
+        write_json(afk, "afk")
+
+        await ctx.send(f"{ctx.author.mention} is now AFK: {message}")
 
     @command(name="prefix", aliases=["ChangePrefix"], brief="Changes the prefix.")
     @has_permissions(manage_guild=True)
