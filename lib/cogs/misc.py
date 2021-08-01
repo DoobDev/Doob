@@ -33,15 +33,18 @@ log = logging.getLogger()
 cwd = Path(__file__).parents[0]
 cwd = str(cwd)
 
+
 def read_json(filename):
     with open(f"./lib/cogs/{filename}.json", "r") as file:
         data = json.load(file)
     return data
 
+
 def write_json(self, data, filename):
     with open(f"{cwd}/{filename}.json", "w") as file:
         json.dump(data, file, indent=4)
-        
+
+
 class Misc(Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -376,9 +379,7 @@ class Misc(Cog):
 
         prefix = db.records("SELECT Prefix FROM guilds WHERE GuildID = ?", ctx.guild.id)
 
-        db.execute(
-            "UPDATE guilds SET Prefix = ? WHERE GuildID = ?", new, ctx.guild.id
-        )
+        db.execute("UPDATE guilds SET Prefix = ? WHERE GuildID = ?", new, ctx.guild.id)
         embed = Embed(
             title="Prefix Changed",
             description=f"Prefix has been changed to `{new}`",

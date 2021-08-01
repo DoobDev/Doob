@@ -23,7 +23,7 @@ from discord.ext.commands import (
     MissingPermissions,
     EmojiNotFound,
     NotOwner,
-    AutoShardedBot
+    AutoShardedBot,
 )
 
 import os
@@ -56,23 +56,33 @@ def get_prefix(bot, message):
     prefix = db.field("SELECT Prefix FROM guilds WHERE GuildID = ?", message.guild.id)
     return when_mentioned_or(prefix)(bot, message)
 
+
 log_level = logging.DEBUG if config["dev_mode"] else logging.INFO
 log = logging.getLogger()
 
-logging.basicConfig(level=log_level, format='%(name)s - %(message)s', datefmt="%X", handlers=[RichHandler()])
+logging.basicConfig(
+    level=log_level,
+    format="%(name)s - %(message)s",
+    datefmt="%X",
+    handlers=[RichHandler()],
+)
+
 
 class NoRunningFilter(logging.Filter):
     def filter(self, record):
-        return not record.msg.startswith('Running job')
+        return not record.msg.startswith("Running job")
+
 
 class NoRunningFilter2(logging.Filter):
     def filter(self, record):
-        return not record.msg.startswith('Job')
+        return not record.msg.startswith("Job")
+
 
 running_job_filter = NoRunningFilter()
 job_filter = NoRunningFilter2()
 logging.getLogger("apscheduler.executors.default").addFilter(running_job_filter)
 logging.getLogger("apscheduler.executors.default").addFilter(job_filter)
+
 
 class Ready(object):
     def __init__(self):
@@ -307,23 +317,27 @@ class AutoShardedBot(AutoShardedBot):
                 "You are blacklisted from using Doob commands.", delete_after=10
             )
 
-        if db.field("SELECT YesNoReaction FROM guilds WHERE GuildID = ?", message.guild.id) == "yes":
+        if (
+            db.field(
+                "SELECT YesNoReaction FROM guilds WHERE GuildID = ?", message.guild.id
+            )
+            == "yes"
+        ):
             if "y/n" in message.content.lower():
                 emojis = ["✅", "❌"]
 
                 for emoji in emojis:
                     await message.add_reaction(emoji)
 
-
         if message.author.id in afk["afk"]:
             afk["afk"].remove(message.author.id)
             self.write_json(afk, "afk")
-            await message.channel.send(
-                f"{message.author.mention} is no longer AFK")
+            await message.channel.send(f"{message.author.mention} is no longer AFK")
 
     def write_json(self, data, filename):
         with open(f"{cwd}/{filename}.json", "w") as file:
             json.dump(data, file, indent=4)
+
 
 bot = AutoShardedBot()
 bot.load_extension("jishaku")
