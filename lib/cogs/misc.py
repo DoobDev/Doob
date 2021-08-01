@@ -33,10 +33,12 @@ log = logging.getLogger()
 cwd = Path(__file__).parents[0]
 cwd = str(cwd)
 
+
 def read_json(filename):
     with open(f"./lib/cogs/{filename}.json", "r") as file:
         data = json.load(file)
     return data
+
 
 def write_json(self, data, filename):
     with open(f"{cwd}/{filename}.json", "w") as file:
@@ -47,11 +49,11 @@ class Misc(Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @command(name="afk", aliases=['brb'])
+    @command(name="afk", aliases=["brb"])
     @cooldown(1, 10, BucketType.user)
     async def afk_command(self, ctx, *, message: str):
         afk = read_json("afk")
-        
+
         afk["afk"].append({ctx.author.id: message})
 
         write_json(afk, "afk")
