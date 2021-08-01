@@ -721,6 +721,32 @@ class Mod(Cog):
 
         await ctx.reply(embed=embed)
 
+    @command(
+        name="setynreactions",
+        aliases=["yesnoreactions", "ynmessages"],
+        brief="Set if you want reactions to be triggered in your server if a message contains 'y/n'",
+    )
+    async def setynreactions_command(self, ctx, *, yes_or_no: str):
+        if yes_or_no.lower() == "yes":
+            db.execute(
+                "UPDATE guilds SET YesNoReaction = ? WHERE GuildID = ?",
+                yes_or_no.lower(),
+                ctx.guild.id,
+            )
+            await ctx.send(
+                "Reactions are now to be triggered in this server if a message contains 'y/n'"
+            )
+
+        elif yes_or_no.lower() == "no":
+            db.execute(
+                "UPDATE guilds SET YesNoReaction = ? WHERE GuildID = ?",
+                yes_or_no.lower(),
+                ctx.guild.id,
+            )
+            await ctx.send(
+                "Reactions are now not to be triggered in this server if a message contains 'y/n'"
+            )
+
     @command(name="config", brief="Configure your Doob settings.")
     async def config_command(self, ctx):
         if ctx.author.guild_permissions.manage_guild:
@@ -752,8 +778,15 @@ class Mod(Cog):
 
     @cog_ext.cog_component()
     async def server_settings(self, ctx: ComponentContext):
-        prefix, log_channel, muted_role, starboard_channel, level_messages = db.record(
-            "SELECT Prefix, LogChannel, MutedRole, StarBoardChannel, LevelMessages FROM guilds WHERE GuildID = ?",
+        (
+            prefix,
+            log_channel,
+            muted_role,
+            starboard_channel,
+            level_messages,
+            y_n_messages,
+        ) = db.record(
+            "SELECT Prefix, LogChannel, MutedRole, StarBoardChannel, LevelMessages, YesNoReaction FROM guilds WHERE GuildID = ?",
             ctx.guild.id,
         )
 
@@ -771,6 +804,11 @@ class Mod(Cog):
                 False,
             ),
             ("Level Messages:", f"`{level_messages}` | {prefix}levelmessages", False),
+            (
+                "Yes/No Reaction Messages:",
+                f"`{y_n_messages}` | {prefix}setynreactions",
+                False,
+            ),
         ]
 
         for name, value, inline in fields:

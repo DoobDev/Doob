@@ -15,6 +15,8 @@ from discord.ext import commands
 
 from datetime import datetime
 
+from wavelink.errors import ZeroConnectedNodes
+
 log = logging.getLogger()
 
 URL_REGEX = r"(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))"
@@ -400,7 +402,15 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
             if not re.match(URL_REGEX, query):
                 query = f"ytsearch:{query}"
 
-            await player.add_tracks(ctx, await self.wavelinkClient.get_tracks(query))
+            try:
+                await player.add_tracks(
+                    ctx, await self.wavelinkClient.get_tracks(query)
+                )
+
+            except ZeroConnectedNodes as e:
+                await ctx.send(
+                    "Doob Music is currenly down, please join the support server [/support] for more info/updates"
+                )
 
     @play_command.error
     async def play_command_error(self, ctx, exc):

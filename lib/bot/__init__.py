@@ -324,7 +324,12 @@ class AutoShardedBot(AutoShardedBot):
                 "You are blacklisted from using Doob commands.", delete_after=10
             )
 
-        if db.field("SELECT YesNoReaction FROM guilds WHERE GuildID = ?", message.guild.id) == "yes":
+        if (
+            db.field(
+                "SELECT YesNoReaction FROM guilds WHERE GuildID = ?", message.guild.id
+            )
+            == "yes"
+        ):
             if "y/n" in message.content.lower():
                 emojis = ["✅", "❌"]
 

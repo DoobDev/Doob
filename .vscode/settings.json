@@ -1,3 +1,4 @@
 {
-    "deepscan.ignoreConfirmWarning": true
+    "deepscan.ignoreConfirmWarning": true,
+    "python.formatting.provider" :"black"
 }
