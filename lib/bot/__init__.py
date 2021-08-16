@@ -227,40 +227,40 @@ class AutoShardedBot(AutoShardedBot):
                 await sleep(1.0)
 
             # Puts all users into the users DB
-            db.multiexec(
-                "INSERT OR IGNORE INTO users (UserID) VALUES (?)",
-                (
-                    (member.id,)
-                    for guild in self.guilds
-                    for member in guild.members
-                    if not member.bot
-                ),
-            )
-            log.info("Updated users table.")
+            # db.multiexec(
+            #     "INSERT OR IGNORE INTO users (UserID) VALUES (?)",
+            #     (
+            #         (member.id,)
+            #         for guild in self.guilds
+            #         for member in guild.members
+            #         if not member.bot
+            #     ),
+            # )
+            # log.info("Updated users table.")
 
             # db.multiexec(f"INSERT OR IGNORE INTO globalwarns (UserID) VALUES (?)", member.id)
-            db.multiexec(
-                "INSERT OR IGNORE INTO globalwarns (UserID) VALUES (?)",
-                (
-                    (member.id,)
-                    for guild in self.guilds
-                    for member in guild.members
-                    if not member.bot
-                ),
-            )
-            log.info("Updated global warns table.")
+            # db.multiexec(
+            #     "INSERT OR IGNORE INTO globalwarns (UserID) VALUES (?)",
+            #     (
+            #         (member.id,)
+            #         for guild in self.guilds
+            #         for member in guild.members
+            #         if not member.bot
+            #     ),
+            # )
+            # log.info("Updated global warns table.")
 
-            # Puts all users in the votes DB
-            db.multiexec(
-                "INSERT OR IGNORE INTO votes (UserID) VALUES (?)",
-                (
-                    (member.id,)
-                    for guild in self.guilds
-                    for member in guild.members
-                    if not member.bot
-                ),
-            )
-            log.info("Updated votes table.")
+            # # Puts all users in the votes DB
+            # db.multiexec(
+            #     "INSERT OR IGNORE INTO votes (UserID) VALUES (?)",
+            #     (
+            #         (member.id,)
+            #         for guild in self.guilds
+            #         for member in guild.members
+            #         if not member.bot
+            #     ),
+            # )
+            # log.info("Updated votes table.")
 
             self.ready = True
             self.update_db
