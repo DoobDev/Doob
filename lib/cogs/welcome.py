@@ -19,7 +19,7 @@ class Welcome(Cog):
     async def on_member_join(self, member):
         db.execute("INSERT INTO users (UserID) VALUES (?)", member.id)
         log.info(f"{member.username} (member/user) have been added into the users DB")
-        db.execute(
+        await db.execute(
             "INSERT INTO guildexp (UserID, GuildID) VALUES (?, ?)",
             member.id,
             member.guild.id,
@@ -27,32 +27,32 @@ class Welcome(Cog):
         log.info(
             f"{member.username} (member/user) have been added into the server exp DB"
         )
-        db.execute("INSERT INTO luckydogs (UserID) VALUES (?)", member.id)
+        await db.execute("INSERT INTO luckydogs (UserID) VALUES (?)", member.id)
         log.info(
             f"{member.username} (member/user) has been added into the LuckyDogs DB"
         )
-        db.execute(
+        await db.execute(
             f"INSERT OR IGNORE INTO warns (UserID, GuildID) VALUES (?, ?)",
             member.id,
             member.guild.id,
         )
         log.info(f"{member.username} (member/user) has been added into the Warns DB.")
-        db.execute(f"INSERT OR IGNORE INTO globalwarns (UserID) VALUES (?)", member.id)
+        await db.execute(f"INSERT OR IGNORE INTO globalwarns (UserID) VALUES (?)", member.id)
         log.info(
             f"{member.username} (member/user) have been added into the global warns DB."
         )
-        db.commit()
+        await db.commit()
 
     @Cog.listener()
     async def on_guild_join(self, guild):
-        db.execute("INSERT INTO guilds (GuildID) VALUES (?)", guild.id)
+        await db.execute("INSERT INTO guilds (GuildID) VALUES (?)", guild.id)
         log.info(f"{guild.name} (guild) have been added into the DB")
-        db.multiexec(
+        await db.multiexec(
             "INSERT OR IGNORE INTO users (UserID) VALUES (?)",
             ((member.id,) for member in guild.members if not member.bot),
         )
         log.info(f"{guild.name} users have been added into the users DB")
-        db.commit()
+        await db.commit()
 
     @Cog.listener()
     async def on_message(self, message):
