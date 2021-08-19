@@ -35,15 +35,15 @@ class Exp(Cog):
 
     async def process_xp(self, message):
         if message.author.id not in BLACKLISTED_USERS["blacklist"]:
-            xp, lvl, xplock = db.record(
+            xp, lvl, xplock = (await db.record(
                 "SELECT XP, Level, XPLock FROM users WHERE UserID = ?",
                 message.author.id,
-            )
-            xp_g, lvl_g, xplock_g = db.record(
+            ))
+            xp_g, lvl_g, xplock_g = (await db.record(
                 "SELECT XP, Level, XPLock FROM guildexp WHERE UserID = ? AND GuildID = ?",
                 message.author.id,
                 message.guild.id,
-            )
+            ))
 
             if datetime.utcnow() > datetime.fromisoformat(xplock):
                 await self.add_xp(message, xp, lvl)
@@ -54,13 +54,13 @@ class Exp(Cog):
     async def add_xp(self, message, xp, lvl):
         if message.author.id not in BLACKLISTED_USERS["blacklist"]:
             xp_to_add = randint(10, 20)
-            level_up_messages = db.record(
+            level_up_messages = (await db.record(
                 "SELECT LevelMessages FROM guilds WHERE GuildID = ?", message.guild.id
-            )[0]
+            ))[0]
 
             new_lvl = int(((xp + xp_to_add) // 42) ** 0.55)
 
-            db.execute(
+            await db.execute(
                 "UPDATE users SET XP = XP + ?, Level = ?, XPLock = ? WHERE UserID = ?",
                 xp_to_add,
                 new_lvl,
@@ -77,13 +77,13 @@ class Exp(Cog):
     async def add_gxp(self, message, xp, lvl):
         if message.author.id not in BLACKLISTED_USERS["blacklist"]:
             xp_to_add = randint(10, 20)
-            level_up_messages = db.record(
+            level_up_messages = (await db.record(
                 "SELECT LevelMessages FROM guilds WHERE GuildID = ?", message.guild.id
-            )[0]
+            ))[0]
 
             new_lvl = int(((xp + xp_to_add) // 42) ** 0.55)
 
-            db.execute(
+            await db.execute(
                 f"UPDATE guildexp SET XP = XP + ?, Level = ?, XPLock = ? WHERE UserID = ? AND GuildID = ?",
                 xp_to_add,
                 new_lvl,
@@ -91,7 +91,7 @@ class Exp(Cog):
                 message.author.id,
                 message.guild.id,
             )
-            db.commit()
+            await db.commit()
 
             if new_lvl > lvl and level_up_messages in ["yes", "Yes"]:
                 await message.channel.send(
@@ -104,17 +104,17 @@ class Exp(Cog):
         """Shows your Global+Server Doob level, rank and XP!"""
         target = target or ctx.author
 
-        ids = db.column("SELECT UserID FROM users ORDER BY XP DESC")
-        ids_g = db.column(
+        ids = await db.column("SELECT UserID FROM users ORDER BY XP DESC")
+        ids_g = await db.column(
             "SELECT UserID from guildexp WHERE GuildID = (?) ORDER BY XP DESC",
             ctx.guild.id,
         )
         # ids_g = db.column("SELECT UserID FROM users ORDER BY XP DESC WHERE GuildID = ?", ctx.guild.id)
-        xp, lvl = db.record(
+        xp, lvl = (await db.record(
             "SELECT XP, Level FROM users WHERE UserID = ?", target.id
-        ) or (None, None)
+        )) or (None, None)
         xp_g, lvl_g = (
-            db.record(
+            await db.record(
                 "SELECT XP, Level FROM guildexp WHERE (UserID, GuildID) = (?, ?)",
                 target.id,
                 ctx.guild.id,
@@ -158,18 +158,18 @@ class Exp(Cog):
     @has_permissions(manage_guild=True)
     async def set_level_messages(self, ctx, *, yes_or_no: Optional[str]):
         """PLEASE, put 'yes' if you DO want level messages\n`Manage Server` permission required."""
-        levelmessages = db.records(
+        levelmessages = await db.records(
             "SELECT LevelMessages FROM guilds WHERE GuildID = ?", ctx.guild.id
         ) or (None)
-        prefix = db.records("SELECT Prefix FROM guilds WHERE GuildID = ?", ctx.guild.id)
+        prefix = await db.records("SELECT Prefix FROM guilds WHERE GuildID = ?", ctx.guild.id)
 
         if yes_or_no in ["Yes", "yes", "no", "No"]:
-            db.execute(
+            await db.execute(
                 "UPDATE guilds SET LevelMessages = ? WHERE GuildID = ?",
                 yes_or_no,
                 ctx.guild.id,
             )
-            db.commit()
+            await db.commit()
             await ctx.send(f"Level messages set to `{yes_or_no}`.")
 
         else:
@@ -186,7 +186,6 @@ class Exp(Cog):
     async def on_message(self, message):
         if not message.author.bot:
             await self.process_xp(message)
-
-
+            
 def setup(bot):
     bot.add_cog(Exp(bot))
