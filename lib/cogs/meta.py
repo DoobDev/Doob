@@ -160,7 +160,7 @@ class Meta(Cog):
     async def update_command(self, ctx, *, update: str):
         """Command to give people updates on why bot was going down / brief patch notes\n`Owner` permission required"""
 
-        prefix = db.records("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
+        prefix = await db.records("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
 
         with ctx.channel.typing():
             await ctx.message.delete()
@@ -374,12 +374,12 @@ class Meta(Cog):
 
         for user in users:
             if user.id not in data["blacklist"]:
-                db.execute(
+                await db.execute(
                     "INSERT OR IGNORE INTO blacklist (UserID, Reason) VALUES (?, ?)",
                     user.id,
                     reason,
                 )
-                db.commit()
+                await db.commit()
 
                 data["blacklist"].append(user.id)
                 self.write_json(data, "blacklisted_users")
@@ -397,8 +397,8 @@ class Meta(Cog):
 
         for user in users:
             if user.id in data["blacklist"]:
-                db.execute("DELETE FROM blacklist WHERE UserID = ?", user.id)
-                db.commit()
+                await db.execute("DELETE FROM blacklist WHERE UserID = ?", user.id)
+                await db.commit()
 
                 data["blacklist"].remove(user.id)
                 self.write_json(data, "blacklisted_users")
