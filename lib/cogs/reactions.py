@@ -16,7 +16,7 @@ class Reactions(Cog):
             return
         guild = self.bot.get_guild(payload.guild_id)
         starboardchannel = await self.bot.fetch_channel(
-            db.field("SELECT StarBoardChannel from guilds WHERE GuildID = ?", guild.id)
+            await db.field("SELECT StarBoardChannel from guilds WHERE GuildID = ?", guild.id)
         )
         message = await self.bot.get_channel(payload.channel_id).fetch_message(
             payload.message_id
@@ -24,7 +24,7 @@ class Reactions(Cog):
 
         if not message.author.bot and payload.member.id != message.author.id:
             msg_id, stars = (
-                db.record(
+                await db.record(
                     "SELECT StarMessageID, Stars from starboard WHERE (GuildID, MessageID) = (?, ?)",
                     guild.id,
                     message.id,
@@ -58,7 +58,7 @@ class Reactions(Cog):
 
             if not stars:
                 star_message = await starboardchannel.send(embed=embed)
-                db.execute(
+                await db.execute(
                     "INSERT INTO starboard (MessageID, StarMessageID, GuildID) VALUES (?, ?, ?)",
                     message.id,
                     star_message.id,
@@ -67,12 +67,12 @@ class Reactions(Cog):
             else:
                 star_message = await starboardchannel.fetch_message(msg_id)
                 await star_message.edit(embed=embed)
-                db.execute(
+                await db.execute(
                     "UPDATE starboard SET Stars = Stars + 1 WHERE (GuildID, MessageID) = (?, ?)",
                     message.guild.id,
                     message.id,
                 )
-            db.commit()
+            await db.commit()
 
         else:
             await message.remove_reaction(payload.emoji, payload.member)
@@ -101,14 +101,14 @@ class Reactions(Cog):
 
     #             if not stars:
     #                 star_message = await starboardchannel.send(embed=embed)
-    #                 db.execute("INSERT INTO starboard (MessageID, StarMessageID, GuildID) VALUES (?, ?, ?)", message.id, star_message.id, message.guild.id)
-    #                 db.commit()
+    #                 await db.execute("INSERT INTO starboard (MessageID, StarMessageID, GuildID) VALUES (?, ?, ?)", message.id, star_message.id, message.guild.id)
+    #                 await db.commit()
 
     #             else:
     #                 star_message = await starboardchannel.fetch_message(msg_id)
     #                 await star_message.edit(embed=embed)
-    #                 db.execute("UPDATE starboard SET Stars = Stars - 1 WHERE (GuildID, MessageID) = (?, ?)", message.guild.id, message.id)
-    #                 db.commit()
+    #                 await db.execute("UPDATE starboard SET Stars = Stars - 1 WHERE (GuildID, MessageID) = (?, ?)", message.guild.id, message.id)
+    #                 await db.commit()
 
     #         else:
     #             await message.remove_reaction(payload.emoji, payload.member)
