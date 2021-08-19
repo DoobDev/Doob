@@ -187,7 +187,6 @@ class Exp(Cog):
         if not message.author.bot:
             await self.process_xp(message)
             
-            
-            
+                  
 def setup(bot):
     bot.add_cog(Exp(bot))
