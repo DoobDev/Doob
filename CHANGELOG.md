@@ -1,3 +1,6 @@
+## v3.0.0
+* [Async db](https://github.com/DoobDev/Doob/pull/300)
+
 ## v2.9.10
 * Added y/n reaction messages [(#280)](https://github.com/DoobDev/Doob/issues/280)
 * Added `d!brb` command [(#291)](https://github.com/DoobDev/Doob/pull/291)
