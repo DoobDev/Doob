@@ -18,12 +18,12 @@ class Log(Cog):
     @Cog.listener()
     async def on_member_join(self, member):
         logchannel = await self.bot.fetch_channel(
-            db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", member.guild.id)
+            await db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", member.guild.id)
         )
 
         creation_date = member.created_at.strftime("%m/%d/%Y %H:%M;%S")
 
-        globalwarns = db.records(f"SELECT Warns FROM warns WHERE UserID = {member.id}")[
+        globalwarns = (await db.records(f"SELECT Warns FROM warns WHERE UserID = {member.id}"))[
             0
         ][0]
 
@@ -45,7 +45,7 @@ class Log(Cog):
     @Cog.listener()
     async def on_member_remove(self, member):
         logchannel = await self.bot.fetch_channel(
-            db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", member.guild.id)
+            await db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", member.guild.id)
         )
 
         embed = Embed(
@@ -65,7 +65,7 @@ class Log(Cog):
     async def on_member_update(self, before, after):
         if before.display_name != after.display_name:
             logchannel = await self.bot.fetch_channel(
-                db.field(
+                await db.field(
                     "SELECT LogChannel FROM guilds WHERE GuildID = ?", after.guild.id
                 )
             )
@@ -94,7 +94,7 @@ class Log(Cog):
                 timestamp=datetime.utcnow(),
             )
             logchannel = await self.bot.fetch_channel(
-                db.field(
+                await db.field(
                     "SELECT LogChannel FROM guilds WHERE GuildID = ?", after.guild.id
                 )
             )
@@ -122,7 +122,7 @@ class Log(Cog):
     #         await logchannel.send(embed=embed)
 
     #     if before.name != after.name:
-    #         logchannel = await self.bot.fetch_channel(db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", before.guild.id))
+    #         logchannel = await self.bot.fetch_channel(await db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", before.guild.id))
     #         embed = Embed(title="Member update", description=f"{before.name}'s name has been changed.",  timestamp=datetime.utcnow())
 
     #         fields = [("Before", before.name, False),
@@ -134,7 +134,7 @@ class Log(Cog):
     #         await logchannel.send(embed=embed)
 
     #     if before.discriminator != after.discriminator:
-    #         logchannel = await self.bot.fetch_channel(db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", before.guild.id))
+    #         logchannel = await self.bot.fetch_channel(await db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", before.guild.id))
     #         embed = Embed(title="Member update", description=f"{before.name}'s Discriminator has been changed.",  timestamp=datetime.utcnow())
 
     #         fields = [("Before", before.discriminator, False),
@@ -149,7 +149,7 @@ class Log(Cog):
     async def on_message_edit(self, before, after):
         if not after.author.bot and before.content != after.content:
             logchannel = await self.bot.fetch_channel(
-                db.field(
+                await db.field(
                     "SELECT LogChannel FROM guilds WHERE GuildID = ?",
                     after.guild.id,
                 )
@@ -177,7 +177,7 @@ class Log(Cog):
     async def on_message_delete(self, message):
         if not message.author.bot:
             logchannel = await self.bot.fetch_channel(
-                db.field(
+                await db.field(
                     "SELECT LogChannel FROM guilds WHERE GuildID = ?", message.guild.id
                 )
             )
@@ -197,7 +197,7 @@ class Log(Cog):
     @Cog.listener()
     async def on_guild_channel_create(self, channel):
         logchannel = await self.bot.fetch_channel(
-            db.field(
+            await db.field(
                 "SELECT LogChannel FROM guilds WHERE GuildID = ?", channel.guild.id
             )
         )
@@ -216,7 +216,7 @@ class Log(Cog):
     @Cog.listener()
     async def on_guild_channel_delete(self, channel):
         logchannel = await self.bot.fetch_channel(
-            db.field(
+            await db.field(
                 "SELECT LogChannel FROM guilds WHERE GuildID = ?", channel.guild.id
             )
         )
@@ -235,7 +235,7 @@ class Log(Cog):
     @Cog.listener()
     async def on_guild_channel_update(self, before, after):
         logchannel = await self.bot.fetch_channel(
-            db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", before.guild.id)
+            await db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", before.guild.id)
         )
 
         embed = Embed(
@@ -257,7 +257,7 @@ class Log(Cog):
     @Cog.listener()
     async def on_guild_role_create(self, role):
         logchannel = await self.bot.fetch_channel(
-            db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", role.guild.id)
+            await db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", role.guild.id)
         )
 
         embed = Embed(
@@ -274,7 +274,7 @@ class Log(Cog):
     @Cog.listener()
     async def on_guild_role_delete(self, role):
         logchannel = await self.bot.fetch_channel(
-            db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", role.guild.id)
+            await db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", role.guild.id)
         )
 
         embed = Embed(
@@ -291,7 +291,7 @@ class Log(Cog):
     @Cog.listener()
     async def on_invite_create(self, invite):
         logchannel = await self.bot.fetch_channel(
-            db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", invite.guild.id)
+            await db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", invite.guild.id)
         )
 
         embed = Embed(
@@ -308,7 +308,7 @@ class Log(Cog):
     @Cog.listener()
     async def on_invite_delete(self, invite):
         logchannel = await self.bot.fetch_channel(
-            db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", invite.guild.id)
+            await db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", invite.guild.id)
         )
 
         embed = Embed(
@@ -325,7 +325,7 @@ class Log(Cog):
     @Cog.listener()
     async def on_member_ban(self, member):
         logchannel = await self.bot.fetch_channel(
-            db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", member.guild.id)
+            await db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", member.guild.id)
         )
 
         embed = Embed(
@@ -344,7 +344,7 @@ class Log(Cog):
     @Cog.listener()
     async def on_member_unban(self, member):
         logchannel = await self.bot.fetch_channel(
-            db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", member.guild.id)
+            await db.field("SELECT LogChannel FROM guilds WHERE GuildID = ?", member.guild.id)
         )
 
         embed = Embed(
