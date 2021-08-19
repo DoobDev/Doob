@@ -75,7 +75,7 @@ class Misc(Cog):
             )
 
         else:
-            db.execute(
+            await db.execute(
                 "UPDATE guilds SET Prefix = ? WHERE GuildID = ?", new, ctx.guild.id
             )
             embed = Embed(
@@ -382,9 +382,9 @@ class Misc(Cog):
     async def override_change_prefix(self, ctx, new: str):
         """Changes the prefix for the server.\nOnly the bot owner can use the override command."""
 
-        prefix = db.records("SELECT Prefix FROM guilds WHERE GuildID = ?", ctx.guild.id)
+        prefix = await db.records("SELECT Prefix FROM guilds WHERE GuildID = ?", ctx.guild.id)
 
-        db.execute("UPDATE guilds SET Prefix = ? WHERE GuildID = ?", new, ctx.guild.id)
+        await db.execute("UPDATE guilds SET Prefix = ? WHERE GuildID = ?", new, ctx.guild.id)
         embed = Embed(
             title="Prefix Changed",
             description=f"Prefix has been changed to `{new}`",
