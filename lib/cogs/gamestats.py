@@ -28,13 +28,13 @@ class gamestats(Cog):
         target = target or ctx.author
 
         # Grabs the platform, username, and region from the database in which the user set before running the command.
-        platform = db.record(
+        platform = await db.record(
             "SELECT OverwatchPlatform FROM users WHERE UserID = ?", target.id
         )
-        platformUserIdentifier = db.record(
+        platformUserIdentifier = await db.record(
             "SELECT OverwatchUsername FROM users WHERE UserID = ?", target.id
         )
-        platformRegion = db.record(
+        platformRegion = await db.record(
             "SELECT OverwatchRegion FROM users WHERE UserID = ?", target.id
         )
 
@@ -155,22 +155,22 @@ class gamestats(Cog):
             embed.add_field(name="Overwatch Username", value=username)
             embed.set_thumbnail(url=ctx.author.avatar_url)
 
-            db.execute(
+            await db.execute(
                 "UPDATE users SET OverwatchUsername = ? WHERE UserID = ?",
                 username,
                 ctx.author.id,
             )
-            db.execute(
+            await db.execute(
                 "UPDATE users SET OverwatchPlatform = ? WHERE UserID = ?",
                 platform,
                 ctx.author.id,
             )
-            db.execute(
+            await db.execute(
                 "UPDATE users SET OverwatchRegion = ? WHERE UserID = ?",
                 region,
                 ctx.author.id,
             )
-            db.commit()
+            await db.commit()
 
         elif platform == "pc":
             embed = Embed(
@@ -182,22 +182,22 @@ class gamestats(Cog):
             embed.add_field(name="Overwatch Username", value=username)
             embed.set_thumbnail(url=ctx.author.avatar_url)
 
-            db.execute(
+            await db.execute(
                 "UPDATE users SET OverwatchUsername = ? WHERE UserID = ?",
                 username,
                 ctx.author.id,
             )
-            db.execute(
+            await db.execute(
                 "UPDATE users SET OverwatchPlatform = ? WHERE UserID = ?",
                 platform,
                 ctx.author.id,
             )
-            db.execute(
+            await db.execute(
                 "UPDATE users SET OverwatchRegion = ? WHERE UserID = ?",
                 region,
                 ctx.author.id,
             )
-            db.commit()
+            await db.commit()
 
         elif platform == "xbl":
             embed = Embed(
@@ -209,31 +209,31 @@ class gamestats(Cog):
             embed.add_field(name="Overwatch Username", value=username)
             embed.set_thumbnail(url=ctx.author.avatar_url)
 
-            db.execute(
+            await db.execute(
                 "UPDATE users SET OverwatchUsername = ? WHERE UserID = ?",
                 username,
                 ctx.author.id,
             )
-            db.execute(
+            await db.execute(
                 "UPDATE users SET OverwatchPlatform = ? WHERE UserID = ?",
                 platform,
                 ctx.author.id,
             )
-            db.execute(
+            await db.execute(
                 "UPDATE users SET OverwatchRegion = ? WHERE UserID = ?",
                 region,
                 ctx.author.id,
             )
-            db.commit()
+            await db.commit()
 
         else:
-            platform = db.record(
+            platform = await db.record(
                 "SELECT OverwatchPlatform FROM users WHERE UserID = ?", ctx.author.id
             )
-            username = db.record(
+            username = await db.record(
                 "SELECT OverwatchUsername FROM users WHERE UserID = ?", ctx.author.id
             )
-            region = db.record(
+            region = await db.record(
                 "SELECT OverwatchRegion FROM users WHERE UserID = ?", ctx.author.id
             )
             embed = Embed(title="Your Overwatch Profile", colour=ctx.author.colour)
