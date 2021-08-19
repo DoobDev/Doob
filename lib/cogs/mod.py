@@ -101,7 +101,7 @@ class Mod(Cog):
                     )
 
     async def mute_members(self, message, targets, reason):
-        mute_role = db.field(
+        mute_role = await db.field(
             "SELECT MutedRole FROM guilds WHERE GuildID = ?", message.guild.id
         )
         comma = ", "
@@ -111,13 +111,13 @@ class Mod(Cog):
             if mutedrole not in target.roles:
                 role_ids = ",".join(str(r.id) for r in target.roles)
                 await target.edit(roles=[mutedrole])
-                db.execute(
+                await db.execute(
                     "INSERT INTO mutes VALUES (?, ?, ?)",
                     target.id,
                     message.guild.id,
                     role_ids,
                 )
-                db.commit()
+                await db.commit()
 
         embed = Embed(title="Muted:", description=f"{comma.join(tNames)}")
         await message.channel.send(embed=embed)
@@ -144,16 +144,16 @@ class Mod(Cog):
             unmutes = await self.mute_members(ctx.message, targets, reason)
 
             if len(unmutes):
-                mute_role = db.field(
+                mute_role = await db.field(
                     "SELECT MutedRole FROM guilds WHERE GuildID = ?", ctx.guild.id
                 )
                 TheRole = ctx.guild.get_role(int(mute_role))
                 for target in targets:
                     await target.remove_roles(TheRole)
-                    db.execute(
+                    await db.execute(
                         f"DELETE FROM mutes WHERE UserID = {target.id} AND GuildID = {ctx.guild.id}"
                     )
-                    db.commit()
+                    await db.commit()
                     await ctx.reply("Unmuted!")
 
     @command(name="unmute", aliases=["um"], brief="Unmutes a member from the server.")
@@ -164,17 +164,17 @@ class Mod(Cog):
         comma = ", "
         tNames = [f"{target.display_name}" for target in targets]
         for target in targets:
-            role_ids = db.field(
+            role_ids = await db.field(
                 f"SELECT RoleIDs FROM mutes WHERE UserID = {target.id} AND GuildID = {ctx.guild.id}"
             )
             roles = [
                 ctx.guild.get_role(int(id_)) for id_ in role_ids.split(",") if len(id_)
             ]
             await target.edit(roles=roles)
-            db.execute(
+            await db.execute(
                 f"DELETE FROM mutes WHERE UserID = {target.id} AND GuildID = {ctx.guild.id}"
             )
-            db.commit()
+            await db.commit()
             target_embed = ""
             target_embed += f" {target.display_name},"
 
@@ -306,10 +306,10 @@ class Mod(Cog):
     @has_permissions(manage_guild=True)
     async def set_log_channel(self, ctx, *, channel: Optional[TextChannel]):
         """Sets the logging channel for the server.\n`Manage Server` permission required."""
-        current_channel = db.records(
+        current_channel = await db.records(
             "SELECT LogChannel FROM guilds WHERE GuildID = ?", ctx.guild.id
         )
-        prefix = db.records("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
+        prefix = await db.records("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
 
         if channel is None:
             await ctx.reply(
@@ -317,12 +317,12 @@ class Mod(Cog):
             )
 
         else:
-            db.execute(
+            await db.execute(
                 "UPDATE guilds SET LogChannel = ? WHERE GuildID = ?",
                 str(channel.id),
                 ctx.guild.id,
             )
-            db.commit()
+            await db.commit()
             await ctx.reply(f"Log channel set to <#{channel.id}>")
 
     @command(
@@ -333,10 +333,10 @@ class Mod(Cog):
     @has_permissions(manage_guild=True)
     async def set_starboard_channel(self, ctx, *, channel: Optional[TextChannel]):
         """Sets the starboard channel for the server.\n`Manage Server` permission required."""
-        current_channel = db.records(
+        current_channel = await db.records(
             "SELECT StarBoardChannel FROM guilds WHERE GuildID = ?", ctx.guild.id
         )
-        prefix = db.records("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
+        prefix = await db.records("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
 
         if channel is None:
             await ctx.reply(
@@ -344,12 +344,12 @@ class Mod(Cog):
             )
 
         else:
-            db.execute(
+            await db.execute(
                 "UPDATE guilds SET StarBoardChannel = ? WHERE GuildID = ?",
                 str(channel.id),
                 ctx.guild.id,
             )
-            db.commit()
+            await db.commit()
             await ctx.reply(f"StarBoard channel set to <#{channel.id}>")
 
     @command(
@@ -360,18 +360,18 @@ class Mod(Cog):
     @has_permissions(manage_guild=True)
     async def set_mute_role(self, ctx, *, role: Optional[Role]):
         """Sets the `Muted` role for your server.\n`Manage Server` premission required."""
-        cur_role = db.records(
+        cur_role = await db.records(
             "SELECT MutedRole FROM guilds WHERE GuildID = ?", ctx.guild.id
         )
-        prefix = db.records("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
+        prefix = await db.records("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
 
         if ctx.guild.me.top_role.position > role.position:
-            db.execute(
+            await db.execute(
                 "UPDATE guilds SET MutedRole = ? WHERE GuildID = ?",
                 str(role.id),
                 ctx.guild.id,
             )
-            db.commit()
+            await db.commit()
             await ctx.reply(f"Mute role set to `{role}`")
 
         else:
@@ -461,25 +461,25 @@ class Mod(Cog):
         tNames = [f"{target.display_name}" for target in targets]
         for target in targets:
             user = self.bot.get_user(target.id)
-            warns = db.records(
+            warns = (await db.records(
                 f"SELECT Warns FROM warns WHERE UserID = {target.id} AND GuildID = {ctx.guild.id}"
-            )[0][0]
-            globalwarns = db.records(
+            ))[0][0]
+            globalwarns = (await db.records(
                 f"SELECT Warns FROM globalwarns WHERE UserID = {target.id}"
-            )[0][0]
+            ))[0][0]
 
-            db.execute(
+            await db.execute(
                 "UPDATE warns SET warns = ? WHERE UserID = ? AND GuildID = ?",
                 warns + 1,
                 target.id,
                 ctx.guild.id,
             )
-            db.execute(
+            await db.execute(
                 "UPDATE globalwarns SET warns = ? WHERE UserID = ?",
                 globalwarns + 1,
                 target.id,
             )
-            db.commit()
+            await db.commit()
 
             if reason is None:
                 await user.send(
@@ -500,12 +500,12 @@ class Mod(Cog):
     )
     @cooldown(1, 5, BucketType.user)
     async def show_warnings_command(self, ctx):
-        warns = db.records(
+        warns = (await db.records(
             f"SELECT Warns FROM warns WHERE UserID = {ctx.author.id} AND GuildID = {ctx.guild.id}"
-        )[0][0]
-        globalwarns = db.records(
+        ))[0][0]
+        globalwarns = (await db.records(
             f"SELECT Warns from globalwarns WHERE UserID = {ctx.author.id}"
-        )[0][0]
+        ))[0][0]
 
         embed = Embed(
             title=f"Warnings for {ctx.author.display_name}", colour=ctx.author.colour
@@ -655,7 +655,7 @@ class Mod(Cog):
     )
     async def setynreactions_command(self, ctx, *, yes_or_no: str):
         if yes_or_no.lower() == "yes":
-            db.execute(
+            await db.execute(
                 "UPDATE guilds SET YesNoReaction = ? WHERE GuildID = ?",
                 yes_or_no.lower(),
                 ctx.guild.id,
@@ -665,7 +665,7 @@ class Mod(Cog):
             )
 
         elif yes_or_no.lower() == "no":
-            db.execute(
+            await db.execute(
                 "UPDATE guilds SET YesNoReaction = ? WHERE GuildID = ?",
                 yes_or_no.lower(),
                 ctx.guild.id,
@@ -712,10 +712,10 @@ class Mod(Cog):
             starboard_channel,
             level_messages,
             y_n_messages,
-        ) = db.record(
+        ) = (await db.record(
             "SELECT Prefix, LogChannel, MutedRole, StarBoardChannel, LevelMessages, YesNoReaction FROM guilds WHERE GuildID = ?",
             ctx.guild.id,
-        )
+        ))
 
         embed = Embed(title="Server Settings", colour=ctx.author.colour)
 
@@ -770,12 +770,12 @@ class Mod(Cog):
             LastfmUsername,
             osuUsername,
             ShortLinkAmount,
-        ) = db.record(
+        ) = (await db.record(
             "SELECT OverwatchUsername, OverwatchPlatform, OverwatchRegion, LastfmUsername, osuUsername, ShortLinkAmount FROM users WHERE UserID = ?",
             ctx.author.id,
-        )
+        ))
 
-        prefix = db.field("SELECT Prefix FROM guilds WHERE GuildID = ?", ctx.guild.id)
+        prefix = await db.field("SELECT Prefix FROM guilds WHERE GuildID = ?", ctx.guild.id)
 
         embed = Embed(title="Profile Settings", colour=ctx.author.colour)
 
