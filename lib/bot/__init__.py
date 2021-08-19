@@ -58,10 +58,6 @@ async def get_prefix(bot, message):
     prefix = await db.field("SELECT Prefix FROM guilds WHERE GuildID = ?", message.guild.id)
     return when_mentioned_or(prefix)(bot, message)
 
-# Async wrapper for db autosave scheduler
-async def start_db_scheduler(self.scheduler):
-    
-
 
 log_level = logging.DEBUG if config["dev_mode"] else logging.INFO
 log = logging.getLogger()
