@@ -30,7 +30,7 @@ class Links(Cog):
             self.bot.cogs_ready.ready_up("links")
 
     async def shorten_link_func(self, ctx, url: str, vanity: Optional[str]):
-        ShortLinkAmount = db.records(
+        ShortLinkAmount = await db.records(
             "SELECT ShortLinkAmount FROM users WHERE UserID = ?", ctx.author.id
         )
 
@@ -63,7 +63,7 @@ class Links(Cog):
             await self.after_check_shorten_link_func(ctx, url, vanity)
 
     async def after_check_shorten_link_func(self, ctx, url: str, vanity: Optional[str]):
-        ShortLinkAmount = db.records(
+        ShortLinkAmount = await db.records(
             "SELECT ShortLinkAmount FROM users WHERE UserID = ?", ctx.author.id
         )
 
@@ -112,12 +112,12 @@ class Links(Cog):
                 destination = link["destination"]
                 await ctx.send(f"Boom! Shortened: :link: <https://{shortUrl}>")
 
-                db.execute(
+                await db.execute(
                     "UPDATE users SET (ShortLinkAmount) = (?) WHERE UserID = ?",
                     ShortLinkAmount[0][0] + 1,
                     ctx.author.id,
                 )
-                db.commit()
+                await db.commit()
 
                 owner_id = config["owner_ids"][0]
                 await log_channel.send(
