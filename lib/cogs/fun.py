@@ -267,7 +267,7 @@ class Fun(Cog):
                 embed.set_image(
                     url="https://pbs.twimg.com/media/EgXfe_XUcAABT41?format=jpg&name=360x360"
                 )
-                db.execute(
+                await db.execute(
                     "UPDATE luckydogs SET (LuckyDogs, LastUpdated) = (?, ?) WHERE UserID = ?",
                     LuckyDogs[0][0] + 1,
                     datetime.utcnow(),
@@ -286,7 +286,7 @@ class Fun(Cog):
                     icon_url=ctx.author.avatar_url,
                 )
                 embed.set_image(url="https://i.imgur.com/pzqRLdi.jpg")
-                db.execute(
+                await db.execute(
                     "UPDATE luckydogs SET (LuckyDogs, LastUpdated) = (?, ?) WHERE UserID = ?",
                     LuckyDogs[0][0] + 1,
                     datetime.utcnow(),
@@ -305,7 +305,7 @@ class Fun(Cog):
                     icon_url=ctx.author.avatar_url,
                 )
                 embed.set_image(url="https://i.imgur.com/guF2Y3z.png")
-                db.execute(
+                await db.execute(
                     "UPDATE luckydogs SET (LuckyDogs, LastUpdated) = (?, ?) WHERE UserID = ?",
                     LuckyDogs[0][0] + 1,
                     datetime.utcnow(),
@@ -324,7 +324,7 @@ class Fun(Cog):
                     icon_url=ctx.author.avatar_url,
                 )
                 embed.set_image(url="https://i.imgur.com/KFOR8YJ.jpeg")
-                db.execute(
+                await db.execute(
                     "UPDATE luckydogs SET (LuckyDogs, LastUpdated) = (?, ?) WHERE UserID = ?",
                     LuckyDogs[0][0] + 1,
                     datetime.utcnow(),
@@ -340,7 +340,7 @@ class Fun(Cog):
     async def dog_slash_command(self, SlashContext):
         ctx = SlashContext
 
-        LuckyDogs = db.records(
+        LuckyDogs = await db.records(
             "SELECT LuckyDogs FROM luckydogs WHERE UserID = ?", ctx.author.id
         )
 
@@ -388,7 +388,7 @@ class Fun(Cog):
                 embed.set_image(
                     url="https://pbs.twimg.com/media/EgXfe_XUcAABT41?format=jpg&name=360x360"
                 )
-                db.execute(
+                await db.execute(
                     "UPDATE luckydogs SET (LuckyDogs, LastUpdated) = (?, ?) WHERE UserID = ?",
                     LuckyDogs[0][0] + 1,
                     datetime.utcnow(),
@@ -407,7 +407,7 @@ class Fun(Cog):
                     icon_url=ctx.author.avatar_url,
                 )
                 embed.set_image(url="https://i.imgur.com/pzqRLdi.jpg")
-                db.execute(
+                await db.execute(
                     "UPDATE luckydogs SET (LuckyDogs, LastUpdated) = (?, ?) WHERE UserID = ?",
                     LuckyDogs[0][0] + 1,
                     datetime.utcnow(),
@@ -426,7 +426,7 @@ class Fun(Cog):
                     icon_url=ctx.author.avatar_url,
                 )
                 embed.set_image(url="https://i.imgur.com/guF2Y3z.png")
-                db.execute(
+                await db.execute(
                     "UPDATE luckydogs SET (LuckyDogs, LastUpdated) = (?, ?) WHERE UserID = ?",
                     LuckyDogs[0][0] + 1,
                     datetime.utcnow(),
@@ -445,7 +445,7 @@ class Fun(Cog):
                     icon_url=ctx.author.avatar_url,
                 )
                 embed.set_image(url="https://i.imgur.com/KFOR8YJ.jpeg")
-                db.execute(
+                await db.execute(
                     "UPDATE luckydogs SET (LuckyDogs, LastUpdated) = (?, ?) WHERE UserID = ?",
                     LuckyDogs[0][0] + 1,
                     datetime.utcnow(),
@@ -464,7 +464,7 @@ class Fun(Cog):
         # a higher chance of getting a Lucky Dog by subscribing to the Patreon.
         patreon_ad = randint(1, 4)
 
-        LuckyDogs = db.records(
+        LuckyDogs = await db.records(
             "SELECT LuckyDogs FROM luckydogs WHERE UserID = ?", ctx.author.id
         )
 
@@ -506,7 +506,7 @@ class Fun(Cog):
             embed.set_image(
                 url="https://pbs.twimg.com/media/EgXfe_XUcAABT41?format=jpg&name=360x360"
             )
-            db.execute(
+            await db.execute(
                 "UPDATE luckydogs SET (LuckyDogs, LastUpdated) = (?, ?) WHERE UserID = ?",
                 LuckyDogs[0][0] + 1,
                 datetime.utcnow(),
@@ -525,7 +525,7 @@ class Fun(Cog):
                 icon_url=ctx.author.avatar_url,
             )
             embed.set_image(url="https://i.imgur.com/pzqRLdi.jpg")
-            db.execute(
+            await db.execute(
                 "UPDATE luckydogs SET (LuckyDogs, LastUpdated) = (?, ?) WHERE UserID = ?",
                 LuckyDogs[0][0] + 1,
                 datetime.utcnow(),
@@ -544,7 +544,7 @@ class Fun(Cog):
                 icon_url=ctx.author.avatar_url,
             )
             embed.set_image(url="https://i.imgur.com/guF2Y3z.png")
-            db.execute(
+            await db.execute(
                 "UPDATE luckydogs SET (LuckyDogs, LastUpdated) = (?, ?) WHERE UserID = ?",
                 LuckyDogs[0][0] + 1,
                 datetime.utcnow(),
