@@ -38,14 +38,14 @@ class Info(Cog):
         self.bot = bot
 
     async def user_info(self, ctx, target, patreon_status, blacklisted):
-        ids = db.column("SELECT UserID FROM users ORDER BY XP DESC")
-        xp, lvl = db.record(
+        ids = await db.column("SELECT UserID FROM users ORDER BY XP DESC")
+        xp, lvl = (await db.record(
             "SELECT XP, Level FROM users WHERE UserID = ?", target.id
-        ) or (None, None)
-        warnings = db.records(
+        )) or (None, None)
+        warnings = (await db.records(
             f"SELECT Warns FROM warns WHERE UserID = {target.id} AND GuildID = {ctx.guild.id}"
-        )[0][0]
-        globalwarns = db.records(f"SELECT Warns FROM warns WHERE UserID = {target.id}")[
+        ))[0][0]
+        globalwarns = (await db.records(f"SELECT Warns FROM warns WHERE UserID = {target.id}"))[
             0
         ][0]
 
