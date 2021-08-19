@@ -22,16 +22,16 @@ class LastFM(Cog):
     async def fm_search(self, ctx, username: Optional[str]):
         username = (
             username
-            or db.record(
+            or (await db.record(
                 "SELECT LastfmUsername FROM users WHERE UserID = ?", ctx.author.id
-            )[0]
+            ))[0]
         )
-        prefix = db.record("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
+        prefix = await db.record("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
 
         if (
-            db.record(
+            (await db.record(
                 "SELECT LastfmUsername FROM users WHERE UserID = ?", ctx.author.id
-            )[0]
+            ))[0]
             == None
         ):
             await ctx.reply(
@@ -116,25 +116,25 @@ class LastFM(Cog):
         if ctx.invoked_subcommand is None:
             await self.fm_search(
                 ctx,
-                username=db.record(
+                username = (await db.record(
                     "SELECT LastfmUsername FROM users WHERE UserID = ?", ctx.author.id
-                )[0],
+                ))[0],
             )
 
     @lastfm.command(name="--np", aliases=["-np", "np"])
     async def now_playing_command(self, ctx, username: Optional[str]):
         username = (
             username
-            or db.record(
+            or (await db.record(
                 "SELECT LastfmUsername FROM users WHERE UserID = ?", ctx.author.id
-            )[0]
+            ))[0]
         )
         prefix = db.record("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
 
         if (
-            db.record(
+            (await db.record(
                 "SELECT LastfmUsername FROM users WHERE UserID = ?", ctx.author.id
-            )[0]
+            ))[0]
             == None
         ):
             await ctx.reply(
@@ -179,16 +179,16 @@ class LastFM(Cog):
     async def recent_tracks_command(self, ctx, username: Optional[str]):
         username = (
             username
-            or db.record(
+            or (await db.record(
                 "SELECT LastfmUsername FROM users WHERE UserID = ?", ctx.author.id
-            )[0]
+            ))[0]
         )
-        prefix = db.record("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
+        prefix = await db.record("SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id)
 
         if (
-            db.record(
+            (await db.record(
                 "SELECT LastfmUsername FROM users WHERE UserID = ?", ctx.author.id
-            )[0]
+            ))[0]
             == None
         ):
             await ctx.reply(
@@ -233,7 +233,7 @@ class LastFM(Cog):
             and subcommand != self.top_tracks_command
             and subcommand != self.top_artist_command
         ):
-            prefix = db.record(
+            prefix = await db.record(
                 "SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id
             )
             await ctx.reply(
@@ -244,9 +244,9 @@ class LastFM(Cog):
     async def top_albums_command(self, ctx, username: Optional[str]):
         username = (
             username
-            or db.record(
+            or (await db.record(
                 "SELECT LastfmUsername FROM users WHERE UserID = ?", ctx.author.id
-            )[0]
+            ))[0]
         )
 
         top_albums_url = f"https://ws.audioscrobbler.com/2.0/?method=user.gettopalbums&user={username}&api_key={os.environ.get('lastfmkey')}&format=json&limit=10"
@@ -296,9 +296,9 @@ class LastFM(Cog):
     async def top_tracks_command(self, ctx, username: Optional[str]):
         username = (
             username
-            or db.record(
+            or (await db.record(
                 "SELECT LastfmUsername FROM users WHERE UserID = ?", ctx.author.id
-            )[0]
+            ))[0]
         )
 
         top_tracks_url = f"https://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user={username}&api_key={os.environ.get('lastfmkey')}&format=json&limit=10"
@@ -348,9 +348,9 @@ class LastFM(Cog):
     async def top_artist_command(self, ctx, username: Optional[str]):
         username = (
             username
-            or db.record(
+            or (await db.record(
                 "SELECT LastfmUsername FROM users WHERE UserID = ?", ctx.author.id
-            )[0]
+            ))[0]
         )
 
         top_artists_url = f"https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user={username}&api_key={os.environ.get('lastfmkey')}&format=json&limit=10"
@@ -400,9 +400,9 @@ class LastFM(Cog):
     async def search_command(self, ctx, username: Optional[str]):
         username = (
             username
-            or db.record(
+            or (await db.record(
                 "SELECT LastfmUsername FROM users WHERE UserID = ?", ctx.author.id
-            )[0]
+            ))[0]
         )
 
         await self.fm_search(ctx, username)
@@ -414,7 +414,7 @@ class LastFM(Cog):
             subcommand != self.artist_charts_command
             and subcommand != self.artist_search_command
         ):
-            prefix = db.record(
+            prefix = await db.record(
                 "SELECT Prefix from guilds WHERE GuildID = ?", ctx.guild.id
             )
             await ctx.reply(
@@ -537,17 +537,17 @@ class LastFM(Cog):
 
             embed.set_thumbnail(url=ctx.author.avatar_url)
 
-            db.execute(
+            await db.execute(
                 "UPDATE users SET LastfmUsername = ? WHERE UserID = ?",
                 username,
                 ctx.author.id,
             )
-            db.commit()
+            await db.commit()
 
             await ctx.reply(embed=embed)
 
         else:
-            username = db.record(
+            username = await db.record(
                 "SELECT LastfmUsername FROM users WHERE UserID = ?", ctx.author.id
             )
             embed = Embed(
