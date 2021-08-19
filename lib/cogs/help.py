@@ -23,7 +23,7 @@ class Help(Cog):
     async def help_command(self, ctx, cog="1"):  # sourcery no-metrics
         helpEmbed = Embed(title="Help", color=ctx.author.color)
         helpEmbed.set_thumbnail(url=ctx.guild.me.avatar_url)
-        prefix = db.field("SELECT Prefix FROM guilds WHERE GuildID = ?", ctx.guild.id)
+        prefix = await db.field("SELECT Prefix FROM guilds WHERE GuildID = ?", ctx.guild.id)
 
         cogs = [c for c in self.bot.cogs.keys()]
 
