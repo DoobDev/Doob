@@ -54,9 +54,13 @@ COGS = [path.split(os.sep)[-1][:-3] for path in glob("./lib/cogs/*.py")]
 IGNORE_EXCEPTIONS = (CommandNotFound, BadArgument)
 
 # Gets the prefix from the DB
-def get_prefix(bot, message):
-    prefix = db.field("SELECT Prefix FROM guilds WHERE GuildID = ?", message.guild.id)
+async def get_prefix(bot, message):
+    prefix = await db.field("SELECT Prefix FROM guilds WHERE GuildID = ?", message.guild.id)
     return when_mentioned_or(prefix)(bot, message)
+
+# Async wrapper for db autosave scheduler
+async def start_db_scheduler(self.scheduler):
+    
 
 
 log_level = logging.DEBUG if config["dev_mode"] else logging.INFO
@@ -107,8 +111,6 @@ class AutoShardedBot(AutoShardedBot):
         self.guild = None
         self.scheduler = AsyncIOScheduler()
 
-        db.autosave(self.scheduler)
-
         # Gives access to Discord's intents.
         # If you have a bot with over 75 servers, you will need to get whitelisted to use these. If not, you can enable them in your developer dashboard at https://discord.dev
         intents = discord.Intents.default()
@@ -131,12 +133,12 @@ class AutoShardedBot(AutoShardedBot):
 
         log.info("Setup done!")
 
-    def update_db(self):
-        db.multiexec(
+    async def update_db(self):
+        await db.multiexec(
             "INSERT OR IGNORE INTO guilds (GuildID) VALUES (?)",
             ((guild.id,) for guild in self.guilds),
         )
-        db.commit()
+        await db.commit()
 
     def run(self, version):
         self.VERSION = version
@@ -167,7 +169,7 @@ class AutoShardedBot(AutoShardedBot):
                 )
 
     async def on_connect(self):
-        self.update_db()
+        await self.update_db()
         log.info("Doob Connected")
 
     async def on_disconnect(self):
@@ -224,10 +226,11 @@ class AutoShardedBot(AutoShardedBot):
         if not self.ready:
             self.scheduler.start()
             while not self.cogs_ready.all_ready():
+                await db.autosave(self.scheduler)
                 await sleep(1.0)
 
             # Puts all users into the users DB
-            # db.multiexec(
+            # await db.multiexec(
             #     "INSERT OR IGNORE INTO users (UserID) VALUES (?)",
             #     (
             #         (member.id,)
@@ -238,8 +241,8 @@ class AutoShardedBot(AutoShardedBot):
             # )
             # log.info("Updated users table.")
 
-            # db.multiexec(f"INSERT OR IGNORE INTO globalwarns (UserID) VALUES (?)", member.id)
-            # db.multiexec(
+            # await db.multiexec(f"INSERT OR IGNORE INTO globalwarns (UserID) VALUES (?)", member.id)
+            # await db.multiexec(
             #     "INSERT OR IGNORE INTO globalwarns (UserID) VALUES (?)",
             #     (
             #         (member.id,)
@@ -251,7 +254,7 @@ class AutoShardedBot(AutoShardedBot):
             # log.info("Updated global warns table.")
 
             # # Puts all users in the votes DB
-            # db.multiexec(
+            # await db.multiexec(
             #     "INSERT OR IGNORE INTO votes (UserID) VALUES (?)",
             #     (
             #         (member.id,)
@@ -294,26 +297,26 @@ class AutoShardedBot(AutoShardedBot):
         ):
             await self.process_commands(message)
             # If someone types a message, then they get inserted into the guildexp and luckydogs DB
-            db.execute(
+            await db.execute(
                 "INSERT OR IGNORE INTO guildexp (UserID, GuildID) VALUES (?, ?)",
                 message.author.id,
                 message.guild.id,
             )
-            db.execute(
+            await db.execute(
                 "INSERT OR IGNORE INTO luckydogs (UserID) VALUES (?)", message.author.id
             )
 
-            db.execute(
+            await db.execute(
                 f"INSERT OR IGNORE INTO warns (UserID, GuildID) VALUES (?, ?)",
                 message.author.id,
                 message.guild.id,
             )
-            db.execute(
+            await db.execute(
                 f"INSERT OR IGNORE INTO globalwarns (UserID) VALUES (?)",
                 message.author.id,
             )
 
-            db.commit()
+            await db.commit()
 
         if message.author.id in blacklisted_users[
             "blacklist"
@@ -325,7 +328,7 @@ class AutoShardedBot(AutoShardedBot):
             )
 
         if (
-            db.field(
+            await db.field(
                 "SELECT YesNoReaction FROM guilds WHERE GuildID = ?", message.guild.id
             )
             == "yes"
