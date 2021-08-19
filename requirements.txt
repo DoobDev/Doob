@@ -14,4 +14,5 @@ buttons==0.1.9
 jishaku==2.2.0
 rich==10.7.0
 
+git+git://github.com/rapptz/asqlite.git#egg=asqlite
 git+git://github.com/rapptz/discord-ext-menus.git#egg=discord-ext-menus
