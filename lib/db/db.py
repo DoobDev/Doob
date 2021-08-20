@@ -1,9 +1,13 @@
 from os.path import isfile
+from apscheduler.triggers.cron import CronTrigger
 import asyncio
 import asqlite
 
 DB_PATH = "./data/db/database.db"
 BUILD_PATH = "./data/db/build.sql"
+
+def autosave(sched):
+    sched.add_job(commit, CronTrigger(second=0))
 
 async def build():
     async with asqlite.connect(DB_PATH) as connection:
