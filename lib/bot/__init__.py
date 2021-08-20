@@ -106,6 +106,8 @@ class AutoShardedBot(AutoShardedBot):
 
         self.guild = None
         self.scheduler = AsyncIOScheduler()
+        self.scheduler.start()
+        db.autosave(self.scheduler)
 
         # Gives access to Discord's intents.
         # If you have a bot with over 75 servers, you will need to get whitelisted to use these. If not, you can enable them in your developer dashboard at https://discord.dev
@@ -220,9 +222,7 @@ class AutoShardedBot(AutoShardedBot):
 
     async def on_ready(self):
         if not self.ready:
-            self.scheduler.start()
             while not self.cogs_ready.all_ready():
-                await db.autosave(self.scheduler)
                 await sleep(1.0)
 
             # Puts all users into the users DB
