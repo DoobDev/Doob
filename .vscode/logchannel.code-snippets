@@ -1,7 +1,0 @@
-{"logchannel": {
-    "prefix": "logchannel",
-    "body": [
-      "logchannel = await self.bot.fetch_channel(db.field(\"SELECT LogChannel FROM guilds WHERE GuildID = ?\", ctx.guild.id))"
-    ],
-    "description": "logchannel"
-  }}
