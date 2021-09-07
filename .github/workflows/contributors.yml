@@ -1,5 +1,5 @@
 name: Add contributors
-on: [push, pull_request]
+on: [push]
 
 jobs:
   add-contributors:
