@@ -1,6 +1,6 @@
 version: 2
 updates:
-  - package-ecosystem: "pip"
+  - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "daily"
@@ -9,4 +9,4 @@ updates:
     assignees:
       - "mmattbtw"
     commit-message:
-      prefix: "🔼"
+      prefix: "chore(deps): "

@@ -1,19 +1,4 @@
-old v1/cogs/__pycache__
-__pycache__
-lib/bot/token.txt
-*.db
-*.db-journal
-lib/bot/topgg.txt
-lib/bot/webhook.txt
 .env
-pythonenv3.8
-lib/bot/statcord.txt
-lib/bot/trackergg api.txt
-.idea
-pyproject.toml
-poetry.lock
 .DS_store
-logs/
-test-venv/
-lib/cogs/afk.json
-lib/cogs/blacklisted_users.json
+config.json
+node_modules
