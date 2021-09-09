@@ -17,3 +17,4 @@ logs/
 test-venv/
 lib/cogs/afk.json
 lib/cogs/blacklisted_users.json
+node_modules
