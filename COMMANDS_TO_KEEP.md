@@ -14,23 +14,23 @@
 14. support logging
 15. support (meta.py)
 16. invite (meta.py)
-17. ping (meta.py)
-18. shutdown/restart (meta.py)
-19. patreon (meta.py)
-20. eval command (maybe) (meta.py)
-21. blacklist (meta.py)
-22. unblacklist (meta.py)
-23. afk (misc.py)
-24. per server prefixs
-25. poll (misc.py)
-26. endpoll (misc.py)
-27. giveaway (misc.py)
-28. endgiveaway (misc.py)
-29. timebomb (misc.py)
-30. vote (misc.py)
-31. ownerprefix (misc.py)
-32. overlay (misc.py)
-33. emote (misc.py)
-34. most of everything in mod.py
-35. starboard
-36. twitch (move to v5 )
+<!-- 17. ping (meta.py) -->
+17. shutdown/restart (meta.py)
+<!-- 19. patreon (meta.py) -->
+18. eval command (maybe) (meta.py)
+19. blacklist (meta.py)
+20. unblacklist (meta.py)
+21. afk (misc.py)
+<!-- 24. per server prefixs -->
+22. poll (misc.py)
+23. endpoll (misc.py)
+24. giveaway (misc.py)
+25. endgiveaway (misc.py)
+<!-- 29. timebomb (misc.py) -->
+26. vote (misc.py)
+27. ownerprefix (misc.py)
+28. overlay (misc.py)
+29. emote (misc.py)
+30. most of everything in mod.py
+31. starboard
+32. twitch (move to v5 )
