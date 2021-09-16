@@ -2,6 +2,7 @@ import DiscordJS, { Intents } from 'discord.js';
 import WOKCommands from 'wokcommands';
 import path from 'path';
 import dotenv from 'dotenv';
+import { getDoobColor } from './utils/colors';
 dotenv.config();
 
 const client = new DiscordJS.Client({
@@ -9,7 +10,7 @@ const client = new DiscordJS.Client({
 });
 
 client.on('ready', () => {
-    new WOKCommands(client, {
+    const wok = new WOKCommands(client, {
         commandsDir: path.join(__dirname, 'commands'),
         featuresDir: path.join(__dirname, 'features'),
         typeScript: true,
@@ -21,7 +22,8 @@ client.on('ready', () => {
     })
         .setBotOwner(['308000668181069824'])
         .setDefaultPrefix('d!')
-        .setColor(0xff99fa)
+        // @ts-ignore
+        .setColor(getDoobColor('DOOB'))
         .setCategorySettings([
             {
                 name: 'API',
