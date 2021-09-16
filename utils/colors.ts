@@ -8,5 +8,5 @@ export function getDoobColor(color: string) {
         { color: 'DOOB', hex: 0xff99fa },
     ];
 
-    return colorOptions.find((e) => e.color === colorName)?.hex || '';
+    return colorOptions.find((e) => e.color === colorName)?.hex || 0xff99fa;
 }

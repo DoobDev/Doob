@@ -35,7 +35,6 @@ export default {
             .setDescription(msg)
             .setThumbnail(`${interaction.user.avatarURL()}`)
             .setFooter(`This message lasts ${time} seconds.`)
-            // @ts-ignore
             .setColor(getDoobColor('DOOB'));
 
         await interaction.reply({ embeds: [embed] });
