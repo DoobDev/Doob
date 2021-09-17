@@ -1,12 +1,11 @@
 export function getDoobColor(color: string) {
-    const colorName = color;
+    let colorName = color.toUpperCase();
+    let colorOptions: any = {
+        SUCCESS: 0x5ef059,
+        DANGER: 0xf05959,
+        WARNING: 0xf09d59,
+        DOOB: 0xff99fa,
+    };
 
-    let colorOptions = [
-        { color: 'SUCCESS', hex: 0x5ef059 },
-        { color: 'DANGER', hex: 0xf05959 },
-        { color: 'WARNING', hex: 0xf09d59 },
-        { color: 'DOOB', hex: 0xff99fa },
-    ];
-
-    return colorOptions.find((e) => e.color === colorName)?.hex || 0xff99fa;
+    return colorOptions[colorName] || 0xff99fa;
 }
