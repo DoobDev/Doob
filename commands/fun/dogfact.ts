@@ -20,7 +20,14 @@ export default {
             const embed = new MessageEmbed().setDescription(`${getEmote('transparent>')} ${data.data.fact}`).setColor(getDoobColor('DOOB'));
             return embed;
         } catch (error) {
-            return `An error occurred: ${error}`;
+            const embed = new MessageEmbed()
+                .setDescription(
+                    `${getEmote('red!')} An error occured while trying to get a dog image.\n${getEmote('transparentSpace')}${getEmote(
+                        'transparent>'
+                    )} ${error}`
+                )
+                .setColor(getDoobColor('DANGER'));
+            return embed;
         }
     },
 } as ICommand;
