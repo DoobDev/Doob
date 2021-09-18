@@ -12,6 +12,7 @@ export default {
 
     slash: true,
     testOnly: true,
+    guildOnly: true,
 
     callback: async ({}) => {
         try {

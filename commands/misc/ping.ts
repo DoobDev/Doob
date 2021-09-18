@@ -8,6 +8,7 @@ export default {
 
     slash: true,
     testOnly: true,
+    guildOnly: true,
 
     callback: ({}) => {
         return `🏓 Pong!`;

@@ -11,6 +11,7 @@ export default {
 
     slash: true,
     testOnly: true,
+    guildOnly: true,
 
     callback: ({}) => {
         const coin = Math.floor(Math.random() * 2) === 0 ? 'Heads' : 'Tails'; // I'm not even going to lie, GitHub Copilot just did this for me lol
