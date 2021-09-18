@@ -70,17 +70,10 @@ Submit an [Issue](https://github.com/doobdev/doob/issues) or a [Pull request](ht
         </a>
     </td>
     <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
-        <a href=https://github.com/AndyThePie>
+        <a href=https://github.com/12beesinatrenchcoat>
             <img src=https://avatars.githubusercontent.com/u/25379179?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=Andy Chan/>
             <br />
             <sub style="font-size:14px"><b>Andy Chan</b></sub>
-        </a>
-    </td>
-    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
-        <a href=https://github.com/VoidyCD>
-            <img src=https://avatars.githubusercontent.com/u/77110462?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=Voidy Devleoper/>
-            <br />
-            <sub style="font-size:14px"><b>Voidy Devleoper</b></sub>
         </a>
     </td>
     <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
