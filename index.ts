@@ -14,7 +14,7 @@ client.on('ready', () => {
         commandsDir: path.join(__dirname, 'commands'),
         featuresDir: path.join(__dirname, 'features'),
         typeScript: true,
-        testServers: '815021537303986176',
+        testServers: ['702352937980133386', '815021537303986176'],
         mongoUri: process.env.MONGO_URI,
         disabledDefaultCommands: ['language'],
         defaultLanguage: 'english',
