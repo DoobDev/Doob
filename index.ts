@@ -3,10 +3,18 @@ import WOKCommands from 'wokcommands';
 import path from 'path';
 import dotenv from 'dotenv';
 import { getDoobColor } from './utils/colors';
+import Statcord from 'statcord.js';
 dotenv.config();
 
 const client = new DiscordJS.Client({
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS],
+});
+const statcord = new Statcord.Client({
+    key: `${process.env.STATCORD_KEY}`,
+    client,
+    postCpuStatistics: true,
+    postMemStatistics: true,
+    postNetworkStatistics: true,
 });
 
 client.on('ready', () => {
@@ -53,6 +61,12 @@ client.on('ready', () => {
         .setDisplayName('Doob');
 
     console.log(`Doob 3.0.0 is ready!`);
+    statcord.autopost();
+});
+
+statcord.on('autopost-start', () => {
+    // Emitted when statcord autopost starts
+    console.log('Started Statcord autopost');
 });
 
 client.login(process.env.TOKEN);
