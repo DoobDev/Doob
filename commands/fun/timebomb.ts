@@ -2,6 +2,7 @@ import { MessageEmbed } from 'discord.js';
 import { ICommand } from 'wokcommands';
 import { getDoobColor } from '../../utils/colors';
 import { DiscordOption } from '../../utils/discordoptions';
+import { getEmote } from '../../utils/emotes';
 
 export default {
     name: 'timebomb',
@@ -32,10 +33,9 @@ export default {
         const [msg, time] = args;
 
         const embed = new MessageEmbed()
-            .setTitle(`${interaction.user.username} said:`)
-            .setDescription(msg)
+            .setDescription(`**${interaction.user.username} said:**\n${getEmote('transparent>')} "${msg}"`)
             .setThumbnail(`${interaction.user.avatarURL()}`)
-            .setFooter(`This message lasts ${time} seconds.`)
+            .setFooter(`This message lasts ${time}s`)
             .setColor(getDoobColor('DOOB'));
 
         await interaction.reply({ embeds: [embed] });
