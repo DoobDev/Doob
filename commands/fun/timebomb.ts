@@ -30,7 +30,14 @@ export default {
     ],
 
     callback: async ({ interaction, args }) => {
-        const [msg, time] = args;
+        const msg = args[0];
+        let time = parseInt(args[1]);
+
+        if (time < 1) {
+            time = 1;
+        } else if (time > 1001) {
+            time = 1000;
+        }
 
         const embed = new MessageEmbed()
             .setDescription(`**${interaction.user.username} said:**\n${getEmote('transparent>')} "${msg}"`)
@@ -40,7 +47,7 @@ export default {
 
         await interaction.reply({ embeds: [embed] });
 
-        await new Promise((resolve) => setTimeout(resolve, parseInt(time) * 1000));
+        await new Promise((resolve) => setTimeout(resolve, time * 1000));
 
         await interaction.deleteReply();
     },
