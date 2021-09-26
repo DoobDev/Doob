@@ -9,16 +9,21 @@
 <a href="https://github.com/doobdev/doob/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/doobdev/doob"></a>
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
 <img alt="Discord" src="https://img.shields.io/discord/702352937980133386?color=blue&logo=Discord">
-<span class="badge-patreon"><a href="https://www.patreon.com/doobdev" title="Donate to this project using Patreon"><img src="https://img.shields.io/badge/patreon-donate-yellow.svg" alt="Patreon donate button" /></a></span>
 <a href="https://www.codacy.com/gh/DoobDev/Doob/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=DoobDev/Doob&amp;utm_campaign=Badge_Grade"><img src="https://app.codacy.com/project/badge/Grade/e9347e40184841d080f379dd9352e0c2"/></a>
 <a href="https://www.codefactor.io/repository/github/doobdev/doob"><img src="https://www.codefactor.io/repository/github/doobdev/doob/badge" alt="CodeFactor" /></a>
 </p>
+
+<div align="center">
+<a href='https://ko-fi.com/O5O81M24X' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://cdn.ko-fi.com/cdn/kofi1.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+</div>
 
 <p align="center">
 <a href="https://top.gg/bot/680606346952966177">
     <img src="https://top.gg/api/widget/680606346952966177.svg" alt="Doob" />
 </a>
 </p>
+
+
 
 ## `📚` About
 Doob is a multipurpose Discord bot with a built-in **leveling system**, great **logging features**, actual fun, **fun commands**, and best of all, the developer is very active, and develops the bot frequently. 
