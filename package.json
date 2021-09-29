@@ -1,32 +1,25 @@
 {
   "name": "doob",
   "version": "3.0.0",
-  "description": "A muiltipurpose Discord bot for your Discord server.",
-  "main": "index.js",
+  "description": "A multipurpose Discord bot for your Discord server.",
+  "main": "index.ts",
+  "repository": "https://github.com/DoobDev/Doob.git",
+  "author": "matt <matt@mmatt.net>",
+  "license": "SEE LICENCE IN LICENCE",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node index.ts",
     "dev": "nodemon index.ts",
     "tsc": "tsc -w --skipLibCheck"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/DoobDev/Doob.git"
-  },
-  "author": "matt <matt@mmatt.net>",
-  "license": "SEE LICENSE IN LICENSE",
-  "bugs": {
-    "url": "https://github.com/DoobDev/Doob/issues"
-  },
-  "homepage": "https://github.com/DoobDev/Doob#readme",
   "dependencies": {
     "axios": "^0.21.4",
     "discord.js": "^13.1.0",
     "dotenv": "^10.0.0",
     "statcord.js": "^3.3.0",
-    "wokcommands": "^1.3.97"
+    "wokcommands": "^1.3.99"
   },
   "devDependencies": {
-    "nodemon": "^2.0.12",
+    "nodemon": "^2.0.13",
     "ts-node": "^10.2.1",
     "typescript": "^4.4.3"
   }
