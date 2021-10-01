@@ -163,11 +163,12 @@ class Queue:
         if self.position < 0:
             return None
 
-        elif self.position > len(self._queue) - 1:
-            if self.repeat_mode == RepeatMode.ALL:
-                self.position = 0
-            else:
-                return None
+        # self.position > len(self._queue) - 1
+        # position in queue is greater than the lenght of the queue minus one
+        if self.repeat_mode == RepeatMode.ALL:
+            self.position = 0
+        else:
+            return None
 
         return self._queue[self.position]
 
@@ -349,8 +350,8 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
         if isinstance(obj, commands.Context):
             return self.wavelinkClient.get_player(obj.guild.id, cls=Player, context=obj)
 
-        elif isinstance(obj, discord.Guild):
-            return self.wavelinkClient.get_player(obj.id, cls=Player)
+        # obj is a discord.Guild object
+        return self.wavelinkClient.get_player(obj.id, cls=Player)
 
     @commands.command(
         name="connect", aliases=["join"], brief="Connect Doob to a Voice Channel"
