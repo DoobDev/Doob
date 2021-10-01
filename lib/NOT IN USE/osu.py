@@ -19,7 +19,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-class osu(Cog):
+class Osu(Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -155,4 +155,4 @@ class osu(Cog):
 
 
 def setup(bot):
-    bot.add_cog(osu(bot))
+    bot.add_cog(Osu(bot))

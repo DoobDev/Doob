@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-class stat(commands.Cog):
+class Stat(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -29,4 +29,4 @@ class stat(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(stat(bot))
+    bot.add_cog(Stat(bot))

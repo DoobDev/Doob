@@ -13,7 +13,7 @@ load_dotenv()
 log = logging.getLogger()
 
 
-class servercount(commands.Cog):
+class ServerCount(commands.Cog):
     """Handles interactions with the top.gg API"""
 
     def __init__(self, bot):
@@ -31,4 +31,4 @@ class servercount(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(servercount(bot))
+    bot.add_cog(ServerCount(bot))

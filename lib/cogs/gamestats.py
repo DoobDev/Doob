@@ -13,7 +13,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-class gamestats(Cog):
+class GameStats(Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -252,4 +252,4 @@ class gamestats(Cog):
 
 
 def setup(bot):
-    bot.add_cog(gamestats(bot))
+    bot.add_cog(GameStats(bot))

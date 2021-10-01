@@ -83,11 +83,11 @@ class InvalidRepeatMode(commands.CommandError):
     pass
 
 
-class volumeTooLow(commands.CommandError):
+class VolumeTooLow(commands.CommandError):
     pass
 
 
-class volumeTooHigh(commands.CommandError):
+class VolumeTooHigh(commands.CommandError):
     pass
 
 
@@ -575,19 +575,19 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
         player = self.get_player(ctx)
 
         if volume < 0:
-            raise volumeTooLow
+            raise VolumeTooLow
 
         if volume > 150:
-            raise volumeTooHigh
+            raise VolumeTooHigh
 
         await player.set_volume(volume)
         await ctx.send(f"Volume set to {volume}%")
 
     @volume_group.error
     async def volume_command_error(self, ctx, exc):
-        if isinstance(exc, volumeTooLow):
+        if isinstance(exc, VolumeTooLow):
             await ctx.send(f"Volume must be between 0% or above.")
-        elif isinstance(exc, volumeTooHigh):
+        elif isinstance(exc, VolumeTooHigh):
             await ctx.send("The volume must be 150% or below.")
 
     @volume_group.command(name="up", brief="Increases the volume of the music.")
