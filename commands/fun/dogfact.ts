@@ -17,7 +17,7 @@ export default {
     callback: async ({}) => {
         try {
             let data = await axios.get('https://some-random-api.ml/facts/dog');
-            const embed = new MessageEmbed().setDescription(`${getEmote('transparent>')} ${data.data.fact}`).setColor(getDoobColor('DOOB'));
+            const embed = new MessageEmbed().setDescription(`${getEmote('transparent>')} ${data.data['fact']}`).setColor(getDoobColor('DOOB'));
             return embed;
         } catch (error) {
             const embed = new MessageEmbed()
@@ -26,7 +26,9 @@ export default {
                         'transparent>'
                     )} ${error}`
                 )
-                .setColor(getDoobColor('DANGER'));
+                .setColor(getDoobColor('DANGER'))
+                .setFooter(`🛑 Make sure to join the support server to report this error.`);
+
             return embed;
         }
     },

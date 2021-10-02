@@ -17,7 +17,7 @@ export default {
     callback: async ({}) => {
         try {
             let resp = await axios.get('https://dog.ceo/api/breeds/image/random');
-            const embed = new MessageEmbed().setImage(resp.data.message).setColor(getDoobColor('DOOB'));
+            const embed = new MessageEmbed().setImage(resp.data['message']).setColor(getDoobColor('DOOB'));
             return embed;
         } catch (error) {
             const embed = new MessageEmbed()
@@ -26,7 +26,8 @@ export default {
                         'transparent>'
                     )} ${error}`
                 )
-                .setColor(getDoobColor('DANGER'));
+                .setColor(getDoobColor('DANGER'))
+                .setFooter(`🛑 Make sure to join the support server to report this error.`);
             return embed;
         }
     },
