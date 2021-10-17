@@ -753,7 +753,7 @@ mongodb@4.1.2:
   optionalDependencies:
     saslprep "^1.0.3"
 
-mongoose@^6.0.10:
+mongoose@^6.0.10, mongoose@^6.0.11:
   version "6.0.11"
   resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-6.0.11.tgz#579cda5157a58b155812974567d7a9a92b26a118"
   integrity sha512-ESLnGIZB15xpqAbtjL/wcx+NEmzewlNuST/Dp/md4eqirVGTuEeN+IhS4qr3D5GFhnQAGdadpGlTfrWj5Ggykw==
