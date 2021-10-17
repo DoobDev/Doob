@@ -18,7 +18,7 @@ const statcord = new Statcord.Client({
 });
 
 client.on('ready', () => {
-    const wok = new WOKCommands(client, {
+    new WOKCommands(client, {
         commandsDir: path.join(__dirname, 'commands'),
         featuresDir: path.join(__dirname, 'features'),
         typeScript: true,
@@ -27,8 +27,10 @@ client.on('ready', () => {
         disabledDefaultCommands: ['language'],
         defaultLanguage: 'english',
         ignoreBots: true,
+        delErrMsgCooldown: 5,
+        dbOptions: { keepAlive: true },
+        botOwners: ['308000668181069824'],
     })
-        .setBotOwner(['308000668181069824'])
         .setDefaultPrefix('d!')
         // @ts-ignore
         .setColor(getDoobColor('DOOB'))
