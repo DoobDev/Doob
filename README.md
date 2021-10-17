@@ -1,3 +1,7 @@
+# ⚠️ Doob is being Rewritten!
+## Doob is being rewritten into Doob v3, all the development is currently happening in the [`rewrite/V3`](https://github.com/DoobDev/Doob/tree/rewrite/V3) branch.
+### This means, after the basic commands get ported over to Doob v3, that branch will be merged into this master branch, and that Doob v2 is officially deprecated. Thanks to everyone who used the bot during V3! (300 servers and counting!)
+
 <p align="center"> 
   <img src="https://github.com/DoobDev/Doob/raw/master/images/logo.png" alt="Doob Logo" width=150/>
 </p>
