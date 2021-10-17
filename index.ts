@@ -6,6 +6,8 @@ import { getDoobColor } from './utils/colors';
 import Statcord from 'statcord.js';
 dotenv.config();
 
+const version = '3.0.0 [BETA]';
+
 const client = new DiscordJS.Client({
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS],
 });
@@ -62,7 +64,15 @@ client.on('ready', () => {
         ])
         .setDisplayName('Doob');
 
-    console.log(`Doob 3.0.0 is ready!`);
+    console.log(`Doob ${version} is ready!`);
+    client.user?.setPresence({
+        status: 'online',
+        activities: [
+            {
+                name: `Doob ${version}`,
+            },
+        ],
+    });
     statcord.autopost();
 });
 
