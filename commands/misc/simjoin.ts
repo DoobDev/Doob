@@ -4,7 +4,7 @@ export default {
     category: 'Misc',
     description: 'Sim join',
 
-    slash: 'both',
+    slash: false,
     testOnly: true,
 
     callback: ({ member, client }) => {
