@@ -201,31 +201,31 @@ export function getEmote(emote: string): string {
         },
         {
             name: 'orangeWarning',
-            emote: '<:Dwarning:869830849061879859>',
+            emote: '<:Dwarning:899150530553724978>',
         },
         {
             name: 'Skip',
-            emote: '<:Dskip:869830849187688468>',
+            emote: '<:Dskip:899150477411885086>',
         },
         {
             name: '^',
-            emote: '<:Dup:869830849338679347>',
+            emote: '<:Dup:899150414363103262>',
         },
         {
             name: 'pinkPerson',
-            emote: '<:Dusernuetral:869830849380646922>',
+            emote: '<:Dusernuetral:899150442410434571>',
         },
         {
             name: 'pinkWrench',
-            emote: '<:Dwrenchpink:869830850605375489>',
+            emote: '<:Dwrenchpink:899150363633000498>',
         },
         {
             name: 'transparent<',
-            emote: '<:DLeftTrans:869842970420052008>',
+            emote: '<:DLeftTrans:899150323673870367>',
         },
         {
             name: 'transparent>',
-            emote: '<:DRightTrans:869842970415890432>',
+            emote: '<:DRightTrans:899150324034584636>',
         },
         {
             name: 'transparentChar',
