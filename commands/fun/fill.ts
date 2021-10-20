@@ -3,6 +3,7 @@ import { ICommand } from 'wokcommands';
 import { getDoobColor } from '../../utils/colors';
 import { DiscordOption } from '../../utils/discordoptions';
 import { getEmote } from '../../utils/emotes';
+import { doobEmbed, errorEmbed } from '../../utils/generic_embeds';
 
 export default {
     name: 'fill',
@@ -28,14 +29,14 @@ export default {
         let string = interaction.options.getString('string');
 
         if (!string) {
-            return 'Error: no string.';
+            return errorEmbed('string argument empty.');
         }
 
-        while (string.length < 350) {
+        while (string.length < 500) {
             string += ` ${string}`;
         }
 
-        const embed = new MessageEmbed().setDescription(`${getEmote('transparent>')} ${string}`).setColor(getDoobColor('DOOB'));
+        const embed = doobEmbed(string);
 
         return embed;
     },
