@@ -17,7 +17,9 @@ repos:
           - id: check-added-large-files
             exclude: CHANGELOG.md
           - id: check-json
+            exclude: tsconfig.json
           - id: pretty-format-json
+            exclude: tsconfig.json
           - id: check-merge-conflict
     - repo: https://github.com/pre-commit/mirrors-prettier
       rev: '6e24ff01ab7d5e64045599b81c4cd34d6a6a7159'
