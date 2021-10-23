@@ -6,9 +6,9 @@ import { getEmote } from '../../utils/emotes';
 
 export default {
     name: 'timebomb',
-    description: 'Timebomb',
+    description: 'a message that automatically deletes after a certain time.',
     usage: 'timebomb <message: str> <time: num>',
-    category: 'Fun',
+    category: 'fun',
 
     slash: true,
     testOnly: true,
@@ -17,13 +17,13 @@ export default {
     options: [
         {
             name: 'msg',
-            description: 'Message to send',
+            description: 'message to send',
             required: true,
             type: DiscordOption('STRING'),
         },
         {
             name: 'time',
-            description: 'The time until the message gets deleted.',
+            description: 'the time until the message gets deleted.',
             required: true,
             type: DiscordOption('INTEGER'),
         },
@@ -42,7 +42,7 @@ export default {
         const embed = new MessageEmbed()
             .setDescription(`**${interaction.user.username} said:**\n${getEmote('transparent>')} "${msg}"`)
             .setThumbnail(`${interaction.user.avatarURL()}`)
-            .setFooter(`This message lasts ${time}s`)
+            .setFooter(`this message lasts ${time}s`)
             .setColor(getDoobColor('DOOB'));
 
         await interaction.reply({ embeds: [embed] });

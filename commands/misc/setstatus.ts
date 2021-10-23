@@ -1,9 +1,10 @@
 import { ICommand } from 'wokcommands';
+import { doobEmbed } from '../../utils/generic_embeds';
 
 export default {
-    category: 'Misc',
+    category: 'misc',
     name: 'setstatus',
-    description: 'Set the bots status [OWNER ONLY]',
+    description: 'set the bots status [OWNER ONLY]',
 
     minArgs: 1,
     expectedArgs: '<status>',
@@ -23,6 +24,6 @@ export default {
             ],
         });
 
-        return `Changed status to \`${text}\`.`;
+        return doobEmbed(`changed status to \`${text}\`.`);
     },
 } as ICommand;

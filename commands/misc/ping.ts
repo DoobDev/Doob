@@ -1,16 +1,17 @@
 import { ICommand } from 'wokcommands';
+import { doobEmbed } from '../../utils/generic_embeds';
 
 export default {
     name: 'ping',
-    description: 'Ping the bot',
+    description: 'ping the bot',
     usage: 'ping',
-    category: 'Misc',
+    category: 'misc',
 
     slash: true,
     testOnly: true,
     guildOnly: true,
 
     callback: ({}) => {
-        return `🏓 Pong!`;
+        return doobEmbed(`🏓 pong!`);
     },
 } as ICommand;

@@ -43,23 +43,23 @@ client.on('ready', () => {
                 emoji: '🔗',
             },
             {
-                name: 'Fun',
+                name: 'fun',
                 emoji: '🎲',
             },
             {
-                name: 'Info',
+                name: 'info',
                 emoji: 'ℹ️',
             },
             {
-                name: 'Logging',
+                name: 'logging',
                 emoji: '📋',
             },
             {
-                name: 'Meta',
+                name: 'meta',
                 emoji: '💫',
             },
             {
-                name: 'Misc',
+                name: 'misc',
                 emoji: '💠',
             },
         ])

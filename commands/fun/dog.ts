@@ -7,9 +7,9 @@ import { errorEmbed } from '../../utils/generic_embeds';
 
 export default {
     name: 'dog',
-    description: 'Sends a random dog image',
+    description: 'sends a random dog image',
     usage: 'dog',
-    category: 'Fun',
+    category: 'fun',
 
     slash: true,
     testOnly: true,
@@ -22,7 +22,7 @@ export default {
             return embed;
         } catch (error) {
             const embed = errorEmbed(
-                `An error occured while trying to get a dog image.\n${getEmote('transparentSpace')}${getEmote('transparent>')} ${error}`
+                `an error occured while trying to get a dog image.\n${getEmote('transparentSpace')}${getEmote('transparent>')} ${error}`
             );
             return embed;
         }

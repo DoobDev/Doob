@@ -3,13 +3,13 @@ import { MessageEmbed } from 'discord.js';
 import { ICommand } from 'wokcommands';
 import { getDoobColor } from '../../utils/colors';
 import { getEmote } from '../../utils/emotes';
-import { errorEmbed } from '../../utils/generic_embeds';
+import { doobEmbed, errorEmbed } from '../../utils/generic_embeds';
 
 export default {
     name: 'dogfact',
-    description: 'Get a random dog fact',
+    description: 'get a random dog fact',
     usage: 'dogfact',
-    category: 'Fun',
+    category: 'fun',
 
     slash: true,
     testOnly: true,
@@ -18,11 +18,11 @@ export default {
     callback: async ({}) => {
         try {
             let data = await axios.get('https://some-random-api.ml/facts/dog');
-            const embed = new MessageEmbed().setDescription(`${getEmote('transparent>')} ${data.data['fact']}`).setColor(getDoobColor('DOOB'));
+            const embed = doobEmbed(`${getEmote('transparent>')} ${data.data['fact']}`);
             return embed;
         } catch (error) {
             const embed = errorEmbed(
-                `An error occured while trying to get a dog image.\n${getEmote('transparentSpace')}${getEmote('transparent>')} ${error}`
+                `an error occured while trying to get a dog image.\n${getEmote('transparentSpace')}${getEmote('transparent>')} ${error}`
             );
 
             return embed;

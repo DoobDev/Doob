@@ -2,25 +2,22 @@ import { MessageEmbed } from 'discord.js';
 import { ICommand } from 'wokcommands';
 import { getDoobColor } from '../../utils/colors';
 import { getEmote } from '../../utils/emotes';
+import { doobEmbed } from '../../utils/generic_embeds';
 
 export default {
     name: 'support',
-    description: 'Get support for the bot in our official support server!',
+    description: 'get support for the bot in our official support server!',
     usage: 'support',
-    category: 'Meta',
+    category: 'meta',
 
     slash: true,
     testOnly: true,
     guildOnly: true,
 
     callback: ({}) => {
-        let embed = new MessageEmbed()
-            .setDescription(
-                `${getEmote('pinkStar')} Get help at our Support Server\n${getEmote('transparent>')} https://discord.gg/hgQTTU7 [${getEmote(
-                    'pinkLink'
-                )}](https://discord.gg/hgQTTU7)`
-            )
-            .setColor(getDoobColor('DOOB'));
+        const embed = doobEmbed(
+            `${getEmote('pinkStar')} get help at our support server\n${getEmote('transparent>')} https://doob.link/supportserver`
+        );
 
         return embed;
     },

@@ -1,22 +1,19 @@
-import { MessageEmbed } from 'discord.js';
 import { ICommand } from 'wokcommands';
-import { getDoobColor } from '../../utils/colors';
 import { getEmote } from '../../utils/emotes';
+import { doobEmbed } from '../../utils/generic_embeds';
 
 export default {
     name: 'patreon',
-    description: 'Get the link to the patreon page',
+    description: 'get the link to the patreon page',
     usage: 'patreon',
-    category: 'Meta',
+    category: 'meta',
 
     slash: true,
     testOnly: true,
     guildOnly: true,
 
     callback: ({}) => {
-        const embed = new MessageEmbed()
-            .setDescription(`${getEmote('pinkStar')} Donate to Doob and get perks! https://patreon.com/doobdev/ ${getEmote('pinkStar')}`)
-            .setColor(getDoobColor('DOOB'));
+        const embed = doobEmbed(`${getEmote('pinkStar')} donate to Doob and get perks! https://patreon.com/doobdev/ ${getEmote('pinkStar')}`);
 
         return embed;
     },

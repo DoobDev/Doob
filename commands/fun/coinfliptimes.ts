@@ -3,12 +3,13 @@ import { ICommand } from 'wokcommands';
 import { getDoobColor } from '../../utils/colors';
 import { DiscordOption } from '../../utils/discordoptions';
 import { getEmote } from '../../utils/emotes';
+import { doobEmbed } from '../../utils/generic_embeds';
 
 export default {
     name: 'coinfliptimes',
-    description: 'Flip a coin x amount of times.',
+    description: 'flip a coin x amount of times.',
     usage: 'coinfliptimes <amount: int>',
-    category: 'Fun',
+    category: 'fun',
 
     slash: true,
     testOnly: true,
@@ -17,7 +18,7 @@ export default {
     options: [
         {
             name: 'amount',
-            description: 'The amount of times to flip the coin.',
+            description: 'the amount of times to flip the coin.',
             required: true,
             type: DiscordOption('INTEGER'),
         },
@@ -45,9 +46,7 @@ export default {
             }
         }
         // GitHub Copilot took it to ten
-        let embed = new MessageEmbed()
-            .setDescription(`${getEmote('transparent>')} ${heads} heads and ${tails} tails.`)
-            .setColor(getDoobColor('DOOB'));
+        let embed = doobEmbed(`${getEmote('transparent>')} ${heads} heads and ${tails} tails.`);
 
         return embed;
     },

@@ -1,11 +1,12 @@
 import { ICommand } from 'wokcommands';
 import welcomeSchema from '../../models/welcome-schema';
 import { DiscordOption } from '../../utils/discordoptions';
+import { doobEmbed, errorEmbed } from '../../utils/generic_embeds';
 
 export default {
     name: 'setwelcome',
-    description: 'Set a welcome channel + message for your server',
-    category: 'Misc',
+    description: 'set a welcome channel + message for your server',
+    category: 'misc',
 
     permissions: ['ADMINISTRATOR'],
 
@@ -19,13 +20,13 @@ export default {
     options: [
         {
             name: 'channel',
-            description: 'The channel you want your new members to be welcomed in.',
+            description: 'the channel you want your new members to be welcomed in.',
             type: DiscordOption('CHANNEL'),
             required: true,
         },
         {
             name: 'text',
-            description: 'The message to welcome your members. Use the `<user>` variable to mention the user joining.',
+            description: 'the message to welcome your members. use the `<user>` variable to mention the user joining.',
             type: DiscordOption('STRING'),
             required: true,
         },
@@ -35,11 +36,11 @@ export default {
         const target = interaction.options.getChannel('channel');
 
         if (!guild) {
-            return 'Error: Running a guild only command in a Direct Message';
+            return errorEmbed('running a guild only command in a Direct Message');
         }
 
         if (!target || target.type !== 'GUILD_TEXT') {
-            return 'Error: Incorrect channel type.';
+            return errorEmbed('incorrect channel type.');
         }
 
         let text = interaction?.options.getString('text');
@@ -58,6 +59,6 @@ export default {
             }
         );
 
-        return 'Welcome channel has been set.';
+        return doobEmbed('welcome channel has been set.');
     },
 } as ICommand;

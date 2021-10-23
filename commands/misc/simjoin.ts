@@ -1,11 +1,11 @@
 import { ICommand } from 'wokcommands';
 
 export default {
-    category: 'Misc',
-    description: 'Sim join',
+    category: 'misc',
+    description: 'simulate a join',
 
     slash: false,
-    testOnly: true,
+    testOnly: true, // Stay test only
 
     callback: ({ member, client }) => {
         client.emit('guildMemberAdd', member);

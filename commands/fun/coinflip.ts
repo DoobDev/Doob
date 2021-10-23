@@ -1,22 +1,21 @@
-import { MessageEmbed } from 'discord.js';
 import { ICommand } from 'wokcommands';
-import { getDoobColor } from '../../utils/colors';
 import { getEmote } from '../../utils/emotes';
+import { doobEmbed } from '../../utils/generic_embeds';
 
 export default {
     name: 'coinflip',
-    description: 'Flip a coin!',
+    description: 'flip a coin!',
     usage: 'coinflip',
-    category: 'Fun',
+    category: 'fun',
 
     slash: true,
     testOnly: true,
     guildOnly: true,
 
     callback: ({}) => {
-        const coin = Math.floor(Math.random() * 2) === 0 ? 'Heads' : 'Tails'; // I'm not even going to lie, GitHub Copilot just did this for me lol
+        const coin = Math.floor(Math.random() * 2) === 0 ? 'heads' : 'tails'; // I'm not even going to lie, GitHub Copilot just did this for me lol
 
-        let embed = new MessageEmbed().setDescription(`${getEmote('transparent>')} ${coin}!`).setColor(getDoobColor('DOOB'));
+        let embed = doobEmbed(`${getEmote('transparent>')} ${coin}!`);
         return embed;
     },
 } as ICommand;

@@ -7,8 +7,8 @@ import { doobEmbed, errorEmbed } from '../../utils/generic_embeds';
 
 export default {
     name: 'fill',
-    description: 'Fill the message with something.',
-    category: 'Fun',
+    description: 'fill the message with something.',
+    category: 'fun',
     cooldown: '30s',
 
     testOnly: true,
@@ -19,7 +19,7 @@ export default {
     options: [
         {
             name: 'string',
-            description: 'The string to fill the message with.',
+            description: 'the string to fill the message with.',
             type: DiscordOption('STRING'),
             required: true,
         },
