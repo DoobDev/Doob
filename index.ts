@@ -51,16 +51,16 @@ client.on('ready', () => {
                 emoji: 'ℹ️',
             },
             {
-                name: 'logging',
-                emoji: '📋',
-            },
-            {
                 name: 'meta',
                 emoji: '💫',
             },
             {
                 name: 'misc',
                 emoji: '💠',
+            },
+            {
+                name: 'config',
+                emoji: '🔧',
             },
         ])
         .setDisplayName('Doob');
