@@ -25,12 +25,12 @@ export default (client: Client) => {
         }
 
         data[0].send({
-            content: data[1].replace('<user>', `<@${id}>`),
+            content: data[1].replace(/<user>/g, `<@${id}>`),
         });
     });
 };
 
 export const config = {
-    displayName: 'Welcome Members',
+    displayName: 'welcome members',
     dbName: 'WELCOME_MEMBER', // Database Name, DO NOT CHANGE.
 };
