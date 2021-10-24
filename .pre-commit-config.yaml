@@ -1,5 +1,6 @@
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
+exclude: CHANGELOG.md|package.json|tsconfig.json
 ci:
     autofix_commit_msg: |
         chore(pre-commit): auto fixes from pre-commit.com hooks
@@ -8,18 +9,10 @@ repos:
     - repo: https://github.com/pre-commit/pre-commit-hooks
       rev: v3.2.0
       hooks:
-          - id: trailing-whitespace
-            exclude: CHANGELOG.md
-          - id: end-of-file-fixer
-            exclude: CHANGELOG.md
           - id: check-yaml
-            exclude: CHANGELOG.md
           - id: check-added-large-files
-            exclude: CHANGELOG.md
           - id: check-json
-            exclude: tsconfig.json
           - id: pretty-format-json
-            exclude: tsconfig.json
           - id: check-merge-conflict
     - repo: https://github.com/pre-commit/mirrors-prettier
       rev: '6e24ff01ab7d5e64045599b81c4cd34d6a6a7159'
