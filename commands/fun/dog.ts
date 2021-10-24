@@ -17,8 +17,8 @@ export default {
 
     callback: async ({}) => {
         try {
-            let resp = await axios.get('https://dog.ceo/api/breeds/image/random');
-            const embed = new MessageEmbed().setImage(resp.data['message']).setColor(getDoobColor('DOOB'));
+            let resp = (await axios.get('https://dog.ceo/api/breeds/image/random')) as any;
+            const embed = new MessageEmbed().setImage(resp.data.message).setColor(getDoobColor('DOOB'));
             return embed;
         } catch (error) {
             const embed = errorEmbed(

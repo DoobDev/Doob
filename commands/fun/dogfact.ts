@@ -17,8 +17,8 @@ export default {
 
     callback: async ({}) => {
         try {
-            let data = await axios.get('https://some-random-api.ml/facts/dog');
-            const embed = doobEmbed(`${getEmote('transparent>')} ${data.data['fact']}`);
+            let data = (await axios.get('https://some-random-api.ml/facts/dog')) as any;
+            const embed = doobEmbed(`${getEmote('transparent>')} ${data.data.fact}`);
             return embed;
         } catch (error) {
             const embed = errorEmbed(
