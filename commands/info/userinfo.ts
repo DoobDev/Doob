@@ -1,8 +1,8 @@
-import { ICommand } from 'wokcommands';
-import { DiscordOption } from '../../utils/discordoptions';
 import { MessageEmbed } from 'discord.js';
-import { errorEmbed } from '../../utils/generic_embeds';
+import { ICommand } from 'wokcommands';
 import { getDoobColor } from '../../utils/colors';
+import { DiscordOption } from '../../utils/discordoptions';
+import { errorEmbed } from '../../utils/generic_embeds';
 
 export default {
     name: 'userinfo',
