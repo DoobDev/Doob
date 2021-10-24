@@ -1,4 +1,4 @@
-export function getDoobColor(color: string) {
+export function getDoobColor(color: 'SUCCESS' | 'DANGER' | 'WARNING' | 'DOOB') {
     let colorName = color.toUpperCase();
     let colorOptions: any = {
         SUCCESS: 0x8fff94,

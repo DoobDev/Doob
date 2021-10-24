@@ -1,4 +1,6 @@
-export function DiscordOption(options: string) {
+export function DiscordOption(
+    options: 'SUB_COMMAND' | 'SUB_COMMAND_GROUP' | 'STRING' | 'INTEGER' | 'BOOLEAN' | 'USER' | 'CHANNEL' | 'ROLE' | 'MENTIONABLE' | 'NUMBER'
+) {
     const optionsName = options;
 
     let discOptions = [
