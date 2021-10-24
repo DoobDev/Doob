@@ -62,7 +62,7 @@ export default {
                 content: `<@308000668181069824>`,
                 embeds: [
                     doobEmbed(
-                        `new short link!\nfrom <@${interaction.member?.user.id}> (username: ${interaction.member?.user.username}#${interaction.member?.user.discriminator} // id: \`${interaction.member?.user.id}\`)\nshort link: ${resp.data.shortUrl}\nlong link: https://${link}`
+                        `new short link!\nfrom <@${interaction.member?.user.id}> (username: ${interaction.member?.user.username}#${interaction.member?.user.discriminator} // id: \`${interaction.member?.user.id}\`)\nshort link: https://${resp.data.shortUrl}\nlong link: ${link}`
                     ),
                 ],
             });
