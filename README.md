@@ -23,38 +23,44 @@
 </a>
 </p>
 
-
-
 ## `📚` About
-Doob is a multipurpose Discord bot with a built-in **leveling system**, great **logging features**, actual fun, **fun commands**, and best of all, the developer is very active, and develops the bot frequently. 
+
+Doob is a multipurpose Discord bot with a built-in **leveling system**, great **logging features**, actual fun, **fun commands**, and best of all, the developer is very active, and develops the bot frequently.
 
 ## `🔮` Main Features
+
 Doob has some great features, such as:
-* Logging
-* A Global (and server specific) Leveling System (with leaderboard)
-* Server + User info
-* Fun Commands
-* Customizable Server Features [Don't like Level Messages? Turn them off!]
-* Robust Moderation Commands
-* Twitch Stream Integration
-* Last.fm Integration
-* Discord.bio Integration
-* AND MORE!
+
+-   Logging
+-   A Global (and server specific) Leveling System (with leaderboard)
+-   Server + User info
+-   Fun Commands
+-   Customizable Server Features [Don't like Level Messages? Turn them off!]
+-   Robust Moderation Commands
+-   Twitch Stream Integration
+-   Last.fm Integration
+-   Discord.bio Integration
+-   AND MORE!
 
 ## `🌐` Doob on the web.
-* You can visit the Doob website at [https://doobbot.com](https://doobbot.com)
-* Visit the Dev blog at [https://doobdev.github.io](https://doobdev.github.io)
+
+-   You can visit the Doob website at [https://doobbot.com](https://doobbot.com)
+-   Visit the Dev blog at [https://doobdev.github.io](https://doobdev.github.io)
 
 ## `🔷` What commands are there?
+
 Use the d!help command on Discord!
 
 ## `🚧` Want to submit issues? Or fix existing ones?
+
 ##### Issue is for Bug Reports + Feature Requests | Pull requests are for improving/adding code.
+
 Submit an [Issue](https://github.com/doobdev/doob/issues) or a [Pull request](https://github.com/doobdev/doob/pulls).
 
 ## `🙌` Credits
-* Doob's Emojis: Use both [Font Awesome](https://fontawesome.com/) and [Material Design](https://materialdesignicons.com/) icons.
-* Doob Avatar: [@doobSwag](https://twitter.com/doobSwag)
+
+-   Doob's Emojis: Use both [Font Awesome](https://fontawesome.com/) and [Material Design](https://materialdesignicons.com/) icons.
+-   Doob Avatar: [@doobSwag](https://twitter.com/doobSwag)
 
 ### `🙌` Code Contributors
 
