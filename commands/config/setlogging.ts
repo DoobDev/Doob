@@ -4,7 +4,7 @@ import { DiscordOption } from '../../utils/discordoptions';
 import { doobEmbed, errorEmbed } from '../../utils/generic_embeds';
 
 export default {
-    name: 'setlogging2',
+    name: 'setlogging',
     description: 'set the logging channel for your server',
     category: 'config',
 
@@ -31,6 +31,7 @@ export default {
             return errorEmbed('this command can only be ran in servers');
         }
 
+        // error handling just in case a user tries to pass in something that isn't a text channel.
         if (!channel || channel.type !== 'GUILD_TEXT') {
             return errorEmbed('invalid channel provided');
         }

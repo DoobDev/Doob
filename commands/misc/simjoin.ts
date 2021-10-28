@@ -5,7 +5,7 @@ export default {
     description: 'simulate a join',
 
     slash: false,
-    testOnly: true, // Stay test only
+    ownerOnly: true,
 
     callback: ({ member, client }) => {
         client.emit('guildMemberAdd', member);

@@ -12,7 +12,7 @@ export default {
     slash: false,
     testOnly: true,
 
-    ownerOnly: true,
+    ownerOnly: true, // owner only command (keep)
 
     callback: ({ client, text }) => {
         client.user?.setPresence({

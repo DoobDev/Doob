@@ -39,6 +39,7 @@ export default {
             return errorEmbed('running a guild only command in a Direct Message');
         }
 
+        // error handling just in case a user tries to make a welcome channel a `voice/anything that isn't text` channel.
         if (!target || target.type !== 'GUILD_TEXT') {
             return errorEmbed('incorrect channel type.');
         }

@@ -13,7 +13,7 @@ export default {
     guildOnly: true,
 
     callback: ({}) => {
-        const coin = Math.floor(Math.random() * 2) === 0 ? 'heads' : 'tails'; // I'm not even going to lie, GitHub Copilot just did this for me lol
+        const coin = Math.floor(Math.random() * 2) === 0 ? 'heads' : 'tails'; // i'm not even going to lie, GitHub Copilot just did this for me lol
 
         let embed = doobEmbed(`${getEmote('transparent>')} ${coin}!`);
         return embed;

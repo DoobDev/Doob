@@ -31,7 +31,8 @@ export default {
         if (!string) {
             return errorEmbed('string argument empty.');
         }
-
+        // TODO: make this      v  guild configurable
+        // maybe with addition of automod/max msg length?
         while (string.length < 500) {
             string += ` ${string}`;
         }

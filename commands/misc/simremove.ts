@@ -5,6 +5,7 @@ export default {
     category: 'misc',
     name: 'simremove',
     description: 'simulate a user removal',
+    
     ownerOnly: true,
     slash: false,
 
