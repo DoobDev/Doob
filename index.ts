@@ -6,10 +6,11 @@ import { getDoobColor } from './utils/colors';
 import Statcord from 'statcord.js';
 dotenv.config();
 
-const version = '3.0.0 [BETA]';
+const version = '3.0.0 [BETA]'; // The version the bot is running on, edit this on every release.
 
 const client = new DiscordJS.Client({
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS],
+    // Enables intents for `Guilds`, `Guild Messages` and `Reactions from Guild Message`
 });
 const statcord = new Statcord.Client({
     // Statistics client for statcord.com
@@ -39,7 +40,7 @@ client.on('ready', () => {
         .setColor(getDoobColor('DOOB')) // Default color for embeds like d!help
         .setCategorySettings([
             {
-                name: 'API',
+                name: 'api',
                 emoji: '🔗',
             },
             {
