@@ -13,7 +13,11 @@ export default {
     guildOnly: true,
 
     callback: ({}) => {
-        const embed = doobEmbed(`${getEmote('pinkStar')} donate to Doob and get perks! https://patreon.com/doobdev/ ${getEmote('pinkStar')}`);
+        const embed = doobEmbed(
+            `${getEmote(
+                'pinkStar'
+            )} donate to doob and get perks! https://patreon.com/doobdev/ or support us on ko-fi! https://ko-fi.com/mmatt ${getEmote('pinkStar')}`
+        );
 
         return embed;
     },
