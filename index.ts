@@ -1,9 +1,9 @@
 import DiscordJS, { Intents } from 'discord.js';
-import WOKCommands from 'wokcommands';
-import path from 'path';
 import dotenv from 'dotenv';
-import { getDoobColor } from './utils/colors';
+import path from 'path';
 import Statcord from 'statcord.js';
+import WOKCommands from 'wokcommands';
+import { getDoobColor } from './utils/colors';
 dotenv.config();
 
 const version = '3.0.0 [BETA]'; // The version the bot is running on, edit this on every release.

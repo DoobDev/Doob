@@ -1,9 +1,9 @@
+import axios from 'axios';
+import { TextChannel } from 'discord.js';
 import { ICommand } from 'wokcommands';
 import { DiscordOption } from '../../utils/discordoptions';
-import axios from 'axios';
-import { doobEmbed, errorEmbed } from '../../utils/generic_embeds';
 import { getEmote } from '../../utils/emotes';
-import { TextChannel } from 'discord.js';
+import { doobEmbed, errorEmbed } from '../../utils/generic_embeds';
 
 export default {
     name: 'shortenlink',
@@ -30,7 +30,7 @@ export default {
     minArgs: 1,
     expectedArgs: '<link> <vanity>',
 
-    callback: async ({ client, interaction }) => {
+    callback: async ({ client, interaction, instance }) => {
         const link = interaction.options.getString('link');
         const vanity = interaction.options.getString('vanity');
 
@@ -62,8 +62,14 @@ export default {
             const logging_guild = client.guilds.cache.get('702352937980133386'); // TODO: make this a config value or an environment variable
             const logging_channel = logging_guild?.channels.cache.get('843657332083654726') as TextChannel; // TODO: same as above
 
+            const bot_owners = instance.botOwner;
+            const bot_owner_pings = bot_owners.map((owner: any) => {
+                return `<@${owner}>`;
+            });
+            console.log(bot_owners);
+
             logging_channel?.send({
-                content: `<@308000668181069824>`, // TODO: grab owner IDs from WOKCommands
+                content: `${bot_owner_pings.join(', ')}`,
                 embeds: [
                     doobEmbed(
                         `new short link!\nfrom <@${interaction.member?.user.id}> (username: ${interaction.member?.user.username}#${interaction.member?.user.discriminator} // id: \`${interaction.member?.user.id}\`)\nshort link: https://${resp.data.shortUrl}\nlong link: ${link}`
