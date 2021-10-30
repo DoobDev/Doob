@@ -43,7 +43,7 @@ export default {
             .setDescription(`**${interaction.user.username} said:**\n${getEmote('transparent>')} "${msg}"`)
             .setThumbnail(`${interaction.user.avatarURL()}`)
             .setFooter(`this message lasts ${time}s`)
-            .setColor(getDoobColor('DOOB'));
+            .setColor(getDoobColor.DOOB);
 
         await interaction.reply({ embeds: [embed] });
 

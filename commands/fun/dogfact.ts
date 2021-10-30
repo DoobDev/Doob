@@ -1,7 +1,5 @@
 import axios from 'axios';
-import { MessageEmbed } from 'discord.js';
 import { ICommand } from 'wokcommands';
-import { getDoobColor } from '../../utils/colors';
 import { getEmote } from '../../utils/emotes';
 import { doobEmbed, errorEmbed } from '../../utils/generic_embeds';
 

@@ -1,9 +1,7 @@
 import axios from 'axios';
-import { MessageEmbed } from 'discord.js';
 import { ICommand } from 'wokcommands';
-import { getDoobColor } from '../../utils/colors';
 import { getEmote } from '../../utils/emotes';
-import { errorEmbed } from '../../utils/generic_embeds';
+import { doobEmbed, errorEmbed } from '../../utils/generic_embeds';
 
 export default {
     name: 'dog',
@@ -18,7 +16,8 @@ export default {
     callback: async ({}) => {
         try {
             let resp = (await axios.get('https://dog.ceo/api/breeds/image/random')) as any;
-            const embed = new MessageEmbed().setImage(resp.data.message).setColor(getDoobColor('DOOB'));
+            const text = '';
+            const embed = doobEmbed(text, null, resp.data.message);
             return embed;
         } catch (error) {
             const embed = errorEmbed(

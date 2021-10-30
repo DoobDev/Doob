@@ -37,7 +37,7 @@ client.on('ready', () => {
     })
         .setDefaultPrefix('d!') // Default prefix for legacy commands (which most are not used for the public) is d!
         // @ts-ignore
-        .setColor(getDoobColor('DOOB')) // Default color for embeds like d!help
+        .setColor(getDoobColor.DOOB) // Default color for embeds like d!help
         .setCategorySettings([
             {
                 name: 'api',

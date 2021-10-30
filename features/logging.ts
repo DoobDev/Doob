@@ -31,7 +31,7 @@ export default (client: Client) => {
             embeds: [
                 doobEmbed(
                     `${getEmote('greenUser')} **${member?.nickname || member.user.username} has joined the server.**`,
-                    getDoobColor('SUCCESS'),
+                    getDoobColor.SUCCESS,
                     member.user?.avatarURL()
                 ),
             ],
@@ -59,7 +59,7 @@ export default (client: Client) => {
             embeds: [
                 doobEmbed(
                     `${getEmote('redUser')} **${member?.nickname || member.user?.username} has left the server.**`,
-                    getDoobColor('DANGER'),
+                    getDoobColor.DANGER,
                     member.user?.avatarURL()
                 ),
             ],

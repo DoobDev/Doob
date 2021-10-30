@@ -1,8 +1,5 @@
-import { MessageEmbed } from 'discord.js';
 import { ICommand } from 'wokcommands';
-import { getDoobColor } from '../../utils/colors';
 import { DiscordOption } from '../../utils/discordoptions';
-import { getEmote } from '../../utils/emotes';
 import { doobEmbed, errorEmbed } from '../../utils/generic_embeds';
 
 export default {
