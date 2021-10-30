@@ -42,6 +42,6 @@ export default {
             .setThumbnail(`${userToGet.avatarURL()}`)
             .setTitle(`${userToGet.username}'s information.`)
             .setDescription(`${userToGet.id}`)
-            .setColor(userToGet.accentColor ?? getDoobColor('DOOB'));
+            .setColor(userToGet.accentColor ?? getDoobColor.DOOB);
     },
 } as ICommand;
