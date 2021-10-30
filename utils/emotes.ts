@@ -1,3 +1,8 @@
+/**
+ *
+ * @param emote the emote you want to get
+ * @returns the emote code for discord.
+ */
 export function getEmote(emote: string): string {
     const emoteName = emote;
 

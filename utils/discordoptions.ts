@@ -1,3 +1,8 @@
+/**
+ * gets the correct number for slash command options.
+ * @param options which option you want to get
+ * @returns the option number
+ */
 export function DiscordOption(
     options: 'SUB_COMMAND' | 'SUB_COMMAND_GROUP' | 'STRING' | 'INTEGER' | 'BOOLEAN' | 'USER' | 'CHANNEL' | 'ROLE' | 'MENTIONABLE' | 'NUMBER'
 ) {
