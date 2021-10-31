@@ -5,7 +5,7 @@ import { getEmote } from '../../utils/emotes';
 export default {
     name: 'invite',
     description: 'invite the bot to your server.',
-    category: 'misc',
+    category: 'meta',
 
     slash: true,
     testOnly: true,
