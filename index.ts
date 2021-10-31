@@ -6,7 +6,7 @@ import WOKCommands from 'wokcommands';
 import { getDoobColor } from './utils/colors';
 dotenv.config();
 
-const version = '3.0.0 [BETA]'; // The version the bot is running on, edit this on every release.
+export const version = '3.0.0 [BETA]'; // The version the bot is running on, edit this on every release.
 
 const client = new DiscordJS.Client({
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS],
@@ -71,7 +71,7 @@ client.on('ready', () => {
         status: 'online',
         activities: [
             {
-                name: `Doob ${version}`,
+                name: `doob ${version} || server count: ${client.guilds.cache.size}`,
             },
         ],
     });
