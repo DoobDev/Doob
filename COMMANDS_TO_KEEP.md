@@ -4,9 +4,10 @@
 <!-- 4. coinflip (fun.py) -->
 <!-- 5. coinfliptimes (fun.py) -->
 
-3.  all github.py commands
-     <!-- 7. help command lol (probably dont import from 2.x.x) -->
-    <!-- 4. info command (info.py) -->
+<!-- 3.  all github.py commands -->
+<!-- 7. help command lol (probably dont import from 2.x.x) -->
+<!-- 4. info command (info.py) -->
+
 4.  user info command (info.py)
 5.  server info command (info.py)
 6.  lastfm commands (lastfm.py)
