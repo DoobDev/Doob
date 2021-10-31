@@ -19,6 +19,7 @@ export default {
 
     callback: async ({ message }) => {
         const args = message.content.split(' || ');
+        const label = args[0].replace('d!createissue', '');
         let embed_title = '';
         const tab = `${getEmote('transparentSpace')}${getEmote('transparent>')}`;
 
@@ -33,7 +34,7 @@ export default {
                 owner: 'doobdev',
                 repo: 'doob',
                 title: args[1],
-                labels: [args[0]],
+                labels: [label],
             })
             .then(({ data }) => {
                 embed_title = `**issue #${data.number} created**\n${tab} ${data.html_url}`;
