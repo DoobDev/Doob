@@ -1,3 +1,4 @@
+# https://medium.com/swlh/how-to-deploy-your-application-to-digital-ocean-using-github-actions-and-save-up-on-ci-cd-costs-74b7315facc2
 name: Build & Deploy
 on:
     release:
@@ -15,7 +16,7 @@ jobs:
                   username: ${{ secrets.SSH_USERNAME }}
 
                   script: |
-                      cd /home/Doob
+                      cd ~/doob
                       git pull
-                      sudo pm2 restart doob3
+                      pm2 restart doob3
                       echo 'Deployment Complete'
