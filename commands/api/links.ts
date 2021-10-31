@@ -53,7 +53,7 @@ export default {
                 }
             )) as any;
         } catch (err) {
-            return errorEmbed(`short link api returned an error\n${getEmote('transparentSpace')}${getEmote('transparent>')} ${err}`);
+            return errorEmbed(`short link api returned an error` + `\n${getEmote('transparentSpace')}${getEmote('transparent>')} ${err}`);
         }
 
         // doob.link logging
@@ -72,7 +72,10 @@ export default {
                 content: `${bot_owner_pings.join(', ')}`,
                 embeds: [
                     doobEmbed(
-                        `new short link!\nfrom <@${interaction.member?.user.id}> (username: ${interaction.member?.user.username}#${interaction.member?.user.discriminator} // id: \`${interaction.member?.user.id}\`)\nshort link: https://${resp.data.shortUrl}\nlong link: ${link}`
+                        `new short link!` +
+                            `\nfrom <@${interaction.member?.user.id}> (username: ${interaction.member?.user.username}#${interaction.member?.user.discriminator} // id: \`${interaction.member?.user.id}\`)` +
+                            `\nshort link: https://${resp.data.shortUrl}` +
+                            `\nlong link: ${link}`
                     ),
                 ],
             });

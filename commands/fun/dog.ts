@@ -22,7 +22,7 @@ export default {
             return embed;
         } catch (error) {
             const embed = errorEmbed(
-                `an error occured while trying to get a dog image.\n${getEmote('transparentSpace')}${getEmote('transparent>')} ${error}`
+                `an error occured while trying to get a dog image.` + `\n${getEmote('transparentSpace')}${getEmote('transparent>')} ${error}`
             );
             return embed;
         }

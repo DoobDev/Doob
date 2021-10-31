@@ -40,7 +40,7 @@ export default {
         }
 
         const embed = new MessageEmbed()
-            .setDescription(`**${interaction.user.username} said:**\n${getEmote('transparent>')} "${msg}"`)
+            .setDescription(`**${interaction.user.username} said:**` + `\n${getEmote('transparent>')} "${msg}"`)
             .setThumbnail(`${interaction.user.avatarURL()}`)
             .setFooter(`this message lasts ${time}s`)
             .setColor(getDoobColor.DOOB);

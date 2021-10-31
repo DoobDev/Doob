@@ -14,7 +14,7 @@ export default {
 
     callback: ({}) => {
         const embed = doobEmbed(
-            `${getEmote('pinkStar')} get help at our support server\n${getEmote('transparent>')} https://doob.link/supportserver`
+            `${getEmote('pinkStar')} get help at our support server` + `\n${getEmote('transparent>')} https://doob.link/supportserver`
         );
 
         return embed;
