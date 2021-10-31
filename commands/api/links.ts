@@ -62,14 +62,12 @@ export default {
             const logging_guild = client.guilds.cache.get('702352937980133386'); // TODO: make this a config value or an environment variable
             const logging_channel = logging_guild?.channels.cache.get('843657332083654726') as TextChannel; // TODO: same as above
 
-            const bot_owners = instance.botOwner;
-            const bot_owner_pings = bot_owners.map((owner: any) => {
+            const bot_owners = instance.botOwner.map((owner: any) => {
                 return `<@${owner}>`;
             });
-            console.log(bot_owners);
 
             logging_channel?.send({
-                content: `${bot_owner_pings.join(', ')}`,
+                content: `${bot_owners.join(', ')}`,
                 embeds: [
                     doobEmbed(
                         `new short link!` +
