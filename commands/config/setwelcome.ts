@@ -36,7 +36,7 @@ export default {
         const target = interaction.options.getChannel('channel');
 
         if (!guild) {
-            return errorEmbed('running a guild only command in a Direct Message');
+            return errorEmbed('this command can only be ran in servers');
         }
 
         // error handling just in case a user tries to make a welcome channel a `voice/anything that isn't text` channel.
