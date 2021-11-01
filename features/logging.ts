@@ -1,7 +1,7 @@
 import { Client, TextChannel } from 'discord.js';
 import loggingSchema from '../models/logging-schema';
 import { getDoobColor } from '../utils/colors';
-import { getEmote } from '../utils/emotes';
+import { getEmote, tab } from '../utils/emotes';
 import { doobEmbed } from '../utils/generic_embeds';
 
 const loggingData = {} as {
@@ -61,6 +61,38 @@ export default (client: Client) => {
                     `${getEmote('redUser')} **${member?.nickname || member.user?.username} has left the server.**`,
                     getDoobColor.DANGER,
                     member.user?.avatarURL()
+                ),
+            ],
+        });
+    });
+
+    client.on('messageUpdate', async (oldMessage, newMessage) => {
+        const { guild, member } = newMessage;
+
+        if (!guild) {
+            return;
+        }
+
+        let data = loggingData[guild.id];
+
+        if (!data) {
+            const results = await loggingSchema.findById(guild.id);
+
+            if (!results) {
+                return;
+            }
+
+            const { channelId } = results;
+            const channel = guild.channels.cache.get(channelId) as TextChannel;
+            data = loggingData[guild.id] = [channel];
+        }
+
+        data[0].send({
+            embeds: [
+                doobEmbed(
+                    `${getEmote('pinkMsg')} **${member?.nickname || member?.user.username} edited their message.**\n` +
+                        `${tab} Old Message: ${oldMessage.content}\n` +
+                        `${tab} New Message: ${newMessage.content}`
                 ),
             ],
         });
