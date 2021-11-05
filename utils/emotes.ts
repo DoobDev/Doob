@@ -1,5 +1,5 @@
 /**
- *
+ * get emotes that doob uses in discord embeds
  * @param emote the emote you want to get
  * @returns the emote code for discord.
  */

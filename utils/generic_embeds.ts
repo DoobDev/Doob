@@ -3,7 +3,7 @@ import { getDoobColor } from './colors';
 import { getEmote } from './emotes';
 
 /**
- *
+ * get the generic error embed
  * @param text the error message to be displayed to the user (required)
  * @returns a message embed with the error message
  */
@@ -16,7 +16,7 @@ export function errorEmbed(text: string) {
 }
 
 /**
- *
+ * get the generic doob embed
  * @param text the text to be displayed to the user in the embed. (required)
  * @param color the color shown to the left side of the embed (optional: defaults to `getDoobColor.DOOB`)
  * @param image the image shown to the right side of the embed (optional: no default) (`setThumbnail` in discord.js)
