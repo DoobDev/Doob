@@ -240,3 +240,5 @@ export function getEmote(emote: string): string {
 
     return emotes.find((e) => e.name === emoteName)?.emote || '';
 }
+
+export const tab = `${getEmote('transparentSpace')}${getEmote('transparent>')}`;

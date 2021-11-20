@@ -34,5 +34,27 @@
     <!-- 21. overlay (misc.py) // scrapped -->
     <!-- 12. emote (misc.py) -->
 11. most of everything in mod.py
+
+-   kick
+-   mute
+-   unmute
+-   ban
+-   move russianroulette into fun
+-   unban
+-   clear (purge messages)
+-   set mute role
+-   create text channel
+-   create voice channel
+-   delete text channel
+-   delete voice channel
+-   warn
+-   warnings
+-   role
+-   add role
+-   remove role
+-   create role
+-   delete role
+
 <!-- 17. starboard || After Launch // Do a poll. -->
+
 12. twitch (move to v5 )

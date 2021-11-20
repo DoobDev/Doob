@@ -42,20 +42,20 @@ The `<header>` section only contains one line and three fields(`<type>`, `<scope
 
 The `type` field mainly explains the type of the commit. Only the following 9 types are allowed to be used in `AngularJS Git Commit Message Conventions`:
 
-- feat: A new feature
-- fix: A bug fix
-- docs: Documentation only changes
-- style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
-- refactor: A code change that neither fixes a bug nor adds a feature
-- perf: A code change that improves performance
-- test: Adding missing or correcting existing tests
-- chore: Changes to the build process or auxiliary tools and libraries such as documentation generation
-- revert: If the commit reverts a previous commit, it should be followed by the `<header>`of the reverted commit and in the body it should say: `This reverts commit <hash>.`, where the hash is the SHA of the commit being reverted
+-   feat: A new feature
+-   fix: A bug fix
+-   docs: Documentation only changes
+-   style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
+-   refactor: A code change that neither fixes a bug nor adds a feature
+-   perf: A code change that improves performance
+-   test: Adding missing or correcting existing tests
+-   chore: Changes to the build process or auxiliary tools and libraries such as documentation generation
+-   revert: If the commit reverts a previous commit, it should be followed by the `<header>`of the reverted commit and in the body it should say: `This reverts commit <hash>.`, where the hash is the SHA of the commit being reverted
 
 For this project, the following 2 types can also be used if necessary:
 
-- build: Changes to the build tools or dependencies (webpack, npm, etc)
-- ci: Changes to Continuous Integration
+-   build: Changes to the build tools or dependencies (webpack, npm, etc)
+-   ci: Changes to Continuous Integration
 
 If a commit is related to multiple `<type>`, use `feat` and `fix` in priority, followed by the remaining seven types specified in `AngularJS Git Commit Message Conventions`, and the remaining two are for special needs
 
@@ -129,10 +129,10 @@ You are recommended to submit a Pull Request (PR) from a new branch with a name 
 
 As for this project, the branch name of the Pull Request should follow the conventions below:
 
-- If it is for a new feature, the branch name should begin with `feature/`, followed by the specific feature name, e.g. `feature/md2pdf` for developing a new feature `md2pdf` and `feature/optimize_md2pdf` for optimizing the feature `md2pdf`
-- If it is a bug fix to a feature, the branch name should begin with `fix/`, followed by the fixed feature name, e.g. `fix/yapf` for fixing bug of feature `yapf`
-- If it is only a change to documentation, the branch name should begin with `docs/`, followed by the scope of documentation change, e.g. `docs/usage` for changing the documentation of usage
-- In other cases, please submit an issue to discuss with the maintainer first
+-   If it is for a new feature, the branch name should begin with `feature/`, followed by the specific feature name, e.g. `feature/md2pdf` for developing a new feature `md2pdf` and `feature/optimize_md2pdf` for optimizing the feature `md2pdf`
+-   If it is a bug fix to a feature, the branch name should begin with `fix/`, followed by the fixed feature name, e.g. `fix/yapf` for fixing bug of feature `yapf`
+-   If it is only a change to documentation, the branch name should begin with `docs/`, followed by the scope of documentation change, e.g. `docs/usage` for changing the documentation of usage
+-   In other cases, please submit an issue to discuss with the maintainer first
 
 #### Title of Pull Request
 
