@@ -87,15 +87,23 @@ export default (client: Client) => {
             data = loggingData[guild.id] = [channel];
         }
 
-        data[0].send({
-            embeds: [
-                doobEmbed(
-                    `${getEmote('pinkMsg')} **${member?.nickname || member?.user.username} edited their message.**\n` +
-                        `${tab} Old Message: ${oldMessage.content}\n` +
-                        `${tab} New Message: ${newMessage.content}`
-                ),
-            ],
-        });
+        if (oldMessage.content === newMessage.content) {
+            return;
+        } else if (oldMessage.content === null || oldMessage.content === null) {
+            return;
+        } else if (oldMessage.content === '' || newMessage.content === '') {
+            return;
+        } else {
+            data[0].send({
+                embeds: [
+                    doobEmbed(
+                        `${getEmote('pinkMsg')} **${member?.nickname || member?.user.username} edited their message.**\n` +
+                            `${tab} Old Message: ${oldMessage.content}\n` +
+                            `${tab} New Message: ${newMessage.content}`
+                    ),
+                ],
+            });
+        }
     });
 };
 
