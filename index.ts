@@ -1,4 +1,4 @@
-import Topgg from '@top-gg/sdk';
+import { Webhook } from '@top-gg/sdk';
 import DiscordJS, { Intents } from 'discord.js';
 import dotenv from 'dotenv';
 import express from 'express';
@@ -10,18 +10,9 @@ import { getDoobColor } from './utils/colors';
 
 dotenv.config();
 
-const WEBHOOK_PORT = process.env.WEBHOOK_PORT || 4200;
+const WEBHOOK_PORT = process.env.WEBHOOK_PORT || 80;
 
 const webhook_server = express();
-const webhook = new Topgg.Webhook(`${process.env.WEBHOOK_AUTH}`);
-webhook_server.post(
-    '/dblwebhook',
-    webhook.listener((vote) => {
-        console.log(`${vote.user} has voted for doob on top.gg`);
-    })
-);
-
-webhook_server.listen(WEBHOOK_PORT);
 
 export const version = '3.0.0 [BETA]'; // The version the bot is running on, edit this on every release.
 
@@ -30,6 +21,7 @@ const client = new DiscordJS.Client({
     // Enables intents for `Guilds`, `Guild Messages` and `Reactions from Guild Message`
 });
 
+// Top.gg Auto post stats
 const topgg_ap = AutoPoster(`${process.env.TOPGG_KEY}`, client);
 
 topgg_ap.on('posted', () => {
@@ -106,5 +98,21 @@ statcord.on('autopost-start', () => {
     // Emitted when statcord autopost starts
     console.log('Started Statcord autopost');
 });
+
+// Top.gg Webhook integration
+const webhook = new Webhook(`${process.env.WEBHOOK_AUTH}`);
+webhook_server.post(
+    '/dblwebhook',
+    webhook.listener((vote) => {
+        console.log(vote.user);
+    })
+);
+
+webhook_server.get('/', (req, res) => {
+    res.sendStatus(200);
+});
+
+webhook_server.listen(WEBHOOK_PORT);
+console.log(`Webhook server listening on port ${WEBHOOK_PORT}`);
 
 client.login(process.env.TOKEN);
