@@ -98,8 +98,43 @@ export default (client: Client) => {
                 embeds: [
                     doobEmbed(
                         `${getEmote('pinkMsg')} **${member?.nickname || member?.user.username} edited their message.**\n` +
-                            `${tab} Old Message: ${oldMessage.content}\n` +
-                            `${tab} New Message: ${newMessage.content}`
+                            `${tab} Old Message: \`${oldMessage.content}\`\n` +
+                            `${tab} New Message: \`${newMessage.content}\``
+                    ),
+                ],
+            });
+        }
+    });
+
+    client.on('messageDelete', async (message) => {
+        const { guild, member } = message;
+
+        if (!guild) {
+            return;
+        }
+
+        let data = loggingData[guild.id];
+
+        if (!data) {
+            const results = await loggingSchema.findById(guild.id);
+
+            if (!results) {
+                return;
+            }
+
+            const { channelId } = results;
+            const channel = guild.channels.cache.get(channelId) as TextChannel;
+            data = loggingData[guild.id] = [channel];
+        }
+
+        if (!message) {
+            return;
+        } else if (message.content === '@everyone' || '@here') {
+            data[0].send({
+                embeds: [
+                    doobEmbed(
+                        `${getEmote('redTrash')} **${member?.nickname || member?.user.username} deleted their ghost ping.**\n` +
+                            `${tab} \`${message.content}\``
                     ),
                 ],
             });
