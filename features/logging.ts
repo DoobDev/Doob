@@ -29,11 +29,7 @@ export default (client: Client) => {
 
         data[0].send({
             embeds: [
-                doobEmbed(
-                    `${getEmote('greenUser')} **${member?.nickname || member.user.username} has joined the server.**`,
-                    getDoobColor.SUCCESS,
-                    member.user?.avatarURL()
-                ),
+                doobEmbed(`${getEmote('greenUser')} **<@${member?.id}> has joined the server.**`, getDoobColor.SUCCESS, member.user?.avatarURL()),
             ],
         });
     });
@@ -56,13 +52,7 @@ export default (client: Client) => {
         }
 
         data[0].send({
-            embeds: [
-                doobEmbed(
-                    `${getEmote('redUser')} **${member?.nickname || member.user?.username} has left the server.**`,
-                    getDoobColor.DANGER,
-                    member.user?.avatarURL()
-                ),
-            ],
+            embeds: [doobEmbed(`${getEmote('redUser')} **<@${member?.id}> has left the server.**`, getDoobColor.DANGER, member.user?.avatarURL())],
         });
     });
 
@@ -97,9 +87,63 @@ export default (client: Client) => {
             data[0].send({
                 embeds: [
                     doobEmbed(
-                        `${getEmote('pinkMsg')} **${member?.nickname || member?.user.username} edited their message.**\n` +
-                            `${tab} Old Message: ${oldMessage.content}\n` +
-                            `${tab} New Message: ${newMessage.content}`
+                        `${getEmote('pinkMsg')} **<@${member?.id}> edited their message.**\n` +
+                            `${tab} old Message: \`${oldMessage.content}\`\n` +
+                            `${tab} new Message: \`${newMessage.content}\``,
+                        getDoobColor.WARNING,
+                        member?.user?.avatarURL()
+                    ),
+                ],
+            });
+        }
+    });
+
+    client.on('messageDelete', async (message) => {
+        const { guild, member } = message;
+
+        if (!guild) {
+            return;
+        }
+
+        let data = loggingData[guild.id];
+
+        if (!data) {
+            const results = await loggingSchema.findById(guild.id);
+
+            if (!results) {
+                return;
+            }
+
+            const { channelId } = results;
+            const channel = guild.channels.cache.get(channelId) as TextChannel;
+            data = loggingData[guild.id] = [channel];
+        }
+
+        if (!message) {
+            return;
+        } else if (message.content === '@everyone' || message.content === '@here') {
+            data[0].send({
+                embeds: [
+                    doobEmbed(
+                        `${getEmote('redTrash')} **<@${member?.id}> deleted their ghost ping.**\n` +
+                            `${tab} \`${message.content}\`\n` +
+                            `${tab} message id: \`${message.id}\`\n` +
+                            `${tab} channel: <#${message.channel.id}>`,
+                        getDoobColor.DANGER,
+                        member?.user?.avatarURL()
+                    ),
+                ],
+            });
+        } else {
+            data[0].send({
+                embeds: [
+                    doobEmbed(
+                        `${getEmote('redTrash')} **<@${member?.id}> deleted their message.**\n` +
+                            `${tab} message: \`${message.content}\`\n` +
+                            `${tab} message id: \`${message.id}\`\n` +
+                            `${tab} channel: <#${message.channel.id}>`,
+                        getDoobColor.DANGER,
+                        member?.user?.avatarURL()
                     ),
                 ],
             });
