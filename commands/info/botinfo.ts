@@ -20,7 +20,7 @@ export default {
 
         const description =
             `**doob info!**` +
-            `\n\n` +
+            `\n-------------------------------------------\n` +
             `**${getEmote('greyMisc')} description:**\n` +
             `${tab} a bot with moderation, logging, fun commands, and integrations with your favorite services!\n` +
             `**${getEmote('pinkPerson')} developers:**\n` +
