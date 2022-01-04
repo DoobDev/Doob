@@ -79,6 +79,10 @@ client.on('ready', () => {
                 name: 'config',
                 emoji: '🔧',
             },
+            {
+                name: 'moderation',
+                emoji: '🔨',
+            },
         ])
         .setDisplayName('Doob');
 
@@ -103,7 +107,7 @@ statcord.on('autopost-start', () => {
 const webhook = new Webhook(`${process.env.WEBHOOK_AUTH}`);
 webhook_server.post(
     '/dblwebhook',
-    webhook.listener((vote) => {
+    webhook.listener((vote: { user: any }) => {
         console.log(vote.user);
     })
 );

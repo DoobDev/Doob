@@ -36,8 +36,8 @@
 11. most of everything in mod.py
 
 -   kick
--   mute
--   unmute
+-   mute (use timeouts https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=timeout)
+-   unmute (use timeouts https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=timeout)
 -   ban
 -   move russianroulette into fun
 -   unban

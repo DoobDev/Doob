@@ -13,7 +13,7 @@ export default {
     guildOnly: true,
 
     callback: ({}) => {
-        const embed = doobEmbed(`${getEmote('^')} Vote for Doob on Top.gg https://doob.link/votedoob ${getEmote('pinkStar')}`);
+        const embed = doobEmbed(`${getEmote('^')} vote for Doob on Top.gg https://doob.link/votedoob ${getEmote('pinkStar')}`);
 
         return embed;
     },
