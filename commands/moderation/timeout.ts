@@ -30,7 +30,7 @@ export default {
             name: 'reason',
             description: 'the reason you would like to timeout the user',
             type: DiscordOption('STRING'),
-            required: true,
+            required: false,
         },
     ],
 
