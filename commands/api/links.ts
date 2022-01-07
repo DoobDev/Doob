@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { TextChannel } from 'discord.js';
 import { ICommand } from 'wokcommands';
+import config from '../../config';
 import { DiscordOption } from '../../utils/discordoptions';
 import { getEmote } from '../../utils/emotes';
 import { doobEmbed, errorEmbed } from '../../utils/generic_embeds';
@@ -47,8 +48,8 @@ export default {
                 {
                     headers: {
                         'Content-Type': 'application/json',
-                        apikey: `${process.env.REBRANDLY_API_KEY}`, // api key in your rebrandly account settings
-                        workspace: `${process.env.REBRANDLY_WORKSPACE}`, // get this by going to `workspaces` -> click on your workspace -> id is in the url
+                        apikey: config.rebrandlyApiKey, // api key in your rebrandly account settings
+                        workspace: config.rebrandlyWorkspace, // get this by going to `workspaces` -> click on your workspace -> id is in the url
                     },
                 }
             )) as any;

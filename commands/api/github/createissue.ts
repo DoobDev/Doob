@@ -1,9 +1,10 @@
 import { Octokit } from '@octokit/rest';
 import { ICommand } from 'wokcommands';
+import config from '../../../config';
 import { getEmote } from '../../../utils/emotes';
 import { doobEmbed, errorEmbed } from '../../../utils/generic_embeds';
 
-const octokit = new Octokit({ auth: process.env.GITHUB_PAT }); // github personal access token, stored as `GITHUB_PAC` in .env
+const octokit = new Octokit({ auth: config.githubPat }); // github personal access token, stored as `GITHUB_PAC` in .env
 
 export default {
     category: 'api',

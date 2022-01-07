@@ -1,16 +1,14 @@
 import { Webhook } from '@top-gg/sdk';
 import DiscordJS, { Intents } from 'discord.js';
-import dotenv from 'dotenv';
 import express from 'express';
 import path from 'path';
 import Statcord from 'statcord.js';
 import { AutoPoster } from 'topgg-autoposter';
 import WOKCommands from 'wokcommands';
+import config from './config';
 import { getDoobColor } from './utils/colors';
 
-dotenv.config();
-
-const WEBHOOK_PORT = process.env.WEBHOOK_PORT || 80;
+const WEBHOOK_PORT = config.webhookPort || 80;
 
 const webhook_server = express();
 
@@ -22,7 +20,7 @@ const client = new DiscordJS.Client({
 });
 
 // Top.gg Auto post stats
-const topgg_ap = AutoPoster(`${process.env.TOPGG_KEY}`, client);
+const topgg_ap = AutoPoster(config.topggKey, client);
 
 topgg_ap.on('posted', () => {
     console.log('stats have been posted to top.gg');
@@ -30,7 +28,7 @@ topgg_ap.on('posted', () => {
 
 const statcord = new Statcord.Client({
     // Statistics client for statcord.com
-    key: `${process.env.STATCORD_KEY}`,
+    key: config.statcordKey,
     client,
     postCpuStatistics: true,
     postMemStatistics: true,
@@ -43,7 +41,7 @@ client.on('ready', () => {
         featuresDir: path.join(__dirname, 'features'), // Directory where features (event listeners pretty much) are stored
         typeScript: true, // Enabled because Doob v3 uses Typescript
         testServers: ['702352937980133386', '815021537303986176'], // The two Doob test servers  (70... is the Doob Dev server, 815... is a private test server)
-        mongoUri: process.env.MONGO_URI, // MongoDB connection string (Stored as MONGO_URI in .env)
+        mongoUri: config.mongoUri, // MongoDB connection string (Stored as MONGO_URI in .env)
         disabledDefaultCommands: ['language'], // Disabled the language command in WOKCommands, I don't plan to support different languages until later.
         defaultLanguage: 'english', // Default language for Doob is English.
         ignoreBots: true, // WOKCommands ignores other Discord Bots, for no echoing of commands and such.
@@ -104,7 +102,7 @@ statcord.on('autopost-start', () => {
 });
 
 // Top.gg Webhook integration
-const webhook = new Webhook(`${process.env.WEBHOOK_AUTH}`);
+const webhook = new Webhook(config.webhookAuth);
 webhook_server.post(
     '/dblwebhook',
     webhook.listener((vote: { user: any }) => {
@@ -119,4 +117,4 @@ webhook_server.get('/', (req, res) => {
 webhook_server.listen(WEBHOOK_PORT);
 console.log(`Webhook server listening on port ${WEBHOOK_PORT}`);
 
-client.login(process.env.TOKEN);
+client.login(config.discordToken);
