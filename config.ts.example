@@ -1,0 +1,27 @@
+const discordToken = '';
+
+const mongoUri = '';
+
+const statcordKey = '';
+
+const rebrandlyApiKey = '';
+const rebrandlyWorkspace = '';
+
+const topggKey =
+    '';
+const webhookAuth = '';
+const webhookPort = 8000;
+
+const githubPat = '';
+
+export default {
+    discordToken,
+    mongoUri,
+    statcordKey,
+    rebrandlyApiKey,
+    rebrandlyWorkspace,
+    topggKey,
+    webhookAuth,
+    webhookPort,
+    githubPat,
+};
