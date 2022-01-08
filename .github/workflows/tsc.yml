@@ -4,9 +4,11 @@ on:
     push:
         branches:
             - master
+            - rewrite/V3
     pull_request:
         branches:
             - master
+            - rewrite/V3
 
 jobs:
     tsc:
