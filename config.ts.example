@@ -1,3 +1,15 @@
+export interface Config {
+    discordToken: string;
+    mongoUri: string;
+    statcordKey: string;
+    rebrandlyApiKey: string;
+    rebrandlyWorkspace: string;
+    topggKey: string;
+    webhookAuth: string;
+    webhookPort: number;
+    githubPat: string;
+}
+
 const discordToken = '';
 
 const mongoUri = '';
