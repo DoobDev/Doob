@@ -1,4 +1,4 @@
 {
     "deepscan.ignoreConfirmWarning": true,
-    "python.formatting.provider" :"black"
+    "discord.enabled": true
 }
