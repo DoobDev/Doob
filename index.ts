@@ -2,7 +2,6 @@ import { Webhook } from '@top-gg/sdk';
 import DiscordJS, { Intents } from 'discord.js';
 import express from 'express';
 import path from 'path';
-import Statcord from 'statcord.js';
 import { AutoPoster } from 'topgg-autoposter';
 import WOKCommands from 'wokcommands';
 import config from './config';
@@ -24,15 +23,6 @@ const topgg_ap = AutoPoster(config.topggKey, client);
 
 topgg_ap.on('posted', () => {
     console.log('stats have been posted to top.gg');
-});
-
-const statcord = new Statcord.Client({
-    // Statistics client for statcord.com
-    key: config.statcordKey,
-    client,
-    postCpuStatistics: true,
-    postMemStatistics: true,
-    postNetworkStatistics: true,
 });
 
 client.on('ready', () => {
@@ -93,12 +83,6 @@ client.on('ready', () => {
             },
         ],
     });
-    statcord.autopost();
-});
-
-statcord.on('autopost-start', () => {
-    // Emitted when statcord autopost starts
-    console.log('Started Statcord autopost');
 });
 
 // Top.gg Webhook integration
