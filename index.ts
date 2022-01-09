@@ -18,18 +18,26 @@ const client = new DiscordJS.Client({
     // Enables intents for `Guilds`, `Guild Messages` and `Reactions from Guild Message`
 });
 
-// Top.gg Auto post stats
-const topgg_ap = AutoPoster(config.topggKey, client);
+let typeScript_bool: boolean | undefined = undefined;
 
-topgg_ap.on('posted', () => {
-    console.log('stats have been posted to top.gg');
-});
+if (!config.devMode) {
+    // Top.gg Auto post stats
+    const topgg_ap = AutoPoster(config.topggKey, client);
+
+    topgg_ap.on('posted', () => {
+        console.log('stats have been posted to top.gg');
+    });
+
+    typeScript_bool = false;
+} else {
+    typeScript_bool = true;
+}
 
 client.on('ready', () => {
     new WOKCommands(client, {
         commandsDir: path.join(__dirname, 'commands'), // Directory where commands are stored
         featuresDir: path.join(__dirname, 'features'), // Directory where features (event listeners pretty much) are stored
-        typeScript: false, // Disabled because Doob v3 uses Typescript, which is then compiled into JavaScript using `tsc`.
+        typeScript: typeScript_bool, // This is disabled when running for prod, otherwise while testing it is enabled.
         testServers: ['702352937980133386', '815021537303986176'], // The two Doob test servers  (70... is the Doob Dev server, 815... is a private test server)
         mongoUri: config.mongoUri, // MongoDB connection string (Stored as MONGO_URI in .env)
         disabledDefaultCommands: ['language'], // Disabled the language command in WOKCommands, I don't plan to support different languages until later.
@@ -85,20 +93,22 @@ client.on('ready', () => {
     });
 });
 
-// Top.gg Webhook integration
-const webhook = new Webhook(config.webhookAuth);
-webhook_server.post(
-    '/dblwebhook',
-    webhook.listener((vote: { user: any }) => {
-        console.log(vote.user);
-    })
-);
+if (!config.devMode) {
+    // Top.gg Webhook integration
+    const webhook = new Webhook(config.webhookAuth);
+    webhook_server.post(
+        '/dblwebhook',
+        webhook.listener((vote: { user: any }) => {
+            console.log(vote.user);
+        })
+    );
 
-webhook_server.get('/', (req, res) => {
-    res.sendStatus(200);
-});
+    webhook_server.get('/', (req, res) => {
+        res.sendStatus(200);
+    });
 
-webhook_server.listen(WEBHOOK_PORT);
-console.log(`Webhook server listening on port ${WEBHOOK_PORT}`);
+    webhook_server.listen(WEBHOOK_PORT);
+    console.log(`Webhook server listening on port ${WEBHOOK_PORT}`);
+}
 
 client.login(config.discordToken);

@@ -12,6 +12,8 @@ const webhookPort: number = 8000;
 
 const githubPat: string = '';
 
+const devMode: boolean = true;
+
 export default {
     discordToken,
     mongoUri,
@@ -21,4 +23,5 @@ export default {
     webhookAuth,
     webhookPort,
     githubPat,
+    devMode,
 };
