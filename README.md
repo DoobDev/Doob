@@ -1,7 +1,17 @@
-# ⚠️ Doob is being Rewritten!
-## Doob is being rewritten into Doob v3, all the development is currently happening in the [`rewrite/V3`](https://github.com/DoobDev/Doob/tree/rewrite/V3) branch.
-### This means, after the basic commands get ported over to Doob v3, that branch will be merged into this master branch, and that Doob v2 is officially deprecated. Thanks to everyone who used the bot during V3! (300 servers and counting!)
+# ⚠️ Doob has been archived.
+see this note:
 
+  ***announcement of Doob's shutdown***
+  hey there! its mmatt, and i think it's finally time for this
+
+  as time has gone on, i've just slowly and slowly lost interest in developing doob (and other discord bots). a multitude of reasons could be to blame, api changes, out of the blue library changes, my loss in interest in discord as a platform, etc. but i think its finally the time to just call it quits on this project, to give me more time for other ones down the road.
+
+  if you couldn't tell, i haven't actively developed doob in a **loooooooooooooong** time. (actively developed = work on doob's codebase every 1-2 days about). it started slowing down at the end of v2. but then i thought my interest would be peaked with learning a new language with v3, but that wasn't the reality. the reality was that i was tired of discord/doob, and didn't want to port everything over yet again. its the sad truth, but the motivation for the project has just been declining since about the middle of last year. doob used to be my big *main* project, but lately its just a side thing that i did, and stopped working on. so that's why i think its time to just finally get it over with, and shut it down.
+
+  doob was my first ever *large* (take that with a grain of salt) developing project. it taught me how to learn python, javascript, databases, apis, error handling, programming logic, libraries, community management, server management, and probably more. i am forever thankful for every experience i've had with this project. but at the same time, i am so happy to let it go. no longer will i feel the burden of "oh i need to work on v3 this weekend" or "oh i have free time right now, i need to work on doob". i can finally feel free, do what i want, and work on other things that will excite me more :) i'm probably not done working with chatbots, but here on discord, most likely. (twitch :eyes:)
+
+  that all being said, this server (and the bot) will most likely be shut down in a couple days. if you need to contact me, there is a billion ways to here https://mm.omg.lol
+  
 <p align="center"> 
   <img src="https://github.com/DoobDev/Doob/raw/master/images/logo.png" alt="Doob Logo" width=150/>
 </p>
