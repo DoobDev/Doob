@@ -2,8 +2,6 @@ const discordToken: string = '';
 
 const mongoUri: string = '';
 
-const statcordKey: string = '';
-
 const rebrandlyApiKey: string = '';
 const rebrandlyWorkspace: string = '';
 
@@ -17,7 +15,6 @@ const githubPat: string = '';
 export default {
     discordToken,
     mongoUri,
-    statcordKey,
     rebrandlyApiKey,
     rebrandlyWorkspace,
     topggKey,
